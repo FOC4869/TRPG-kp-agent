@@ -1,8 +1,4 @@
-"""Small, optional next-step hints built exclusively from public scene data.
-
-No LLM or hidden outcome is needed. Suggestions describe legal actions, never
-promise discoveries, and are not an exhaustive menu of what a player can try.
-"""
+"""Optional next actions derived exclusively from the current public context."""
 
 from __future__ import annotations
 
@@ -10,86 +6,134 @@ from collections.abc import Mapping
 from typing import Any
 
 
-_ACTIONS = {
-    "room": ("look", "观察房间", 10),
-    "desk": ("investigate", "调查书桌", 80),
-    "butler": ("talk", "与管家交谈", 70),
-    "bookshelf": ("investigate", "调查书架", 60),
-    "fireplace": ("investigate", "调查壁炉", 50),
-    "exit": ("leave", "离开书房", 0),
-}
+_KNOWN_ACTIONS = {"look", "investigate", "careful_search", "talk", "move", "use_item", "finish", "leave"}
+_ONCE_ACTIONS = {"investigate", "careful_search", "talk", "use_item"}
+_LEGACY_PRIORITY = {"desk": 80, "butler": 70, "bookshelf": 60, "fireplace": 50, "exit": 0, "room": 10}
+
+
+def _held_items(context: Mapping[str, Any]) -> set[str]:
+    inventory = context.get("inventory", {})
+    if isinstance(inventory, Mapping):
+        entries = inventory.items()
+    elif isinstance(inventory, list):
+        entries = [(item.get("id", item.get("item_id")) if isinstance(item, Mapping) else item, item)
+                   for item in inventory]
+    else:
+        return set()
+    held = set()
+    for item_id, value in entries:
+        quantity = value.get("quantity", value.get("count", 1)) if isinstance(value, Mapping) else value if type(value) is int else 1
+        if isinstance(item_id, str) and type(quantity) in {int, float} and quantity > 0:
+            held.add(item_id)
+    return held
+
+
+def _fallback_suggestions(
+    targets: Mapping[str, Mapping[str, Any]], context: Mapping[str, Any],
+    last_event: Mapping[str, Any] | None,
+) -> list[dict[str, Any]]:
+    """Keep older room callers usable when they do not supply suggestions yet."""
+    result = []
+    completed_any = any(target.get("completed_actions") for target in targets.values())
+    for target_id, target in targets.items():
+        name = target.get("name")
+        if not isinstance(name, str) or not name:
+            continue
+        for action in target.get("actions", []):
+            if action not in _KNOWN_ACTIONS or action == "use_item":
+                continue
+            if action == "look" and (target_id != "room" or last_event is not None or completed_any):
+                continue
+            labels = {
+                "look": "观察房间", "investigate": f"调查{name}",
+                "careful_search": f"花时间仔细检查{name}", "talk": f"与{name}交谈",
+                "move": f"前往{name}", "leave": f"离开{name}", "finish": "结束调查",
+            }
+            priority = _LEGACY_PRIORITY.get(target_id, 50)
+            if action == "look":
+                priority = 100
+            elif action == "careful_search":
+                priority = 150
+                if target_id == "desk":
+                    labels[action] = "花十分钟仔细检查书桌"
+            elif action == "talk":
+                clues = context.get("revealed_clues", [])
+                mentions = [clue.get("description", "") for clue in clues if isinstance(clue, Mapping)] if isinstance(clues, list) else []
+                if any(name in text for text in mentions if isinstance(text, str)):
+                    priority += 40
+                    if target_id == "butler" and any("照片" in text for text in mentions if isinstance(text, str)):
+                        labels[action] = "向管家询问来信提到的照片"
+            result.append({"intent": action, "target_id": target_id, "label": labels[action], "priority": priority})
+    return result
 
 
 def build_guidance(
     context: Mapping[str, Any], last_event: Mapping[str, Any] | None = None,
     reply_type: str = "narration", *, max_actions: int = 3,
 ) -> dict[str, Any]:
-    """Use planning_context's public targets/actions/completed_actions only.
+    """Recommend legal public actions without inspecting scene definitions.
 
-    Fixed target names match this project's one authored room. Unknown targets
-    and malformed data are ignored rather than generating speculative choices.
+    Suggestions are optional. A player may freely describe another action;
+    repeated completed actions remain valid requests but are not recommended.
     """
     empty = {"suggested_actions": [], "guidance": ""}
-    if context.get("status") != "playing" or reply_type not in {"narration", "rule_explanation"}:
+    if context.get("status", context.get("game_status")) != "playing" or reply_type not in {"narration", "rule_explanation"}:
         return empty
     if type(max_actions) is not int or max_actions <= 0:
         return empty
-    targets = context.get("targets")
-    if not isinstance(targets, list):
+    raw_targets = context.get("targets", [])
+    if not isinstance(raw_targets, list):
         return empty
-    known = {target.get("id"): target for target in targets
-             if isinstance(target, Mapping) and isinstance(target.get("id"), str)}
-    completed_any = any(target.get("completed_actions") for target in known.values())
-
-    # A link to an NPC can be highlighted only after the corresponding text
-    # was actually revealed. The still-hidden clue collection is never read.
-    public_clues = context.get("revealed_clues", [])
-    mentioned_butler = False
-    mentioned_photo = False
-    for clue in public_clues if isinstance(public_clues, list) else []:
-        if not isinstance(clue, Mapping):
+    targets = {target["id"]: target for target in raw_targets
+               if isinstance(target, Mapping) and isinstance(target.get("id"), str)}
+    source = context.get("action_suggestions")
+    if source is None:
+        source = _fallback_suggestions(targets, context, last_event)
+    if not isinstance(source, list):
+        return empty
+    held = _held_items(context)
+    character = context.get("character", {})
+    completed_any = any(target.get("completed_actions") for target in targets.values())
+    candidates = []
+    for index, suggestion in enumerate(source):
+        if not isinstance(suggestion, Mapping):
             continue
-        description = clue.get("description", "")
-        if isinstance(description, str) and "管家" in description:
-            mentioned_butler = True
-            mentioned_photo = mentioned_photo or "照片" in description
-
-    candidates: list[tuple[int, str]] = []
-    for target_id, (action, label, priority) in _ACTIONS.items():
-        target = known.get(target_id)
-        if target is None:
+        action, target_id = suggestion.get("intent"), suggestion.get("target_id")
+        target = targets.get(target_id)
+        label = suggestion.get("label")
+        if action not in _KNOWN_ACTIONS or target is None or not isinstance(label, str) or not label.strip():
             continue
-        allowed = target.get("actions", [])
-        completed = target.get("completed_actions", [])
-        if not isinstance(allowed, list) or not isinstance(completed, list):
+        allowed, completed = target.get("actions", []), target.get("completed_actions", [])
+        if not isinstance(allowed, list) or not isinstance(completed, list) or action not in allowed:
             continue
-        if action not in allowed or action in completed:
+        if action in _ONCE_ACTIONS and action in completed:
             continue
-        # Observation is useful at the opening. Later, do not pad a depleted
-        # action list with the same generic room description every turn.
-        if target_id == "room":
-            if last_event is not None or completed_any:
+        if action == "careful_search" and target.get("fallback_available") is False:
+            continue
+        if action == "use_item" and suggestion.get("item_id") not in held:
+            continue
+        needed = suggestion.get("needed_resources")
+        if action == "use_item" and isinstance(needed, list) and needed:
+            # Having an item does not mean that using it is currently useful.
+            # Keep the legal use in planning_context for explicit requests, but
+            # only recommend recovery when the public character has a deficit.
+            if not isinstance(character, Mapping) or not any(
+                resource in {"hp", "mp"}
+                and type(character.get(resource)) is int
+                and type(character.get(resource + "_max")) is int
+                and 0 <= character[resource] < character[resource + "_max"]
+                for resource in needed if isinstance(resource, str)
+            ):
                 continue
-            priority = 100
-        if target_id == "butler" and mentioned_butler:
-            priority = 110
-            if mentioned_photo:
-                label = "向管家询问来信提到的照片"
-        # Looking at a particular object may naturally lead to investigating it.
-        if (last_event or {}).get("action_type") == "look" and (last_event or {}).get("target_id") == target_id:
+        if action == "look" and target_id == "room" and (last_event is not None or completed_any):
+            continue
+        priority = suggestion.get("priority", 50)
+        priority = priority if type(priority) in {int, float} else 50
+        if (last_event or {}).get("action_type") == "look" and (last_event or {}).get("target_id") == target_id and action == "investigate":
             priority += 25
-        candidates.append((priority, label))
-    desk = known.get("desk")
-    if desk is not None:
-        allowed, completed = desk.get("actions", []), desk.get("completed_actions", [])
-        if (
-            isinstance(allowed, list) and isinstance(completed, list)
-            and "careful_search" in allowed and "careful_search" not in completed
-            and desk.get("fallback_available") is not False
-        ):
-            candidates.append((150, "花十分钟仔细检查书桌"))
-    candidates.sort(key=lambda item: -item[0])
-    actions = [label for _, label in candidates[:min(max_actions, 3)]]
+        candidates.append((priority, -index, label.strip()[:160]))
+    candidates.sort(key=lambda row: (-row[0], -row[1]))
+    actions = list(dict.fromkeys(label for _, _, label in candidates))[:min(max_actions, 3)]
     if not actions:
         return empty
     if len(actions) == 1:

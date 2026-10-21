@@ -1,117 +1,188 @@
-# 给两位开发同学：目前可以直接调用什么
+# v2 给两位开发同学：怎样接 Agent＋RAG
 
-单角色、单场景、单玩家；正常游戏没有真人 KP 审批。
-这里先实现 Python 方法，HTTP 路由和 React 页面由网页同学接；下列 HTTP 地址仍是建议。
+当前是一名玩家、一张固定角色卡、三个地点的原创故事，AI 直接当 KP。
+默认故事在 `data/campaign.json`。你这边提供 Python 的 `KeeperService`，
+网页同学负责 React／FastAPI，角色／骰子／数据库同学负责底层方案和对应实现。
+目录中的现有工具与存储适配用于衔接，不要求 Agent 同学重新开发全部底层。
 
-| 网页操作 | 已有 Python 方法 | 建议地址 |
+v2 当前 98 项离线测试已通过；此前做了真实 DeepSeek 的规划和少量整轮检查。
+检查结果不等于网页已联调完成；HTTP 地址仍只是建议，目前没有这些 HTTP 路由。
+具体结果及模型仍会选错的例子见 [本次检测记录](泛化测试结果_2026-10-21.md)。
+
+## 已有 Python 方法
+
+| 网页要做什么 | Python 方法 | 建议 HTTP 地址 |
 |---|---|---|
-| 看有没有存档 | `keeper.get_game()` | `GET /api/game` |
-| 开始或恢复 | `keeper.start()` | `POST /api/game/start` |
-| 发送消息 | `keeper.handle_message(message_id,text,game_id)` | `POST /api/game/message` |
-| 查消息结果 | `keeper.get_message(message_id)` | `GET /api/game/message/{id}` |
-| 读聊天 | `keeper.list_messages()` | `GET /api/game/messages` |
-| 读角色 | `keeper.get_character()` | `GET /api/game/character` |
-| 读公开进度 | `keeper.get_progress()` | `GET /api/game/progress` |
-| 明确重开 | `keeper.restart()` | `POST /api/game/restart` |
+| 看有没有当前存档 | `keeper.get_game()` | `GET /api/game` |
+| 开始或恢复故事 | `keeper.start()` | `POST /api/game/start` |
+| 发送玩家消息 | `keeper.handle_message(message_id, text, game_id)` | `POST /api/game/message` |
+| 查看某条消息 | `keeper.get_message(message_id)` | `GET /api/game/message/{id}` |
+| 看聊天记录 | `keeper.list_messages()` | `GET /api/game/messages` |
+| 看角色 | `keeper.get_character()` | `GET /api/game/character` |
+| 看当前公开进度 | `keeper.get_progress()` | `GET /api/game/progress` |
+| 看已有物品 | `keeper.get_inventory()` | `GET /api/game/inventory` |
+| 看已发现线索 | `keeper.get_clues()` | `GET /api/game/clues` |
+| 看已提交行动的骰子 | `keeper.get_rolls()` | `GET /api/game/rolls` |
+| 明确重开整段故事 | `keeper.restart()` | `POST /api/game/restart` |
 
-重开是改变状态的操作，网页要先让用户确认；当前方法一次调用即创建新局。
-若 HTTP 层要自动重试重开请求，需要另加 restart_id 去重，目前没有此功能。
+地图信息从 `get_progress()` 的 `scene_id`、`title`、`visited_scenes`、`destinations` 取，
+当前没有单独的 `get_map()` 方法。关闭服务时调用 `keeper.close()`。
 
-`start()` 返回 `resumed` 和 `startup_message`。网页以 `startup_message` 展示启动说明；
-新局的 `opening` 是开场白，恢复旧局时 `opening` 为空字符串，不能把它当成重新开始。
-已结束存档提示重新开始；暂停存档提示真人检查；有未完成消息时同时返回
-`pending_message_id`，提示恢复原回复。只有调用 `restart()` 才创建新游戏。
-已结束或暂停后的普通输入返回状态说明，`action_id` 为空、无规则/骰子/变化，且 version 不增加。
+```python
+keeper = KeeperService(
+    db_path="saves/keeper.sqlite3",
+    campaign_path="data/campaign.json",
+)
+```
 
-## 消息输入
+不传 `campaign_path` 时使用默认完整故事。旧书房可用 `scene_path="data/scenes/study_legacy.json"`
+单独调试；`scene_path` 和 `campaign_path` 不能同时传。v1 存档不直接复用为 v2 故事存档。
+
+## 消息传什么
 
 ```json
 {"message_id":"msg_001","text":"我检查书桌"}
 ```
 
-网页保存并传回 `start()` 返回的 game_id，例如放 X-Game-ID 请求头。
-路由层不要省略这个检查；Python 允许省略 game_id 仅为了本地命令行方便。
-不让网页传技能数值、骰子结果、伤害、状态变化或想揭示哪条线索。
+网页另传 `start()` 返回的 `game_id`，例如放请求头，再由 HTTP 层传进 `handle_message()`。
+Python 参数允许省略 `game_id` 是为了本地命令行方便，网页不能跳过旧游戏编号检查。
 
-## 消息返回
+玩家只传自己的话。不传技能值、骰子结果、伤害、物品数量、状态变化或想解锁的线索。
+回答 AI 的追问、表达移动、使用物品和结束调查，都继续使用同一消息入口。
+
+## 消息回什么
+
+以下是字段示例，不是一次真实对话记录：
 
 ```json
 {
-  "game_id": "后端生成",
+  "game_id": "由后端生成",
   "message_id": "msg_001",
-  "action_id": "后端生成",
+  "action_id": "由后端生成",
   "status": "completed",
   "reply_type": "narration",
-  "reply": "根据真实结果生成的文字",
+  "reply": "根据已执行结果生成的文字",
   "rolls": [],
   "changes": [],
-  "character": {"hp":10,"hp_max":10,"san":55,"san_max":99},
+  "character": {"hp":10,"hp_max":10,"san":55,"san_max":99,"mp":11,"mp_max":11},
   "new_clues": [],
+  "new_items": [],
+  "scene_transition": null,
   "evidence": [],
-  "progress": {},
-  "suggested_actions": ["观察房间", "询问管家"],
-  "guidance": "你可以观察房间，或询问管家；也可以描述其他想尝试的行动。",
+  "progress": {
+    "scene_id": "study",
+    "title": "当前地点名称",
+    "description": "当前允许公开的描述",
+    "targets": [],
+    "revealed_clues": [],
+    "inventory": {},
+    "visited_scenes": [],
+    "destinations": []
+  },
+  "suggested_actions": [],
+  "guidance": "",
   "game_status": "playing",
   "version": 1,
   "mode": "demo"
 }
 ```
 
-角色示例省略了其他字段；实际还含属性、技能、MP、幸运和条件。
-reply_type 为 narration / question / rule_explanation / takeover / review。
+`character` 实际还含角色属性、技能、幸运、异常状态和日累计 SAN 损失。
+`reply_type` 为 `narration`、`question`、`rule_explanation`、`takeover` 或 `review`。
+`game_status` 表示整段故事的状态，不是某个房间是否调查过。
 
-`review` 只在本场景已经结束时返回。用户问“复盘”“什么信息没有找到”或发送 `/review`，
-可收到 `review: {text, missed_clues, discovered_clues, ending}`。
-遗漏内容仅用于结束后解释；`new_clues` 仍为空，不改变角色、游戏版本或实际已获得线索。
-游戏进行中和暂停时不会提供未发现内容的复盘。
+`scene_transition` 是本次地点切换信息，无切换时为 `null`；`new_items` 是本次新获得的物品。
+兼容旧返回时用 `.get("scene_transition")` 和 `.get("new_items", [])`。
+页面的最终显示以返回的 `progress` 为准，不通过猜测玩家消息自行切场景或扣物品。
 
-书桌首次侦查失败后，公开目标的 `actions` 可增加 `careful_search`。
-玩家明确选择花十分钟细查后，场景执行预先定义的补救调查，不额外掷骰。
-`progress.elapsed_minutes` 表示为这种额外调查消耗的故事分钟数；普通对话不自行累计时间。
-这条补救是当前场景的约定，不能当作通用规则用于所有失败检定。
+## 场景、线索和物品怎样显示
 
-question 的回答仍然作为下一条普通消息发送。
-takeover 表示超出范围或发生需要真人处理的状态，不代表成功完成任意玩家要求。
-网页显示新线索时展示 `description`，不要只展示线索名称。
+| 字段 | 说明 |
+|---|---|
+| `progress.scene_id/title/description` | 当前地点 |
+| `progress.targets` | 当前允许公开的交互对象及出口 |
+| `progress.revealed_clues` | 截至本次结果已发现的线索 |
+| `progress.inventory` | 已持有物品，字典格式：物品 id → 公开资料 |
+| `progress.visited_scenes` | 已经访问过的地点 |
+| `progress.destinations` | 当前允许公开的目的地信息 |
+| `new_clues` / `new_items` | 本次新增内容，可用于弹出提示 |
 
-## 下一步提示
+每个库存项带 `id`、`name`、`description`、`quantity`。网页展示名称、描述和数量，
+不读取物品的隐藏使用效果。`get_inventory()` 返回同一份公开库存；`get_clues()` 返回已发现线索。
+`get_rolls()` 只返回已提交行动中的公开骰子，不公开内部草稿或未提交效果。
 
-消息结果及 `start()`、`restart()`、`get_game()` 返回两个字段：
+回访旧地点仍保留已完成调查、已触发事件和已取物品；网页不能因地点切换而重置它们。
+已结束时 `description` 返回对应结局摘要，`targets` 和 `destinations` 为空；
+`scene_id/title` 保留最后地点，已经获得的线索和物品仍可查看。不要把空目标当成读取失败。
+只展示当前公开地图，不直接读取完整故事 JSON，把未到达地点、隐藏条件或未来线索提前发给玩家。
 
-| 字段 | 内容 | 怎么显示 |
-|---|---|---|
-| `suggested_actions` | 当前可以建议玩家尝试的动作列表 | 可以做成可选按钮 |
-| `guidance` | 适合直接展示的中文提示 | 放在本次结果、骰子、线索和角色状态后面 |
+## 开始、移动、结束和复盘
 
-二者表达同一组建议，网页择一展示，避免重复。提示是建议，玩家仍可以自由描述行动，
-并非必须按按钮或输入固定词。建议只根据公开场景整理，过滤已完成的调查、交谈，
-不会通过提示泄露隐藏线索、未触发事件或成功失败条件。
+`start()` 返回 `resumed`、`startup_message`。新局的 `opening` 为开场白；恢复旧局时它是空字符串。
+网页显示 `startup_message`，有未完成消息时根据 `pending_message_id` 提示恢复原消息。
 
-普通叙述和规则解释可以带建议；追问、需要接管、暂停或结束时返回空列表和空文字。
-空 `guidance` 不显示占位提示。如果 `reply` 已含完全相同的提示文字，也不要再显示一次。
+三个地点通过当前可用出口移动；离开当前房间通常只是切换地点。
+整段故事结束后，普通输入只返回已结束说明；请求“复盘”“还有什么没找到”或 `/review`
+才返回全局结束后的复盘。中途、暂停状态、刚刚离开第一个地点，都不能显示未发现真相。
 
-每条 evidence 有 evidence_id、text、title、source、pdf_page、printed_page、edition、score。
-页码从 1 开始；未核对则为空。score 是检索排序分数，不是“答案正确率”。
+`review` 解释已找到与遗漏的信息，不补发线索、奖励，不修改角色或重新打开故事。
+现有复盘字段由 `review` 对象返回，网页优先展示它的公开 `text`。
 
-## 保存、重复发送和故障
+`restart()` 一次调用就重开整段故事。网页在点击重开前确认用户意图。
+若 HTTP 层希望自动重试重开请求，需要另加 `restart_id` 去重；当前没有该功能。
 
-- 同一 game_id + message_id + text 返回同一结果。相同编号换 text 会报 MessageConflict。
-- 已完成旧消息的回复包含当时的角色快照。网页仅用同一游戏内不低于当前 version 的快照更新面板；
-  重新查看历史消息不应把角色显示倒退。需要最新状态时调用 get_game/get_character。
-- 单局只处理一条行动。若回复失败，先恢复原消息，再开始新行动。
-- 骰子先保存，再提交角色和场景；模型叙事失败后重试，不会重新掷骰或重复扣 SAN。
-- get_message 返回 processing / completed / failed。当前 handle_message 是同步入口，
-  HTTP 要先返回 processing 时由路由同学安排后台任务，不要假称这里已经实现消息队列。
-- StorageError / MessageConflict 可以显示清晰提示；StaleGameError 要重新读取当前游戏。
-  模型异常不应把完整 SDK 错误、请求正文或密钥直接返回网页。
-- 导出、真人接管按钮、角色手工校正、撤销事件、WebSocket 尚未实现。保留为后续工作，
-  不把之前 PDF 中的建议接口当作已经存在的功能。
+## Agent 内部怎样表达行动
 
-## 和骰子同学怎么继续配合
+这是给另外两位开发同学理解流程的字段，不是让网页直接执行的接口：
 
-现有 trpg 引擎不需要为 Agent 再写一套。CharacterTools 将 Character.check 的结果包装成
-可序列化返回值，并检查是否达到本次要求难度。公开状态只从数据库快照读取。
-规则标准按 data/agent_rules.md 的已核对范围，复杂战斗/状态恢复仍待共同决定。
+```json
+{"intent":"investigate","target_id":"desk","item_id":null,"query":null,"question":null}
+```
 
-当前 SQLite 层是为了先把 Agent 独立跑起来。如果队友之后提供统一存储接口，
-替换 KeeperService 中的 Storage 即可；不要同时运行两个独立的角色数值来源。
+行动类型包含观察 `look`、调查 `investigate`、细查 `careful_search`、交谈 `talk`、移动 `move`、
+用物品 `use_item`、结束调查 `finish`、问规则 `rule_question`、旧场景离开 `leave`、
+追问 `clarify`、超出范围 `unsupported`。
+
+`target_id` 从当前公开目标中取，不再固定为第一间书房的几个 id；
+`use_item` 还需要 `item_id`，并由程序核对物品是否持有、数量和合法用法。
+角色值、检定条件、获得线索与物品的条件仍来自已有工具和故事配置，不由模型自由填写。
+
+Agent 调用流程：
+
+> 理解玩家行动 → 缺信息则追问 → 按规则问题或实际技能检索 → 检查场景条件 →
+> 调现有工具 → 保存角色与故事状态 → 只根据已经发生的公开结果叙述。
+
+一次移动、消耗物品、发现线索都应通过已有保存流程提交。
+`scene_state` 由现有存储层整体保存，包括地点和物品进度；本版没有另写一套数据库底层。
+
+## RAG 返回和下一步提示
+
+每条 `evidence` 有 `evidence_id`、`text`、`title`、`source`、`pdf_page`、`printed_page`、`edition`、`score`。
+页码从 1 开始；未核对为 `null`。score 是排序值，不是正确率。规则库不含故事秘密。
+当前为 17 个规则主题，覆盖三地点用到的范围；未收录规则仍可能没有依据。
+
+成功等级问答新增内部只读工具 `CharacterTools.success_example(character, skill)`：
+通过已有 `trpg.check` 生成门槛、假想出目等级和讲解文字，不调用随机数，不增加真实骰子记录，
+不修改 HP／SAN／MP。不是新增网页接口，消息返回字段保持不变。
+这类带数值的说明与本次合法 `evidence_id` 一起由程序直接显示，不经模型重新叙述；
+因此通常只有一次 `plan` 请求。其他行动叙述继续使用模型。
+前端照常显示 `reply` 和 `evidence`，不要把解释里的假想出目放入真实 `rolls` 面板。
+
+`guidance` 是可直接展示的中文建议，`suggested_actions` 是同一组可选动作；
+网页择一显示，保留自由输入，不必做成强制菜单。
+追问、接管、暂停和结束时不显示普通行动建议。空建议不显示占位文字。
+
+## 重复发送和出错时怎么办
+
+- 相同 `game_id + message_id + text` 使用同一处理结果；相同编号换内容会报 `MessageConflict`。
+- 同一局一次处理一条消息。失败后先恢复原消息，重试时编号、文本和游戏编号保持不变。
+- 已完成旧消息包含当时快照；不要用旧 `version` 倒退更新角色、当前地点或库存面板。
+  需要最新状态时重新调用 `get_game()`。
+- 骰子先保存，再提交状态；叙述失败后恢复，不重复掷骰、扣 SAN 或发物品。
+- `get_message()` 返回 `processing` / `completed` / `failed`。当前入口仍是同步方法，
+  HTTP 若要先返回“处理中”，需要由网页／后端同学安排后台执行。
+- 异步 HTTP 路由不要在事件循环里直接运行同步模型请求，应交适当的工作线程。
+- `StaleGameError` 后重新读游戏编号；不要把模型 SDK 原始错误、请求正文或密钥回传网页。
+
+目前没有 React、FastAPI、WebSocket、手工改角色、真人接管按钮、导出或撤销接口。
+接下来由各自负责的同学继续，不把本说明中的建议 HTTP 地址写成已实现接口。

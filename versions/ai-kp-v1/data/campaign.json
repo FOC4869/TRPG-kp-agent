@@ -1,0 +1,46 @@
+{
+  "id": "rainy_archive_v2",
+  "title": "雨夜来信：书房与地下档案",
+  "start_scene": "study",
+  "final_scene": "archive",
+  "scenes": {"study": "scenes/study.json", "station": "scenes/station.json", "archive": "scenes/archive.json"},
+  "initial_inventory": {"bandage": 1},
+  "items": {
+    "bandage": {
+      "name": "简易止血包",
+      "aliases": ["止血包", "绷带", "急救包"],
+      "description": "一份可用于自身擦伤的止血材料。本故事把简单处置写为恢复2点HP、使用后消耗；这是本场景的简化安排，不是通用COC急救规则。",
+      "uses": [{"scene_id": "*", "target_id": "self", "consume": true, "label": "用简易止血包处理自己的擦伤（消耗1份）", "priority": 1,
+        "success": {"text": "你用完一份止血包，简单清理并包扎擦伤。这次按场景预先约定恢复2点HP，实际恢复不超过生命上限。", "effects": [{"type": "restore", "resource": "hp", "amount": 2, "reason": "本场景约定的简易止血处置"}]}}]
+    },
+    "locker_key": {
+      "name": "17号柜黄铜钥匙",
+      "aliases": ["黄铜钥匙", "17号钥匙", "柜子钥匙"],
+      "description": "管家交给你的黄铜钥匙，柄上刻着17。",
+      "uses": [{"scene_id": "station", "target_id": "locker", "requires_clues": ["locker_location"], "consume": true, "label": "用黄铜钥匙打开已经找到的17号柜", "priority": 105,
+        "success": {"text": "你用黄铜钥匙打开17号柜。里面有学者画的路线图、一把通行钥匙和一枚封存铜片；钥匙留在生锈的柜锁中。路线图标出了检修铁门后的地下档案室。", "reveal": ["archive_route"], "grant_items": ["archive_key", "seal_token"]}}]
+    },
+    "archive_key": {
+      "name": "档案室通行钥匙",
+      "aliases": ["通行钥匙", "铁门钥匙", "档案室钥匙"],
+      "description": "从17号柜取得的通行钥匙，形状与检修铁门的旧锁相合。",
+      "uses": [{"scene_id": "station", "target_id": "archive_gate", "requires_clues": ["archive_route"], "consume": true, "label": "用通行钥匙打开检修铁门", "priority": 105,
+        "success": {"text": "你用通行钥匙打开检修铁门，并把钥匙固定在旧锁中。门后出现通往地下档案室的楼梯，现在可以继续前进，也可以先返回书房。", "reveal": ["archive_access"]}}]
+    },
+    "seal_token": {
+      "name": "封存铜片",
+      "aliases": ["铜片", "封存片", "薄铜片"],
+      "description": "从17号柜取得的薄铜片，上面有几个机械定位孔。",
+      "uses": [{"scene_id": "archive", "target_id": "seal_console", "requires_clues": ["archive_record", "scholar_statement"], "consume": true, "label": "按已查明的方法插入铜片，完成机械封存", "priority": 110,
+        "success": {"text": "你对照已经整理好的日志和学者的说明，将铜片推入定位槽。卡扣锁住，装置的共振声逐渐停止。机械封存已经完成，没有施法或魔法值消耗；现在可以带着证据和学者安全离开。", "reveal": ["seal_closed"]}}]
+    }
+  },
+  "endings": {
+    "required_clues": ["archive_record", "scholar_statement", "seal_closed"],
+    "evidence_clues": ["archive_record", "scholar_statement"],
+    "complete": "你带着维护日志和学者走出安全出口。失踪的经过已经查清，机械装置也已封存，管家的委托得到完整回应。本次调查结束。你可以问我复盘或遗漏的信息。",
+    "retreat": "你决定停止追查，带着当前已经获得的信息撤退。没有完成的调查和处置仍然留在原处；这是一种主动结束，并不代表那些事情自动解决。本次调查结束。你可以问我复盘或遗漏的信息。",
+    "incomplete": "你从安全出口离开，但还没有把学者的说明和完整档案核对清楚。你带走的只有实际已经获得的信息，事情经过仍有空白。本次调查以信息不足结束。你可以问我复盘或遗漏的信息。"
+  },
+  "review_summary": "这是一条完全自编的求助路线：学者在书房留下来信，让管家保管照片和钥匙；车站17号柜里保存通往地下档案室的路线与封存材料。地下的维护日志与学者说明揭示，他为修复被破坏的机械装置而留下。取得证据、听清说明、用铜片完成物理封存并离开，可以得到完整结局。"
+}

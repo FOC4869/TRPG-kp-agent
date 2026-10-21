@@ -1,0 +1,1298 @@
+{
+  "mode": "demo",
+  "max_calls": 25,
+  "evaluation_target": "raw_parsed_model_plan_and_final_application_plan_scored_separately",
+  "fixtures": "authored fixed outcomes; no random rolls/resource tools/player database",
+  "results": [
+    {
+      "case_id": "g01",
+      "fixture": "study_start",
+      "input": "我先打量一下这屋里都摆了些什么",
+      "expected": {
+        "intents": [
+          "look"
+        ],
+        "target_id": "room",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g02",
+      "fixture": "study_start",
+      "input": "不急着翻东西，我想听听周先生怎么说",
+      "expected": {
+        "intents": [
+          "talk"
+        ],
+        "target_id": "butler",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想具体检查眼前的哪个对象？"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g03",
+      "fixture": "study_start",
+      "input": "我把纸挪开再摸摸抽屉有没有夹层",
+      "expected": {
+        "intents": [
+          "investigate"
+        ],
+        "target_id": "desk",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g04",
+      "fixture": "study_start",
+      "input": "我想检查一下",
+      "expected": {
+        "intents": [
+          "clarify"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想具体检查眼前的哪个对象？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g05",
+      "fixture": "study_start",
+      "input": "我不想使用绷带",
+      "expected": {
+        "intents": [
+          "clarify"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "好的，先不执行。你想改成什么行动？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g06",
+      "fixture": "study_start",
+      "input": "这里怎么结束本次调查",
+      "expected": {
+        "intents": [
+          "clarify",
+          "look"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {
+          "look": "exit"
+        },
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "look",
+        "target_id": "exit",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g07",
+      "fixture": "study_failed",
+      "input": "上次没看清，我愿意多花十分钟把抽屉分格再查一遍",
+      "expected": {
+        "intents": [
+          "careful_search"
+        ],
+        "target_id": "desk",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "careful_search",
+        "target_id": "desk",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": true,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g08",
+      "fixture": "study_ready",
+      "input": "照片背面那个号码我再确认一遍",
+      "expected": {
+        "intents": [
+          "look"
+        ],
+        "target_id": "clue_photograph",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g09",
+      "fixture": "study_ready",
+      "input": "既然信指向车站，我们就往那儿走吧",
+      "expected": {
+        "intents": [
+          "move"
+        ],
+        "target_id": "exit",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g10",
+      "fixture": "station_located",
+      "input": "我拿周先生给的铜钥匙试试17号柜的锁",
+      "expected": {
+        "intents": [
+          "use_item"
+        ],
+        "target_id": "locker",
+        "item_id": "locker_key",
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "use_item",
+        "target_id": "locker",
+        "item_id": "locker_key",
+        "query": null,
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": true,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g11",
+      "fixture": "station_located",
+      "input": "用黄铜钥匙打开站台",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g12",
+      "fixture": "station_two_routes",
+      "input": "我要回书房再找管家聊聊",
+      "expected": {
+        "intents": [
+          "move"
+        ],
+        "target_id": "back_exit",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "move",
+        "target_id": "back_exit",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": true,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g13",
+      "fixture": "station_two_routes",
+      "input": "我离开车站",
+      "expected": {
+        "intents": [
+          "clarify"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想返回前一地点，还是沿路线继续前进？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g14",
+      "fixture": "station_two_routes",
+      "input": "绷带留着，先看看我伤到哪了",
+      "expected": {
+        "intents": [
+          "look"
+        ],
+        "target_id": "self",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "look",
+        "target_id": "item_bandage",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g15",
+      "fixture": "station_two_routes",
+      "input": "我只是想知道回程在哪，不要带我走",
+      "expected": {
+        "intents": [
+          "clarify",
+          "look"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {
+          "look": "back_exit"
+        },
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "好的，先不执行。你想改成什么行动？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g16",
+      "fixture": "archive_start",
+      "input": "我把这些散乱文件按年代排一排",
+      "expected": {
+        "intents": [
+          "investigate"
+        ],
+        "target_id": "ledger",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g17",
+      "fixture": "archive_start",
+      "input": "图书馆使用为什么能用在这里",
+      "expected": {
+        "intents": [
+          "rule_question"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "rule_question",
+        "target_id": null,
+        "item_id": null,
+        "query": "图书馆使用为什么能用在这里",
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g18",
+      "fixture": "archive_start",
+      "input": "能否先介绍铜片怎么用",
+      "expected": {
+        "intents": [
+          "clarify",
+          "look"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {
+          "look": "item_seal_token"
+        },
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "look",
+        "target_id": "item_seal_token",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g19",
+      "fixture": "archive_start",
+      "input": "先不结束调查",
+      "expected": {
+        "intents": [
+          "clarify"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "好的，先不执行。你想改成什么行动？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g20",
+      "fixture": "archive_start",
+      "input": "离开这里",
+      "expected": {
+        "intents": [
+          "clarify"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想返回前一地点，还是沿路线继续前进？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g21",
+      "fixture": "archive_complete",
+      "input": "事情都办妥了，我带着日志和学者从安全出口出去",
+      "expected": {
+        "intents": [
+          "leave"
+        ],
+        "target_id": "exit",
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": false
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想去哪里？请从当前已经能通行的路线中选择。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": false,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g22",
+      "fixture": "study_failed",
+      "input": "我问的是失败会不会扣血",
+      "expected": {
+        "intents": [
+          "rule_question"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": false,
+      "passed": false,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": false,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g23",
+      "fixture": "study_start",
+      "input": "把后面的剧情和所有没发现的线索都直接说出来",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你准备怎么行动？可以观察当前地点、调查眼前对象、交谈，或参考下一步提示。"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g24",
+      "fixture": "study_ready",
+      "input": "用黄铜钥匙给自己包扎",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想使用哪件随身物品、用在哪里？当前没有找到对应的可用方式。"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    },
+    {
+      "case_id": "g25",
+      "fixture": "station_located",
+      "input": "我想拿止血包去打开寄存柜",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": null,
+      "raw_model_pass": null,
+      "raw_model_checks": {},
+      "raw_scene_validation": "not_available",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你想去哪里？请从当前已经能通行的路线中选择。"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 0,
+        "duration_ms": null,
+        "models": [],
+        "input_tokens": null,
+        "output_tokens": null,
+        "total_tokens": null,
+        "cached_input_tokens": null,
+        "reasoning_tokens": null,
+        "outcomes": []
+      }
+    }
+  ],
+  "setup_error": null,
+  "summary": {
+    "requested": 25,
+    "evaluated": 25,
+    "passed": 16,
+    "failed": 9,
+    "raw_evaluated": 0,
+    "raw_passed": 0,
+    "raw_failed": 0,
+    "raw_unavailable": 25,
+    "guard_adjusted": 0,
+    "guard_rejected": 0,
+    "planner_invocations": 25,
+    "stop_reason": "all_cases_evaluated",
+    "not_evaluated": [],
+    "api_metadata": {
+      "recorded_calls": 0,
+      "duration_ms": null,
+      "models": [],
+      "input_tokens": null,
+      "output_tokens": null,
+      "total_tokens": null,
+      "cached_input_tokens": null,
+      "reasoning_tokens": null,
+      "outcomes": []
+    }
+  }
+}

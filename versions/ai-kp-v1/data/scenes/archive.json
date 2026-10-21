@@ -1,0 +1,64 @@
+{
+  "id": "archive",
+  "title": "地下档案室",
+  "notice": "本课程项目自编的最终场景，物理封存不依赖法术或战斗系统。",
+  "opening": "你沿楼梯进入地下档案室。失踪的学者正坐在桌边，虽然疲惫但意识清楚。他指着一册散开的旧档案，示意你先把记录看完。房间中央的机械封存装置微微振动；来时的楼梯可以返回车站，旁边还有一处通向街面的安全出口。",
+  "returning": "你回到地下档案室。学者仍在这里，档案与机械封存装置维持着你离开时的状态。",
+  "public_description": "学者坐在档案桌旁，桌上有一册散开的记录。中央是机械封存装置，来时的楼梯通往旧车站，安全出口通向街面。",
+  "targets": {
+    "room": {"name": "档案室环境", "aliases": ["房间", "四周", "周围", "环境"], "description": "档案桌、疲惫的学者和机械封存装置都在眼前。楼梯可返回车站，安全出口可以结束这次调查。", "actions": ["look"]},
+    "ledger": {
+      "name": "旧档案",
+      "aliases": ["档案", "档案记录", "记录", "档案桌", "册子", "文件"],
+      "description": "一册散开的旧档案摊在桌上，页码错乱，需要耐心整理。",
+      "labels": {"investigate": "整理并阅读旧档案"},
+      "priority": 95,
+      "actions": ["look", "investigate"],
+      "investigate": {
+        "check": {"skill": "图书馆使用", "difficulty": "regular", "bonus_dice": 0},
+        "success": {"text": "你把错乱页码接起来，读出了完整记录：学者留在这里，是为修复被破坏的机械封存装置。异常声响来自装置内部的共振，并非他刻意失踪。记录还列出了可作为证据带走的维护日志。", "reveal": ["archive_record"]},
+        "failure": {"text": "页码和旧缩写让你一时理不出头绪。你可以花十分钟按日期重新排列记录，这条场景路线不再重掷骰子。"},
+        "repeat": "你已经按原来的方法读过档案，不会为同样的阅读反复掷骰。"
+      },
+      "careful_search": {
+        "after_failed_action": "investigate",
+        "minutes": 10,
+        "label": "花十分钟按日期整理档案",
+        "public_hint": "本场景允许花十分钟按日期逐页整理档案，不再进行第二次同样的检定。",
+        "success": {"text": "你花了十分钟逐页核对日期，终于理清记录。学者为修复被破坏的机械封存装置而留下，共振造成了异常声响；维护日志是需要带出的证据。", "reveal": ["archive_record"]},
+        "repeat": "档案已经整理清楚，不会再次消耗时间或给出重复的证据。"
+      }
+    },
+    "scholar": {
+      "name": "失踪学者",
+      "aliases": ["学者", "教授", "研究员", "失踪的人"],
+      "description": "学者意识清楚但十分疲惫，愿意说明事情经过和装置的操作方法。",
+      "labels": {"talk": "询问学者事情经过和装置操作"},
+      "priority": 90,
+      "actions": ["look", "talk"],
+      "talk": {
+        "success": {"text": "学者解释，管家保存照片、车站保留钥匙，是他为求助留下的安排。他已经把失控装置的动力切断，现在只需核对维护日志，再将车站取来的铜片插入指定槽口，就能机械封存并安全离开。这不需要施法。", "reveal": ["scholar_statement"]},
+        "repeat": "学者已经说明了经过。你可以核对已找到的记录，完成尚未处理的事，或决定离开。"
+      }
+    },
+    "seal_console": {
+      "name": "机械封存装置",
+      "aliases": ["装置", "封存装置", "机器", "控制台", "槽口"],
+      "description": "机械装置上有一个薄片形槽口。先弄清操作步骤，再尝试放入已有物品会更稳妥。",
+      "public_states": [{"requires_clues": ["seal_closed"], "description": "铜片已锁在槽口中，装置停止共振，机械封存已经完成。"}],
+      "actions": ["look"]
+    },
+    "back_exit": {"name": "返回车站的楼梯", "aliases": ["返回车站", "回车站", "来路", "楼梯"], "description": "楼梯通向你已经去过的旧车站，可以回去检查遗漏的东西。", "actions": ["look"]},
+    "exit": {"name": "街面安全出口", "aliases": ["出口", "离开", "街面", "安全出口", "结束调查"], "description": "这里可以带着当前已经取得的信息离开，结束本次调查。若还有事情未做，也可以先留在这里或返回车站。", "actions": ["look"]},
+    "self": {"name": "自己", "aliases": ["自己", "伤口", "擦伤", "止血", "包扎"], "description": "你可以查看自己的状态，或用剩余的止血包处理擦伤。", "actions": ["look"]}
+  },
+  "clues": {
+    "archive_record": {"name": "完整维护日志", "aliases": ["维护日志", "完整日志", "整理好的记录"], "description": "维护日志证明学者为修复被人为破坏的机械封存装置而留下；异常声响来自机械共振。日志已整理好，可以作为调查证据带走。"},
+    "scholar_statement": {"name": "学者的说明", "aliases": ["学者的话", "学者说明"], "description": "学者留下照片和钥匙作为求助路线。他已经切断动力，只需核对日志后插入铜片完成机械封存；无需战斗或施法。"},
+    "seal_closed": {"name": "装置已经安全封存", "description": "你按照日志和学者的说明插入铜片，槽口锁定，机械共振停止，装置已安全封存。"}
+  },
+  "exits": {
+    "exit": {"ends_campaign": true, "can_finish": true, "label": "带着证据和学者离开，结束调查"},
+    "back_exit": {"to": "station", "requires_visited": ["station"], "label": "返回旧车站", "aliases": ["旧车站", "车站"], "priority": 5}
+  }
+}

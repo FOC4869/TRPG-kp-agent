@@ -1,78 +1,213 @@
 {
   "id": "study",
   "title": "旧书房里的来信",
-  "notice": "为课程原型自编的短场景，与已上传模组无关；不含其剧情。",
-  "opening": "雨夜，你受托来到一间旧书房寻找失踪学者留下的消息。管家周先生站在门边。书桌、书架和冷却的壁炉都可以调查；你也可以随时从房门离开。",
+  "notice": "课程项目原创故事的第一个地点；完整流程在 data/campaign.json 中定义。",
+  "opening": "雨夜，你受托来到一间旧书房寻找失踪学者留下的消息。管家周先生站在门边。书桌、书架和冷却的壁炉都可以调查。你可以随时明确撤退；若要继续追查，先弄清下一站的位置和相关线索。",
   "public_description": "书房里有一张橡木书桌、一排书架和一座冷却的壁炉。管家周先生愿意回答问题，房门没有上锁。",
+  "returning": "你回到旧书房。管家仍在门边，书桌、书架和壁炉的位置没有改变。先前已经进行的调查仍然有效。",
   "targets": {
     "room": {
       "name": "书房",
+      "aliases": [
+        "房间",
+        "四周",
+        "周围",
+        "环境"
+      ],
       "description": "书桌靠着窗，书架占据整面墙，壁炉里只剩冷灰。管家站在门旁。",
-      "actions": ["look"]
+      "actions": [
+        "look"
+      ]
     },
     "desk": {
       "name": "书桌",
+      "aliases": [
+        "桌子",
+        "桌面",
+        "抽屉"
+      ],
+      "labels": {
+        "investigate": "仔细调查书桌"
+      },
+      "priority": 85,
       "description": "橡木书桌上放着纸张和一只没有上锁的抽屉。",
-      "actions": ["look", "investigate"],
+      "actions": [
+        "look",
+        "investigate"
+      ],
       "investigate": {
-        "check": {"skill": "侦查", "difficulty": "regular", "bonus_dice": 0},
-        "success": {"text": "你在抽屉夹层里找到了一封来信。", "reveal": ["letter"]},
-        "failure": {"text": "你检查了抽屉和纸张，但没发现特别的东西。单纯重复同一搜索不会获得新的检定。你可以花十分钟，换一种方法逐处细查书桌；这会消耗场景里的时间，不再掷骰。"},
+        "check": {
+          "skill": "侦查",
+          "difficulty": "regular",
+          "bonus_dice": 0
+        },
+        "success": {
+          "text": "你在抽屉夹层里找到了一封来信。",
+          "reveal": [
+            "letter"
+          ]
+        },
+        "failure": {
+          "text": "你检查了抽屉和纸张，但没发现特别的东西。单纯重复同一搜索不会获得新的检定。你可以花十分钟，换一种方法逐处细查书桌；这会消耗场景里的时间，不再掷骰。"
+        },
         "repeat": "你已经按原来的方法搜索过书桌，重复同一搜索不会再次掷骰。"
       },
       "careful_search": {
         "minutes": 10,
+        "label": "花十分钟换方法细查书桌",
         "public_hint": "本场景中，你可以花十分钟，换一种方法逐处细查书桌；这会消耗场景里的时间，不再掷骰。",
-        "success": {"text": "你花了十分钟，将物品逐件移开并仔细检查，终于在抽屉夹层里找到一封来信。", "reveal": ["letter"]},
+        "success": {
+          "text": "你花了十分钟，将物品逐件移开并仔细检查，终于在抽屉夹层里找到一封来信。",
+          "reveal": [
+            "letter"
+          ]
+        },
         "repeat": "你已经花时间仔细检查过书桌，没有新的发现，也不再额外消耗时间。"
       }
     },
     "bookshelf": {
       "name": "书架",
+      "aliases": [
+        "书柜",
+        "目录",
+        "书本"
+      ],
+      "priority": 40,
       "description": "书架上的书按年代排列，旁边贴着一张整洁的目录。",
-      "actions": ["look", "investigate"],
+      "actions": [
+        "look",
+        "investigate"
+      ],
       "investigate": {
-        "success": {"text": "目录显示学者最近在整理旧地图。书架里没有额外的隐藏物品。"},
+        "success": {
+          "text": "目录显示学者最近在整理旧地图。书架里没有额外的隐藏物品。"
+        },
         "repeat": "书架和目录没有发生变化，你已经看过这里了。"
       }
     },
     "fireplace": {
       "name": "壁炉",
+      "aliases": [
+        "炉膛",
+        "冷灰",
+        "铁板"
+      ],
+      "priority": 30,
       "description": "冷却的壁炉内积着灰，炉膛深处有一块歪斜的铁板。",
-      "actions": ["look", "investigate"],
+      "actions": [
+        "look",
+        "investigate"
+      ],
       "investigate": {
-        "success": {"text": "你挪开铁板，看到一幅令人不适的扭曲人形涂画。突如其来的视觉冲击需要一次理智检定。"},
-        "effect": {"type": "sanity", "event_id": "fireplace_drawing", "success": "0", "failure": "1D3"},
+        "success": {
+          "text": "你挪开铁板，看到一幅令人不适的扭曲人形涂画。突如其来的视觉冲击需要一次理智检定。"
+        },
+        "effect": {
+          "type": "sanity",
+          "event_id": "fireplace_drawing",
+          "success": "0",
+          "failure": "1D3"
+        },
         "repeat": "你已经看过那幅涂画；这个事件不会再次造成理智损失。"
       }
     },
     "butler": {
       "name": "管家周先生",
+      "aliases": [
+        "管家",
+        "周先生"
+      ],
+      "priority": 80,
       "description": "管家神情疲惫，愿意谈论学者失踪前的事情。",
-      "actions": ["look", "talk"],
+      "actions": [
+        "look",
+        "talk"
+      ],
       "talk": {
-        "success": {"text": "管家告诉你：学者离开前反复提到旧车站，并请他保管一张照片。他把照片递给你。", "reveal": ["photograph"]},
+        "success": {
+          "text": "管家告诉你：学者离开前反复提到旧车站，并请他保管一张照片。他把照片和一把刻着17的黄铜钥匙递给你。",
+          "reveal": [
+            "photograph"
+          ],
+          "grant_items": [
+            "locker_key"
+          ]
+        },
         "repeat": "管家说：我知道的都告诉你了。那张照片已经交给你，书房里的东西可以继续看看。"
       }
     },
     "exit": {
       "name": "房门",
-      "description": "房门没有上锁，你可以带着已经得到的信息离开。",
-      "actions": ["look", "leave"]
+      "aliases": [
+        "出口",
+        "门口",
+        "离开书房"
+      ],
+      "description": "房门没有上锁。你可以明确结束调查并撤退；若要继续追查，需要先弄清下一站的去向。",
+      "actions": [
+        "look",
+        "leave"
+      ]
+    },
+    "self": {
+      "name": "自己",
+      "aliases": [
+        "伤口",
+        "擦伤",
+        "自己",
+        "止血",
+        "包扎"
+      ],
+      "description": "你带着一份简易止血包，可以在需要时用于自己的擦伤。",
+      "actions": [
+        "look"
+      ]
     }
   },
   "clues": {
     "letter": {
       "name": "旧来信",
+      "aliases": [
+        "来信",
+        "信件",
+        "旧信",
+        "信"
+      ],
       "description": "信中写着：如果我没有回来，请去旧车站找保管箱。号码写在我留给管家的照片背面。"
     },
     "photograph": {
       "name": "车站照片",
+      "aliases": [
+        "照片",
+        "相片",
+        "车站相片"
+      ],
       "description": "照片是旧车站的站台，背面写着保管箱号码17。"
     }
   },
+  "exits": {
+    "exit": {
+      "to": "station",
+      "requires_clues": [
+        "letter",
+        "photograph"
+      ],
+      "label": "前往旧车站",
+      "aliases": [
+        "旧车站",
+        "车站",
+        "前往车站"
+      ],
+      "blocked_text": "你还没把这次调查的去向弄清楚。可以继续检查书房、与管家交谈；如果要放弃调查，请明确说结束或撤退。",
+      "can_finish": true,
+      "priority": 100
+    }
+  },
   "ending": {
-    "required_clues": ["letter", "photograph"],
+    "required_clues": [
+      "letter",
+      "photograph"
+    ],
     "complete": "你带着来信和照片离开书房，知道下一步应前往旧车站寻找17号保管箱。本场景结束。你可以问我复盘，或询问是否遗漏了信息。",
     "incomplete": "你选择带着目前获得的信息离开书房。本场景结束；仍有信息没有找到。你可以问我复盘，或询问遗漏了什么信息。"
   }

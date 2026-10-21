@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, ConfigDict, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, StringConstraints, model_validator
 
 ActionIntent = Literal[
-    "look", "investigate", "careful_search", "talk", "rule_question", "leave", "clarify", "unsupported"
+    "look", "investigate", "careful_search", "talk", "move", "use_item", "finish",
+    "rule_question", "leave", "clarify", "unsupported"
 ]
-TargetId = Literal["desk", "bookshelf", "fireplace", "butler", "room", "exit"]
+TargetId = Annotated[str, StringConstraints(min_length=1, max_length=64, pattern=r"^[a-z][a-z0-9_-]{0,63}$")]
 
 
 class ActionPlan(BaseModel):
@@ -19,6 +20,7 @@ class ActionPlan(BaseModel):
 
     intent: ActionIntent
     target_id: TargetId | None = None
+    item_id: TargetId | None = None
     query: str | None = Field(default=None, max_length=500)
     question: str | None = Field(default=None, max_length=300)
 
@@ -28,6 +30,10 @@ class ActionPlan(BaseModel):
             raise ValueError("rule_question requires a nonempty query")
         if self.intent == "clarify" and not (self.question and self.question.strip()):
             raise ValueError("clarify requires a nonempty question")
+        if self.intent == "use_item" and (not self.item_id or not self.target_id):
+            raise ValueError("use_item requires item_id and target_id")
+        if self.item_id is not None and self.intent != "use_item":
+            raise ValueError("item_id is only valid for use_item")
         return self
 
 

@@ -55,7 +55,8 @@ def show_start(game: dict) -> None:
     _print_character(game.get("character"))
     if status == "playing":
         _print_guidance(game, already_shown=message)
-        print("输入 /status 看状态，/history 看记录，/retry 恢复未完成消息，/restart 重开，/quit 保存退出。")
+        print("输入 /status 看状态，/clues 看线索，/inventory 看物品，/map 看地点，/rolls 看掷骰，/history 看记录。")
+        print("输入 /retry 恢复未完成消息，/restart 重开，/quit 保存退出。")
     elif status == "ended":
         print("输入 /review 看复盘，/restart 重新开始，/history 看记录，/quit 退出。")
     else:
@@ -76,15 +77,21 @@ def show(reply: dict) -> None:
         if "roll" in result:
             degree = LABELS.get(result.get("success_level"), "通过" if result.get("passed") else "未通过")
             print(f"  骰子：{result.get('skill', '检定')} {result['roll']}/{result.get('skill_value', '?')}，{degree}")
+        elif "expression" in result:
+            print(f"  骰子：{result['expression']} → {result['total']}")
     for change in reply.get("changes", []):
         print(f"  变化：{change['field']} {change['before']} → {change['after']}（{change['reason']}）")
     for clue in reply.get("new_clues", []):
         print(f"  新线索：{clue['name']}\n  {clue['description']}")
+    for item in reply.get("new_items", []):
+        print(f"  新物品：{item['name']} × {item.get('quantity', 1)}")
     if cited:
         print("  规则依据：" + "；".join(
             f"【规则{index}】{item['title']}（{item['source']}，PDF第{item['pdf_page']}页）" for index, item in cited
         ))
     progress = reply.get("progress", {})
+    if reply.get("scene_transition"):
+        print(f"  当前地点：{progress.get('title', progress.get('scene_id', ''))}")
     if progress.get("elapsed_minutes", 0):
         print(f"  额外调查耗时：{progress['elapsed_minutes']} 分钟")
     _print_character(reply.get("character"))
@@ -92,7 +99,7 @@ def show(reply: dict) -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="单场景 COC AI KP 原型；demo 不是大模型。")
+    parser = argparse.ArgumentParser(description="单人多场景 COC AI KP；demo 是离线关键词演示。")
     parser.add_argument("--mode", choices=("demo", "openai", "deepseek"), default=None,
                         help="优先使用此参数，否则读 KP_MODEL_MODE；未设置则 demo。在线模式需要配置对应账号。")
     parser.add_argument("--db", type=Path, default=ROOT / "saves" / "keeper.sqlite3")
@@ -100,11 +107,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--message", help="发送一条消息后退出，适合检查或接其他程序")
     parser.add_argument("--message-id", help="重试同一消息时必须使用原编号")
     parser.add_argument("--json", action="store_true", help="单条消息输出 JSON，供前端同学参考")
+    scenario = parser.add_mutually_exclusive_group()
+    scenario.add_argument("--campaign", type=Path, help="指定完整故事配置；默认 data/campaign.json")
+    scenario.add_argument("--scene", type=Path, help="调试单独场景，不启用跨地点流程")
     args = parser.parse_args(argv)
     service = None
     try:
         load_local_env()
-        service = KeeperService(db_path=args.db, planner=create_planner(args.mode))
+        service = KeeperService(db_path=args.db, scene_path=args.scene,
+                                campaign_path=args.campaign, planner=create_planner(args.mode))
         game = service.restart() if args.restart else service.start()
         if args.message:
             reply = service.handle_message(args.message_id or uuid.uuid4().hex, args.message, game["game_id"])
@@ -129,6 +140,19 @@ def main(argv: list[str] | None = None) -> int:
                 return 0
             if text == "/status":
                 print(json.dumps(service.get_game(), ensure_ascii=False, indent=2))
+                continue
+            if text in {"/inventory", "/clues", "/rolls", "/map"}:
+                if text == "/inventory":
+                    value = service.get_inventory()
+                elif text == "/clues":
+                    value = service.get_clues()
+                elif text == "/rolls":
+                    value = service.get_rolls()
+                else:
+                    progress = service.get_progress()
+                    value = {key: progress[key] for key in ("scene_id", "title", "visited_scenes", "destinations")
+                             if key in progress}
+                print(json.dumps(value, ensure_ascii=False, indent=2))
                 continue
             if text == "/history":
                 for row in service.list_messages():

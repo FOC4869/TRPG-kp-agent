@@ -10,7 +10,7 @@
 export KP_MODEL_MODE=demo
 ```
 
-支持观察房间、调查书桌/书架/壁炉、询问管家、查规则和离开。对“我检查一下”会追问；下一句回答“书桌”时保留上一步的调查意图。无法可靠理解的输入会追问或提示当前不支持。
+支持当前地点的观察、调查、交谈、规则问答、移动、物品使用和结束调查。对“我检查一下”会追问；下一句回答具体对象时保留上一步的调查意图。回访仍保留调查进度；“阅读来信”“查看照片”等只读已经获得的内容。无法可靠理解的输入会追问或提示当前不支持。
 
 ## 先接 DeepSeek 官方 API
 
@@ -42,8 +42,8 @@ macOS 可以双击 `run_deepseek.command`，也可以运行：
 DeepSeek 启动器使用 `saves/deepseek.sqlite3`，和离线默认存档分开。再次打开会继续原存档，
 不是自动开始新局；本局结束后输入 `/restart`。更新代码后，要先退出旧终端，再重新启动。
 
-**模型名字用 `deepseek-flash`。**当前官方文档把它指向 V4.1-Flash-1017；原 V4-Flash 已被升级，
-旧 `deepseek-v4-flash` 名字也会使用新版，不能用旧名字固定旧模型。
+本次真实调用使用 `DEEPSEEK_MODEL=deepseek-flash`，模型名与实际返回值记录在调用元数据里。
+这轮没有比较其他模型，也不把本次结果推广为所有模型、所有口语都能正确处理。
 
 | 设置 | 当前默认 | 含义 |
 |---|---|---|
@@ -52,7 +52,10 @@ DeepSeek 启动器使用 `saves/deepseek.sqlite3`，和离线默认存档分开�
 | `DEEPSEEK_NARRATION_MAX_TOKENS` | `2048` | 公开叙述这次请求的输出上限，包含思考 token |
 
 Responses API 使用 `reasoning.effort` 控制思考，不使用 Chat Completions 的 `thinking` 参数。
-普通一轮通常包含 `plan` 和 `narrate` 两次调用；追问通常只调用 `plan`。
+普通行动通常包含 `plan` 和 `narrate` 两次调用；追问通常只调用 `plan`。
+成功等级的数值算例改由只读工具 `success_example` 使用已有检定引擎生成，并直接显示本次规则引用，
+不交给 `narrate` 重写，因此这类问答通常只有一次 `plan`。假想出目不是实际掷骰，不改变角色资源。
+其他叙事继续使用模型。
 DeepSeek 设置 `max_retries=0`，不在后台自动重试；失败时由玩家输入 `/retry` 恢复原消息。
 先保持关键词规则检索，等主持流程能正常工作后再考虑向量检索。
 
@@ -60,10 +63,43 @@ DeepSeek 设置 `max_retries=0`，不在后台自动重试；失败时由玩家�
 不保存密钥、原始提示词或完整思考内容，可用于观察消耗。
 token 数据来自 API 返回，失败时如果没有返回用量就记为 `null`，不能把这份记录当作精确账单。
 
-**2026-10-21 已完成真实 DeepSeek 联调。**相似对话和额外随机游戏检查通过；
-记录放在 `output/qa/2026-10-21_repair_check/`。这只说明本轮案例通过，不能保证未来模型和网络永不出错。
+本次 v2 的记录见 [泛化测试结果](泛化测试结果_2026-10-21.md)，不要与 v1 的旧书房记录混用。
+当前 98 项离线测试全通过（原 60 项＋提示和行动安全补充 38 项）；首轮 23 条真实规划，模型原始规划和应用侧各通过 21 条，
+同组关键词 demo 通过 14 条。修复后仅定向重查 4 条，模型原始规划 3/4、应用侧 4/4；
+其中错误物品目标仍需程序改成追问。没有完整重跑首轮 23 条。
+
+另做了真实 `KeeperService` 两回合、4 次 API 的整轮检查，8 项结构检查通过，
+人工仍发现规则说明中的“30≤27”错误。改成程序直接生成数值算例后，
+用 1 次 `plan`、0 次 `narrate` 做了 6 项检查，通过。结构正确不代表语言中的数学一定正确。
+
+此前归档的模型检查合计 33 次 API：探测 1、首轮规划 23、定向规划 4、整轮检查 4、数值修复检查 1。
+之后的提示和行动安全修复只做离线／假响应验证，未重跑真实模型；用户自行试玩用量另计。
+没有自动重试。自由表达组是人工构造进度的规划检查，不代表随机完整跑团已经通关。
 缺少配置会明确报错，不会悄悄切回离线或改用其他服务。失败后用 `/retry` 恢复原消息，
 不要另外重复发送行动，以免把“重试请求”和“再做一次行动”混在一起。
+
+
+## 怎样再查自由表达
+
+`scripts/generalization_eval.py` 现在包含 25 例，默认 `demo`，默认最多 25 次规划。
+g24、g25 是首轮发现错误物品用法后补充的例子，不能把它们算进最初的 23 条。
+每次使用新的输出目录。离线命令不调用付费模型：
+
+```sh
+.venv/bin/python scripts/generalization_eval.py --mode demo --output output/qa/generalization_demo_new
+```
+
+下面的 DeepSeek 定向命令会产生费用，最多调用 4 次，每例只调用一次 `plan`：
+
+```sh
+.venv/bin/python scripts/generalization_eval.py --mode deepseek --case-ids g06,g11,g24,g25 --max-calls 4 --output output/qa/generalization_targeted_new
+```
+
+可用 `--case-ids` 按逗号筛选编号。达到上限或遇到认证、余额、限流、连接、超时等环境错误会停止，
+保留部分报告；格式或目标校验失败会记为失败，不自动重新问模型。
+输出分别记录 `raw_model_plan`、最终 `plan`、`raw_model_pass`、`application_pass` 和 `guard_adjusted`，
+前者捕获于结构化解析之后、应用保护之前；格式尚未解析成功时原始规划为空。
+耗时和 token 只汇总 API 元数据，不推算费用，不保存密钥、提示词或思考正文。
 
 ## 保留的 OpenAI 接法
 
@@ -85,10 +121,11 @@ OPENAI_API_KEY=在本机填写自己的key
 planner = create_planner()
 plan = planner.plan(player_text, public_context, history, pending_question)
 # 然后由场景代码验证plan，再执行真正的骰子和存档函数。
+# 一般叙事交给模型；成功等级数值算例由工具直接显示，不经过这一步。
 reply = planner.narrate(player_text, public_facts, history)
 ```
 
-规划结果只有 `intent`、`target_id`、`query`、`question`。它不含技能数值、伤害、SAN 变化或任意函数名；这些由场景和规则代码决定。`intent` 包含 `look/investigate/careful_search/talk/rule_question/leave/clarify/unsupported`，目标限制为这次固定场景的六个对象。`careful_search` 只用于本场景公开提供的耗时补查；重复请求由场景说明已经完成，不能再次给奖励。
+规划结果只有 `intent`、`target_id`、`item_id`、`query`、`question`。它不含技能数值、伤害、SAN 变化或任意函数名；这些由场景和规则代码决定。`intent` 包含 `look/investigate/careful_search/talk/move/use_item/finish/rule_question/leave/clarify/unsupported`，目标取自当前公开目标，不再固定为第一间书房的六个对象。`use_item` 需要真实物品与合法目标；明确的历史重复用法只作已经使用过的说明。`careful_search` 只用于当前公开提供的耗时补查，不会重复给奖励或加时间。
 
 `context` 使用公开目标、公开场景、角色数据。最终叙事只接收公开事件、真实骰子结果、状态变化、已揭示线索和已经检索到的规则。不要把完整秘密模组放进 `public_facts` 的字段中。
 

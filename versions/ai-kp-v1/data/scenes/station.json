@@ -1,0 +1,91 @@
+{
+  "id": "station",
+  "title": "旧车站",
+  "notice": "本课程项目自编场景，不使用外部已发表模组。",
+  "opening": "你来到停用多年的旧车站。雨水从站棚滴下，行李寄存区的一排铁柜被倒下的木隔板挡住；站台边缘的木板看起来不太稳固，尽头还有一扇挂锁的检修铁门。你可以调查铁柜、查看站台或铁门，也可以沿来路返回书房。",
+  "returning": "你回到旧车站。寄存铁柜、站台和检修铁门都还在原处；已经打开的锁和调查过的地方不会复原。",
+  "public_description": "寄存区里有被木隔板遮挡的铁柜，旁边是木板松动的旧站台。尽头有一扇检修铁门，来路可以返回旧书房。",
+  "targets": {
+    "room": {
+      "name": "候车区",
+      "aliases": ["车站环境", "周围", "四周", "候车室", "大厅"],
+      "description": "车站已经停用。你能看到寄存铁柜、旧站台和检修铁门，身后是返回书房的路。",
+      "actions": ["look"]
+    },
+    "locker": {
+      "name": "寄存铁柜",
+      "aliases": ["柜子", "铁柜", "寄存柜", "17号柜", "保管箱", "木隔板"],
+      "description": "一排寄存铁柜的编号被灰尘和木隔板遮住。你需要先确定照片中那只柜子的位置。",
+      "public_states": [
+        {"requires_clues": ["locker_location"], "description": "你已经辨认出17号寄存柜，柜门上是一只旧黄铜锁。"},
+        {"requires_clues": ["archive_route"], "description": "17号柜已经打开，路线图、通行钥匙和封存铜片都已经由你取走；黄铜钥匙留在柜锁里。"}
+      ],
+      "labels": {"investigate": "查看铁柜编号，寻找照片中的位置"},
+      "priority": 90,
+      "actions": ["look", "investigate"],
+      "investigate": {
+        "check": {"skill": "侦查", "difficulty": "regular", "bonus_dice": 0},
+        "success": {"text": "你核对照片上的裂纹和站台位置，找到了木隔板后面的17号寄存柜。锁孔与管家给你的黄铜钥匙相配。", "reveal": ["locker_location"]},
+        "failure": {"text": "光线太暗，你暂时没有辨认出正确的柜门。重复同样的查看不会再掷骰；你可以花十分钟清理遮挡、逐个核对编号。"},
+        "repeat": "你已经按原方法查看过铁柜，不会重复进行同一检定。"
+      },
+      "careful_search": {
+        "after_failed_action": "investigate",
+        "minutes": 10,
+        "label": "花十分钟清理遮挡并核对铁柜编号",
+        "public_hint": "本场景允许你花十分钟清理遮挡、逐个核对铁柜编号，不再重掷骰子。",
+        "success": {"text": "你花了十分钟移开松散木片并擦去灰尘，终于辨认出17号寄存柜。锁孔正好能插入管家给你的黄铜钥匙。", "reveal": ["locker_location"]},
+        "repeat": "你已经清理并核对过这里，不会再次消耗时间或获得新的东西。"
+      }
+    },
+    "platform": {
+      "name": "旧站台",
+      "aliases": ["站台", "木板", "松动的木板", "站台边缘"],
+      "description": "站台边缘的木板已经松动。若走近检查，需要敏捷检定，失足可能造成轻伤；这里不是前进的必经之路。",
+      "labels": {"investigate": "靠近检查松动的站台（有失足风险）"},
+      "priority": 20,
+      "actions": ["look", "investigate"],
+      "investigate": {
+        "check": {"skill": "DEX", "difficulty": "regular", "bonus_dice": 0},
+        "success": {"text": "你绕过松动木板，确认站台边缘已经腐朽，没有必要继续冒险。"},
+        "failure": {"text": "木板突然下陷，你及时抓住栏杆，但腿部被碎木划伤。", "effects": [{"type": "damage", "expression": "1D3", "reason": "检查旧站台时被碎木划伤", "event_id": "station_platform_injury"}]},
+        "repeat": "你已经确认站台木板不安全，不会再为同一查看重复掷骰或再次受伤。"
+      }
+    },
+    "archive_gate": {
+      "name": "检修铁门",
+      "aliases": ["铁门", "检修门", "挂锁", "门锁"],
+      "description": "站台尽头有一扇挂着旧锁的检修铁门，现在看不见门后是什么。",
+      "public_states": [{"requires_clues": ["archive_access"], "description": "检修铁门已经打开，门后是通往地下档案室的楼梯；通行钥匙留在旧锁中。"}],
+      "actions": ["look"]
+    },
+    "exit": {
+      "name": "前进的通道",
+      "aliases": ["出口", "往前", "继续前进", "离开车站"],
+      "description": "要继续追查学者的去向，需要先弄清他留在车站的安排，并找到可通行的路。",
+      "actions": ["look"]
+    },
+    "back_exit": {
+      "name": "返回书房的路",
+      "aliases": ["返回书房", "回书房", "返回旧书房", "来路"],
+      "description": "沿来路可以回到旧书房，已经获得的线索和物品会保留。",
+      "actions": ["look"]
+    },
+    "self": {
+      "name": "自己",
+      "aliases": ["自己", "伤口", "擦伤", "止血", "包扎"],
+      "description": "你可以查看自己的状态，或使用随身携带的止血包处理擦伤。",
+      "actions": ["look"]
+    }
+  },
+  "clues": {
+    "locker_location": {"name": "17号柜的位置", "aliases": ["柜门位置", "铁柜位置"], "description": "照片中的裂纹对应木隔板后的17号寄存柜，柜门可以用黄铜钥匙打开。"},
+    "archive_route": {"name": "学者留下的路线图", "aliases": ["路线图", "地图", "手绘图"], "description": "17号柜内的手绘图标出了检修铁门后的地下档案室。旁边写着：档案原件和封存方法都在那里，请带上柜里的通行钥匙和铜片。"},
+    "archive_access": {"name": "已经打开的档案室入口", "description": "你用通行钥匙打开检修铁门，门后是一段通往地下档案室的楼梯。"}
+  },
+  "exits": {
+    "exit": {"to": "archive", "requires_clues": ["archive_access"], "label": "前往地下档案室", "aliases": ["地下档案室", "档案室", "地下室", "楼梯"], "blocked_text": "前方还没有可通行的路线。可以继续检查铁柜和铁门，或沿来路返回书房。", "can_finish": true, "priority": 100},
+    "archive_gate": {"to": "archive", "requires_clues": ["archive_access"], "label": "穿过铁门前往地下档案室", "aliases": ["地下档案室入口", "楼梯"], "blocked_text": "铁门还锁着，请先查看已经获得的物品和信息。", "suggest": false},
+    "back_exit": {"to": "study", "requires_visited": ["study"], "label": "返回旧书房", "aliases": ["旧书房", "书房"], "priority": 5}
+  }
+}

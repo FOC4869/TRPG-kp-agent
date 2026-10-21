@@ -15,6 +15,8 @@ from dataclasses import asdict
 from typing import Any
 
 from trpg import Character, roll
+from trpg.check import _determine_degree
+from trpg.house_rules import CocHouseRules
 
 
 DEGREES = {
@@ -75,6 +77,36 @@ class CharacterTools:
         self.storage = storage
         self.rng = rng if rng is not None else secrets.SystemRandom()
 
+    @staticmethod
+    def success_example(character: Character, skill: str = "侦查") -> dict:
+        """Explain hypothetical grades using the existing engine, without rolls.
+
+        These examples are teaching data, never random outcomes or game events.
+        Rendering them directly prevents a narrator from rewriting arithmetic.
+        """
+        value = character.resolve(skill)
+        if type(value) is not int or value < 1:
+            raise ValueError("讲解示例需要角色已有的正整数技能或属性")
+        rules = CocHouseRules.standard()
+        thresholds = {"regular": value, "hard": value // rules.hard_divisor,
+                      "extreme": value // rules.extreme_divisor}
+        labels = {"regular_success": "常规成功", "hard_success": "困难成功",
+                  "extreme_success": "极难成功", "critical_success": "大成功",
+                  "failure": "失败", "fumble": "大失败"}
+        samples, lines = [], [
+            f"以你的{skill} {value}为例：常规成功上限是{value}，"
+            f"困难成功上限是{thresholds['hard']}，极难成功上限是{thresholds['extreme']}；半值和五分之一值向下取整。",
+        ]
+        for raw in (30, 20, 10):
+            degree = _determine_degree(raw, value, rules)
+            passes = {difficulty: DEGREES[degree] >= required for difficulty, required in REQUIRED.items()}
+            samples.append({"roll": raw, "success_level": degree, "passes": passes})
+            lines.append(f"假设出目是{raw}：属于{labels[degree]}，"
+                         f"{'可以' if passes['hard'] else '不能'}通过要求困难成功的任务。")
+        lines.append("这些是讲解用的假想出目，没有实际掷骰，也没有改变角色状态。")
+        return {"skill": skill, "skill_value": value, "thresholds": thresholds,
+                "samples": samples, "text": "\n".join(lines)}
+
     def skill_check(self, game_id: str, action_id: str, character: Character, spec: dict) -> dict:
         request_id = f"{action_id}:skill"
         if not isinstance(spec, dict) or not isinstance(spec.get("skill"), str):
@@ -131,6 +163,121 @@ class CharacterTools:
         })
 
     def apply_effects(
+        self, game_id: str, action_id: str, character: Character,
+        scene_state: dict, effects: list[dict],
+    ) -> tuple[list[dict], list[dict], list[str]]:
+        """Bind authored effects to the existing character/dice implementation.
+
+        This adapter does not invent combat or first-aid rules. Amounts must
+        come from the authored story, never from model output. Mutations are
+        staged on copies and committed together by KeeperService/Storage.
+        """
+        if not isinstance(effects, list):
+            raise ValueError("场景效果必须是列表")
+        normalized = []
+        for effect in effects:
+            if not isinstance(effect, dict):
+                raise ValueError("场景效果必须是对象")
+            kind = effect.get("type")
+            if kind == "sanity":
+                _sanity_spec(effect)
+            elif kind == "damage":
+                expression = bounded_expression(effect.get("expression"))
+                if minimum(expression) < 0:
+                    raise ValueError("伤害表达式不能产生负数")
+            elif kind in {"restore", "spend"}:
+                resource, amount = effect.get("resource"), effect.get("amount")
+                allowed = {"hp", "mp"} if kind == "restore" else {"mp"}
+                if resource not in allowed or type(amount) is not int or not 1 <= amount <= 99:
+                    raise ValueError("资源效果必须指定受支持的资源和1至99的整数数量")
+            else:
+                raise ValueError("未支持的场景效果，请让负责角色工具的同学补充接口")
+            normalized.append(copy.deepcopy(effect))
+        batches = scene_state.get("effect_batches", {})
+        if not isinstance(batches, dict):
+            raise ValueError("场景效果批次记录格式不正确")
+        batch_signature = hashlib.sha256(json.dumps(normalized, sort_keys=True).encode()).hexdigest()
+        if action_id in batches and batches[action_id] != batch_signature:
+            raise ValueError("同一行动不能更换效果集合，请恢复原来的场景配置")
+        # Preserve the original SAN-only request IDs and recovery semantics.
+        if all(effect["type"] == "sanity" for effect in normalized):
+            working = Character.from_dict(character.to_dict())
+            updated = copy.deepcopy(scene_state)
+            result = self._apply_sanity_effects(game_id, action_id, working, updated, normalized)
+            updated.setdefault("effect_batches", {})[action_id] = batch_signature
+            character.san = working.san
+            scene_state.clear()
+            scene_state.update(updated)
+            return result
+        for resource in ("hp", "mp"):
+            value, ceiling = getattr(character, resource), getattr(character, f"{resource}_max")
+            if type(value) is not int or type(ceiling) is not int or not 0 <= value <= ceiling:
+                raise ValueError("角色资源值不在允许范围内")
+        if not isinstance(scene_state.get("effect_applications", {}), dict):
+            raise ValueError("场景效果记录格式不正确")
+        if not isinstance(scene_state.get("conditions", []), list):
+            raise ValueError("角色状态必须是列表")
+        working = Character.from_dict(character.to_dict())
+        updated = copy.deepcopy(scene_state)
+        updated.setdefault("effect_applications", {})
+        updated.setdefault("conditions", [])
+        rolls, changes, notices = [], [], []
+        for index, effect in enumerate(normalized):
+            if effect["type"] == "sanity":
+                extra, delta, note = self._apply_sanity_effects(
+                    game_id, f"{action_id}:effect:{index}", working, updated, [effect],
+                )
+                rolls.extend(extra)
+                changes.extend(delta)
+                notices.extend(note)
+                continue
+            request_id = f"{action_id}:resource:{index}"
+            signature = hashlib.sha256(json.dumps(effect, sort_keys=True).encode()).hexdigest()
+            prior = updated["effect_applications"].get(request_id)
+            if prior is not None:
+                if prior.get("signature") != signature:
+                    raise ValueError("同一资源效果编号不能更换场景效果")
+                rolls.extend(copy.deepcopy(prior["rolls"]))
+                changes.extend(copy.deepcopy(prior["changes"]))
+                notices.extend(prior["notices"])
+                continue
+            effect_rolls, effect_notices = [], []
+            resource = "hp" if effect["type"] == "damage" else effect["resource"]
+            before = getattr(working, resource)
+            if effect["type"] == "damage":
+                outcome = self.expression(game_id, action_id, f"damage:{index}", effect["expression"])
+                effect_rolls.append(outcome)
+                damage = working.apply_damage(outcome["total"])
+                if damage.major_wound or damage.unconscious:
+                    condition = "dying" if damage.dying else "unconscious" if damage.unconscious else "major_wound"
+                    if condition not in updated["conditions"]:
+                        updated["conditions"].append(condition)
+                    effect_notices.append("伤势需要进一步处理，自动行动暂停，请让真人检查。")
+            elif effect["type"] == "restore":
+                getattr(working, f"restore_{resource}")(effect["amount"])
+            else:
+                if working.mp < effect["amount"]:
+                    raise ValueError("当前MP不足，不能执行这个已定义的场景效果")
+                # The upstream Character has no spend_mp method. Keep this
+                # narrowly bounded scene cost here; it is not a spell engine.
+                working.mp -= effect["amount"]
+            after = getattr(working, resource)
+            delta = [{"field": resource, "before": before, "after": after,
+                      "delta": after - before, "reason": effect.get("reason", "已定义的场景效果")}]
+            updated["effect_applications"][request_id] = {
+                "signature": signature, "rolls": copy.deepcopy(effect_rolls),
+                "changes": copy.deepcopy(delta), "notices": list(effect_notices),
+            }
+            rolls.extend(effect_rolls)
+            changes.extend(delta)
+            notices.extend(effect_notices)
+        character.hp, character.san, character.mp = working.hp, working.san, working.mp
+        updated.setdefault("effect_batches", {})[action_id] = batch_signature
+        scene_state.clear()
+        scene_state.update(updated)
+        return rolls, changes, notices
+
+    def _apply_sanity_effects(
         self, game_id: str, action_id: str, character: Character,
         scene_state: dict, effects: list[dict],
     ) -> tuple[list[dict], list[dict], list[str]]:

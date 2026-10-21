@@ -1,0 +1,91 @@
+test_actual_deficit_allows_recovery_advice (tests.test_guidance_v2.GuidanceContextTests.test_actual_deficit_allows_recovery_advice) ... ok
+test_complete_ending_not_labelled_as_retreat_or_duplicated (tests.test_guidance_v2.GuidanceContextTests.test_complete_ending_not_labelled_as_retreat_or_duplicated) ... FAIL
+test_completed_actions_are_not_recommended_after_reopening (tests.test_guidance_v2.GuidanceContextTests.test_completed_actions_are_not_recommended_after_reopening) ... ok
+test_empty_inventory_never_recommends_recovery (tests.test_guidance_v2.GuidanceContextTests.test_empty_inventory_never_recommends_recovery) ... ok
+test_ended_and_paused_games_have_no_next_action_advice (tests.test_guidance_v2.GuidanceContextTests.test_ended_and_paused_games_have_no_next_action_advice) ... ok
+test_ended_panel_describes_the_ending_instead_of_an_active_room (tests.test_guidance_v2.GuidanceContextTests.test_ended_panel_describes_the_ending_instead_of_an_active_room) ... FAIL
+test_failed_check_recommends_alternative_instead_of_repeat (tests.test_guidance_v2.GuidanceContextTests.test_failed_check_recommends_alternative_instead_of_repeat) ... ok
+test_fallback_solved_ledger_also_uses_known_result (tests.test_guidance_v2.GuidanceContextTests.test_fallback_solved_ledger_also_uses_known_result) ... FAIL
+test_full_hp_never_recommends_bandage (tests.test_guidance_v2.GuidanceContextTests.test_full_hp_never_recommends_bandage) ... ok
+test_full_hp_self_description_does_not_invent_a_wound (tests.test_guidance_v2.GuidanceContextTests.test_full_hp_self_description_does_not_invent_a_wound) ... FAIL
+test_malformed_hp_does_not_recommend_treatment (tests.test_guidance_v2.GuidanceContextTests.test_malformed_hp_does_not_recommend_treatment) ... ok
+test_missing_hp_does_not_assume_an_injury (tests.test_guidance_v2.GuidanceContextTests.test_missing_hp_does_not_assume_an_injury) ... ok
+test_question_and_takeover_do_not_get_automatic_advice (tests.test_guidance_v2.GuidanceContextTests.test_question_and_takeover_do_not_get_automatic_advice) ... ok
+test_reading_solved_ledger_uses_known_result (tests.test_guidance_v2.GuidanceContextTests.test_reading_solved_ledger_uses_known_result) ... FAIL
+test_recovery_filter_does_not_remove_explicit_legal_item_use (tests.test_guidance_v2.GuidanceContextTests.test_recovery_filter_does_not_remove_explicit_legal_item_use) ... ok
+test_retreat_panel_does_not_reveal_unacquired_ending_information (tests.test_guidance_v2.GuidanceContextTests.test_retreat_panel_does_not_reveal_unacquired_ending_information) ... FAIL
+test_room_look_not_repeated_as_filler (tests.test_guidance_v2.GuidanceContextTests.test_room_look_not_repeated_as_filler) ... ok
+test_spent_bandage_is_not_described_as_still_held (tests.test_guidance_v2.GuidanceContextTests.test_spent_bandage_is_not_described_as_still_held) ... FAIL
+test_unknown_ledger_facts_are_not_revealed_early (tests.test_guidance_v2.GuidanceContextTests.test_unknown_ledger_facts_are_not_revealed_early) ... ok
+test_invalid_action_feedback_also_uses_real_hp (tests.test_guidance_v2.GuidanceServiceTests.test_invalid_action_feedback_also_uses_real_hp) ... ok
+test_post_damage_and_post_heal_advice_uses_new_hp (tests.test_guidance_v2.GuidanceServiceTests.test_post_damage_and_post_heal_advice_uses_new_hp) ... FAIL
+test_screenshot_sanity_success_has_zero_loss_and_no_bandage_advice (tests.test_guidance_v2.GuidanceServiceTests.test_screenshot_sanity_success_has_zero_loss_and_no_bandage_advice) ... ok
+
+======================================================================
+FAIL: test_complete_ending_not_labelled_as_retreat_or_duplicated (tests.test_guidance_v2.GuidanceContextTests.test_complete_ending_not_labelled_as_retreat_or_duplicated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 125, in test_complete_ending_not_labelled_as_retreat_or_duplicated
+    self.assertEqual(1, len(ending_advice))
+AssertionError: 1 != 2
+
+======================================================================
+FAIL: test_ended_panel_describes_the_ending_instead_of_an_active_room (tests.test_guidance_v2.GuidanceContextTests.test_ended_panel_describes_the_ending_instead_of_an_active_room)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 133, in test_ended_panel_describes_the_ending_instead_of_an_active_room
+    self.assertIn("调查结束", context["description"])
+AssertionError: '调查结束' not found in '学者坐在档案桌旁，桌上有一册散开的记录。中央是机械封存装置，来时的楼梯通往旧车站，安全出口通向街面。'
+
+======================================================================
+FAIL: test_fallback_solved_ledger_also_uses_known_result (tests.test_guidance_v2.GuidanceContextTests.test_fallback_solved_ledger_also_uses_known_result)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 111, in test_fallback_solved_ledger_also_uses_known_result
+    self.assertNotIn("页码错乱", result["public_event"]["text"])
+AssertionError: '页码错乱' unexpectedly found in '一册散开的旧档案摊在桌上，页码错乱，需要耐心整理。'
+
+======================================================================
+FAIL: test_full_hp_self_description_does_not_invent_a_wound (tests.test_guidance_v2.GuidanceContextTests.test_full_hp_self_description_does_not_invent_a_wound)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 71, in test_full_hp_self_description_does_not_invent_a_wound
+    self.assertNotIn("擦伤", result["public_event"]["text"])
+AssertionError: '擦伤' unexpectedly found in '你带着一份简易止血包，可以在需要时用于自己的擦伤。'
+
+======================================================================
+FAIL: test_reading_solved_ledger_uses_known_result (tests.test_guidance_v2.GuidanceContextTests.test_reading_solved_ledger_uses_known_result)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 103, in test_reading_solved_ledger_uses_known_result
+    self.assertNotIn("页码错乱", result["public_event"]["text"])
+AssertionError: '页码错乱' unexpectedly found in '一册散开的旧档案摊在桌上，页码错乱，需要耐心整理。'
+
+======================================================================
+FAIL: test_retreat_panel_does_not_reveal_unacquired_ending_information (tests.test_guidance_v2.GuidanceContextTests.test_retreat_panel_does_not_reveal_unacquired_ending_information)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 142, in test_retreat_panel_does_not_reveal_unacquired_ending_information
+    self.assertIn("撤退", context["description"])
+AssertionError: '撤退' not found in '书房里有一张橡木书桌、一排书架和一座冷却的壁炉。管家周先生愿意回答问题，房门没有上锁。'
+
+======================================================================
+FAIL: test_spent_bandage_is_not_described_as_still_held (tests.test_guidance_v2.GuidanceContextTests.test_spent_bandage_is_not_described_as_still_held)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 76, in test_spent_bandage_is_not_described_as_still_held
+    self.assertNotIn("带着一份", result["public_event"]["text"])
+AssertionError: '带着一份' unexpectedly found in '你带着一份简易止血包，可以在需要时用于自己的擦伤。'
+
+======================================================================
+FAIL: test_post_damage_and_post_heal_advice_uses_new_hp (tests.test_guidance_v2.GuidanceServiceTests.test_post_damage_and_post_heal_advice_uses_new_hp)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/houzeyu/Documents/课程/Artificial Intelligence/TRPG-kp-agent-github-sync/versions/ai-kp-v2/tests/test_guidance_v2.py", line 215, in test_post_damage_and_post_heal_advice_uses_new_hp
+    self.assertNotIn("带着一份", description)
+AssertionError: '带着一份' unexpectedly found in '你带着一份简易止血包，可以在需要时用于自己的擦伤。'
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.058s
+
+FAILED (failures=8)

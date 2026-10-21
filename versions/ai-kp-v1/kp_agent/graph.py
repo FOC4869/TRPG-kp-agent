@@ -16,6 +16,7 @@ from trpg import Character, load_character_from_xlsx
 from .models import create_planner, model_request_context
 from .embeddings import retrieval_from_env
 from .scene import SceneDefinition, SceneValidationError
+from .campaign import CampaignDefinition
 from .schemas import ActionPlan
 from .storage import Storage, StorageError, StaleGameError
 from .tools import CharacterTools
@@ -52,7 +53,7 @@ class TurnState(TypedDict, total=False):
 def default_character() -> Character:
     paths = sorted((ROOT / "characters").glob("*.xlsx"))
     if len(paths) != 1:
-        raise RuntimeError("首版要求 characters/ 中恰好一张固定角色卡。")
+        raise RuntimeError("当前演示要求 characters/ 中恰好一张固定角色卡。")
     # The upstream reader opens data_only; it does not rewrite the original file.
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", message=".*extension is not supported.*", category=UserWarning)
@@ -78,9 +79,15 @@ class KeeperService:
 
     def __init__(
         self, db_path: str | Path | None = None, scene_path: str | Path | None = None,
-        *, planner: Any = None, retrieval: Any = None, rng: Any = None,
+        *, campaign_path: str | Path | None = None,
+        planner: Any = None, retrieval: Any = None, rng: Any = None,
     ):
-        self.scene = SceneDefinition.load(scene_path or ROOT / "data" / "scenes" / "study.json")
+        if scene_path is not None and campaign_path is not None:
+            raise ValueError("scene_path 与 campaign_path 只能指定一个。")
+        self.scene = (SceneDefinition.load(scene_path) if scene_path is not None
+                      else CampaignDefinition.load(campaign_path or ROOT / "data" / "campaign.json"))
+        if scene_path is not None and self.scene.definition.get("exits"):
+            raise ValueError("这个地点需要完整故事的物品和出口逻辑，请使用 --campaign；旧书房单独调试用 data/scenes/study_legacy.json。")
         self.planner = planner if planner is not None else create_planner()
         database = db_path if db_path is not None else ROOT / "saves" / "keeper.sqlite3"
         cache_path = None if str(database) == ":memory:" else Path(database).parent / "rules_index.json"
@@ -98,7 +105,16 @@ class KeeperService:
     def close(self) -> None:
         self.storage.close()
 
+    def _planning_context(self, character: dict, scene_state: dict) -> dict:
+        context = self.scene.planning_context(scene_state)
+        context["character"] = public_character(character, scene_state)
+        return context
+
     def _public_game(self, game: dict, *, opening: bool = False) -> dict:
+        # Never silently interpret a v1 room save as a v2 campaign save.
+        if isinstance(self.scene, CampaignDefinition):
+            if game["scene_state"].get("campaign_id") != self.scene.campaign_id:
+                raise StorageError("这个存档不属于当前故事版本，请使用新版独立存档，或明确重新开始。")
         last_event = None
         reply_type = "narration"
         messages = self.storage.list_messages(game["game_id"])
@@ -110,7 +126,7 @@ class KeeperService:
             elif last_message.get("reply"):
                 reply_type = last_message["reply"].get("reply_type", "narration")
         guidance = build_guidance(
-            self.scene.planning_context(game["scene_state"]), last_event, reply_type,
+            self._planning_context(game["character"], game["scene_state"]), last_event, reply_type,
         )
         result = {
             "game_id": game["game_id"], "game_status": game["status"],
@@ -172,6 +188,22 @@ class KeeperService:
 
     def get_progress(self) -> dict:
         return self.get_game().get("progress", {})
+
+    def get_inventory(self) -> dict | list:
+        """Return only acquired items, without their private scene effects."""
+        return copy.deepcopy(self.get_progress().get("inventory", {}))
+
+    def get_clues(self) -> list[dict]:
+        return copy.deepcopy(self.get_progress().get("revealed_clues", []))
+
+    def get_rolls(self) -> list[dict]:
+        """Read committed public rolls; never expose private action drafts."""
+        result = []
+        for row in self.storage.list_events():
+            facts = row.get("event", {}).get("public_facts", {})
+            for outcome in facts.get("rolls", []):
+                result.append({**copy.deepcopy(outcome), "action_id": row["action_id"]})
+        return result
 
     def list_messages(self) -> list[dict]:
         # Whitelist public fields: drafts may contain private tool parameters.
@@ -276,6 +308,7 @@ class KeeperService:
             "progress": self.scene.public_context(game["scene_state"]),
             "game_status": game["status"], "version": game["version"], "mode": self.mode,
             "suggested_actions": [], "guidance": "",
+            "scene_transition": None, "new_items": [],
         }
         if review is not None:
             # Revealing a post-game explanation never awards in-game clues.
@@ -306,7 +339,7 @@ class KeeperService:
         if state.get("draft") is not None:
             return {"plan": state["draft"]["plan"], "evidence": state["draft"].get("evidence", []),
                     "trace": state["trace"] + ["resume_saved_plan"]}
-        context = self.scene.planning_context(state["game"]["scene_state"])
+        context = self._planning_context(state["game"]["character"], state["game"]["scene_state"])
         context["scene"] = self.scene.public_context(state["game"]["scene_state"])
         context["character"] = public_character(state["game"]["character"], state["game"]["scene_state"])
         messages = self.storage.list_messages(state["game_id"])
@@ -323,8 +356,8 @@ class KeeperService:
         if state.get("draft") is not None:
             return {"evidence": state["draft"].get("evidence", [])}
         query = plan.get("query")
-        if not query and plan["intent"] == "investigate":
-            query = "侦查 发现隐藏线索 技能检定 成功等级"
+        # The actual skill is read from the validated authored action below.
+        # A new scene's investigation is not necessarily a Spot Hidden check.
         if plan["intent"] == "rule_question" and not query:
             query = state["text"]
         evidence = self.retrieval.search(query) if query else []
@@ -338,7 +371,7 @@ class KeeperService:
         if plan["intent"] == "clarify":
             return {"validated": {"kind": "question", "text": plan.get("question") or "你想检查哪个对象？"}}
         if plan["intent"] == "unsupported":
-            return {"validated": {"kind": "takeover", "text": "这个行动超出当前小场景支持范围，请换一种做法，或让真人接管。"}}
+            return {"validated": {"kind": "takeover", "text": "这个行动超出当前故事支持范围，请换一种做法，或让真人接管。"}}
         if plan["intent"] == "rule_question":
             explanation = "当前资料没有找到足够依据，请让真人核对规则。"
             if state["evidence"]:
@@ -346,11 +379,27 @@ class KeeperService:
                     f"[{e['evidence_id']}] {e['title']}\n{e['text']}"
                     for e in state["evidence"]
                 )
+            topic = (plan.get("query") or "") + " " + state["text"]
+            grade_source = next((item for item in state["evidence"]
+                                 if item.get("title") == "技能检定与成功等级"), None)
+            if grade_source and any(word in topic for word in ("常规成功", "困难成功", "极难成功", "成功等级")):
+                character = Character.from_dict(state["game"]["character"])
+                named = [name for name in character.skills if name in topic]
+                skill = max(named, key=len) if named else "侦查"
+                example = self.tools.success_example(character, skill)
+                return {"validated": {"kind": "rule_explanation", "text": example["text"] + f" [{grade_source['evidence_id']}]",
+                                      "rule_example": example},
+                        "trace": state["trace"] + ["explain_success_levels"]}
             return {"validated": {"kind": "rule_explanation", "text": explanation}}
         try:
-            validated = self.scene.validate_plan({"action_type": plan["intent"], "target_id": plan.get("target_id")}, state["game"]["scene_state"])
-        except SceneValidationError:
-            return {"validated": {"kind": "question", "text": "这个对象或行动不在当前场景中。你想查看房间、调查书桌/书架/壁炉、与管家交谈，还是离开？"}}
+            validated = self.scene.validate_plan({
+                "action_type": plan["intent"], "target_id": plan.get("target_id"),
+                "item_id": plan.get("item_id"),
+            }, state["game"]["scene_state"])
+        except SceneValidationError as error:
+            context = self._planning_context(state["game"]["character"], state["game"]["scene_state"])
+            guidance = build_guidance(context).get("guidance", "")
+            return {"validated": {"kind": "question", "text": f"{error}\n{guidance}".strip()}}
         return {"validated": {"kind": "action", **validated}, "trace": state["trace"] + ["validate_action"]}
 
     def _execute(self, state: TurnState) -> dict:
@@ -366,6 +415,11 @@ class KeeperService:
             check = validated.get("check")
             passed = None
             if check:
+                rule_query = f"{check['skill']} 技能检定 成功等级"
+                present = {item["evidence_id"] for item in evidence}
+                evidence.extend(item for item in self.retrieval.search(rule_query)
+                                if item["evidence_id"] not in present)
+                trace.append("search_rules")
                 outcome = self.tools.skill_check(state["game_id"], state["action_id"], character, check)
                 rolls.append(outcome)
                 passed = outcome["passed"]
@@ -375,11 +429,25 @@ class KeeperService:
             event = resolution["public_event"]
             clues = resolution["clues"]
             effects = resolution["effects"]
+            if validated.get("action_type") == "use_item" and effects and all(
+                effect.get("type") == "restore"
+                and effect.get("resource") in {"hp", "mp"}
+                and getattr(character, effect["resource"]) >= getattr(character, f"{effect['resource']}_max")
+                for effect in effects
+            ):
+                # A healing item is not wasted when all affected resources are
+                # already full. Reject the whole scene patch, including its
+                # item consumption marker, before committing anything.
+                scene_state = copy.deepcopy(game["scene_state"])
+                event = {"text": "你的相应状态已经是满值，这次没有消耗物品。", "new_clues": [], "new_items": []}
+                clues, effects = [], []
             if effects:
                 extra, changes, notices = self.tools.apply_effects(state["game_id"], state["action_id"], character, scene_state, effects)
                 rolls.extend(extra)
-                trace.append("sanity_check")
-                sanity_evidence = self.retrieval.search("理智检定 理智损失 临时疯狂")
+                effect_types = {effect.get("type") for effect in effects}
+                trace.append("apply_scene_effects")
+                effect_query = "理智检定 理智损失 临时疯狂" if "sanity" in effect_types else ""
+                sanity_evidence = self.retrieval.search(effect_query) if effect_query else []
                 existing = {e["evidence_id"] for e in evidence}
                 evidence.extend(e for e in sanity_evidence if e["evidence_id"] not in existing)
                 trace.append("search_rules")
@@ -388,6 +456,8 @@ class KeeperService:
             reply_type = "takeover" if notices else "narration"
         else:
             event = {"text": validated["text"], "new_clues": []}
+            if validated.get("rule_example") is not None:
+                event["rule_example"] = copy.deepcopy(validated["rule_example"])
             reply_type = kind if kind in {"question", "rule_explanation", "takeover"} else "narration"
             if kind == "takeover":
                 # Unsupported actions stay playable; no silent arbitrary effects.
@@ -398,7 +468,7 @@ class KeeperService:
             "character": public_character(character.to_dict(), scene_state),
             "progress": self.scene.public_context(scene_state),
             "evidence": evidence, "game_status": scene_state["status"],
-            **build_guidance(self.scene.planning_context(scene_state), event, reply_type),
+            **build_guidance(self._planning_context(character.to_dict(), scene_state), event, reply_type),
         }
         return {"public_facts": public_facts,
                 "game": {**game, "character": character.to_dict(), "scene_state": scene_state},
@@ -417,7 +487,7 @@ class KeeperService:
     def _narrate(self, state: TurnState) -> dict:
         facts = state["public_facts"]
         # A clarification is a question, not an invitation to generate outcomes.
-        if facts["reply_type"] in {"question", "takeover"}:
+        if facts["reply_type"] in {"question", "takeover"} or facts["event"].get("rule_example") is not None:
             reply = facts["event"]["text"]
             if facts.get("notices"):
                 reply += "\n" + "\n".join(facts["notices"])
@@ -434,4 +504,6 @@ class KeeperService:
             "game_status": facts["game_status"], "version": state["game"]["version"], "mode": self.mode,
             "suggested_actions": facts.get("suggested_actions", []),
             "guidance": facts.get("guidance", ""),
+            "scene_transition": facts["event"].get("scene_transition"),
+            "new_items": facts["event"].get("new_items", []),
         }}
