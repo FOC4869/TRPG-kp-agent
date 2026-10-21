@@ -1,0 +1,22 @@
+[project]
+name = "trpg-kp-backend"
+version = "0.1.0"
+description = "FastAPI transport and LangGraph keeper for the TRPG project"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.115,<1",
+    "uvicorn>=0.30,<1",
+    "langgraph==1.2.16",
+    "openai==2.54.0",
+    "openpyxl==3.1.5",
+    "pydantic==2.14.1",
+    "python-dotenv==1.2.1",
+]
+
+[dependency-groups]
+dev = ["httpx>=0.28,<1"]
+
+[tool.uv]
+package = false
+# Preserve the published model client's transitive versions during migration.
+constraint-dependencies = ["httpcore2==2.15.1", "httpx2==2.15.1"]
