@@ -1,0 +1,6 @@
+Source: https://github.com/FOC4869/TRPG-kp-agent
+Upstream snapshot: 942ec746012494e5281f53a99e8e8a81b0d3815a
+Downloaded: 2026-10-21 (Asia/Shanghai)
+Method: GitHub codeload zip after git HTTPS clone failed twice.
+Initial download did not include Git metadata.
+See Git history for subsequent additions and synchronization.

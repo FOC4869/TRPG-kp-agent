@@ -1,0 +1,3 @@
+# 核心 trpg 包无第三方依赖（纯标准库）。
+# 仅 Excel 角色卡导入需要 openpyxl：
+openpyxl>=3.1
