@@ -104,4 +104,11 @@ issues:
       document: story.md
       anchor: serpent-lair
     description: 使用者MP或SAN不足时传送如何结算，须核对通用规则。
+  visual_source_recovery:
+    status: open
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: meet-josh
+    description: 原始文本附件未在仓库；派生 source-text 与原附件哈希不同。正文不改，原哈希保留，仅用于视觉制作，不能宣称原附件字节保真。
 policy: blocks_runtime表示对应能力不可视为已就绪，不妨碍离线阅读或其他资料审阅。

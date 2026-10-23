@@ -170,3 +170,95 @@ assets:
     access:
       default: keeper_only
       player_reveal_fact: handout_shadow_2_revealed
+  default_atmosphere:
+    file: default_atmosphere-v1.webp
+    title: default_atmosphere
+    media_type: image/webp
+    sha256: 25ffd1c8dd78bcf91eb808e1a6bef64a5db2c1ecc0b00218a0be9d4cc366f3af
+    source:
+      kind: generated
+    kind: default_background
+    relates_to: []
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: default_atmosphere
+      style_version: 0.1.0
+      content_fingerprint: 845d616cca69a9226e6d9f7b2b88874b7ce7ce53e3b3a88e227307f8eca501c4
+      input_fingerprint: 4d87d3c13b54403308ce797e1ed0fc7f11651c6a5a3ae3704a8cbf753e014dd2
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、光照、陈设和人物外貌为非规则美术解释。
+      review:
+        status: accepted
+        note: 用户认可首批风格并要求继续生成；格式检查通过。
+  bg_winscott_house:
+    file: bg_winscott_house-v1.webp
+    title: bg_winscott_house
+    media_type: image/webp
+    sha256: a39f8c156c462f52e76320dd4ec8c1942658073131ee2112b30c46105d21a66c
+    source:
+      kind: generated
+    kind: scene_background
+    relates_to:
+    - winscott_house
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_winscott_house
+      style_version: 0.1.0
+      content_fingerprint: 845d616cca69a9226e6d9f7b2b88874b7ce7ce53e3b3a88e227307f8eca501c4
+      input_fingerprint: 286cdd148d75be55cd700eb101751db96421aacc525e93f777b45e365bfc4d28
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、光照、陈设和人物外貌为非规则美术解释。
+      review:
+        status: accepted
+        note: 用户认可首批风格并要求继续生成；格式检查通过。
+  sprite_josh_base:
+    file: sprite_josh_base-v1.png
+    title: sprite_josh_base
+    media_type: image/png
+    sha256: bad5eba3be7b06e93e12c91ae3432f0e347eaf330200e85a5cdbbba921dcb2ff
+    source:
+      kind: generated
+    kind: npc_sprite
+    relates_to:
+    - josh
+    tags:
+    - AI生成
+    - 基础立绘
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: true
+    generation:
+      plan_id: sprite_josh_base
+      style_version: 0.1.0
+      content_fingerprint: 845d616cca69a9226e6d9f7b2b88874b7ce7ce53e3b3a88e227307f8eca501c4
+      input_fingerprint: ef3f3b37cd445bc90ef6889c6db541cb2e80b60592df6a7fdeb3b44a180c416f
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、光照、陈设和人物外貌为非规则美术解释。
+      review:
+        status: accepted
+        note: 用户认可首批风格并要求继续生成；格式检查通过。
+    anchor:
+    - 0.5
+    - 1.0

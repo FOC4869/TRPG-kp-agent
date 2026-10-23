@@ -61,6 +61,9 @@ characters:
         anchor: endings
       phase: rescued
       condition: needs_long_term_care
+    presentation:
+      sprites:
+        base: sprite_josh_base
   ssyaa_hrisss:
     name: 斯西亚·瑞斯
     aliases:
@@ -123,6 +126,9 @@ characters:
     - 通常研究或实验，偶尔采真菌、前往神殿或音乐室。
     - 受威胁时可能敲铜锣求援；局面不利时通过传送门逃走。
     - 可选演示传送门；不保证每局都发生。
+    presentation:
+      sprites:
+        base: sprite_ssyaa_hrisss_base
   degenerate:
     name: 退化人
     kind: creature_template
@@ -162,6 +168,9 @@ characters:
     - 观察、偷窃、伏击弱者；遇强敌逃跑。
     - 可使用人类不能通行的狭窄隧道。
     issue: degenerate_attribute_dice
+    presentation:
+      sprites:
+        base: sprite_degenerate_base
   ghast:
     name: 妖鬼
     kind: creature_template
@@ -194,6 +203,9 @@ characters:
     behavior:
     - 洞穴内游荡；对噪声、逗留或召唤作出反应。
     issue: ghast_sanity
+    presentation:
+      sprites:
+        base: sprite_ghast_base
 instances:
   ghast_1:
     template: ghast

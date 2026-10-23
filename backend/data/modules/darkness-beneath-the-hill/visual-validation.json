@@ -1,0 +1,439 @@
+{
+  "standard_validator": {
+    "ok": false,
+    "errors": [
+      "events: duplicate entity ID degenerate_origin"
+    ],
+    "warnings": [],
+    "content_fingerprint": "",
+    "resume": [],
+    "progress": {
+      "planned": 24,
+      "indexed": 12,
+      "reusable": 0
+    }
+  },
+  "extended_diagnostics_after_prepare_errors": {
+    "ok": false,
+    "errors": [
+      "events: duplicate entity ID degenerate_origin"
+    ],
+    "warnings": [
+      "Rules edition unresolved; runtime remains unavailable",
+      "Open issue: rules_edition",
+      "Open issue: serpent_hp",
+      "Open issue: stealth_detection",
+      "Open issue: abandonment_san",
+      "Open issue: map_topology",
+      "Open issue: building_identity",
+      "Open issue: repeat_policy",
+      "Open issue: explosion_mitigation",
+      "Open issue: degenerate_attribute_dice",
+      "Open issue: ghast_sanity",
+      "Open issue: geography_skill",
+      "Open issue: cliff_reaction_order",
+      "Open issue: toxic_gas_sequence",
+      "Open issue: unavailable_ghast",
+      "Open issue: insufficient_portal_resources",
+      "Open issue: visual_source_recovery",
+      "Visual production incomplete; draft validation does not mean images delivered"
+    ],
+    "content_fingerprint": "845d616cca69a9226e6d9f7b2b88874b7ce7ce53e3b3a88e227307f8eca501c4",
+    "resume": [
+      {
+        "id": "bg_cage_area",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "2fc566a75b04220191a8b2692fc9f21e2a18b03c5712cc75924939682b417978"
+      },
+      {
+        "id": "bg_cliff",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "dec306133c493020165f52073e8db9eff909bffcf40635af3a2bbc3ee8c33555"
+      },
+      {
+        "id": "bg_entrance_hall",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "53ffbe05a0f802155e44abb24bba2975511d2e0f11955d768f5b77538e9c12b8"
+      },
+      {
+        "id": "bg_fungus_area",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "c47bded0360b01d19ccf874188b59c945c72156faeb2e3b22a80288093f0b271"
+      },
+      {
+        "id": "bg_hibernation_chamber",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "12e1d3208dcd49909ba0cfbeed3878e98711af3d96257276c4b6cb453373bac7"
+      },
+      {
+        "id": "bg_history_hall",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "a9f7b0051321426069bc4f9e1206edcefca688fd4bbae8121d2e8c809ab19e11"
+      },
+      {
+        "id": "bg_house_cellar",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "24f6d9c75d613552ec3ee6e80c008e65713d5f18e92469cf3db1699a2a08b716"
+      },
+      {
+        "id": "bg_john_hay_library",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "0a2a02f2f40520a8246dcb4df59c789f82afa152010b8cf0253e502ef565096e"
+      },
+      {
+        "id": "bg_laboratory",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "6b49b5ead92e700892c6903fb8de6b3b1e0593a9aaee9077eed30d51cce51584"
+      },
+      {
+        "id": "bg_music_room",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "4b96ecb9acfc7cac1d26628e84eabfb39f9526bfe1109042763585768e8785d2"
+      },
+      {
+        "id": "bg_nest_west",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "f3ea36b11fc609c792a1f88d623cc6ba12a9e43ad8495279fb08e95fcb930724"
+      },
+      {
+        "id": "bg_old_tunnel",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "90062b8f3c7693efad7fab36a31866ca1ef28423d61004d9449f9332719eaccc"
+      },
+      {
+        "id": "bg_pit_corridor",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "3cf597c62dc2f607f85fc0a05eb51d4d262ab03d49ae6475356e16a27a003c5e"
+      },
+      {
+        "id": "bg_portal_area",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "c28b34e686a8012b4c3b352a2507223a370c5ec634a6e9796705b277b4c08646"
+      },
+      {
+        "id": "bg_portal_exit_cavern",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "09ac316e9a741188a6ebf8c6b9216acccaace92e2bf5fd29a8d0f4d358892e3b"
+      },
+      {
+        "id": "bg_river_brick_wall",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "caa0e4a9fcadc9017e72d8e2543e22958d528492b8bf343d5a81f83fc6829f9d"
+      },
+      {
+        "id": "bg_serpent_lair",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "0d2d8b6ade88dca96586dbbb121ba62455c68a6a7f92ca95d44d3edeffc4aae7"
+      },
+      {
+        "id": "bg_temple_of_yig",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "54e2446343c3340efb000613b7408e7fa6341822d9dee1359152bead0cdfc785"
+      },
+      {
+        "id": "bg_winscott_house",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "286cdd148d75be55cd700eb101751db96421aacc525e93f777b45e365bfc4d28"
+      },
+      {
+        "id": "default_atmosphere",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "4d87d3c13b54403308ce797e1ed0fc7f11651c6a5a3ae3704a8cbf753e014dd2"
+      },
+      {
+        "id": "sprite_degenerate_base",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "f78752cb6edfe344ae1420f373aee13bbf054314afb640441a1b5a1c986ef807"
+      },
+      {
+        "id": "sprite_ghast_base",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "16a7dd8d8508d1cf6b3e5fef8bb97d8f79fba90735d80aea394772c2dc8e78d3"
+      },
+      {
+        "id": "sprite_josh_base",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "ef3f3b37cd445bc90ef6889c6db541cb2e80b60592df6a7fdeb3b44a180c416f"
+      },
+      {
+        "id": "sprite_ssyaa_hrisss_base",
+        "action": "review",
+        "reasons": [],
+        "input_fingerprint": "e15fe433a62aae66b063e3d7187f7e734b127a3761ee5b06c35d46c63a7bf000"
+      }
+    ],
+    "progress": {
+      "planned": 24,
+      "indexed": 12,
+      "reusable": 3
+    }
+  },
+  "image_checks": [
+    {
+      "id": "default_atmosphere",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "25ffd1c8dd78bcf91eb808e1a6bef64a5db2c1ecc0b00218a0be9d4cc366f3af"
+    },
+    {
+      "id": "bg_winscott_house",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "a39f8c156c462f52e76320dd4ec8c1942658073131ee2112b30c46105d21a66c"
+    },
+    {
+      "id": "bg_house_cellar",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "94928d44bdac1213a318e70d2181995008991014fd03a190ddb4e2968fe281ef"
+    },
+    {
+      "id": "bg_john_hay_library",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "7ee13bd4d9ad58c612ad721ca88ce2b296672c2d3e534a63d62c0d7af9e7a115"
+    },
+    {
+      "id": "bg_old_tunnel",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "cbc7bce6a4e1a97a491d1ce79a24ef3d2d676d62d3cccfbd1d0b7529fffb5bd5"
+    },
+    {
+      "id": "bg_river_brick_wall",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "3fb3d1d37ddbafa867c8dc807f1e612c94779b7da58238792492d7fb32880162"
+    },
+    {
+      "id": "bg_entrance_hall",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "46eff54d7e89f5abd6aecdd061826f853d6bb76e9d1d62a06db80f2db62457f7"
+    },
+    {
+      "id": "bg_history_hall",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "877b52578ea21cc1d5b1a985b19435607be3f120baf36767adebd1e06569f861"
+    },
+    {
+      "id": "bg_cliff",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "cc27e4530b6277a67e4bca5d487b1d2cb12db09da433a728d2c6b44cf0f61ba8"
+    },
+    {
+      "id": "bg_music_room",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "f330e38ac5f6af982ebfe71f7ee0766b7d7763227e122259b73936a729ac0cc1"
+    },
+    {
+      "id": "bg_nest_west",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "85da51dc25ffa2fc4112385291bac78165be660dff96904e9ace2cddbb807d27"
+    },
+    {
+      "id": "bg_pit_corridor",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "d68f7c6061c7238a0a6322e09c9d9891d2ba5bec9f9022b656131580f1c32037"
+    },
+    {
+      "id": "bg_fungus_area",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "de9c35e15ea087a37f226f75b8fa52b2001725774493f82d8154893cf5e82a13"
+    },
+    {
+      "id": "bg_temple_of_yig",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "8b2375f028cbdf7818dcabfe3531b651077bc431cf83fac9c8cdc720dce0a327"
+    },
+    {
+      "id": "bg_hibernation_chamber",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "390a8ad12b238fccfecb9d37094ccb3a59fd37dac94decb318efb30cf474588a"
+    },
+    {
+      "id": "bg_serpent_lair",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "d8b64b3ed1bd82c1aa2e1660598599af68521b7e38e0cd722ac9c87846e96fbd"
+    },
+    {
+      "id": "bg_cage_area",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "a7f7cf4d7c4bc9e2abc3aa40ba6aa3e1d8a7c677816aeab267227a8911882463"
+    },
+    {
+      "id": "bg_laboratory",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "376c924afcd3dec4cc192d95d05f803e5da73941f2c482a16de252e64c14d48f"
+    },
+    {
+      "id": "bg_portal_area",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "6558e1d8d89a490ab7866ef66b1bfaeda6bc4b579be9a96a40d9ac5da9445e4b"
+    },
+    {
+      "id": "bg_portal_exit_cavern",
+      "size": [
+        1920,
+        1080
+      ],
+      "format": "WEBP",
+      "has_alpha": false,
+      "sha256": "130b8de78579ae4cd4d7822a3217a544f9e99177cede6a5c32fe6c76eeb87f7c"
+    },
+    {
+      "id": "sprite_josh_base",
+      "size": [
+        1024,
+        1536
+      ],
+      "format": "PNG",
+      "has_alpha": true,
+      "sha256": "bad5eba3be7b06e93e12c91ae3432f0e347eaf330200e85a5cdbbba921dcb2ff"
+    },
+    {
+      "id": "sprite_ssyaa_hrisss_base",
+      "size": [
+        1024,
+        1536
+      ],
+      "format": "PNG",
+      "has_alpha": true,
+      "sha256": "30083de83fd1d2001496da26ebcbf973eff1ec13a35ba7f8cfeec8d666d5b39d"
+    },
+    {
+      "id": "sprite_degenerate_base",
+      "size": [
+        1024,
+        1536
+      ],
+      "format": "PNG",
+      "has_alpha": true,
+      "sha256": "d208f1e6da626973baaaaf3eda6711c5bb0f76ddffc68a67745e96679cc27b74"
+    },
+    {
+      "id": "sprite_ghast_base",
+      "size": [
+        1024,
+        1536
+      ],
+      "format": "PNG",
+      "has_alpha": true,
+      "sha256": "8d0563945cced2c0b8e66ac97f8848a258a8bafcf0039dabf2f42fc415470110"
+    }
+  ],
+  "browser_qa": "not_run",
+  "new_batch_status": "review",
+  "note": "整包校验仍报告既有跨实体重复ID；扩展诊断用于继续检查其它阶段，不替代整包通过。新图不因文件检查自动验收。"
+}

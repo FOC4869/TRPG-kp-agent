@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23：经用户要求，将 feat/coc-module-builder-skill 与 feat/darkness-visual-assets 合并到 design/frontend-ui；保留目标分支仓库清理与手动验证约定。合并仅上下文文档冲突，保留两侧记录。素材审阅状态和既有模组校验问题不因合并改变。
+
 2026-10-23：按用户要求删除 .github/workflows/ci.yml，后端测试和前端 lint/typecheck/build 改为开发者提交前手动执行。历史初始化报告中的 CI 描述仅反映当时状态。
 
 2026-10-23：design/frontend-ui 已快进合并到 taosdev。按当前 frontend/backend/skills 目录调整根 .gitignore、.gitattributes、.editorconfig：运行输出按目录忽略，JSONL/ZIP 样本和素材不再全局排除，保留依赖锁和评估证据。
@@ -11,6 +13,10 @@
 2026-10-23：在 feat/coc-character-import-skill 新增自包含技能 skills/coc-character-card-import/，固定生成 character.yaml、background.md、可选裁切头像，无 manifest，不依赖本项目角色类、数据或对话。项目目录是维护源，已按普通文件复制到个人 Codex skills 目录，未自动提交/推送。
 验证：quick_validate 对源码/安装副本通过；29 个隔离脚本场景通过；仅给技能和三张图片的独立试用完成 3 位角色，局部复核修正字符误读，最终 0 错误，原文疑点保留为警告；已有十人只读校验 0 错误。npx skills 本地发现及临时项目 --copy 安装通过，最终文件与维护源逐字节相同；后端191项通过。未修改前端/运行时/已有角色，未调用外部模型API。交付记录见 docs/design/done/coc-character-import-skill.md。
 后续：GitHub 默认分支发布后，外部用户才能直接用 npx skills add FOC4869/TRPG-kp-agent 获取此技能；尚未验证远端安装。独立原图复核还发现既有 david 卡将“一双手铐”记成 quantity=2、unit=双，属于待单独修订的数据错误，本轮按约定未改旧角色。
+
+2026-10-23：用户认可首批并要求续做，feat/darkness-visual-assets 新增18张背景及斯西亚·瑞斯、退化人、妖鬼3张基础透明立绘；共24张均落盘，尺寸/解码/哈希/真实alpha检查通过。完整调用提示词及参考路径写入asset-plan；首批3项accepted进入索引，新增21项review等待审阅；历史厅火盆、传送门矩形刻纹、生活区植物等美术偏差已留review_note。visual-preview.html支持背景/人物切换与16:9/21:9，未运行浏览器QA；visual-validation.json区分正式校验和继续阶段诊断，二者均仍报告既有degenerate_origin重复ID，不能称整包通过。未改运行时/前端，未提交推送。
+
+2026-10-23：feat/darkness-visual-assets 按 coc-module-builder 制作默认背景、文斯考特宅开场背景、乔什基础真实透明立绘候选，保存 assets/；24 项制作计划（含共享背景及4种基础形象），style 为 draft，3项 review，其余待选风格。visual-preview.html 提供16:9/21:9独立图层预览；未接前端、未覆盖出版物附件、未写可用索引。校验被既有跨实体重复ID degenerate_origin 阻断；原始文本附件缺失，派生 source-text 明确记录来源及原哈希差异，不能宣称原附件字节保真。
 
 2026-10-23：用户补充模组库需要竖版封面。coc-module-builder 新增 module_cover：1024×1536 不透明 WebP，同一画风，仅使用玩家引言信息，无文字/UI/边框，前端叠加标题标签；manifest.presentation.cover 引用。默认首批含封面、默认背景、开场背景、首位 NPC 基础立绘；已有合格封面复用。默认权限仍为 keeper_only，未实现公开投影。
 
