@@ -5,8 +5,9 @@
 
 ## 运行链路
 
-当前网页提供桌面首页、原创模组公开简介预览与设置弹窗。首页独立于后端；打开设置时执行 React → Vite 的 /api 开发代理 → FastAPI GET /api/health。
-开始调查只打开预览，不创建游戏。继续调查处于禁用状态；网页不读写存档。
+当前网页提供桌面首页、分页模组库／公开详情与设置弹窗。首页、模组库独立于后端；打开设置时执行 React → Vite 的 /api 开发代理 → FastAPI GET /api/health。
+开始调查进入 #/modules；卡片选择更新详情，每页最多 3 项。选择调查员仅显示尚未开放提示，不创建游戏。继续调查禁用；网页不读写存档。
+frontend/src/api/modules.ts 是前端分页适配入口，目前从 data/modules.ts 的明确示例目录读取，不请求后端。PublicModule 只允许公开的目录资料；后续确认 GET 契约后替换读取实现，不把守秘人信息传给前端。7 条示例包含《岭下暗影》和 6 条待收录记录；真实接入时按后端 total/items 渲染，末页不补占位项。
 当前游戏链路是 CLI → KeeperService → LangGraph → 场景校验、RAG、trpg 和 SQLite 适配。
 两条链路尚未连接成网页游戏。健康接口只表明进程可响应，不检查模型配置、剧情或数据库。
 
@@ -16,7 +17,7 @@
 ## 目录与数据归属
 
 - frontend/src：React UI、api 请求封装、styles；不放秘密剧情或模型凭据。
-- frontend/public/images：原创生成的无文字首页背景与素材来源说明。标题、导航与按钮由 HTML/CSS 实现，不以整张生图替代交互。
+- frontend/public/images：原创生成的无文字首页背景、地窖封面与素材来源说明。标题、导航与按钮由 HTML/CSS 实现，不以整张生图替代交互。
 - backend/app：FastAPI 入口和路由。导入应用不初始化 Agent、模型或存档。
 - backend/kp_agent：现有 LangGraph 流程、模型、检索、场景和存储适配。保留包名与相对路径。
 - backend/trpg：角色、骰子和规则的唯一实现。迁移采用原发布子目录后续实现。
