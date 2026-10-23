@@ -1,10 +1,14 @@
 # 当前上下文
 
+2026-10-23：经用户要求，将fix/darkness-module-adjudications的87db34a合并到taosdev，保留现有游戏预览和结案弹窗。模组裁定与运行时能力边界不变；本次未推送。
+
 2026-10-23：用户将结案简化为游戏内弹窗，取消独立总结页/统计。feat/investigation-ending-dialog 实现结束标题、复用最终 Keeper 叙述、“返回首页”；公开展示 DTO 支持可选 ended，设置提供 ending-preview。关闭可回看记录/重新打开，但行动不恢复；不新增真实 HTTP、总结接口或模型调用。实现记录 docs/design/done/investigation-ending-dialog.md。验证 npm ci/lint/typecheck/build、扩展离线 smoke、桌面/窄屏/短屏弹窗、关闭/重开/返回首页通过。无后端改动，未重复后端测试；真实结束实例限制待正式接口接入。
 
 2026-10-23：按用户要求移除游戏主界面侧栏的“存档 · 暂未开放”按钮，清理专用样式与 Lock 导入。
 
 2026-10-23：feat/gameplay-preview 从干净 design/frontend-ui 建立，实现开场游戏 UI。调查员确认进入 #/game，沿用所选假人物；住宅背景与乔什透明立绘分层，固定内部滚动对话、自由输入、建议、人物/物品/线索/记录/设置抽屉。api/game.ts 暂为固定离线回复，正式 HTTP/规则/存档未接；设置中的检定仅固定展示。仅两张已审阅开场图进入 frontend 静态预览允许清单，不改变原模组 keeper_only，未来必须由服务端按本局授权素材。接口草案 docs/game-preview-api.md，工作记录 docs/design/done/gameplay-preview.md。验证 npm ci/lint/typecheck/build、离线适配 smoke 和桌面/窄屏核心交互通过；无后端改动，未运行真实模型或重复后端单测。待正式游戏 HTTP、状态/素材授权与网络恢复。
+
+2026-10-23：fix/darkness-module-adjudications 按用户授权处理16项疑点，内容版本0.2.0；新增rulings.yaml及只读检查，manifest记录裁定摘要及能力。HP11、妖鬼SAN0/1D8补齐；其余歧义采用显式项目裁定，照片/原附件以限制措施结案，不称恢复原件；地图为显式场景抽象并有高差/危险/笼门/传送门禁，非精确战术地图。191后端单测、专用约定检查、标准--complete（零错误/警告）通过；正文/图像字节不改，历史配置与指纹归档。尚未实现事件执行、法术适配、单人游玩测试，runtime_compatible仍false；不将issues resolved等同运行就绪。交付见docs/design/done/darkness-adjudications.md；未提交合并推送。
 
 2026-10-23：用户明确通过新增素材审阅，24项生成素材全部accepted并登记assets/index.yaml（加9项原材料共33项）。重复ID已通过仅将事件degenerate_origin重命名为investigate_degenerate_origin解决，线索ID及事件clue引用保持原状；内容版本0.1.1，图像字节不改，旧生产指纹/索引归档assets/visual-approval-history-v1.json，核对仅ID区分后更新当前验收指纹。标准--complete校验通过，24项均skip；规则/地图/原始来源等既有issues保留，runtime_compatible仍false。
 

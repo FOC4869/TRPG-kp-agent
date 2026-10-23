@@ -101,7 +101,7 @@ locations:
     map_ref:
       asset: caverns_map
       label: 5
-    mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+    mapping_status: 地图2中5号区域按方位区分；细支路合并为区域连通，禁止据此推算精确距离。
     presentation:
       background: bg_nest_west
   nest_east:
@@ -112,7 +112,7 @@ locations:
     map_ref:
       asset: caverns_map
       label: 5
-    mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+    mapping_status: 地图2中5号区域按方位区分；细支路合并为区域连通，禁止据此推算精确距离。
     presentation:
       background: bg_nest_west
   nest_south:
@@ -123,7 +123,7 @@ locations:
     map_ref:
       asset: caverns_map
       label: 5
-    mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+    mapping_status: 地图2中5号区域按方位区分；细支路合并为区域连通，禁止据此推算精确距离。
     presentation:
       background: bg_nest_west
   pit_corridor:
@@ -228,6 +228,42 @@ locations:
       anchor: serpent-lair
     presentation:
       background: bg_portal_exit_cavern
+  cliff_upper:
+    name: 峭壁上缘
+    source:
+      document: story.md
+      anchor: cliff
+    origin: adaptation
+    description: 地图2粗粒度路径节点，不是新增房间。
+    presentation:
+      background: bg_cliff
+  cliff_lower:
+    name: 峭壁下缘
+    source:
+      document: story.md
+      anchor: cliff
+    origin: adaptation
+    description: 地图2粗粒度路径节点，不是新增房间。
+    presentation:
+      background: bg_cliff
+  lower_junction:
+    name: 下层未编号岔路
+    source:
+      document: story.md
+      anchor: pit
+    origin: adaptation
+    description: 地图2粗粒度路径节点，不是新增房间。
+    presentation:
+      background: default_atmosphere
+  southern_junction:
+    name: 南部未编号岔路
+    source:
+      document: story.md
+      anchor: serpent-domain
+    origin: adaptation
+    description: 地图2粗粒度路径节点，不是新增房间。
+    presentation:
+      background: default_atmosphere
 connections:
 - id: house_to_cellar
   from_location: winscott_house
@@ -272,6 +308,276 @@ connections:
     document: story.md
     anchor: serpent-lair
   via_object: magic_portal
+  traversal:
+    kind: portal
+    required_event: use_portal
+    adjudication: insufficient_portal_resources
+    automatic_walk: false
+- id: route_entrance_hall_to_history_hall
+  from_location: entrance_hall
+  to_location: history_hall
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-domain
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_history_hall_to_cliff_upper
+  from_location: history_hall
+  to_location: cliff_upper
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: cliff
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_cliff_upper_to_cliff_lower
+  from_location: cliff_upper
+  to_location: cliff_lower
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: cliff
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+  traversal:
+    kind: vertical
+    height_feet: 20
+    required_event: rope_cliff_or_climb_cliff_or_jump_cliff
+    automatic_walk: false
+- id: route_cliff_lower_to_cliff
+  from_location: cliff_lower
+  to_location: cliff
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: cliff
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_cliff_lower_to_pit_corridor
+  from_location: cliff_lower
+  to_location: pit_corridor
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: pit
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+  traversal:
+    kind: hazard
+    required_event: pit_detection_or_careful_bypass
+    automatic_walk: false
+- id: route_pit_corridor_to_lower_junction
+  from_location: pit_corridor
+  to_location: lower_junction
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: pit
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_lower_junction_to_music_room
+  from_location: lower_junction
+  to_location: music_room
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: music-room
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_lower_junction_to_nest_west
+  from_location: lower_junction
+  to_location: nest_west
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: degenerate-nest
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_nest_west_to_nest_east
+  from_location: nest_west
+  to_location: nest_east
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: degenerate-nest
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_nest_west_to_nest_south
+  from_location: nest_west
+  to_location: nest_south
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: degenerate-nest
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_nest_east_to_nest_south
+  from_location: nest_east
+  to_location: nest_south
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: degenerate-nest
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_lower_junction_to_fungus_area
+  from_location: lower_junction
+  to_location: fungus_area
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: fungus-area
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_nest_south_to_fungus_area
+  from_location: nest_south
+  to_location: fungus_area
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: fungus-area
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_fungus_area_to_southern_junction
+  from_location: fungus_area
+  to_location: southern_junction
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-domain
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_southern_junction_to_temple_of_yig
+  from_location: southern_junction
+  to_location: temple_of_yig
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: temple-of-yig
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_southern_junction_to_hibernation_chamber
+  from_location: southern_junction
+  to_location: hibernation_chamber
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: hibernation-chamber
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_southern_junction_to_serpent_lair
+  from_location: southern_junction
+  to_location: serpent_lair
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-lair
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_serpent_lair_to_living_area
+  from_location: serpent_lair
+  to_location: living_area
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-lair
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_serpent_lair_to_laboratory
+  from_location: serpent_lair
+  to_location: laboratory
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-lair
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_serpent_lair_to_portal_area
+  from_location: serpent_lair
+  to_location: portal_area
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-lair
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+- id: route_serpent_lair_to_cage_area
+  from_location: serpent_lair
+  to_location: cage_area
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: captivity
+  origin: adaptation
+  map_evidence:
+    asset: caverns_map
+    review: 粗粒度场景连通，见rulings.map_topology
+  adjudication: map_topology
+  traversal:
+    kind: closed_gate
+    required_event: bend_bars_or_open_cage
+    automatic_walk: false
 map_features:
   harper_inscription:
     asset: caverns_map
@@ -282,10 +588,14 @@ map_features:
     label: 7
     object: pit_hazard
 topology_review:
-  status: partial
+  status: reviewed_scene_abstraction
   issue: map_topology
+  maps:
+  - tunnel_map
+  - caverns_map
+  - lair_detail_map
   notes:
-  - 图片已保存，正文明确的连接已登记；未将章节顺序转换为道路。
-  - 地图2其他洞窟连线、峭壁上下层与巢穴子区连接仍需逐边人工核准。
-  - 地图2未画出的怪物窄道不作为调查员默认通路。
-  - 地图1比例尺用于局部图示，长距离以正文说明为准。
+  - 逐图查看后登记粗粒度场景图；存在显式project adaptation，不宣称精确重建全部通道。
+  - 峭壁门禁、高差、陷坑、笼门、传送付费分别有traversal条件，不能仅按bidirectional判断无条件可走。
+  - 地图6是巢窟内遗书标记，不生成新房间；11是巢穴父区域，12至15为内部区域。
+  - 隐藏怪物窄道不加入调查员路线；像素比例不转换为时间/距离；追逐适配仍未实现。

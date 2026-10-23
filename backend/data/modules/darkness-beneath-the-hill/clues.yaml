@@ -109,9 +109,10 @@ clues:
     locations:
     - underground_complex
     acquisition:
-    - 探索一段时间后，科学（地理学）成功，技能转录有待核对。
+    - 探索一段时间后，按项目映射使用科学（地质学）成功；原文科学（地理学）保留于story。
     player_fact: 人工结构经历极漫长年代。
     issue: geography_skill
+    adjudication: geography_skill
   dinosaur_murals:
     name: 恐龙壁画
     source:
