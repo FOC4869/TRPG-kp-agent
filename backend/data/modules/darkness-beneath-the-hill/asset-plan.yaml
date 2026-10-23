@@ -1,5 +1,5 @@
 visual_format_version: 0.1.0
-content_fingerprint: 845d616cca69a9226e6d9f7b2b88874b7ce7ce53e3b3a88e227307f8eca501c4
+content_fingerprint: 3c1ac0486d7c6bab28a4be1cafd6ba0fcb2fa58fb0d1d970aec9e21d59b1b9f7
 image_tool: available
 items:
   default_atmosphere:
@@ -22,7 +22,7 @@ items:
       ochre-charcoal palette and subdued light of period New England horror illustration.'
     references: []
     reuse_of: null
-    input_fingerprint: 4d87d3c13b54403308ce797e1ed0fc7f11651c6a5a3ae3704a8cbf753e014dd2
+    input_fingerprint: 74711b476c7d4836206e726b35c01c601a9f46753434587f5537d2785ab30d33
     attempts:
     - tool: Codex built-in imagegen
       outcome: accepted
@@ -30,7 +30,9 @@ items:
         aspect-preserving contain and minimal edge padding; sprite alpha verified.
     candidate_file: default_atmosphere-v1.webp
     sha256: 25ffd1c8dd78bcf91eb808e1a6bef64a5db2c1ecc0b00218a0be9d4cc366f3af
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_winscott_house:
     kind: scene_background
     relates_to:
@@ -57,7 +59,7 @@ items:
       not gameplay facts.'
     references: []
     reuse_of: null
-    input_fingerprint: 286cdd148d75be55cd700eb101751db96421aacc525e93f777b45e365bfc4d28
+    input_fingerprint: 1d6a9b733f03eeeb8e9256df93e41bc16dd069358012874dab91959f616c8310
     attempts:
     - tool: Codex built-in imagegen
       outcome: accepted
@@ -65,12 +67,14 @@ items:
         aspect-preserving contain and minimal edge padding; sprite alpha verified.
     candidate_file: bg_winscott_house-v1.webp
     sha256: a39f8c156c462f52e76320dd4ec8c1942658073131ee2112b30c46105d21a66c
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_house_cellar:
     kind: scene_background
     relates_to:
     - house_cellar
-    status: review
+    status: accepted
     batch: later
     output: bg_house_cellar-v1.webp
     size:
@@ -103,10 +107,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 24f6d9c75d613552ec3ee6e80c008e65713d5f18e92469cf3db1699a2a08b716
+    input_fingerprint: 71201389849b72ed35f74c54090e32f49d9be8f6dbb8442bf1a89fd5ad9dd702
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -118,13 +122,15 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_john_hay_library:
     kind: scene_background
     relates_to:
     - john_hay_library
     - providence_athenaeum
-    status: review
+    status: accepted
     batch: later
     output: bg_john_hay_library-v1.webp
     size:
@@ -161,10 +167,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 0a2a02f2f40520a8246dcb4df59c789f82afa152010b8cf0253e502ef565096e
+    input_fingerprint: c3b90b2666063091fceb6425147289ad203dba94d6a5849ff1115ed6c9cb94a8
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -176,13 +182,15 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_old_tunnel:
     kind: scene_background
     relates_to:
     - old_tunnel
     - descending_passage
-    status: review
+    status: accepted
     batch: later
     output: bg_old_tunnel-v1.webp
     size:
@@ -224,10 +232,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 90062b8f3c7693efad7fab36a31866ca1ef28423d61004d9449f9332719eaccc
+    input_fingerprint: a61190c04da5d3c454805975cef32772473b6b22027ad3f9533e3af02c7e5e96
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -239,12 +247,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_river_brick_wall:
     kind: scene_background
     relates_to:
     - river_brick_wall
-    status: review
+    status: accepted
     batch: later
     output: bg_river_brick_wall-v1.webp
     size:
@@ -277,10 +287,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: caa0e4a9fcadc9017e72d8e2543e22958d528492b8bf343d5a81f83fc6829f9d
+    input_fingerprint: b71922e19c1330771fc00bbd0151080c21effb2485c2bea7e7bc34d397384cfb
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -292,12 +302,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_entrance_hall:
     kind: scene_background
     relates_to:
     - entrance_hall
-    status: review
+    status: accepted
     batch: later
     output: bg_entrance_hall-v1.webp
     size:
@@ -328,10 +340,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 53ffbe05a0f802155e44abb24bba2975511d2e0f11955d768f5b77538e9c12b8
+    input_fingerprint: fd38d3924638166bdbaf1847a020f1c8494fdaafd1e7aba34cc00ef5d44a3c20
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -343,12 +355,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_history_hall:
     kind: scene_background
     relates_to:
     - history_hall
-    status: review
+    status: accepted
     batch: later
     output: bg_history_hall-v1.webp
     size:
@@ -375,10 +389,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: a9f7b0051321426069bc4f9e1206edcefca688fd4bbae8121d2e8c809ab19e11
+    input_fingerprint: 26f90e5bff4a02bfa59502f22aa6cabd505bcec1511e9a13b5374b3e091c5f0f
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -390,13 +404,15 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
     review_note: 画面加入了火盆照明，正文主要以发光地衣照明；属于待审阅的美术偏差，未登记为已验收素材。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_cliff:
     kind: scene_background
     relates_to:
     - cliff
-    status: review
+    status: accepted
     batch: later
     output: bg_cliff-v1.webp
     size:
@@ -426,10 +442,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: dec306133c493020165f52073e8db9eff909bffcf40635af3a2bbc3ee8c33555
+    input_fingerprint: 1f133d704b5cf243e9aa4868f16894bec053719650f92be654718f9c8996a2b5
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -441,12 +457,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_music_room:
     kind: scene_background
     relates_to:
     - music_room
-    status: review
+    status: accepted
     batch: later
     output: bg_music_room-v1.webp
     size:
@@ -478,10 +496,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 4b96ecb9acfc7cac1d26628e84eabfb39f9526bfe1109042763585768e8785d2
+    input_fingerprint: 9e15c08a477e2f40cabe8b10766069b5158bc2011359a82119d7d5305f019fdf
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -493,14 +511,16 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_nest_west:
     kind: scene_background
     relates_to:
     - nest_west
     - nest_east
     - nest_south
-    status: review
+    status: accepted
     batch: later
     output: bg_nest_west-v1.webp
     size:
@@ -533,10 +553,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: f3ea36b11fc609c792a1f88d623cc6ba12a9e43ad8495279fb08e95fcb930724
+    input_fingerprint: 20505e1a25fd51729f21e9ad770a517665cec4de5e8996cde6940b7ec0f04bb9
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -548,12 +568,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_pit_corridor:
     kind: scene_background
     relates_to:
     - pit_corridor
-    status: review
+    status: accepted
     batch: later
     output: bg_pit_corridor-v1.webp
     size:
@@ -581,10 +603,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 3cf597c62dc2f607f85fc0a05eb51d4d262ab03d49ae6475356e16a27a003c5e
+    input_fingerprint: 5f9d0a78fac9340c88de186e5a10baac6d6643c9fc61b294af6936f0749f853b
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -596,12 +618,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_fungus_area:
     kind: scene_background
     relates_to:
     - fungus_area
-    status: review
+    status: accepted
     batch: later
     output: bg_fungus_area-v1.webp
     size:
@@ -631,10 +655,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: c47bded0360b01d19ccf874188b59c945c72156faeb2e3b22a80288093f0b271
+    input_fingerprint: d522155989ae3a811032b5e6ac0b4dee8ebda00f1d53289d3c33c9bd617a0e28
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -646,12 +670,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_temple_of_yig:
     kind: scene_background
     relates_to:
     - temple_of_yig
-    status: review
+    status: accepted
     batch: later
     output: bg_temple_of_yig-v1.webp
     size:
@@ -680,10 +706,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 54e2446343c3340efb000613b7408e7fa6341822d9dee1359152bead0cdfc785
+    input_fingerprint: d36e3ad367108503c8c8b3741eeabe4d1b47e61e64964fec72c28a8af43e9296
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -695,12 +721,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_hibernation_chamber:
     kind: scene_background
     relates_to:
     - hibernation_chamber
-    status: review
+    status: accepted
     batch: later
     output: bg_hibernation_chamber-v1.webp
     size:
@@ -730,10 +758,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 12e1d3208dcd49909ba0cfbeed3878e98711af3d96257276c4b6cb453373bac7
+    input_fingerprint: a0b310112a829eed73407e3addb088dca579c70889c1833e80d672bbbc1e1986
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -745,14 +773,16 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
     review_note: 画面茧的可见数量不是正文21个的替代计数；实际数量以模组为准。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_serpent_lair:
     kind: scene_background
     relates_to:
     - serpent_lair
     - living_area
-    status: review
+    status: accepted
     batch: later
     output: bg_serpent_lair-v1.webp
     size:
@@ -813,10 +843,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 0d2d8b6ade88dca96586dbbb121ba62455c68a6a7f92ca95d44d3edeffc4aae7
+    input_fingerprint: 5815d33eb9c84146559e6acb318de6471a21f6e2385039afb5ed72f7c5ca82d5
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -828,13 +858,15 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
     review_note: 植物、灯具和额外陈设为美术解释；正文潮湿热带氛围不等于存在具体植物，待审阅。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_cage_area:
     kind: scene_background
     relates_to:
     - cage_area
-    status: review
+    status: accepted
     batch: later
     output: bg_cage_area-v1.webp
     size:
@@ -877,10 +909,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 2fc566a75b04220191a8b2692fc9f21e2a18b03c5712cc75924939682b417978
+    input_fingerprint: 3f9e239a9e5659dce543a6aad8d7523591fb39276c89019492d0b69f9868e056
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -892,12 +924,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_laboratory:
     kind: scene_background
     relates_to:
     - laboratory
-    status: review
+    status: accepted
     batch: later
     output: bg_laboratory-v1.webp
     size:
@@ -940,10 +974,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 6b49b5ead92e700892c6903fb8de6b3b1e0593a9aaee9077eed30d51cce51584
+    input_fingerprint: 63ff11f29d2f13d9ec7487e152a1b9b2ec554058169286ded6cba4072ed8d5bf
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -955,12 +989,14 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_portal_area:
     kind: scene_background
     relates_to:
     - portal_area
-    status: review
+    status: accepted
     batch: later
     output: bg_portal_area-v1.webp
     size:
@@ -1003,10 +1039,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: c28b34e686a8012b4c3b352a2507223a370c5ec634a6e9796705b277b4c08646
+    input_fingerprint: fd6d586516df44654898c2ecc57de51555971f74ef1ff488e7c66e24e5d01eb7
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -1018,13 +1054,15 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
     review_note: 画面将螺旋刻纹集中成矩形区域，可能提示隐藏门位置；实际展示前需评估剧透风险，未登记为已验收素材。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   bg_portal_exit_cavern:
     kind: scene_background
     relates_to:
     - portal_exit_cavern
-    status: review
+    status: accepted
     batch: later
     output: bg_portal_exit_cavern-v1.webp
     size:
@@ -1067,10 +1105,10 @@ items:
     references:
     - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 09ac316e9a741188a6ebf8c6b9216acccaace92e2bf5fd29a8d0f4d358892e3b
+    input_fingerprint: 7f93cd4a19113025caed02b2e50acd9beb2a4f9a0126a6ed63566c6388bc9f66
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -1082,7 +1120,9 @@ items:
     anchor:
     - 0.5
     - 0.5
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   sprite_josh_base:
     kind: npc_sprite
     relates_to:
@@ -1113,7 +1153,7 @@ items:
     references:
     - assets/sprite_josh_base-attempt1.png
     reuse_of: null
-    input_fingerprint: ef3f3b37cd445bc90ef6889c6db541cb2e80b60592df6a7fdeb3b44a180c416f
+    input_fingerprint: 339b6ab0f12f79cae9b27a069f9f488b13c11167a7cebb03fefbf09d5c589187
     attempts:
     - tool: Codex built-in imagegen
       outcome: review
@@ -1128,12 +1168,14 @@ items:
     sha256: bad5eba3be7b06e93e12c91ae3432f0e347eaf330200e85a5cdbbba921dcb2ff
     artistic_additions: Age about 40, hair, face and outfit are artistic interpretation;
       not specified in source.
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   sprite_ssyaa_hrisss_base:
     kind: creature_sprite
     relates_to:
     - ssyaa_hrisss
-    status: review
+    status: accepted
     batch: later
     output: sprite_ssyaa_hrisss_base-v1.png
     size:
@@ -1161,10 +1203,10 @@ items:
     references:
     - assets/sprite_josh_base-v1.png
     reuse_of: null
-    input_fingerprint: e15fe433a62aae66b063e3d7187f7e734b127a3761ee5b06c35d46c63a7bf000
+    input_fingerprint: f277a771c8b461b46fa084888b1a7269dab038d5116266f3b8c5b22bce36749a
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -1176,12 +1218,14 @@ items:
     anchor:
     - 0.5
     - 1.0
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   sprite_degenerate_base:
     kind: creature_sprite
     relates_to:
     - degenerate
-    status: review
+    status: accepted
     batch: later
     output: sprite_degenerate_base-v1.png
     size:
@@ -1208,10 +1252,10 @@ items:
     references:
     - assets/sprite_josh_base-v1.png
     reuse_of: null
-    input_fingerprint: f78752cb6edfe344ae1420f373aee13bbf054314afb640441a1b5a1c986ef807
+    input_fingerprint: 97aa875cac964694f0b9afc3c123cf1c5f0a2865fa25e0db4c869e6d9b47ba9b
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -1223,12 +1267,14 @@ items:
     anchor:
     - 0.5
     - 1.0
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
   sprite_ghast_base:
     kind: creature_sprite
     relates_to:
     - ghast
-    status: review
+    status: accepted
     batch: later
     output: sprite_ghast_base-v1.png
     size:
@@ -1253,10 +1299,10 @@ items:
     references:
     - assets/sprite_josh_base-v1.png
     reuse_of: null
-    input_fingerprint: 16a7dd8d8508d1cf6b3e5fef8bb97d8f79fba90735d80aea394772c2dc8e78d3
+    input_fingerprint: 2614ebef048a78a32702300ad6c4442ef3dd74b65753d84b6b5e65399049e624
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
         contain export, minimal padding; no stretching.
       original_size:
@@ -1268,4 +1314,6 @@ items:
     anchor:
     - 0.5
     - 1.0
-    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+    content_reconciliation: content_version 0.1.1 仅区分事件/线索ID；已核对图像相关事实未变化，不重复生图。旧记录见
+      assets/visual-approval-history-v1.json。
