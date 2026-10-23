@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23：用户认可首批并要求续做，feat/darkness-visual-assets 新增18张背景及斯西亚·瑞斯、退化人、妖鬼3张基础透明立绘；共24张均落盘，尺寸/解码/哈希/真实alpha检查通过。完整调用提示词及参考路径写入asset-plan；首批3项accepted进入索引，新增21项review等待审阅；历史厅火盆、传送门矩形刻纹、生活区植物等美术偏差已留review_note。visual-preview.html支持背景/人物切换与16:9/21:9，未运行浏览器QA；visual-validation.json区分正式校验和继续阶段诊断，二者均仍报告既有degenerate_origin重复ID，不能称整包通过。未改运行时/前端，未提交推送。
+
 2026-10-23：feat/darkness-visual-assets 按 coc-module-builder 制作默认背景、文斯考特宅开场背景、乔什基础真实透明立绘候选，保存 assets/；24 项制作计划（含共享背景及4种基础形象），style 为 draft，3项 review，其余待选风格。visual-preview.html 提供16:9/21:9独立图层预览；未接前端、未覆盖出版物附件、未写可用索引。校验被既有跨实体重复ID degenerate_origin 阻断；原始文本附件缺失，派生 source-text 明确记录来源及原哈希差异，不能宣称原附件字节保真。
 
 2026-10-23：用户补充模组库需要竖版封面。coc-module-builder 新增 module_cover：1024×1536 不透明 WebP，同一画风，仅使用玩家引言信息，无文字/UI/边框，前端叠加标题标签；manifest.presentation.cover 引用。默认首批含封面、默认背景、开场背景、首位 NPC 基础立绘；已有合格封面复用。默认权限仍为 keeper_only，未实现公开投影。

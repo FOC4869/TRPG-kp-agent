@@ -1,9 +1,11 @@
 visual_format_version: 0.1.0
 style_id: restrained_painterly
 version: 0.1.0
-status: draft
-approval_note: null
-references: []
+status: approved
+approval_note: 2026-10-23 用户认可首批预览（ok）并明确要求生成其余场景与三种NPC/生物，复用首批画风。
+references:
+- assets/bg_winscott_house-v1.webp
+- assets/sprite_josh_base-v1.png
 medium: 写实绘画，统一笔触与细节密度
 palette:
 - 克制的自然色

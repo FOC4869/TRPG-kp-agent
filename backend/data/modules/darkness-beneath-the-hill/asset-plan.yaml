@@ -5,7 +5,7 @@ items:
   default_atmosphere:
     kind: default_background
     relates_to: []
-    status: review
+    status: accepted
     batch: sample
     output: default_atmosphere-v1.webp
     size:
@@ -22,19 +22,20 @@ items:
       ochre-charcoal palette and subdued light of period New England horror illustration.'
     references: []
     reuse_of: null
-    input_fingerprint: 15dd439fe71913dbca7f227b8434091f0e87fc377ba44c697e00d50d451eac06
+    input_fingerprint: 4d87d3c13b54403308ce797e1ed0fc7f11651c6a5a3ae3704a8cbf753e014dd2
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated candidate; pending user style selection. Background export uses
         aspect-preserving contain and minimal edge padding; sprite alpha verified.
     candidate_file: default_atmosphere-v1.webp
     sha256: 25ffd1c8dd78bcf91eb808e1a6bef64a5db2c1ecc0b00218a0be9d4cc366f3af
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_winscott_house:
     kind: scene_background
     relates_to:
     - winscott_house
-    status: review
+    status: accepted
     batch: sample
     output: bg_winscott_house-v1.webp
     size:
@@ -56,19 +57,20 @@ items:
       not gameplay facts.'
     references: []
     reuse_of: null
-    input_fingerprint: f8821b15f52b7dc422b0d92d05c0cf3fd995715a66384837b501b1decb68e202
+    input_fingerprint: 286cdd148d75be55cd700eb101751db96421aacc525e93f777b45e365bfc4d28
     attempts:
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: Generated candidate; pending user style selection. Background export uses
         aspect-preserving contain and minimal edge padding; sprite alpha verified.
     candidate_file: bg_winscott_house-v1.webp
     sha256: a39f8c156c462f52e76320dd4ec8c1942658073131ee2112b30c46105d21a66c
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_house_cellar:
     kind: scene_background
     relates_to:
     - house_cellar
-    status: planned
+    status: review
     batch: later
     output: bg_house_cellar-v1.webp
     size:
@@ -91,17 +93,38 @@ items:
       功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
       识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
       蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
-      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n"
-    references: []
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n\nPRIORITY COMPOSITION:\
+      \ Focus on an ordinary renovation cellar with an opened brick partition revealing\
+      \ darkness, no remains or hidden clues shown.\nReference image is STYLE ONLY.\
+      \ Do NOT copy house furniture/architecture into underground scenes. Match realistic\
+      \ painterly material detail, restrained ochre and charcoal and readable darks.\
+      \ Render single wide landscape 16:9, no panels, no letters, no UI. No human,\
+      \ NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: ba51a0ae91340e4e14ae0c31428d713ca2e1c9edd100ec3f07f51d04589571e7
-    attempts: []
+    input_fingerprint: 24f6d9c75d613552ec3ee6e80c008e65713d5f18e92469cf3db1699a2a08b716
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_house_cellar-v1.webp
+    sha256: 94928d44bdac1213a318e70d2181995008991014fd03a190ddb4e2968fe281ef
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_john_hay_library:
     kind: scene_background
     relates_to:
     - john_hay_library
     - providence_athenaeum
-    status: planned
+    status: review
     batch: later
     output: bg_john_hay_library-v1.webp
     size:
@@ -128,17 +151,38 @@ items:
       英国文艺复兴风格以大理石建成，其规模对于容纳庞大的藏书而言已经显得过于狭小。一楼的公共区\n域包括了一个狭长的阅览室，摆放有书架与各种期刊。在二层是哈里斯藏书室，包括有一个堆叠了两\n\
       15 \n幽暗之门 \n层柴火的带有铭刻的壁炉。而三楼则拥有一个稀有藏书室，一片巨大的展览区与特殊收藏区，其中包\n括了雷德的关于罗德岛历史的藏书。 \n\
       普罗维登斯文献馆：这座私人图书馆位于贝涅福大街251号，于1838年以漂亮的希腊复古式风格建\n成。这座图书馆内藏有许多历史文献，但要查阅它们需要缴纳15美元以取得会员资格。\
-      \ \n以下是可能找到的线索。 \n\n"
-    references: []
+      \ \n以下是可能找到的线索。 \n\n\nPRIORITY COMPOSITION: Shared generic period research reading\
+      \ room, no signs or distinguishing building facade; do not combine two buildings\
+      \ literally.\nReference image is STYLE ONLY. Do NOT copy house furniture/architecture\
+      \ into underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 75ab60ac4f5253d73f3b976e4a632b69e3592e78db4a11870e00e817c33d2517
-    attempts: []
+    input_fingerprint: 0a2a02f2f40520a8246dcb4df59c789f82afa152010b8cf0253e502ef565096e
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_john_hay_library-v1.webp
+    sha256: 7ee13bd4d9ad58c612ad721ca88ce2b296672c2d3e534a63d62c0d7af9e7a115
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_old_tunnel:
     kind: scene_background
     relates_to:
     - old_tunnel
     - descending_passage
-    status: planned
+    status: review
     batch: later
     output: bg_old_tunnel-v1.webp
     size:
@@ -170,16 +214,37 @@ items:
       功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
       识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
       蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
-      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n"
-    references: []
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n\nPRIORITY COMPOSITION:\
+      \ Depict only the named environmental location; empty of all living beings.\n\
+      Reference image is STYLE ONLY. Do NOT copy house furniture/architecture into\
+      \ underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: ac49af9ab3f4a13c3d800ddb109754e27c37ed19addade778b571b858ee3760e
-    attempts: []
+    input_fingerprint: 90062b8f3c7693efad7fab36a31866ca1ef28423d61004d9449f9332719eaccc
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_old_tunnel-v1.webp
+    sha256: cbc7bce6a4e1a97a491d1ce79a24ef3d2d676d62d3cccfbd1d0b7529fffb5bd5
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_river_brick_wall:
     kind: scene_background
     relates_to:
     - river_brick_wall
-    status: planned
+    status: review
     batch: later
     output: bg_river_brick_wall-v1.webp
     size:
@@ -202,16 +267,37 @@ items:
       功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
       识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
       蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
-      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n"
-    references: []
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n\nPRIORITY COMPOSITION:\
+      \ Focus on the sealed brick wall within old drainage tunnel. No riverside exterior.\n\
+      Reference image is STYLE ONLY. Do NOT copy house furniture/architecture into\
+      \ underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 199d151d3d3cb4b1feec25c8b8dc4291906e765bfeb2324a7354e321a6ea7d9a
-    attempts: []
+    input_fingerprint: caa0e4a9fcadc9017e72d8e2543e22958d528492b8bf343d5a81f83fc6829f9d
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_river_brick_wall-v1.webp
+    sha256: 3fb3d1d37ddbafa867c8dc807f1e612c94779b7da58238792492d7fb32880162
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_entrance_hall:
     kind: scene_background
     relates_to:
     - entrance_hall
-    status: planned
+    status: review
     batch: later
     output: bg_entrance_hall-v1.webp
     size:
@@ -232,16 +318,37 @@ items:
       有大约50英尺的部分已经崩塌，那上面曾有的任何雕刻与信息都已经不复存在。 \n成功的考古学检定只能揭示出这些雕刻极其古老，其年代可能比至今发现的最古老的洞穴壁画都要久\n\
       远，其风格与技艺也同样远超过目前已发现的原始艺术。蛇的图案在这些雕刻中占据了主导地位，其中有\n一些巨大无比。某些蛇的图案重复出现了多次，其可能具有某种符号象征意义，许多被雕刻得更为精致的\n\
       蛇的额头上皆装饰有一轮白色的新月图案。抽象的几何图形、曲线与螺旋环绕在蛇形的雕刻旁。某些这样\n的曲折、盘卷与不断重复的雕刻看起来就像是某种文本。一个成功的克苏鲁神话技能检定能够揭示出这些\n\
-      词汇像是阿克洛语*，一种据称来自人类时代以前的神秘语言。 \n*Aklo 蛇人的语言 \n幽暗之门 \n\n"
-    references: []
+      词汇像是阿克洛语*，一种据称来自人类时代以前的神秘语言。 \n*Aklo 蛇人的语言 \n幽暗之门 \n\n\nPRIORITY COMPOSITION:\
+      \ Depict only the named environmental location; empty of all living beings.\n\
+      Reference image is STYLE ONLY. Do NOT copy house furniture/architecture into\
+      \ underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 2b0704df6409f081bf6995e7c80963f3cc676d8b288cd280e7234baff10e8a44
-    attempts: []
+    input_fingerprint: 53ffbe05a0f802155e44abb24bba2975511d2e0f11955d768f5b77538e9c12b8
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_entrance_hall-v1.webp
+    sha256: 46eff54d7e89f5abd6aecdd061826f853d6bb76e9d1d62a06db80f2db62457f7
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_history_hall:
     kind: scene_background
     relates_to:
     - history_hall
-    status: planned
+    status: review
     batch: later
     output: bg_history_hall-v1.webp
     size:
@@ -259,16 +366,37 @@ items:
       \ \n这个长而扭曲的房间装饰有大量精心的雕刻。其中同样包含了蛇形与几何图案，还有一系列的壁画。\n首先是一系列的景观主题的雕刻，刻有高塔与其他各类建筑。身着长袍的蛇形人物被刻画为正在进行各种\n\
       祭祀活动。一些图像展现了它们正在崇拜一条额头上饰有新月图案的巨蛇，其他雕刻则展现了蛇人与它们\n的城市正被巨大的爬行类动物袭击。一个成功的知识检定可以辨认出那些爬行类的庞然大物正是各种恐\n\
       龙，其中包括了掳走无助的蛇人的翼手龙。这个来自远古的对恐龙的明确记载会造成一个理智检定\n（0/1d3 理智值损失）。壁画最终的场面描绘了蛇人将他们在地面上的城市抛弃给了爬行类动物并逃入了\n\
-      地底，在那里建造了新的家园。 \n\n"
-    references: []
+      地底，在那里建造了新的家园。 \n\n\nPRIORITY COMPOSITION: Depict only the named environmental\
+      \ location; empty of all living beings.\nReference image is STYLE ONLY. Do NOT\
+      \ copy house furniture/architecture into underground scenes. Match realistic\
+      \ painterly material detail, restrained ochre and charcoal and readable darks.\
+      \ Render single wide landscape 16:9, no panels, no letters, no UI. No human,\
+      \ NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: f7adc4faf99ac195987190d425de42e616aced02d20a8614c748bc6446d31d21
-    attempts: []
+    input_fingerprint: a9f7b0051321426069bc4f9e1206edcefca688fd4bbae8121d2e8c809ab19e11
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_history_hall-v1.webp
+    sha256: 877b52578ea21cc1d5b1a985b19435607be3f120baf36767adebd1e06569f861
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    review_note: 画面加入了火盆照明，正文主要以发光地衣照明；属于待审阅的美术偏差，未登记为已验收素材。
   bg_cliff:
     kind: scene_background
     relates_to:
     - cliff
-    status: planned
+    status: review
     batch: later
     output: bg_cliff-v1.webp
     size:
@@ -289,16 +417,36 @@ items:
       \ \n使用绳索：调查员们想必会带上一些绳子？如果没有人提到这一点，让他们进行一个幸运检定来看看\n是否有人记得。在旁边有一个坚固的钟乳石，足以固定住绳子，而且还能让调查员们在返回时也能借\n\
       助它爬上来。让每个调查员进行一个攀爬检定，他们在这次检定中获得一个奖励骰。如果成功，他们\n毫发无损地抵达了地面，呃如果失败，他们在绳索上失手打滑并即将坠落（受到2D6伤害），除非调\n\
       查员选择进行孤注一骰来重新抓住绳子。而如果在孤注一骰中失败，这意味着他坠落了下去并受到\n2D6伤害。一个思维敏捷的调查员可能会试图进行跳跃检定，如果他成功了，将他受到的伤害减半。\
-      \ \n23 \n幽暗之门 \n\n"
-    references: []
+      \ \n23 \n幽暗之门 \n\n\nPRIORITY COMPOSITION: Depict only the named environmental\
+      \ location; empty of all living beings.\nReference image is STYLE ONLY. Do NOT\
+      \ copy house furniture/architecture into underground scenes. Match realistic\
+      \ painterly material detail, restrained ochre and charcoal and readable darks.\
+      \ Render single wide landscape 16:9, no panels, no letters, no UI. No human,\
+      \ NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 741692fc2fc58c624884dc2736b8ef0a667947ed082f3ace186591332f4d56b1
-    attempts: []
+    input_fingerprint: dec306133c493020165f52073e8db9eff909bffcf40635af3a2bbc3ee8c33555
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_cliff-v1.webp
+    sha256: cc27e4530b6277a67e4bca5d487b1d2cb12db09da433a728d2c6b44cf0f61ba8
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_music_room:
     kind: scene_background
     relates_to:
     - music_room
-    status: planned
+    status: review
     batch: later
     output: bg_music_room-v1.webp
     size:
@@ -319,18 +467,40 @@ items:
       风声。很快他们就能意识到这声响发自那些头颅，它们以轻声的低嚎进行着一场哀泣组成的合唱。 \n这些头颅都被改造过，其皮革质的外皮上刻有扭曲的符文。它们的眼睛紧闭，而在它们歌唱之时，其\n\
       嘴唇与喉咙处的肌肉仍会颤动。一些头颅看起来属于欧洲男性，而另一些则是来自非洲的男性与女性。自\n这些平和的头颅之中唱出的絮语般的歌声拥有一种美感，但目睹这一怪象仍然需要进行理智检定（1/1D4\n\
       理智值损失）。 \n如果有人坐在了椅子上，歌声会更加清晰而且更加完整。这与调查员之前曾经听过的任何旋律都不\n同。这首歌谣的非人本质足以让调查员的内心满溢恐惧，并引发进一步的理智检定（0/1理智值损失）。\
-      \ \n这个装置可以在调查员对其造成15点伤害之后被摧毁。应当注意的是，让装置唱出完整的歌曲或者\n试图摧毁它都会引来妖鬼的注意。 \n\n"
-    references: []
+      \ \n这个装置可以在调查员对其造成15点伤害之后被摧毁。应当注意的是，让装置唱出完整的歌曲或者\n试图摧毁它都会引来妖鬼的注意。 \n\n\nPRIORITY\
+      \ COMPOSITION: First-entry distant view. Only bronze pipes, sparkling embedded\
+      \ crystals and strange stone chair. Hide the heads at distant shadowed upper\
+      \ tips; NO identifiable heads, corpses or gore.\nReference image is STYLE ONLY.\
+      \ Do NOT copy house furniture/architecture into underground scenes. Match realistic\
+      \ painterly material detail, restrained ochre and charcoal and readable darks.\
+      \ Render single wide landscape 16:9, no panels, no letters, no UI. No human,\
+      \ NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 07f7e3061ff023772cfdf6b475c3fdb29c7f2829128081e665ff6a8598147fb6
-    attempts: []
+    input_fingerprint: 4b96ecb9acfc7cac1d26628e84eabfb39f9526bfe1109042763585768e8785d2
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_music_room-v1.webp
+    sha256: f330e38ac5f6af982ebfe71f7ee0766b7d7763227e122259b73936a729ac0cc1
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_nest_west:
     kind: scene_background
     relates_to:
     - nest_west
     - nest_east
     - nest_south
-    status: planned
+    status: review
     batch: later
     output: bg_nest_west-v1.webp
     size:
@@ -353,16 +523,37 @@ items:
       如果调查员们有机会搜索退化人的巢窟，让他们进行一个侦查检定以找到一份被用力刻在岩壁上的遗\n书（见展示材料：暗影2） \n\n\nstory.md#degenerate-nest\n\
       \n巢窟 \n一系列互相连接的空间被用作退化人的巢穴。这里肮脏、难闻而且堆满了骨头与垃圾。 \n总是有数个退化人蜷缩在这里的某个角落休息或进食。它们会野蛮地保护自己的领地与幼崽，但武力\n\
       可以吓退它们——比如重伤或干掉至少两个退化人又或者有人开了枪。退化人匆匆逃离的声响会吸引来妖\n鬼的注意力——更不用说枪声。 \n24 \n幽暗之门 \n\
-      如果调查员们有机会搜索退化人的巢窟，让他们进行一个侦查检定以找到一份被用力刻在岩壁上的遗\n书（见展示材料：暗影2） \n\n"
-    references: []
+      如果调查员们有机会搜索退化人的巢窟，让他们进行一个侦查检定以找到一份被用力刻在岩壁上的遗\n书（见展示材料：暗影2） \n\n\nPRIORITY COMPOSITION:\
+      \ Depict only the named environmental location; empty of all living beings.\n\
+      Reference image is STYLE ONLY. Do NOT copy house furniture/architecture into\
+      \ underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 1004a742e080154a7482448739dd55952eb545bdbeb12a35a2531cb81f9b963c
-    attempts: []
+    input_fingerprint: f3ea36b11fc609c792a1f88d623cc6ba12a9e43ad8495279fb08e95fcb930724
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_nest_west-v1.webp
+    sha256: 85da51dc25ffa2fc4112385291bac78165be660dff96904e9ace2cddbb807d27
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_pit_corridor:
     kind: scene_background
     relates_to:
     - pit_corridor
-    status: planned
+    status: review
     batch: later
     output: bg_pit_corridor-v1.webp
     size:
@@ -380,16 +571,37 @@ items:
       匆匆地行进，他们需要一个成功的侦查检定来避免掉进这个10尺高的陷坑里并受到1D6点伤害。碎石遍\n地的陷坑内部大约有20*30英尺，墙上对调查员们来说无比熟悉的雕刻证明了它曾经与很多如今已被堵塞\n\
       的洞穴向连通。对于调查员来说独自爬出这个陷坑有些困难（困难难度的攀爬检定，在有人帮助的情况下\n则是普通难度）。一个在陷坑上方的调查员可以放下一条绳子或伸出手拉下面的调查员一把（使用绳子可\n\
       以给攀爬检定提供一个奖励骰）。 \n陷坑的边缘大约有三英尺宽，可以借助它小心地绕过陷坑走到另一侧。任何在陷坑旁进行战斗的人都\n必须进行一个敏捷检定来避免滑进或被击飞进陷坑里。\
-      \ \n\n"
-    references: []
+      \ \n\n\nPRIORITY COMPOSITION: Pre-discovery view: ordinary dim broad stone passage.\
+      \ Do not reveal the pit, opening, spikes or trap. Visual is not proof of a safe\
+      \ floor.\nReference image is STYLE ONLY. Do NOT copy house furniture/architecture\
+      \ into underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: ffedc54ea7972ed973ed065f40c6b50862292d81127b4c574ddfc7fd40c05ccf
-    attempts: []
+    input_fingerprint: 3cf597c62dc2f607f85fc0a05eb51d4d262ab03d49ae6475356e16a27a003c5e
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_pit_corridor-v1.webp
+    sha256: d68f7c6061c7238a0a6322e09c9d9891d2ba5bec9f9022b656131580f1c32037
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_fungus_area:
     kind: scene_background
     relates_to:
     - fungus_area
-    status: planned
+    status: review
     batch: later
     output: bg_fungus_area-v1.webp
     size:
@@ -410,16 +622,36 @@ items:
       人同样会四散而逃。 \n在这里种植的真菌只有一部分是被用于其它明确用途的，剩余的大部分都是被用于斯西亚·瑞斯的实验\n（专门针对其有毒的特性进行了培育）。尝试吃下某种真菌的调查员必须进行一个幸运检定，成功意味着\n\
       他选择的是一种不可食用但至少无害的真菌，而失败则说明他吃下的真菌是有毒的。吃下有毒真菌的调查\n员需要进行一个体质检定，如果他失败了，在1D4小时后，他会开始呕吐、抽搐并受到1D10点伤害（腹\n\
       痛会一直持续1D4+1小时）。而成功的调查员则需要在1d4小时后忍受胃部的绞痛并受到1D5点伤害\n（如果是极难成功，则不会受到伤害）。严格的守秘人可能会让那些在体质检定中失败（并且活了下来）\n\
-      的调查员在所有技能检定上承受一个惩罚骰直到所有的毒素被排出（1D4小时后）。 \n\n"
-    references: []
+      的调查员在所有技能检定上承受一个惩罚骰直到所有的毒素被排出（1D4小时后）。 \n\n\nPRIORITY COMPOSITION: Depict only\
+      \ the named environmental location; empty of all living beings.\nReference image\
+      \ is STYLE ONLY. Do NOT copy house furniture/architecture into underground scenes.\
+      \ Match realistic painterly material detail, restrained ochre and charcoal and\
+      \ readable darks. Render single wide landscape 16:9, no panels, no letters,\
+      \ no UI. No human, NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: c24ef79b9e04dd29de7a3e5f8f77b0c0e9924042d939f4088c10d31c62ab2196
-    attempts: []
+    input_fingerprint: c47bded0360b01d19ccf874188b59c945c72156faeb2e3b22a80288093f0b271
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_fungus_area-v1.webp
+    sha256: de9c35e15ea087a37f226f75b8fa52b2001725774493f82d8154893cf5e82a13
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_temple_of_yig:
     kind: scene_background
     relates_to:
     - temple_of_yig
-    status: planned
+    status: review
     batch: later
     output: bg_temple_of_yig-v1.webp
     size:
@@ -437,16 +669,38 @@ items:
       蛇父神殿 \n25 \n幽暗之门 \n这个洞窟被一个巨大的天然石柱占据了大部分空间，这座石柱被雕刻成了一只庞大而盘卷的蛇的形\n象，在这只巨蛇的前额上有一个由苍白的宝石构成的白色新月符号。而在巨蛇之前则是一个沾染了暗色的\n\
       痕迹（血迹）的大祭坛，其上装饰有复杂的几何图案与符文。球形的金色香炉坐落在祭坛两侧，全都散发\n着芳香的烟云。 \n探索神殿的调查员们需要进行一个意志检定，成功的调查员会被蛇父伊格赐予其幻境。这个幻象展现\n\
       为无数不同种类的蛇从巨蛇雕像的口中喷涌而出，每一条蛇的前额上都有一个白色新月图案。被惊呆的调\n查员会很快被翻滚的蛇群所吞没，但他们并不会遭受蛇咬或紧缠，蛇群只会爬上他们的皮肤，吐着蛇信。\n\
-      紧接着，一条巨大的蛇信会穿过蛇群，舔舐着调查员。目睹这个幻象需要进行一个理智检定（1/1D4理智\n值损失）但同样也会获得2点克苏鲁神话技能。 \n\n"
-    references: []
+      紧接着，一条巨大的蛇信会穿过蛇群，舔舐着调查员。目睹这个幻象需要进行一个理智检定（1/1D4理智\n值损失）但同样也会获得2点克苏鲁神话技能。 \n\n\
+      \nPRIORITY COMPOSITION: Only stone serpent pillar statue with pale crescent\
+      \ gem, altar with subtle dark old stains and two incense burners. No actual\
+      \ snakes, visions, sacrificed people or active magic.\nReference image is STYLE\
+      \ ONLY. Do NOT copy house furniture/architecture into underground scenes. Match\
+      \ realistic painterly material detail, restrained ochre and charcoal and readable\
+      \ darks. Render single wide landscape 16:9, no panels, no letters, no UI. No\
+      \ human, NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 9b43ae5c568deb129eeff8368171827fc1139accc59a39e4ec3e41a88910056d
-    attempts: []
+    input_fingerprint: 54e2446343c3340efb000613b7408e7fa6341822d9dee1359152bead0cdfc785
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_temple_of_yig-v1.webp
+    sha256: 8b2375f028cbdf7818dcabfe3531b651077bc431cf83fac9c8cdc720dce0a327
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_hibernation_chamber:
     kind: scene_background
     relates_to:
     - hibernation_chamber
-    status: planned
+    status: review
     batch: later
     output: bg_hibernation_chamber-v1.webp
     size:
@@ -466,17 +720,39 @@ items:
       备，因此在被从茧中放出后会很快死去。把所有的茧都切开需要花费数分钟的时间，而且有可能引来妖鬼\n的注意。这些茧同样极其易燃，一旦里面的液体被点燃就会释放出令人窒息的毒气。除非调查员预料到了\n\
       这一点并屏住了呼吸，否则他们必须在第一轮进行一个体质检定来防止吸入毒气。如果在检定中失败，他\n们会开始因为有毒的烟雾而开始窒息，受到1D4点伤害。在此之后暴露在毒气中的每一轮都需要进行一个\n\
       体质检定（并且同样会在失败后受到1D4点伤害）。除非有妖鬼堵住了他们的去路，否则调查员们只需花\n费两轮时间就能逃离毒气。那些聪明的调查员会计划在点火后立即撤离（需要一个敏捷检定），这样同样\n\
-      可以避开毒气。 \n\n"
-    references: []
+      可以避开毒气。 \n\n\nPRIORITY COMPOSITION: Hanging translucent yellow cocoons and one\
+      \ opened empty brown cocoon; contained shapes indistinct, not explicit humanoid\
+      \ figures, no escaped monsters. No exact count claim from image.\nReference\
+      \ image is STYLE ONLY. Do NOT copy house furniture/architecture into underground\
+      \ scenes. Match realistic painterly material detail, restrained ochre and charcoal\
+      \ and readable darks. Render single wide landscape 16:9, no panels, no letters,\
+      \ no UI. No human, NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 295b848c94a8d7d0cd1bdebfc66c1bcb97f168d02a0555389254478ba1568fc1
-    attempts: []
+    input_fingerprint: 12e1d3208dcd49909ba0cfbeed3878e98711af3d96257276c4b6cb453373bac7
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_hibernation_chamber-v1.webp
+    sha256: 390a8ad12b238fccfecb9d37094ccb3a59fd37dac94decb318efb30cf474588a
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    review_note: 画面茧的可见数量不是正文21个的替代计数；实际数量以模组为准。
   bg_serpent_lair:
     kind: scene_background
     relates_to:
     - serpent_lair
     - living_area
-    status: planned
+    status: review
     batch: later
     output: bg_serpent_lair-v1.webp
     size:
@@ -527,16 +803,38 @@ items:
       \ \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。\
       \ \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n\
       或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n（失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n\
-      向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。 \n \n\n"
-    references: []
+      向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。 \n \n\n\nPRIORITY COMPOSITION: Focus\
+      \ ONLY private living area: worn hides and leather cushions, hot spring, humid\
+      \ tropical warmth. No laboratory, cages, gong or portal in this image.\nReference\
+      \ image is STYLE ONLY. Do NOT copy house furniture/architecture into underground\
+      \ scenes. Match realistic painterly material detail, restrained ochre and charcoal\
+      \ and readable darks. Render single wide landscape 16:9, no panels, no letters,\
+      \ no UI. No human, NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 4f5b4a38b6acf7802e542d3309d424351463040b70fb16510bc9fa4475638199
-    attempts: []
+    input_fingerprint: 0d2d8b6ade88dca96586dbbb121ba62455c68a6a7f92ca95d44d3edeffc4aae7
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_serpent_lair-v1.webp
+    sha256: d8b64b3ed1bd82c1aa2e1660598599af68521b7e38e0cd722ac9c87846e96fbd
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    review_note: 植物、灯具和额外陈设为美术解释；正文潮湿热带氛围不等于存在具体植物，待审阅。
   bg_cage_area:
     kind: scene_background
     relates_to:
     - cage_area
-    status: planned
+    status: review
     batch: later
     output: bg_cage_area-v1.webp
     size:
@@ -569,16 +867,37 @@ items:
       锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
       在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
       （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
-      \ \n \n\n"
-    references: []
+      \ \n \n\n\nPRIORITY COMPOSITION: Focus ONLY closed iron-barred alcove inside\
+      \ warm stone cavern. Cage empty for separate NPC layers; no captives, infants\
+      \ or creatures.\nReference image is STYLE ONLY. Do NOT copy house furniture/architecture\
+      \ into underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: b7cffc849190cf537f0689a6c943560856671579f25ad1a400e445be4141fd4e
-    attempts: []
+    input_fingerprint: 2fc566a75b04220191a8b2692fc9f21e2a18b03c5712cc75924939682b417978
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_cage_area-v1.webp
+    sha256: a7f7cf4d7c4bc9e2abc3aa40ba6aa3e1d8a7c677816aeab267227a8911882463
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_laboratory:
     kind: scene_background
     relates_to:
     - laboratory
-    status: planned
+    status: review
     batch: later
     output: bg_laboratory-v1.webp
     size:
@@ -611,16 +930,37 @@ items:
       锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
       在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
       （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
-      \ \n \n\n"
-    references: []
+      \ \n \n\n\nPRIORITY COMPOSITION: Focus ONLY lab workspace with distillation\
+      \ glassware, retorts, scrolls with indistinct markings, bronze gong. No cage,\
+      \ living area or magical portal.\nReference image is STYLE ONLY. Do NOT copy\
+      \ house furniture/architecture into underground scenes. Match realistic painterly\
+      \ material detail, restrained ochre and charcoal and readable darks. Render\
+      \ single wide landscape 16:9, no panels, no letters, no UI. No human, NPC, creature\
+      \ or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 164940cff1c90519befc2dfb14bb2151e0c6b754fdd07821c04d241c5088c522
-    attempts: []
+    input_fingerprint: 6b49b5ead92e700892c6903fb8de6b3b1e0593a9aaee9077eed30d51cce51584
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_laboratory-v1.webp
+    sha256: 376c924afcd3dec4cc192d95d05f803e5da73941f2c482a16de252e64c14d48f
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   bg_portal_area:
     kind: scene_background
     relates_to:
     - portal_area
-    status: planned
+    status: review
     batch: later
     output: bg_portal_area-v1.webp
     size:
@@ -653,16 +993,38 @@ items:
       锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
       在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
       （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
-      \ \n \n\n"
-    references: []
+      \ \n \n\n\nPRIORITY COMPOSITION: Unactivated concealed doorway: plain cavern\
+      \ rock face with subtle shallow spiral carvings. No glowing portal, magical\
+      \ gateway arch, light vortex or revealed function.\nReference image is STYLE\
+      \ ONLY. Do NOT copy house furniture/architecture into underground scenes. Match\
+      \ realistic painterly material detail, restrained ochre and charcoal and readable\
+      \ darks. Render single wide landscape 16:9, no panels, no letters, no UI. No\
+      \ human, NPC, creature or silhouette baked in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: 7505eafd6c8168ab668b3a9bf1c08cca739a2fbc7653ede9cfdcdfe3e956fa39
-    attempts: []
+    input_fingerprint: c28b34e686a8012b4c3b352a2507223a370c5ec634a6e9796705b277b4c08646
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_portal_area-v1.webp
+    sha256: 6558e1d8d89a490ab7866ef66b1bfaeda6bc4b579be9a96a40d9ac5da9445e4b
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
+    review_note: 画面将螺旋刻纹集中成矩形区域，可能提示隐藏门位置；实际展示前需评估剧透风险，未登记为已验收素材。
   bg_portal_exit_cavern:
     kind: scene_background
     relates_to:
     - portal_exit_cavern
-    status: planned
+    status: review
     batch: later
     output: bg_portal_exit_cavern-v1.webp
     size:
@@ -695,16 +1057,37 @@ items:
       锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
       在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
       （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
-      \ \n \n\n"
-    references: []
+      \ \n \n\n\nPRIORITY COMPOSITION: Only unoccupied natural exit cavern leading\
+      \ toward daylight and a river, plain rock with subtle spiral carvings, no active\
+      \ magic.\nReference image is STYLE ONLY. Do NOT copy house furniture/architecture\
+      \ into underground scenes. Match realistic painterly material detail, restrained\
+      \ ochre and charcoal and readable darks. Render single wide landscape 16:9,\
+      \ no panels, no letters, no UI. No human, NPC, creature or silhouette baked\
+      \ in."
+    references:
+    - assets/bg_winscott_house-v1.webp
     reuse_of: null
-    input_fingerprint: ed0601723d940f5dd83a5bde977e56c0f1efdab3a7d988163472f81fac418605
-    attempts: []
+    input_fingerprint: 09ac316e9a741188a6ebf8c6b9216acccaace92e2bf5fd29a8d0f4d358892e3b
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1672
+      - 941
+      original_mode: RGB
+    candidate_file: bg_portal_exit_cavern-v1.webp
+    sha256: 130b8de78579ae4cd4d7822a3217a544f9e99177cede6a5c32fe6c76eeb87f7c
+    anchor:
+    - 0.5
+    - 0.5
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   sprite_josh_base:
     kind: npc_sprite
     relates_to:
     - josh
-    status: review
+    status: accepted
     batch: sample
     output: sprite_josh_base-v1.png
     size:
@@ -730,14 +1113,14 @@ items:
     references:
     - assets/sprite_josh_base-attempt1.png
     reuse_of: null
-    input_fingerprint: d0a89b92f6810dcb646775103dd54d312bc98cb7edb16083b58759fa71e14462
+    input_fingerprint: ef3f3b37cd445bc90ef6889c6db541cb2e80b60592df6a7fdeb3b44a180c416f
     attempts:
     - tool: Codex built-in imagegen
       outcome: review
       note: Generated candidate; pending user style selection. Background export uses
         aspect-preserving contain and minimal edge padding; sprite alpha verified.
     - tool: Codex built-in imagegen
-      outcome: review
+      outcome: accepted
       note: 'Edit original Josh image: remove background and glow, genuine alpha zero
         outside silhouette; preserve face, hairstyle, clothing, pose, colors and anatomy.
         Full hands and upper thighs, 1024x1536, no painted checkerboard.'
@@ -745,11 +1128,12 @@ items:
     sha256: bad5eba3be7b06e93e12c91ae3432f0e347eaf330200e85a5cdbbba921dcb2ff
     artistic_additions: Age about 40, hair, face and outfit are artistic interpretation;
       not specified in source.
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   sprite_ssyaa_hrisss_base:
     kind: creature_sprite
     relates_to:
     - ssyaa_hrisss
-    status: planned
+    status: review
     batch: later
     output: sprite_ssyaa_hrisss_base-v1.png
     size:
@@ -767,16 +1151,37 @@ items:
       \ \n格斗 50%（25/10） 伤害1D3（或刀，1D6） \n咬   35%（17/7） 伤害1D8+毒素* \n闪避 35%（17/7） \n\
       *毒素：受害者必须在极难体质检定中成功或承受+1D8伤害 \n技能 \n恐吓65%，聆听40%，科学（生物学70%，化学90%），侦查45%，潜行50%。\
       \ \n语言：英语60% \n护甲：1-鳞片 \n法术：酿造黄金蜂蜜酒，透特之咏，记忆模糊术、迷身术、精神震爆术、折磨术 \n理智损失：直视蛇人损失0/1D6点理智值。\
-      \ \n"
-    references: []
+      \ \n\nAn ancient intelligent serpent-headed bipedal scientist with reptilian\
+      \ scales, clawed hands, yellow reptile eyes, simple worn non-modern draped work\
+      \ garment; not a human face or naga with snake tail. Cosmetic anatomy/color/garment\
+      \ details are artistic interpretation, not new rules. Full body including feet\
+      \ and hands with 8% transparent margin.\nReference image is STYLE ONLY: same\
+      \ restrained painterly rendering as Josh, do not copy his human identity. TRUE\
+      \ TRANSPARENT alpha background."
+    references:
+    - assets/sprite_josh_base-v1.png
     reuse_of: null
-    input_fingerprint: e1357d90c208d20a6e268e911b6aa8f0ea70526d7be80aea5d25bbddaed1e116
-    attempts: []
+    input_fingerprint: e15fe433a62aae66b063e3d7187f7e734b127a3761ee5b06c35d46c63a7bf000
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1024
+      - 1536
+      original_mode: RGBA
+    candidate_file: sprite_ssyaa_hrisss_base-v1.png
+    sha256: 30083de83fd1d2001496da26ebcbf973eff1ec13a35ba7f8cfeec8d666d5b39d
+    anchor:
+    - 0.5
+    - 1.0
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   sprite_degenerate_base:
     kind: creature_sprite
     relates_to:
     - degenerate
-    status: planned
+    status: review
     batch: later
     output: sprite_degenerate_base-v1.png
     size:
@@ -793,16 +1198,37 @@ items:
       \ \n20 \nDEX \n（1D6+1 *5） \n70 \n（4D6 *5） \nINT \n20 \nPOW \n（1D6 *5） \n45 \n\
       （2D6+2 *5） \nHP：5 \n30 \n幽暗之门 \n平均伤害加成：-1 \n平均体格：-1 \n移动：9 \n理智损失：直视退化人损失0/1D4理智。\
       \ \n战斗 \n每轮攻击：1（爪、拳击或棍棒） \n格斗 40%（20/8）,伤害1D3-1 \n棍棒 40%（20/8），伤害1D6-1 \n闪避\
-      \ 40%（20/8） \n技能 \n攀爬60%，跳跃60%，潜行50%，偷东西60% \n\n"
-    references: []
+      \ 40%（20/8） \n技能 \n攀爬60%，跳跃60%，潜行50%，偷东西60% \n\n\nSource story.md#degenerates:\
+      \ a small adult subterranean degenerated humanoid, agile, wiry, primitive and\
+      \ cave adapted; cover torso/hips with rough ragged garment, nonsexual, non-graphic,\
+      \ no injuries or victims. Cosmetic skin/hair/outfit are artistic interpretation;\
+      \ no ethnicity associations. Full body with complete hands and feet and 8% transparent\
+      \ margin.\nReference image is STYLE ONLY: match restrained painterly rendering,\
+      \ not human identity. TRUE TRANSPARENT alpha."
+    references:
+    - assets/sprite_josh_base-v1.png
     reuse_of: null
-    input_fingerprint: cda4fc1cd90a412b8231c819e2c5716c49eb898b26d08bd031904d619331a954
-    attempts: []
+    input_fingerprint: f78752cb6edfe344ae1420f373aee13bbf054314afb640441a1b5a1c986ef807
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1024
+      - 1536
+      original_mode: RGBA
+    candidate_file: sprite_degenerate_base-v1.png
+    sha256: d208f1e6da626973baaaaf3eda6711c5bb0f76ddffc68a67745e96679cc27b74
+    anchor:
+    - 0.5
+    - 1.0
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
   sprite_ghast_base:
     kind: creature_sprite
     relates_to:
     - ghast
-    status: planned
+    status: review
     batch: later
     output: sprite_ghast_base-v1.png
     size:
@@ -817,8 +1243,29 @@ items:
       \ readable pose; no variants or extra individuals. Source story.md#ghast-statblock:\n\
       \n妖鬼，可憎的监工 \nSTR110 CON70 SIZ130 DEX65 INT15 \nAPP--- POW5O EDU--- SAN-- HP：20\
       \ \n伤害加成：+2D6 体格：3 MOV 10 MP：10 \n战斗 \n每轮攻击：2（爪、拳击或咬） \n格斗 45%（22/9），伤害1D6+2D6\
-      \ \n闪避 35%（17/7） \n技能 \n聆听60%，潜行70%。 \n护甲：无 \n\n"
-    references: []
+      \ \n闪避 35%（17/7） \n技能 \n聆听60%，潜行70%。 \n护甲：无 \n\n\nSource story.md#ghasts: massive\
+      \ powerful bipedal underground beast with cloven hooves, clawed arms, grotesque\
+      \ vaguely humanoid head and no external ears or nose (artistic interpretation\
+      \ of ghast). No wings, no horns or demon armor, no blood/victims, clothed loins\
+      \ nonsexual. Full silhouette including hooves within 8% transparent margin.\n\
+      Reference image is STYLE ONLY: match restrained painterly rendering, not human\
+      \ identity. TRUE TRANSPARENT alpha."
+    references:
+    - assets/sprite_josh_base-v1.png
     reuse_of: null
-    input_fingerprint: 292550591caf36d73760ec15cd786d59c8dc823a629da23fd97e5a327f2726f4
-    attempts: []
+    input_fingerprint: 16a7dd8d8508d1cf6b3e5fef8bb97d8f79fba90735d80aea394772c2dc8e78d3
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated from approved sample style; pending per-image visual QA. Aspect-preserving
+        contain export, minimal padding; no stretching.
+      original_size:
+      - 1024
+      - 1536
+      original_mode: RGBA
+    candidate_file: sprite_ghast_base-v1.png
+    sha256: 8d0563945cced2c0b8e66ac97f8848a258a8bafcf0039dabf2f42fc415470110
+    anchor:
+    - 0.5
+    - 1.0
+    visual_review: 已检查生成画面与格式；新批次仍保留 review 待用户审阅。具体器具、衣饰、建筑结构和光照为美术解释，不增加剧情或规则事实。
