@@ -26,6 +26,7 @@ frontend/src/api/modules.ts 是前端分页适配入口，目前从 data/modules
 - backend/data/characters/<id>：新增预设调查员的 YAML、Markdown 与头像，按 ID 独立组织，无 manifest；格式见该目录 README。模板与游戏存档分开，目前未接入运行时。旧 backend/characters 下的 Excel 路径保留。
 - backend/saves 与 output：本地状态与生成结果，Git 忽略。
 - docs/evaluation 与 history：归档的评估和历史依据，不作为运行输入。
+- skills/coc-character-card-import：可独立安装的 CoC 角色卡导入技能；自带格式说明和辅助脚本，不导入游戏实现，不属于运行时链路。
 
 当前 Agent 通过现有 SQLite 适配统一保存角色与剧情。它是本地单玩家演示，不是已完成的多人数据库方案。
 接 HTTP 游戏接口前必须明确 SQLite 连接的线程归属、KeeperService 生命周期、请求并发、game_id 隔离和关闭流程，不能直接把一个 CLI 实例放进任意线程池。

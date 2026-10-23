@@ -75,3 +75,23 @@ npm run build
 - [结构迁移记录](docs/history/structure-migration.md)
 
 《岭下暗影》的完整正文、结构化资料和附件见[模组内容包](backend/data/modules/darkness-beneath-the-hill/README.md)。当前用于内容审阅，尚未接入 CLI 或网页游戏。
+
+## 可安装的角色卡导入 Skill
+
+[coc-character-card-import](skills/coc-character-card-import/SKILL.md) 把单张或批量 CoC 角色卡图片转为 character.yaml、background.md 和裁切头像。格式说明、虚构示例与脚本均在技能目录内，不需要本项目代码或历史对话。Python 辅助脚本使用 Pillow、PyYAML，依赖在独立环境安装，不修改使用者的项目。
+
+技能位于标准的 `skills/<name>/SKILL.md` 布局，可由 [skills CLI](https://github.com/vercel-labs/skills) 发现。发布到 GitHub 默认分支后，任何有仓库读取权限的人可以运行：
+
+```sh
+npx skills add FOC4869/TRPG-kp-agent
+# 仓库有多个技能时，可明确指定：
+npx skills add FOC4869/TRPG-kp-agent --skill coc-character-card-import
+```
+
+若仅发布在其他分支，需用该分支的 GitHub tree URL 作为来源；不能假定默认分支已经有此技能。安装器选择目标 agent、项目/全局范围；需要普通文件副本时加 `--copy`。只安装技能目录，不需要安装本项目后端/前端。安装后向支持技能的 agent 提供角色卡图片和输出目录，例如：
+
+```text
+使用 $coc-character-card-import，把这些角色卡导入到 ./data/characters。
+```
+
+本地开发可在目标项目中执行 `npx skills add /path/to/TRPG-kp-agent --skill coc-character-card-import --agent codex --copy`。个人 Codex 目录也可复制完整技能到 `$CODEX_HOME/skills/coc-character-card-import`（未设置 CODEX_HOME 时为 `~/.codex/skills/coc-character-card-import`）；已有目录时先处理冲突，不覆盖。仓库中的技能是维护源，安装副本不独立修改。
