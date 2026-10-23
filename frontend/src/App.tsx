@@ -60,7 +60,6 @@ function App() {
       {screen === 'home' ? (
         <main id="main" className="hero" tabIndex={-1}>
           <div className="hero-content">
-            <p className="eyebrow">A CALL INTO THE UNKNOWN</p>
             <div className="title-rule" aria-hidden="true"><span /></div>
             <h1><span>CoC</span><span>AI Keeper</span></h1>
             <h2 className="hero-subtitle">你的下一场调查，<br className="compact-break" />从这里开始。</h2>
