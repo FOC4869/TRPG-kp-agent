@@ -148,7 +148,7 @@ events:
     trigger: 对音乐装置累计造成15伤害
     on_success: 摧毁装置并引来妖鬼注意。
     object: head_music_device
-  degenerate_origin:
+  investigate_degenerate_origin:
     source:
       document: story.md
       anchor: degenerates
