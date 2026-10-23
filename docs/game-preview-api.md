@@ -1,0 +1,31 @@
+# 游戏页客户端适配草案
+
+2026-10-23。实际 HTTP 仍仅 GET /api/health；本文不是服务端已实现契约。
+
+## 当前入口
+
+`frontend/src/api/game.ts` 提供 `loadGamePreview(context, signal)` 与 `submitGameAction(context, action, signal)`。context 为 moduleId/investigatorId；action 为 requestId/text/kind。类型定义在 types/game.ts，组件不直接导入 fixture。
+
+初始化返回模组公开标题、既有假调查员展示资料、场景与 NPC 授权图片 URL、开场消息、空线索和行动建议。发送返回消息增量及本轮公开事实。消息以稳定 ID 去重，线索按事实 ID 去重；失败重试复用 requestId，避免重复添加玩家消息。mock 同一 requestId/输入返回相同固定内容，并不提供服务端幂等保证。
+
+当前回复是 data/game-preview.ts 的明确脚本样例，仅会面场景，未知行动提示预览范围。没有 LLM 理解、检定引擎、场景推进或真实游戏实例。设置中的 check-preview 返回一张固定聆听结果卡，不会实际掷骰、结算 HP/SAN 或发放物品。
+
+组件保留输入至成功响应；发送期间只读、防重复提交；失败允许原请求重试或编辑。20 秒超时可重试，卸载/切换上下文取消请求。Enter 发送、Shift+Enter 换行，composition/keyCode 229 防止中文输入法候选确认误发。刷新/离开会丢失本地预览，不使用 localStorage、SQLite 或其他存档。
+
+## 正式接入前
+
+- 先确定创建实例、game_id、模板快照、服务与数据库生命周期，再确认 HTTP/事件流地址。
+- 服务端拥有规则、场景、已揭示事实、资源与物品真相源；返回明确的消息、场景/NPC 变化和状态投影，不能由 UI 关键词推断。
+- 请求使用持久幂等键和期望版本，响应提供事件 ID/顺序；取消 HTTP 不等于取消服务端提交，超时重试必须先恢复提交结果，不能重掷骰。
+- 校验响应；区分错误、无权限、过期实例；流式需要去重、终止/恢复与超时策略。网络错误不静默替换成 mock。
+- 每个素材 URL 先经过本局/接收者授权，隐藏素材的标题、路径和缩略图也不能下发。场景背景与 sprite 独立，缺图降级不影响文字和行动。
+
+## 开场素材预览的限定
+
+用户在已审阅素材后要求实现开场页。本轮仅复制两张允许预览的图片到 frontend/public/images/game-preview：住宅背景与乔什基础立绘。来源/哈希见该目录 README；其余素材、角色原卡、YAML、正文与源提示词没有进入前端。不修改原模组 keeper_only，不把 accepted 等同于所有玩家可访问。
+
+这两张静态预览图不是正式素材授权 API 的实现；正式集成时移除静态副本，改用服务端按 game_id 授权的 URL。未增加跨 backend 目录的 Vite 静态访问。
+
+## 离线核对
+
+在 frontend 运行 `node scripts/check-game-preview.mjs`，检查无效上下文、副本隔离、取消、重复请求、输入边界、事实增量和固定检定，不调用任何模型或 HTTP。

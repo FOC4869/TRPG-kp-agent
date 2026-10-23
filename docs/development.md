@@ -112,3 +112,7 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py <m
 架构或边界变化记入 docs/decisions；影响开发入口的变更同步 README 和本指南。
 
 参考：[Vite 初始化](https://vite.dev/guide/)、[FastAPI 入口](https://fastapi.tiangolo.com/tutorial/first-steps/)、[uv 项目文件](https://docs.astral.sh/uv/concepts/projects/layout/)。
+
+## 游戏主界面预览
+
+从调查员确认进入开场游戏页。回复为离线固定脚本，不调用模型、不创建游戏/存档；刷新回到开场。`node scripts/check-game-preview.mjs` 验证客户端适配。浏览器验收独立背景/立绘、发送/等待/建议、内部滚动、五种抽屉、线索去重、键盘、无效上下文、返回/刷新与桌面/窄屏。真实错误/流式恢复与服务端幂等需正式接入后另验，见 game-preview-api.md。

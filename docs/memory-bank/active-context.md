@@ -1,5 +1,9 @@
 # 当前上下文
 
+2026-10-23：按用户要求移除游戏主界面侧栏的“存档 · 暂未开放”按钮，清理专用样式与 Lock 导入。
+
+2026-10-23：feat/gameplay-preview 从干净 design/frontend-ui 建立，实现开场游戏 UI。调查员确认进入 #/game，沿用所选假人物；住宅背景与乔什透明立绘分层，固定内部滚动对话、自由输入、建议、人物/物品/线索/记录/设置抽屉。api/game.ts 暂为固定离线回复，正式 HTTP/规则/存档未接；设置中的检定仅固定展示。仅两张已审阅开场图进入 frontend 静态预览允许清单，不改变原模组 keeper_only，未来必须由服务端按本局授权素材。接口草案 docs/game-preview-api.md，工作记录 docs/design/done/gameplay-preview.md。验证 npm ci/lint/typecheck/build、离线适配 smoke 和桌面/窄屏核心交互通过；无后端改动，未运行真实模型或重复后端单测。待正式游戏 HTTP、状态/素材授权与网络恢复。
+
 2026-10-23：用户明确通过新增素材审阅，24项生成素材全部accepted并登记assets/index.yaml（加9项原材料共33项）。重复ID已通过仅将事件degenerate_origin重命名为investigate_degenerate_origin解决，线索ID及事件clue引用保持原状；内容版本0.1.1，图像字节不改，旧生产指纹/索引归档assets/visual-approval-history-v1.json，核对仅ID区分后更新当前验收指纹。标准--complete校验通过，24项均skip；规则/地图/原始来源等既有issues保留，runtime_compatible仍false。
 
 2026-10-23：经用户要求，将 feat/coc-module-builder-skill 与 feat/darkness-visual-assets 合并到 design/frontend-ui；保留目标分支仓库清理与手动验证约定。合并仅上下文文档冲突，保留两侧记录。素材审阅状态和既有模组校验问题不因合并改变。

@@ -5,10 +5,11 @@
 
 ## 运行链路
 
-当前网页提供桌面首页、分页模组库／公开详情、假数据调查员选择与设置弹窗。这些页面独立于后端；打开设置时执行 React → Vite 的 /api 开发代理 → FastAPI GET /api/health。
-开始调查进入 #/modules；卡片选择更新详情，每页最多 3 项。可用模组进入 #/investigators?module=<id>，确认调查员显示案件/人物摘要，不创建游戏。继续调查禁用；网页不读写存档。
+当前网页提供桌面首页、分页模组库／公开详情、假数据调查员选择、开场游戏预览与设置弹窗。这些页面独立于后端；打开设置时执行 React → Vite 的 /api 开发代理 → FastAPI GET /api/health。
+开始调查进入 #/modules；卡片选择更新详情，每页最多 3 项。可用模组进入 #/investigators?module=<id>，确认调查员显示案件/人物摘要，再进入 #/game?module=<id>&investigator=<id>，不创建后端游戏。继续调查禁用；网页不读写存档。
 frontend/src/api/modules.ts 是前端分页适配入口，目前从 data/modules.ts 的明确示例目录读取，不请求后端。PublicModule 只允许公开的目录资料；后续确认 GET 契约后替换读取实现，不把守秘人信息传给前端。7 条示例包含《岭下暗影》和 6 条待收录记录；真实接入时按后端 total/items 渲染，末页不补占位项。
 调查员展示类型在 frontend/src/types/investigators.ts，api/investigators.ts 分开读取摘要与详情，当前仅访问 data/investigators.ts 的独立 mock。请求传 moduleId/AbortSignal，切换或卸载取消旧请求；不复制后端人物数据和头像。未来适配 HTTP 返回授权资料及头像 URL，不要求页面理解 YAML 或后端路径，详见 [调查员适配契约](investigator-api.md)。
+游戏页组件通过 api/game.ts 的可取消 mock 查询读取既有假调查员、公开开场消息和两个静态预览素材；背景、立绘、消息、事实由 DTO 描述。行动关键词仅驱动明确标记的 UI 样例，页面不结算规则、生成物品或保存状态。住宅与乔什是用户指定开场预览的独立允许清单，不改变原模组默认 keeper_only；无其他后台素材/数据打包或静态目录暴露，正式接入前须实现按 game_id 授权投影并移除静态副本。详见 [游戏页适配草案](game-preview-api.md)。
 当前游戏链路是 CLI → KeeperService → LangGraph → 场景校验、RAG、trpg 和 SQLite 适配。
 两条链路尚未连接成网页游戏。健康接口只表明进程可响应，不检查模型配置、剧情或数据库。
 

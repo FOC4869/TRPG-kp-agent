@@ -28,6 +28,6 @@ source 是适配层元信息 mock/api，不要求未来服务器返回它。后�
 1. 先确认公开字段、可选人物与 moduleId 的关联、授权和头像访问策略，再确定实际 URL。
 2. 将 api/investigators.ts 中的 mock 查询替换为带 AbortSignal 的 fetch；校验/转换响应，区分未找到、无权限、网络失败。不要把失败静默替换为示例角色。
 3. API 返回授权摘要/详情，不返回 source、source_issues、后台文件路径、整个 YAML/Markdown、隐藏剧情或存档。不得把 backend/data/characters 整体复制到 public。
-4. 创建游戏需要另行明确服务生命周期、模板版本快照、实例资源与状态；本页确认弹窗仅为 UI 预览，不代替后端创建。
+4. 创建游戏需要另行明确服务生命周期、模板版本快照、实例资源与状态；本页确认弹窗可进入保留 module/investigator 的开场游戏预览，不代替后端创建；见 game-preview-api.md。
 
 当前假头像是独立生成的十人图集，人物数值和背景也为 UI 示意，不是后端原卡的同步副本。正式接入时移除示例来源提示及假资源，保留未知量与展示边界。

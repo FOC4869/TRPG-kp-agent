@@ -167,8 +167,8 @@ export function InvestigatorSelection({ moduleId }: { moduleId: string | null })
         <div className="dialog-heading"><p className="eyebrow">YOUR NEXT CHAPTER</p><button className="close-button" aria-label="关闭调查准备" onClick={() => confirmation.current?.close()}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></div>
         <h2 id="investigation-ready-title">调查准备</h2>
         <dl className="ready-summary"><div><dt>案件</dt><dd>{data?.module.title}</dd></div><div><dt>调查员</dt><dd>{confirmed?.name}</dd></div><div><dt>职业</dt><dd>{confirmed?.occupation}</dd></div></dl>
-        <p className="preview-notice">游戏界面尚未开放。本次为选择预览，不会创建游戏或存档。</p>
-        <button className="dialog-action" onClick={() => confirmation.current?.close()}>返回档案 <Arrow /></button>
+        <p className="preview-notice">即将进入开场界面预览，使用固定回复，不创建后端游戏或存档。</p>
+        {data && confirmed && <a className="dialog-action" href={`#/game?${new URLSearchParams({ module: data.module.id, investigator: confirmed.id })}`}>进入调查预览 <Arrow /></a>}
       </dialog>
     </main>
   )

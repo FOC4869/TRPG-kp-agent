@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { getHealth } from './api/health'
 import { ModuleLibrary } from './components/ModuleLibrary'
+import { GamePage } from './components/GamePage'
 import { InvestigatorSelection } from './components/InvestigatorSelection'
 import { Arrow, DoorMark, FrameCorners, Lock } from './components/Ornaments'
 
@@ -8,8 +9,8 @@ type Panel = 'settings' | null
 
 function currentRoute() {
   const [path, query] = window.location.hash.split('?')
-  const screen = path === '#/investigators' ? 'investigators' : path === '#/modules' ? 'modules' : 'home'
-  return { screen, moduleId: new URLSearchParams(query).get('module') }
+  const screen = path === '#/game' ? 'game' : path === '#/investigators' ? 'investigators' : path === '#/modules' ? 'modules' : 'home'
+  return { screen, moduleId: new URLSearchParams(query).get('module'), investigatorId: new URLSearchParams(query).get('investigator') }
 }
 
 function ConnectionCheck() {
@@ -54,13 +55,13 @@ function ConnectionCheck() {
 
 function App() {
   const [route, setRoute] = useState(currentRoute)
-  const { screen, moduleId } = route
+  const { screen, moduleId, investigatorId } = route
   const [panel, setPanel] = useState<Panel>(null)
   const [reduceMotion, setReduceMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
   const dialog = useRef<HTMLDialogElement>(null)
-  const previousScreen = useRef(`${screen}:${moduleId}`)
+  const previousScreen = useRef(`${screen}:${moduleId}:${investigatorId}`)
 
   useEffect(() => {
     function onHashChange() {
@@ -73,13 +74,13 @@ function App() {
   }, [])
 
   useEffect(() => {
-    if (previousScreen.current !== `${screen}:${moduleId}`) {
+    if (previousScreen.current !== `${screen}:${moduleId}:${investigatorId}`) {
       document.getElementById('main')?.focus()
       window.scrollTo(0, 0)
-      previousScreen.current = `${screen}:${moduleId}`
+      previousScreen.current = `${screen}:${moduleId}:${investigatorId}`
     }
-    document.title = screen === 'investigators' ? '选择调查员 · CoC AI Keeper' : screen === 'modules' ? '调查卷宗 · CoC AI Keeper' : 'CoC AI Keeper · 你的下一场调查'
-  }, [screen, moduleId])
+    document.title = screen === 'game' ? '岭下暗影 · 调查预览' : screen === 'investigators' ? '选择调查员 · CoC AI Keeper' : screen === 'modules' ? '调查卷宗 · CoC AI Keeper' : 'CoC AI Keeper · 你的下一场调查'
+  }, [screen, moduleId, investigatorId])
 
   useEffect(() => {
     if (panel && !dialog.current?.open) dialog.current?.showModal()
@@ -90,6 +91,8 @@ function App() {
     dialog.current?.close()
     setPanel(null)
   }
+
+  if (screen === 'game') return <div className="game-page" data-reduced-motion={reduceMotion}><a className="skip-link" href="#main" onClick={(event) => { event.preventDefault(); document.getElementById('main')?.focus() }}>跳至主要内容</a><GamePage key={`${moduleId}:${investigatorId}`} moduleId={moduleId} investigatorId={investigatorId} reduceMotion={reduceMotion} onMotion={setReduceMotion} /></div>
 
   return (
     <div className={`home ${screen !== 'home' ? 'library-page' : ''} ${screen === 'investigators' ? 'investigators-page' : ''}`} data-reduced-motion={reduceMotion}>
