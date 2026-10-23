@@ -1,10 +1,14 @@
 # 当前上下文
 
+2026-10-23：经用户要求，将 coc-module-builder 提交并合并到 design/frontend-ui；保留角色卡导入 skill 及前端已有功能。合并验证继续使用该 skill 的 34 项离线测试，真实素材试制另行进行。
+
 2026-10-23：经用户要求，将角色卡导入 skill 提交并合并至 design/frontend-ui，保留该分支已有调查员选择页。技能仍为独立工具，不接游戏运行时。
 
 2026-10-23：在 feat/coc-character-import-skill 新增自包含技能 skills/coc-character-card-import/，固定生成 character.yaml、background.md、可选裁切头像，无 manifest，不依赖本项目角色类、数据或对话。项目目录是维护源，已按普通文件复制到个人 Codex skills 目录，未自动提交/推送。
 验证：quick_validate 对源码/安装副本通过；29 个隔离脚本场景通过；仅给技能和三张图片的独立试用完成 3 位角色，局部复核修正字符误读，最终 0 错误，原文疑点保留为警告；已有十人只读校验 0 错误。npx skills 本地发现及临时项目 --copy 安装通过，最终文件与维护源逐字节相同；后端191项通过。未修改前端/运行时/已有角色，未调用外部模型API。交付记录见 docs/design/done/coc-character-import-skill.md。
 后续：GitHub 默认分支发布后，外部用户才能直接用 npx skills add FOC4869/TRPG-kp-agent 获取此技能；尚未验证远端安装。独立原图复核还发现既有 david 卡将“一双手铐”记成 quantity=2、unit=双，属于待单独修订的数据错误，本轮按约定未改旧角色。
+
+2026-10-23：在独立 worktree 的 feat/coc-module-builder-skill 实现 skills/coc-module-builder，可通过 Skills CLI 本地安装，完整携带内容格式、原创模板、视觉生产规范、制作计划与只读校验器。用户要求无需当前聊天上下文也能产出相同结构；默认前三阶段为整理、规划、首批样本，选定风格后续做。未迁移现有模组、未生成真实图片、未接运行时/HTTP/前端，未推送或发布。验证结果见 docs/design/done/coc-module-builder.md。
 
 2026-10-23 后续：按用户确认的概念图实现调查员选择，仍在 design/frontend-ui；用户明确要求先用假数据和假资源，后续从 API 获得正式数据。
 页面为 #/investigators?module=<id>，桌面 2×5 照片卡片，右侧概览/属性技能/背景/物品四标签。首次无选择，确认禁用；选中后可打开案件/人物确认摘要，不创建游戏或存档。

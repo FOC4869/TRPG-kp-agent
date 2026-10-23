@@ -74,6 +74,14 @@ npm run build
 - [Python 接口及待接入 HTTP 契约](docs/interfaces.md)
 - [结构迁移记录](docs/history/structure-migration.md)
 
+## 可安装的模组制作 skill
+
+[coc-module-builder](skills/coc-module-builder/SKILL.md) 自带内容格式、模板、统一画风流程和独立校验器，不依赖聊天记录或项目运行时。默认整理模组、规划素材并制作首批样本；此交付未修改现有模组或生成新素材。
+
+从本仓库本地安装：`npx skills add . --skill coc-module-builder`。发布到远端可访问分支后可使用 `npx skills add FOC4869/TRPG-kp-agent --skill coc-module-builder`；尚未发布的版本不能通过默认远端安装获得。
+
+离线验证：`uv run --locked --script skills/coc-module-builder/scripts/validate_module.py --self-test`。依赖和锁文件仅属于该 skill，不改变后端或前端依赖。制作输出仍是声明式草案，不等于已接入游戏。
+
 《岭下暗影》的完整正文、结构化资料和附件见[模组内容包](backend/data/modules/darkness-beneath-the-hill/README.md)。当前用于内容审阅，尚未接入 CLI 或网页游戏。
 
 ## 可安装的角色卡导入 Skill

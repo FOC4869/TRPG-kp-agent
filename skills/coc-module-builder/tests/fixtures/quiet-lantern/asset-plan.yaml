@@ -1,0 +1,68 @@
+visual_format_version: 0.1.0
+content_fingerprint: null
+image_tool: available
+items:
+  default_atmosphere:
+    kind: default_background
+    relates_to: []
+    status: planned
+    batch: sample
+    output: default_atmosphere.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: Abstract restrained dark atmosphere, no identifiable objects, no text, no people.
+    references: []
+    reuse_of: null
+    input_fingerprint: null
+    attempts: []
+  shared_interior:
+    kind: scene_background
+    relates_to:
+    - hall
+    - reading_room
+    status: planned
+    batch: sample
+    output: shared_interior.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: Independent restrained painterly empty interior, no people, no UI, no secret objects.
+    references: []
+    reuse_of: null
+    input_fingerprint: null
+    attempts: []
+  archivist_calm:
+    kind: npc_sprite
+    relates_to:
+    - archivist
+    status: planned
+    batch: sample
+    output: archivist_calm.png
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: Independent transparent painted archivist portrait, complete arms, same face and clothes.
+    references: []
+    reuse_of: null
+    input_fingerprint: null
+    attempts: []
+  archivist_concerned:
+    kind: npc_sprite
+    relates_to:
+    - archivist
+    status: planned
+    batch: later
+    output: archivist_concerned.png
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: Independent transparent painted archivist portrait, complete arms, same face and clothes.
+    references: []
+    reuse_of: null
+    input_fingerprint: null
+    attempts: []
