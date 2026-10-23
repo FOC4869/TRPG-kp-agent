@@ -1,5 +1,9 @@
 # 当前上下文
 
+2026-10-23：用户补充模组库需要竖版封面。coc-module-builder 新增 module_cover：1024×1536 不透明 WebP，同一画风，仅使用玩家引言信息，无文字/UI/边框，前端叠加标题标签；manifest.presentation.cover 引用。默认首批含封面、默认背景、开场背景、首位 NPC 基础立绘；已有合格封面复用。默认权限仍为 keeper_only，未实现公开投影。
+
+2026-10-23：用户确认模组素材每个 NPC 和生物仅制作一张基础透明立绘；多个生物实例复用，不生成表情、受伤、服装或剧情状态变体，变化通过对话与文字表达。已同步 coc-module-builder 入口、视觉/格式规范和原创夹具，presentation.sprites 使用 base 键。
+
 2026-10-23：在独立 worktree 的 feat/coc-module-builder-skill 实现 skills/coc-module-builder，可通过 Skills CLI 本地安装，完整携带内容格式、原创模板、视觉生产规范、制作计划与只读校验器。用户要求无需当前聊天上下文也能产出相同结构；默认前三阶段为整理、规划、首批样本，选定风格后续做。未迁移现有模组、未生成真实图片、未接运行时/HTTP/前端，未推送或发布。验证结果见 docs/design/done/coc-module-builder.md。
 
 2026-10-23 后续：按用户确认的概念图实现调查员选择，仍在 design/frontend-ui；用户明确要求先用假数据和假资源，后续从 API 获得正式数据。

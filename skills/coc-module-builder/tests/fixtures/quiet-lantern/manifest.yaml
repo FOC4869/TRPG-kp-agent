@@ -45,4 +45,5 @@ state_policy:
   sessions: 独立本局状态，绑定内容版本
   derived: 制作记录和索引可重建
 presentation:
+  cover: module_cover
   default_background: default_atmosphere

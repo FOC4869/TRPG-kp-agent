@@ -13,7 +13,6 @@ characters:
       condition: calm
     presentation:
       sprites:
-        calm: archivist_calm
-        concerned: archivist_concerned
+        base: archivist_base
 instances: {}
 groups: {}
