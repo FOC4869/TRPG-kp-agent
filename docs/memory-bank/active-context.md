@@ -1,5 +1,12 @@
 # 当前上下文
 
+2026-10-23：将 feat/preset-investigator-data 合并回 design/frontend-ui；保留目标分支现有模组库/详情页及《岭下暗影》内容包，新增十位预设调查员。角色目录仍未接入页面和游戏运行链路。
+
+2026-10-22：在独立分支 feat/preset-investigator-data 按用户确认的格式新增十位预设调查员，位于 backend/data/characters/<id>/{character.yaml,background.md,assets/portrait.png}。无角色包层、无 manifest、无完整角色卡截图；结构不受现有 Character 实现约束。没有移动旧 Excel 或接入运行时/HTTP/前端。
+角色数值、背景、原卡留白、装备和裁切头像已转录；作家伤害、记者历史/图书馆括号值等疑点保留在 source_issues，不自行裁定。魔术师钥匙特例是数据描述，尚无执行实现。字段约定见 backend/data/characters/README.md；交付记录见 docs/design/done/preset-investigators.md。
+验证：十份 YAML 的唯一键/ID、属性技能范围、资源、攻击技能引用、嵌套装备、文件/锚点引用及十张 PNG 解码检查通过；头像合览人工检查通过；后端 191 项离线测试通过。无模型调用和依赖变更；本任务未修改前端，未重跑前端检查。原有首页及文档未提交改动保留，仅在 README/architecture/development/active-context 增补本次数据说明。
+后续接入需单独实现角色目录加载、规则默认值与疑点裁定、角色实例快照及授权投影，不把静态数据完成等同于游戏功能完成。
+
 2026-10-23：将 feat/darkness-module-package 合并回 design/frontend-ui；保留现有首页/模组库，新增服务端模组内容包。两者尚未接成游戏运行链路。
 
 2026-10-22：在独立工作树 darkness-module、分支 feat/darkness-module-package 新增《岭下暗影》内容包。基于创建时 HEAD 20494e4，未带入原工作区 design/frontend-ui 的未提交首页改动。

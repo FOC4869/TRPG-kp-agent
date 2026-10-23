@@ -11,6 +11,7 @@
 | `backend/kp_agent/` | LangGraph 行动编排、RAG、场景、模型和现有存储适配 |
 | `backend/trpg/` | 唯一的角色、骰子、检定与规则实现 |
 | `backend/data/`、`backend/characters/` | 后端规则资料、剧情配置和角色卡 |
+| `backend/data/characters/` | 十位预设调查员的 YAML、背景正文与头像；格式见目录 README，尚未接入游戏 |
 | `backend/tests/`、`backend/scripts/` | 统一后端测试和评估脚本 |
 | `docs/` | 架构、开发、接口说明、评估及历史证据 |
 | `versions/ai-kp-v1/` | 旧链接迁移指引，不再维护源码 |

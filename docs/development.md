@@ -72,6 +72,10 @@ openpyxl 读取旧角色卡可能提示不支持的 Excel 扩展；导入流程�
 
 模组库同样以桌面为主，窄屏下详情移至列表下方。验收每页 3 项、末页 1 项、首尾按钮禁用、卡片与详情同步、翻页焦点、返回首页/浏览器返回/刷新；仅《岭下暗影》展示用户提供的公开引言。示例条目见 frontend/src/data/modules.ts；日后接 HTTP 时替换 api/modules.ts 并同步接口契约。
 
+## 预设调查员数据
+
+预设调查员数据位于 backend/data/characters/<id>/，每位包含 character.yaml、background.md、assets/portrait.png。字段、原卡疑点和附件引用约定见 backend/data/characters/README.md。新增角色不需要注册 manifest；未来加载器按角色文件扫描。当前未接入 CLI 或网页，不根据新数据改变原有角色加载流程。
+
 ## 依赖更新
 
 后端声明为 pyproject.toml，解析结果为 uv.lock；`uv add <package>` / `uv add --dev <package>` 后提交两者。
