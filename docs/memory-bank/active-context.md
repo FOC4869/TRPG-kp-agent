@@ -1,5 +1,9 @@
 # 当前上下文
 
+2026-10-23：在 feat/coc-character-import-skill 新增自包含技能 skills/coc-character-card-import/，固定生成 character.yaml、background.md、可选裁切头像，无 manifest，不依赖本项目角色类、数据或对话。项目目录是维护源，已按普通文件复制到个人 Codex skills 目录，未自动提交/推送。
+验证：quick_validate 对源码/安装副本通过；29 个隔离脚本场景通过；仅给技能和三张图片的独立试用完成 3 位角色，局部复核修正字符误读，最终 0 错误，原文疑点保留为警告；已有十人只读校验 0 错误。npx skills 本地发现及临时项目 --copy 安装通过，最终文件与维护源逐字节相同；后端191项通过。未修改前端/运行时/已有角色，未调用外部模型API。交付记录见 docs/design/done/coc-character-import-skill.md。
+后续：GitHub 默认分支发布后，外部用户才能直接用 npx skills add FOC4869/TRPG-kp-agent 获取此技能；尚未验证远端安装。独立原图复核还发现既有 david 卡将“一双手铐”记成 quantity=2、unit=双，属于待单独修订的数据错误，本轮按约定未改旧角色。
+
 2026-10-23：将 feat/preset-investigator-data 合并回 design/frontend-ui；保留目标分支现有模组库/详情页及《岭下暗影》内容包，新增十位预设调查员。角色目录仍未接入页面和游戏运行链路。
 
 2026-10-22：在独立分支 feat/preset-investigator-data 按用户确认的格式新增十位预设调查员，位于 backend/data/characters/<id>/{character.yaml,background.md,assets/portrait.png}。无角色包层、无 manifest、无完整角色卡截图；结构不受现有 Character 实现约束。没有移动旧 Excel 或接入运行时/HTTP/前端。
