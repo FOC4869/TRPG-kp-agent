@@ -1,5 +1,33 @@
 * text=auto
+*.md text eol=lf
+*.txt text eol=lf
 *.py text eol=lf
+*.toml text eol=lf
+*.lock text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.svg text eol=lf
+*.sh text eol=lf
 *.command text eol=lf
 *.bat text eol=crlf
-*.xlsx -text
+
+# Preserve character sheets, module assets and frontend media byte-for-byte
+*.xlsx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.woff binary
+*.woff2 binary
+*.mp3 binary
+*.mp4 binary

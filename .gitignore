@@ -1,36 +1,62 @@
-# Local configuration and secrets
+# Local environment files at any level; examples are versioned
 .env
 .env.*
 !.env.example
+!.env.*.example
+*.local
 
-# Python
+# Python environments, bytecode and tool caches (backend and standalone skills)
 .venv/
+venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
 .ruff_cache/
+.mypy_cache/
+.tox/
+.nox/
 .coverage
+.coverage.*
 htmlcov/
 
-# JavaScript and build output
+# Frontend dependencies, Vite/TypeScript caches and build reports
 node_modules/
-dist/
+.vite/
 *.tsbuildinfo
+/frontend/dist/
+/frontend/coverage/
+/frontend/.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 
-# Runtime state and generated evaluations
-saves/
-output/
+# Runtime state and generated QA; source assets under data/docs/skills stay visible
+/backend/saves/
+/backend/output/
+/backend/logs/
+/output/
+/logs/
 *.sqlite
+*.sqlite-*
 *.sqlite3
 *.sqlite3-*
 *.db
 *.db-*
-*.jsonl
 
-# Editor and OS files
+# Local editor state and OS/office temporary files
 .DS_Store
+._*
+Thumbs.db
+Desktop.ini
+~$*
+*.swp
+*.swo
+*~
 .idea/
-.vscode/*
-!.vscode/extensions.json
-*.zip
+**/.vscode/*
+!**/.vscode/extensions.json
+
+# Keep lockfiles, module archives, JSONL fixtures and evaluation evidence versioned.
+# Put generated exports/logs in the ignored output/, logs/ or backend/saves/ paths.

@@ -96,6 +96,14 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py <m
 前端使用 `npm install <package>` / `npm install -D <package>`，提交 package.json 和 package-lock.json；安装使用 npm ci。
 本轮前端来源命令为 `npm create vite@latest frontend -- --template react-ts --no-interactive`，create-vite 9.3.1。
 
+## 仓库文件与生成产物
+
+根 `.gitignore` 覆盖前后端与独立 skills 的虚拟环境、依赖和工具缓存；本地 `.env` 与 `*.local` 不提交，`.env.example`／`.env.*.example` 模板保留。
+玩家存档与模型调用日志放在 `backend/saves/`；评估脚本默认从 backend 执行，输出放在 `backend/output/`，仓库级 QA 使用根 `output/`。临时日志使用根或 backend 下的 `logs/`。
+前端构建与覆盖率输出使用 `frontend/dist/`、`frontend/coverage/`。这些目录均忽略；需要保留的评估证据先审阅，再放入 `docs/evaluation/`。
+不按扩展名统一忽略 JSONL、ZIP 或日志：模组附件、测试样本与已审阅报告可按实际需要提交。`backend/uv.lock`、前端 package-lock 和 skill 的脚本锁文件必须保留。
+`.gitattributes` 固定源码为 LF、Windows `.bat` 为 CRLF，二进制素材禁止文本转换；`.editorconfig` 与这些换行约定保持一致。
+
 ## 分支、变更与目录
 
 使用英文主题分支，如 chore/standardize-project-structure；团队尚未约定统一前缀，本例不改变其他分支流程。
