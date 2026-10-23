@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23：docs/user-journey-and-storage 基于 taosdev 当前代码新增 docs/user-journey.md、module-storage.md、character-storage.md，并在 README 提供入口。记录四页＋结案弹窗、模组0.2.0与运行能力区别、调查员/NPC/前端mock三类人物、版本/出处/素材索引/本局状态边界，以及前后端模组ID差异。仅文档变更，不修改数据、接口或运行时。
+
 2026-10-23：经用户要求，将fix/darkness-module-adjudications的87db34a合并到taosdev，保留现有游戏预览和结案弹窗。模组裁定与运行时能力边界不变；本次未推送。
 
 2026-10-23：用户将结案简化为游戏内弹窗，取消独立总结页/统计。feat/investigation-ending-dialog 实现结束标题、复用最终 Keeper 叙述、“返回首页”；公开展示 DTO 支持可选 ended，设置提供 ending-preview。关闭可回看记录/重新打开，但行动不恢复；不新增真实 HTTP、总结接口或模型调用。实现记录 docs/design/done/investigation-ending-dialog.md。验证 npm ci/lint/typecheck/build、扩展离线 smoke、桌面/窄屏/短屏弹窗、关闭/重开/返回首页通过。无后端改动，未重复后端测试；真实结束实例限制待正式接口接入。

@@ -72,6 +72,9 @@ npm run build
 
 - [架构与边界](docs/architecture.md)
 - [开发指南](docs/development.md)
+- [当前用户旅程](docs/user-journey.md)
+- [模组存储结构](docs/module-storage.md)
+- [人物存储结构](docs/character-storage.md)
 - [已有 Agent 能力及 CLI](docs/agent-guide.md)
 - [Python 接口及待接入 HTTP 契约](docs/interfaces.md)
 - [结构迁移记录](docs/history/structure-migration.md)
