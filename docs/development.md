@@ -82,6 +82,15 @@ openpyxl 读取旧角色卡可能提示不支持的 Excel 扩展；导入流程�
 
 ## 依赖更新
 
+模组制作 skill 在 skills/coc-module-builder，自包含分发，入口见其 SKILL.md。独立检查：
+
+~~~sh
+uv run --locked --script skills/coc-module-builder/scripts/validate_module.py --self-test
+uv run --locked --script skills/coc-module-builder/scripts/validate_module.py <module-dir> --resume --json
+~~~
+
+首次运行 uv 会准备隔离的 Python/PyYAML/Pillow 环境；脚本依赖由自身 PEP 723 声明及 validate_module.py.lock 锁定，与 backend/uv.lock 无关。校验是只读操作，默认允许未生成图片的草案，--complete 要求全部计划验收且指纹一致，均不证明模组可运行。旧包缺视觉扩展或原始来源时仅报告，不自动迁移。无代码/依赖运行时变更的 skill 交付运行自身测试即可，不需要前端浏览器检查。
+
 后端声明为 pyproject.toml，解析结果为 uv.lock；`uv add <package>` / `uv add --dev <package>` 后提交两者。
 安装使用 `uv sync --locked`，禁止为消除报错而顺手升级模型 SDK。历史 requirements 保存在 docs/history，只作来源证据。
 前端使用 `npm install <package>` / `npm install -D <package>`，提交 package.json 和 package-lock.json；安装使用 npm ci。

@@ -42,4 +42,6 @@ frontend/src/api/modules.ts 是前端分页适配入口，目前从 data/modules
 
 ## 模组内容包
 
+仓库 skills/coc-module-builder 是可单独分发的制作工具，包含格式说明、原创模板、视觉扩展约定和只读校验器；不依赖 kp_agent/trpg，也不加载存档或启动 HTTP。视觉扩展单独版本化，不迁移现有模组。实际展示授权、素材 API 与游戏执行器仍需另行实现。
+
 `backend/data/modules/darkness-beneath-the-hill/` 保存《岭下暗影》完整正文、YAML 提取资料与统一附件索引。它是服务端内容包草案，尚未接入现有 `CampaignDefinition` JSON 加载器或 KeeperService。素材分类依靠索引，不要求固定类型目录；默认不对玩家开放。见 [ADR-0002](decisions/ADR-0002-module-content-package.md) 和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)。

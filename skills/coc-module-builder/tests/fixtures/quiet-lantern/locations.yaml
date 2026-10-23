@@ -1,0 +1,26 @@
+locations:
+  hall:
+    name: 大厅
+    source: &id001
+      document: story.md
+      anchor: introduction
+    presentation:
+      background: shared_interior
+  reading_room:
+    name: 阅览室
+    source: *id001
+    presentation:
+      background: shared_interior
+  street:
+    name: 街道
+    source: *id001
+connections:
+- id: hall_to_reading
+  from_location: hall
+  to_location: reading_room
+  bidirectional: true
+  source: *id001
+map_features: {}
+topology_review:
+  status: partial
+  notes: []

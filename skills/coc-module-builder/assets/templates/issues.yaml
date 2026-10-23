@@ -1,0 +1,8 @@
+issues:
+  rules_edition:
+    status: open
+    blocks_runtime: true
+    source:
+      document: story.md
+      anchor: introduction
+    description: 来源未明确规则版本，接执行器前确认。
