@@ -12,6 +12,10 @@
 验证：quick_validate 对源码/安装副本通过；29 个隔离脚本场景通过；仅给技能和三张图片的独立试用完成 3 位角色，局部复核修正字符误读，最终 0 错误，原文疑点保留为警告；已有十人只读校验 0 错误。npx skills 本地发现及临时项目 --copy 安装通过，最终文件与维护源逐字节相同；后端191项通过。未修改前端/运行时/已有角色，未调用外部模型API。交付记录见 docs/design/done/coc-character-import-skill.md。
 后续：GitHub 默认分支发布后，外部用户才能直接用 npx skills add FOC4869/TRPG-kp-agent 获取此技能；尚未验证远端安装。独立原图复核还发现既有 david 卡将“一双手铐”记成 quantity=2、unit=双，属于待单独修订的数据错误，本轮按约定未改旧角色。
 
+2026-10-23：用户补充模组库需要竖版封面。coc-module-builder 新增 module_cover：1024×1536 不透明 WebP，同一画风，仅使用玩家引言信息，无文字/UI/边框，前端叠加标题标签；manifest.presentation.cover 引用。默认首批含封面、默认背景、开场背景、首位 NPC 基础立绘；已有合格封面复用。默认权限仍为 keeper_only，未实现公开投影。
+
+2026-10-23：用户确认模组素材每个 NPC 和生物仅制作一张基础透明立绘；多个生物实例复用，不生成表情、受伤、服装或剧情状态变体，变化通过对话与文字表达。已同步 coc-module-builder 入口、视觉/格式规范和原创夹具，presentation.sprites 使用 base 键。
+
 2026-10-23：在独立 worktree 的 feat/coc-module-builder-skill 实现 skills/coc-module-builder，可通过 Skills CLI 本地安装，完整携带内容格式、原创模板、视觉生产规范、制作计划与只读校验器。用户要求无需当前聊天上下文也能产出相同结构；默认前三阶段为整理、规划、首批样本，选定风格后续做。未迁移现有模组、未生成真实图片、未接运行时/HTTP/前端，未推送或发布。验证结果见 docs/design/done/coc-module-builder.md。
 
 2026-10-23 后续：按用户确认的概念图实现调查员选择，仍在 design/frontend-ui；用户明确要求先用假数据和假资源，后续从 API 获得正式数据。

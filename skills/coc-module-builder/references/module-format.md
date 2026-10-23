@@ -57,11 +57,11 @@ assets/index.yaml 顶层 format_version: '0.1.0'、path_base: assets/、policy �
 
 access: {default: keeper_only, player_reveal_fact: null 或稳定事实ID}。事实 ID 是未来授权契约，不需要与实体 ID 同名，也不代表权限已经实现。原始秘密地图的 player_reveal_fact 保持 null。无剧情的默认背景也维持默认拒绝，由未来展示层显式选择；不引入未经实现的 player_safe 权限枚举。
 
-新增字段：kind 可为 scene_background/default_background/npc_sprite/creature_sprite/handout/reference/original；visual_format_version: '0.1.0'；width/height 为实际像素，has_alpha 为实际通道信息；anchor 为 [x,y]、范围 0..1，默认人物 [0.5,1.0]。background 的 focus 为 [x,y]、默认 [0.5,0.5]，不是线索定位。
+新增字段：kind 可为 module_cover/scene_background/default_background/npc_sprite/creature_sprite/handout/reference/original；visual_format_version: '0.1.0'；width/height 为实际像素，has_alpha 为实际通道信息；anchor 为 [x,y]、范围 0..1，默认人物 [0.5,1.0]。background 的 focus 为 [x,y]、默认 [0.5,0.5]，不是线索定位。
 
 生成项另有 generation: {plan_id, style_version, content_fingerprint, input_fingerprint, tool, artistic_additions, review: {status: accepted, note}}。完整 prompt/references/attempts 保存在 asset-plan，不向前端发送。新图人工验收后才写索引，且记录必须与当前计划一致。已有出版物图片不要求改尺寸，也不因为画风不同而修改原件。
 
-manifest.presentation.default_background 指计划或已验收背景 ID；locations.<id>.presentation.background 同样指 ID，不配置则回退默认；characters/instances/groups 的 presentation.sprites 为 {状态名: 素材ID}。多个地点直接引用同一背景，避免复制文件。阶段中允许引用未完成计划，但此时不能视为可展示；--complete 要求这些素材都已验收。引用不存在的计划/素材是错误。默认背景必须登记为 default_background。
+manifest.presentation.cover 引用 module_cover 素材 ID，供模组库卡片使用；封面为 1024×1536 不透明 WebP，无文字/UI/边框，只表现玩家引言可知内容，默认仍为 keeper_only，公开投影另行实现。manifest.presentation.default_background 指计划或已验收背景 ID；locations.<id>.presentation.background 同样指 ID，不配置则回退默认；characters/instances/groups 的 presentation.sprites 保留映射结构，仅使用 {base: 素材ID}。每个 NPC/生物仅制作一张基础立绘，生物实例与群体复用模板基础图；情绪、受伤及剧情状态通过文字表达，不规划状态变体。多个地点直接引用同一背景，避免复制文件。阶段中允许引用未完成计划，但此时不能视为可展示；--complete 要求这些素材都已验收。引用不存在的计划/素材是错误。默认背景必须登记为 default_background。
 
 ## 视觉制作记录
 

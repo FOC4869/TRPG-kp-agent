@@ -27,7 +27,7 @@ CORE = {
     "endings": ("rewards",), "keeper_options": ("options",), "issues": ("issues",),
 }
 FILES = ("story", *CORE, "assets", "visual_style", "asset_plan")
-KINDS = {"default_background", "scene_background", "npc_sprite", "creature_sprite"}
+KINDS = {"module_cover", "default_background", "scene_background", "npc_sprite", "creature_sprite"}
 STATES = {"planned", "blocked_tool", "review", "accepted", "failed"}
 ANCHOR = re.compile(r'^<a id="([a-z][a-z0-9_-]*)"></a>\n?', re.MULTILINE)
 ID = re.compile(r"^[a-z][a-z0-9_]*$")
@@ -313,11 +313,11 @@ class Validator:
                             self.ref(item, allowed, where)
                     elif key == "presentation":
                         pres = self.mapping(child, where)
-                        for bg in ("background", "default_background"):
+                        for bg in ("background", "default_background", "cover"):
                             if bg in pres:
                                 self.ref(pres[bg], allowed_assets, where + "." + bg)
                                 definition = self.items.get(pres[bg], self.assets.get(pres[bg], {})) if isinstance(pres[bg], str) else {}
-                                expected = {"default_background"} if bg == "default_background" else {"scene_background", "default_background"}
+                                expected = {"module_cover"} if bg == "cover" else {"default_background"} if bg == "default_background" else {"scene_background", "default_background"}
                                 if isinstance(definition, dict) and definition.get("kind") not in expected:
                                     self.error(where, "background references wrong asset kind")
                         if "sprites" in pres:
@@ -392,6 +392,8 @@ class Validator:
                             self.error(where, "kind differs from plan")
                     if rec.get("kind") in {"scene_background", "default_background"} and (info[0] != [1920, 1080] or info[1] or info[2] != "WEBP"):
                         self.error(where, "background must be opaque 1920x1080 WebP")
+                    if rec.get("kind") == "module_cover" and (info[0] != [1024, 1536] or info[1] or info[2] != "WEBP"):
+                        self.error(where, "cover must be opaque 1024x1536 WebP")
                     if rec.get("kind") in {"npc_sprite", "creature_sprite"} and info[2] != "PNG":
                         self.error(where, "sprite must be PNG")
             if rec.get("kind") in {"npc_sprite", "creature_sprite"}:
@@ -455,6 +457,8 @@ class Validator:
                 self.error(where, "size must be two positive integers")
             elif rec.get("kind") in {"scene_background", "default_background"} and size != [1920, 1080]:
                 self.error(where, "background plan size must be 1920x1080")
+            elif rec.get("kind") == "module_cover" and size != [1024, 1536]:
+                self.error(where, "cover plan size must be 1024x1536")
             elif rec.get("kind") == "npc_sprite" and size != [1024, 1536]:
                 self.error(where, "NPC plan size must be 1024x1536")
             elif rec.get("kind") == "creature_sprite" and size not in ([1024, 1536], [1536, 1536]):

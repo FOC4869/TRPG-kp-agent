@@ -83,18 +83,42 @@ class ModuleValidationTests(unittest.TestCase):
     def test_draft_shared_and_fallback(self):
         result = self.report()
         self.assertTrue(result["ok"], result)
-        self.assertEqual(result["progress"], {"planned": 4, "indexed": 0, "reusable": 0})
+        self.assertEqual(result["progress"], {"planned": 5, "indexed": 0, "reusable": 0})
         loc = self.read("locations.yaml")["locations"]
         self.assertEqual(loc["hall"]["presentation"], loc["reading_room"]["presentation"])
         self.assertNotIn("presentation", loc["street"])
         self.assertEqual(self.actions()["shared_interior"], "generate")
-        self.assertEqual(self.actions()["archivist_concerned"], "blocked")
+        self.assertEqual(self.actions()["reading_room_detail"], "blocked")
         self.assertTrue(any("edition" in w for w in result["warnings"]))
         self.assertFalse(self.report(True)["ok"])
 
     def test_empty_template_is_parseable_draft(self):
         result = v.validate(SKILL / "assets/templates")
         self.assertTrue(result["ok"], result)
+
+    def test_cover_reference_and_portrait_size(self):
+        manifest = self.read("manifest.yaml")
+        self.assertEqual(manifest["presentation"]["cover"], "module_cover")
+        plan = self.read("asset-plan.yaml")
+        plan["items"]["module_cover"]["size"] = [1920, 1080]
+        self.write("asset-plan.yaml", plan)
+        self.assertError("cover plan size")
+
+    def test_cover_kind_and_real_format(self):
+        manifest = self.read("manifest.yaml")
+        manifest["presentation"]["cover"] = "shared_interior"
+        self.write("manifest.yaml", manifest)
+        self.assertError("wrong asset kind")
+        manifest["presentation"]["cover"] = "module_cover"
+        self.write("manifest.yaml", manifest)
+        self.assertTrue(self.accept_all()["ok"])
+        path = self.root / "assets/module_cover.webp"
+        Image.new("RGBA", (1024, 1536), (20, 30, 40, 100)).save(path, format="PNG")
+        index = self.read("assets/index.yaml")
+        rec = index["assets"]["module_cover"]
+        rec.update(sha256=v.digest(path.read_bytes()), media_type="image/png", has_alpha=True)
+        self.write("assets/index.yaml", index)
+        self.assertError("cover must be opaque")
 
     def test_accepted_resume_is_read_only_and_deterministic(self):
         result = self.accept_all()
@@ -221,7 +245,7 @@ class ModuleValidationTests(unittest.TestCase):
         self.assertTrue(self.accept_all()["ok"])
         Image.new("RGB", (8, 8), "blue").save(reference)
         self.assertEqual(self.actions()["shared_interior"], "revise")
-        self.assertEqual(self.actions()["archivist_calm"], "skip")
+        self.assertEqual(self.actions()["archivist_base"], "skip")
 
     def test_wrong_dimensions(self):
         self.accept_all()
@@ -234,7 +258,7 @@ class ModuleValidationTests(unittest.TestCase):
 
     def test_fake_transparency_and_empty_sprite(self):
         self.accept_all()
-        path = self.root / "assets/archivist_calm.png"
+        path = self.root / "assets/archivist_base.png"
         for color in ((1, 1, 1, 255), (0, 0, 0, 0)):
             Image.new("RGBA", (1024, 1536), color).save(path)
             self.assertError("genuine transparency")
@@ -296,17 +320,17 @@ class ModuleValidationTests(unittest.TestCase):
 
     def test_later_batch_waits_for_user_style_choice(self):
         self.stamp()
-        self.assertEqual(self.actions()["archivist_concerned"], "blocked")
+        self.assertEqual(self.actions()["reading_room_detail"], "blocked")
         style = self.read("visual-style.yaml")
         style.update(status="approved", approval_note="Fixture user chooses style.")
         self.write("visual-style.yaml", style)
         self.stamp()
-        self.assertEqual(self.actions()["archivist_concerned"], "generate")
+        self.assertEqual(self.actions()["reading_room_detail"], "generate")
 
     def test_sprite_cannot_be_background_or_fake_mime(self):
         self.accept_all()
         index = self.read("assets/index.yaml")
-        index["assets"]["archivist_calm"]["media_type"] = "application/octet-stream"
+        index["assets"]["archivist_base"]["media_type"] = "application/octet-stream"
         self.write("assets/index.yaml", index)
         self.assertError("image media_type")
 

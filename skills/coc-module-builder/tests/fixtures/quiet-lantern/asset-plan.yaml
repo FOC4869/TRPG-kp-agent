@@ -34,13 +34,13 @@ items:
     reuse_of: null
     input_fingerprint: null
     attempts: []
-  archivist_calm:
+  archivist_base:
     kind: npc_sprite
     relates_to:
     - archivist
     status: planned
     batch: sample
-    output: archivist_calm.png
+    output: archivist_base.png
     size:
     - 1024
     - 1536
@@ -50,18 +50,31 @@ items:
     reuse_of: null
     input_fingerprint: null
     attempts: []
-  archivist_concerned:
-    kind: npc_sprite
+  reading_room_detail:
+    kind: scene_background
     relates_to:
-    - archivist
+    - reading_room
     status: planned
     batch: later
-    output: archivist_concerned.png
+    output: reading_room_detail.webp
     size:
-    - 1024
-    - 1536
+    - 1920
+    - 1080
     style_version: 0.1.0
-    prompt: Independent transparent painted archivist portrait, complete arms, same face and clothes.
+    prompt: Empty reading room detail background, restrained painterly style, no people, no text, no secret objects.
+    references: []
+    reuse_of: null
+    input_fingerprint: null
+    attempts: []
+  module_cover:
+    kind: module_cover
+    relates_to: []
+    status: planned
+    batch: sample
+    output: module_cover.webp
+    size: [1024, 1536]
+    style_version: 0.1.0
+    prompt: Portrait painterly illustration of an old lamp, restrained colors, no people, no text, no UI, no secret clues.
     references: []
     reuse_of: null
     input_fingerprint: null
