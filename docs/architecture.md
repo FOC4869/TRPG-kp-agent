@@ -37,3 +37,7 @@ frontend/src/api/modules.ts 是前端分页适配入口，目前从 data/modules
 - 暂不引入共享包、任务编排框架、前端状态库、ORM 或部署平台。出现实际需求再做决定。
 
 目录迁移的决定与替代方案见 [ADR-0001](decisions/ADR-0001-project-layout.md)。
+
+## 模组内容包
+
+`backend/data/modules/darkness-beneath-the-hill/` 保存《岭下暗影》完整正文、YAML 提取资料与统一附件索引。它是服务端内容包草案，尚未接入现有 `CampaignDefinition` JSON 加载器或 KeeperService。素材分类依靠索引，不要求固定类型目录；默认不对玩家开放。见 [ADR-0002](decisions/ADR-0002-module-content-package.md) 和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)。

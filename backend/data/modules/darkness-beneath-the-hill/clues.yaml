@@ -1,0 +1,178 @@
+clues:
+  family_history:
+    name: 文斯考特家族史
+    source:
+      document: story.md
+      anchor: winscott-family
+    locations:
+    - winscott_house
+    - john_hay_library
+    - providence_athenaeum
+    acquisition:
+    - 询问乔什；或查县记录、报纸等，原文未指定统一检定。
+    player_fact: 房屋建于1796年，家族经营历史及继承关系。
+  slavery_history:
+    name: 普罗维登斯奴隶贸易历史
+    source:
+      document: story.md
+      anchor: slavery-history
+    locations:
+    - john_hay_library
+    - providence_athenaeum
+    acquisition:
+    - 任一当地图书馆：图书馆使用成功。
+    - 当地调查员：历史成功。
+    player_fact: 模组所述奴隶贸易背景与地下通道传闻。
+    note: 历史陈述按模组文本保存，不作为已独立核实的历史资料。
+  peck_letter:
+    name: 彼希的信件
+    source:
+      document: story.md
+      anchor: peck-letter-discovery
+    locations:
+    - providence_athenaeum
+    acquisition:
+    - 查阅家族或奴隶隧道资料，图书馆使用成功。
+    player_fact: 以利亚曾通过隧道运送奴隶，押送队遭袭后封堵入口。
+    asset: handout_shadow_1
+    optional_relocation: relocate_peck_letter
+  josh_tracks:
+    name: 男子足迹
+    source:
+      document: story.md
+      anchor: entering-underground
+    locations:
+    - old_tunnel
+    acquisition:
+    - 追踪成功。
+    player_fact: 男子足迹通向深处，随后因碎石尘土而不可辨。
+  ancient_remains:
+    name: 六具遗骸
+    source:
+      document: story.md
+      anchor: entering-underground
+    locations:
+    - old_tunnel
+    acquisition:
+    - 到达遗骸处可见六具，其中三具带镣铐。
+    - 生物学或医学成功：约150年。
+    - 考古或历史成功：无镣铐者衣物来自殖民时代。
+    player_fact: 六具古老遗骸，部分带镣铐。
+  bloodied_clothing:
+    name: 衣物上的血迹与撕扯
+    source:
+      document: story.md
+      anchor: entering-underground
+    locations:
+    - old_tunnel
+    acquisition:
+    - 侦查成功。
+    - 靠近并仔细观察破布：无需检定。
+    player_fact: 衣物有血迹和撕扯痕迹。
+  cigarette_butt:
+    name: 土耳其香烟烟头
+    source:
+      document: story.md
+      anchor: entering-underground
+    locations:
+    - old_tunnel
+    acquisition:
+    - 南墙开口附近侦查成功。
+    player_fact: 一截土耳其香烟的烟头。
+    keeper_fact: 乔什留下；玩家能否推断归属依其已知信息。
+  river_proximity:
+    name: 河道方位
+    source:
+      document: story.md
+      anchor: entering-underground
+    locations:
+    - river_brick_wall
+    acquisition:
+    - 导航成功。
+    player_fact: 当前距离河道很近，隧道尽头被砖墙封住。
+  ancient_carvings:
+    name: 入口厅古老雕刻
+    source:
+      document: story.md
+      anchor: entrance-hall
+    locations:
+    - entrance_hall
+    acquisition:
+    - 考古成功：极古老的年代与超前技艺。
+    - 克苏鲁神话成功：似为阿克洛语。
+    player_fact: 蛇形、新月与几何文字图案。
+  cavern_age:
+    name: 洞窟的惊人年代
+    source:
+      document: story.md
+      anchor: deeper-caverns
+    locations:
+    - underground_complex
+    acquisition:
+    - 探索一段时间后，科学（地理学）成功，技能转录有待核对。
+    player_fact: 人工结构经历极漫长年代。
+    issue: geography_skill
+  dinosaur_murals:
+    name: 恐龙壁画
+    source:
+      document: story.md
+      anchor: history-hall
+    locations:
+    - history_hall
+    acquisition:
+    - 知识成功辨识恐龙。
+    player_fact: 壁画描绘蛇人文明与恐龙，最终迁入地下。
+  degenerate_origin:
+    name: 退化人的人类关联
+    source:
+      document: story.md
+      anchor: degenerates
+    locations:
+    - underground_complex
+    acquisition:
+    - 研究被制服或死亡个体：生物学或困难知识成功。
+    player_fact: 这些生物与人类存在令人不安的联系。
+  ghast_tracks:
+    name: 妖鬼足迹
+    source:
+      document: story.md
+      anchor: ghasts
+    locations:
+    - underground_complex
+    acquisition:
+    - 克苏鲁神话成功识别；生物学不能辨认种类。
+    player_fact: 类似蹄印、比成人脚印小。
+  harper_testament:
+    name: 约翰·哈珀的遗书
+    source:
+      document: story.md
+      anchor: degenerate-nest
+    locations:
+    - nest_south
+    acquisition:
+    - 有机会搜索巢窟并侦查成功；地图2标记6定位。
+    player_fact: 被俘者留下有关袭击、奴役与蛇人主人的记录。
+    asset: handout_shadow_2
+  portal_symbols:
+    name: 门的符文
+    source:
+      document: story.md
+      anchor: serpent-lair
+    locations:
+    - portal_area
+    acquisition:
+    - 侦查成功或仔细观察全部符文：发现特殊螺旋。
+    - 克苏鲁神话成功：辨认旅行之门用途。
+    player_fact: 一组与周围不同的螺旋符文。
+    keeper_fact: 接触即可启动，不以辨认成功为必要条件。
+  drugged_supplies:
+    name: 水中的药物
+    source:
+      document: story.md
+      anchor: captivity
+    locations:
+    - cage_area
+    acquisition:
+    - 试尝饮水并科学（药剂学）成功。
+    player_fact: 提供的水被加了药。
+policy: 发现、理解与展示分别记入本局事实；acquisition是原文提取说明，不是可执行表达式。

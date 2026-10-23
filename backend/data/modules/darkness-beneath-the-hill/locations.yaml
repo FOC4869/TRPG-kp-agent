@@ -1,0 +1,243 @@
+locations:
+  winscott_house:
+    name: 文斯考特宅
+    source:
+      document: story.md
+      anchor: meet-josh
+  house_cellar:
+    name: 文斯考特宅地窖
+    source:
+      document: story.md
+      anchor: entering-underground
+  john_hay_library:
+    name: 约翰·海伊图书馆
+    source:
+      document: story.md
+      anchor: research
+  providence_athenaeum:
+    name: 普罗维登斯文献馆
+    source:
+      document: story.md
+      anchor: research
+  old_tunnel:
+    name: 旧隧道
+    source:
+      document: story.md
+      anchor: entering-underground
+  river_brick_wall:
+    name: 河道方向砖墙
+    source:
+      document: story.md
+      anchor: entering-underground
+  descending_passage:
+    name: 下行通道
+    source:
+      document: story.md
+      anchor: entering-underground
+  underground_complex:
+    name: 蛇人洞穴系统
+    source:
+      document: story.md
+      anchor: serpent-domain
+  entrance_hall:
+    name: 入口厅
+    source:
+      document: story.md
+      anchor: entrance-hall
+    map_ref:
+      asset: caverns_map
+      label: 1
+  history_hall:
+    name: 历史厅
+    source:
+      document: story.md
+      anchor: history-hall
+    map_ref:
+      asset: caverns_map
+      label: 2
+  cliff:
+    name: 峭壁
+    source:
+      document: story.md
+      anchor: cliff
+    map_ref:
+      asset: caverns_map
+      label: 3
+  music_room:
+    name: 音乐室
+    source:
+      document: story.md
+      anchor: music-room
+    map_ref:
+      asset: caverns_map
+      label: 4
+  nest_west:
+    name: 西侧巢窟
+    source:
+      document: story.md
+      anchor: degenerate-nest
+    map_ref:
+      asset: caverns_map
+      label: 5
+    mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+  nest_east:
+    name: 东侧巢窟
+    source:
+      document: story.md
+      anchor: degenerate-nest
+    map_ref:
+      asset: caverns_map
+      label: 5
+    mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+  nest_south:
+    name: 南侧巢窟
+    source:
+      document: story.md
+      anchor: degenerate-nest
+    map_ref:
+      asset: caverns_map
+      label: 5
+    mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+  pit_corridor:
+    name: 陷坑走廊
+    source:
+      document: story.md
+      anchor: pit
+    map_ref:
+      asset: caverns_map
+      label: 7
+  fungus_area:
+    name: 种植场
+    source:
+      document: story.md
+      anchor: fungus-area
+    map_ref:
+      asset: caverns_map
+      label: 8
+  temple_of_yig:
+    name: 蛇父神殿
+    source:
+      document: story.md
+      anchor: temple-of-yig
+    map_ref:
+      asset: caverns_map
+      label: 9
+  hibernation_chamber:
+    name: 冬眠室
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+    map_ref:
+      asset: caverns_map
+      label: 10
+  serpent_lair:
+    name: 斯西亚·瑞斯之巢
+    source:
+      document: story.md
+      anchor: serpent-lair
+    map_ref:
+      asset: caverns_map
+      label: 11
+    detail_map: lair_detail_map
+  living_area:
+    name: 生活区
+    source:
+      document: story.md
+      anchor: serpent-lair
+    map_ref:
+      asset: caverns_map
+      label: 12
+    parent: serpent_lair
+  cage_area:
+    name: 壁龛铁笼区
+    source:
+      document: story.md
+      anchor: serpent-lair
+    map_ref:
+      asset: caverns_map
+      label: 13
+    parent: serpent_lair
+  laboratory:
+    name: 实验室
+    source:
+      document: story.md
+      anchor: serpent-lair
+    map_ref:
+      asset: caverns_map
+      label: 14
+    parent: serpent_lair
+  portal_area:
+    name: 传送门所在区域
+    source:
+      document: story.md
+      anchor: serpent-lair
+    map_ref:
+      asset: caverns_map
+      label: 15
+    parent: serpent_lair
+  portal_exit_cavern:
+    name: 波塔克西特出口洞窟
+    source:
+      document: story.md
+      anchor: serpent-lair
+connections:
+- id: house_to_cellar
+  from_location: winscott_house
+  to_location: house_cellar
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: meet-josh
+- id: cellar_to_tunnel
+  from_location: house_cellar
+  to_location: old_tunnel
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: entering-underground
+- id: tunnel_to_river
+  from_location: old_tunnel
+  to_location: river_brick_wall
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: entering-underground
+- id: tunnel_to_descent
+  from_location: old_tunnel
+  to_location: descending_passage
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: entering-underground
+- id: descent_to_hall
+  from_location: descending_passage
+  to_location: entrance_hall
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: entering-underground
+- id: portal_connection
+  from_location: portal_area
+  to_location: portal_exit_cavern
+  bidirectional: true
+  source:
+    document: story.md
+    anchor: serpent-lair
+  via_object: magic_portal
+map_features:
+  harper_inscription:
+    asset: caverns_map
+    label: 6
+    clue: harper_testament
+  pit:
+    asset: caverns_map
+    label: 7
+    object: pit_hazard
+topology_review:
+  status: partial
+  issue: map_topology
+  notes:
+  - 图片已保存，正文明确的连接已登记；未将章节顺序转换为道路。
+  - 地图2其他洞窟连线、峭壁上下层与巢穴子区连接仍需逐边人工核准。
+  - 地图2未画出的怪物窄道不作为调查员默认通路。
+  - 地图1比例尺用于局部图示，长距离以正文说明为准。

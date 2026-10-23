@@ -71,3 +71,5 @@ npm run build
 - [已有 Agent 能力及 CLI](docs/agent-guide.md)
 - [Python 接口及待接入 HTTP 契约](docs/interfaces.md)
 - [结构迁移记录](docs/history/structure-migration.md)
+
+《岭下暗影》的完整正文、结构化资料和附件见[模组内容包](backend/data/modules/darkness-beneath-the-hill/README.md)。当前用于内容审阅，尚未接入 CLI 或网页游戏。

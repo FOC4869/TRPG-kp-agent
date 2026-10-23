@@ -1,5 +1,19 @@
 # 当前上下文
 
+2026-10-23：将 feat/darkness-module-package 合并回 design/frontend-ui；保留现有首页/模组库，新增服务端模组内容包。两者尚未接成游戏运行链路。
+
+2026-10-22：在独立工作树 darkness-module、分支 feat/darkness-module-package 新增《岭下暗影》内容包。基于创建时 HEAD 20494e4，未带入原工作区 design/frontend-ui 的未提交首页改动。
+
+交付：backend/data/modules/darkness-beneath-the-hill/，完整正文38锚点、10个YAML、45个事件提取、7张原图与2份正文展示材料索引；assets/统一存储，无固定媒体分类子目录。素材原始字节保留，默认keeper_only。
+
+范围：声明式内容草案，不改变现有campaign.json、KeeperService、CLI、HTTP、前端或SQLite；未实现运行时加载/检索/授权。原文规则争议、地图逐边核准与外部规则依赖见包内issues.yaml。
+
+验证：完整正文往返、YAML重复键/出处/实体引用、素材哈希、默认权限检查通过；后端191项离线单测通过。未改前端，未运行前端检查；未调用真实模型。设计与验证见 docs/design/done/darkness-module-package.md。
+
+下一步：先核准地图连接、规则版本、蛇人HP与其他issues，再单独设计内容schema/loader到执行器的适配；不要将此包直接交给现有--campaign加载器。
+
+以下为前端与工程交付记录：
+
 2026-10-22 后续：用户要求先提交首页再实现模组库；首页已提交 ace06d5。
 当前新增分页模组库/详情（#/modules），桌面每页 3 张卡片、左右翻页、首尾禁用、末页不补空卡。首页开始调查已跳转新页面；选择调查员仅弹出尚未开放提示。
 主模组确定为《岭下暗影》，只使用用户提供的玩家引言，封面表现地窖/提灯/未知通道，不传守秘人信息。api/modules.ts 暂时读取本地 typed fixture（1 个主模组 + 6 条待收录记录），不请求不存在的后端目录接口。

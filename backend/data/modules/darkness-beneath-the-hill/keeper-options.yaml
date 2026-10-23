@@ -1,0 +1,65 @@
+policy: 默认关闭；选用、参数及触发写入本局存档。不是每局固定剧情。
+options:
+  relocate_peck_letter:
+    source:
+      document: story.md
+      anchor: research-advice
+    origin: source_optional
+    enabled: false
+    description: 将信件放在实际拜访的图书馆，或以知识/馆员引导前往文献馆。
+  collapse_retreat_route:
+    source:
+      document: story.md
+      anchor: investigator-motivation
+    origin: source_optional
+    enabled: false
+    description: 可选塌方封退路，不作为必然事件。
+  one_way_portal:
+    source:
+      document: story.md
+      anchor: investigator-motivation
+    origin: source_optional
+    enabled: false
+    description: 配合剧情需要将传送门设置为单向；选用后明确记录方向。
+  josh_last_stand:
+    source:
+      document: story.md
+      anchor: friend-in-distress
+    origin: source_optional
+    enabled: false
+    description: 危急时让乔什暂时恢复神智，为调查员争取脱身时间。
+  strict_fungus_penalty:
+    source:
+      document: story.md
+      anchor: fungus-area
+    origin: source_optional
+    enabled: false
+    description: CON失败且幸存者，在毒素排出前所有技能承受一个惩罚骰，原文给出1D4小时。
+  generous_cliff_damage:
+    source:
+      document: story.md
+      anchor: cliff
+    origin: source_optional
+    enabled: false
+    description: 徒手孤注攀爬失败时，可因半途坠落仅受1D6伤害。
+  demonstrate_portal:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: source_optional
+    enabled: false
+    description: 无神话技能的新手可观察蛇人使用传送门，作为用法提示。
+  vision_foreshadowing:
+    source:
+      document: story.md
+      anchor: serpent-whispers
+    origin: source_optional
+    enabled: false
+    description: 在伊格幻象中加入后续冒险伏笔或蛇类恐惧表现。
+  capture_instead_of_death:
+    source:
+      document: story.md
+      anchor: captivity
+    origin: source_optional
+    enabled: false
+    description: 合适时采用活捉遭遇；仍须尊重实际战斗结果与玩家参与。
