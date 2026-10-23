@@ -2,6 +2,8 @@
 
 当前 Python 源码位于 `backend/`，本页数据路径和示例工作目录均相对 `backend/`。FastAPI 骨架仅已实现 `GET /api/health`，其余 HTTP 地址仍为建议。
 
+调查员选择页的独立前端 mock 与后续 API 适配约定见[调查员展示契约](investigator-api.md)，不代表已实现角色目录 HTTP 或游戏实例创建。
+
 当前是一名玩家、一张固定角色卡、三个地点的原创故事，AI 直接当 KP。
 默认故事在 `data/campaign.json`。你这边提供 Python 的 `KeeperService`，
 网页同学负责 React／FastAPI，角色／骰子／数据库同学负责底层方案和对应实现。

@@ -23,7 +23,7 @@ npm run dev
 ```
 
 访问 http://127.0.0.1:5173，显示桌面游戏首页。可单独运行前端预览视觉，“设置”内通过 /api/health 检查后端。
-开始调查与模组库进入 #/modules，提供左右分页及公开详情。目录暂用本地示例，不请求不存在的模组 HTTP 接口；调查员选择显示尚未开放提示，继续调查禁用。
+开始调查与模组库进入 #/modules，提供左右分页及公开详情。目录暂用本地示例，不请求不存在的模组 HTTP 接口；可用模组进入调查员选择页，继续调查禁用。
 FastAPI 文档为 http://127.0.0.1:8000/docs。前端 5173 端口被占用会直接报错，避免无意切换端口。
 需要更改后端端口时，同步调整 frontend/vite.config.ts 的代理目标。
 
@@ -75,6 +75,10 @@ openpyxl 读取旧角色卡可能提示不支持的 Excel 扩展；导入流程�
 ## 预设调查员数据
 
 预设调查员数据位于 backend/data/characters/<id>/，每位包含 character.yaml、background.md、assets/portrait.png。字段、原卡疑点和附件引用约定见 backend/data/characters/README.md。新增角色不需要注册 manifest；未来加载器按角色文件扫描。当前未接入 CLI 或网页，不根据新数据改变原有角色加载流程。
+
+前端选择页 `#/investigators?module=darkness-beneath-the-hill` 当前使用独立假资料与原创假头像，并未读取上述后端目录。
+列表/详情通过 api/investigators.ts，显示类型在 types/investigators.ts；页面不直接导入 mock。接入指南见 [调查员 API 适配契约](investigator-api.md)。
+验收十张卡片、四标签及键盘左右/Home/End、未知字段、确认/Escape、快速切换、刷新/返回和无效模组；首次无选择时确认禁用。桌面主视口为 1280×720、1440×900、1920×1080 和宽屏；档案面板高度随视口调整，长内容在标签面板内滚动，确认按钮保持可见，切换标签不改变整页高度。
 
 ## 依赖更新
 

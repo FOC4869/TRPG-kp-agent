@@ -1,5 +1,14 @@
 # 当前上下文
 
+2026-10-23 后续：按用户确认的概念图实现调查员选择，仍在 design/frontend-ui；用户明确要求先用假数据和假资源，后续从 API 获得正式数据。
+页面为 #/investigators?module=<id>，桌面 2×5 照片卡片，右侧概览/属性技能/背景/物品四标签。首次无选择，确认禁用；选中后可打开案件/人物确认摘要，不创建游戏或存档。
+后续按用户反馈稳定右侧档案高度：四标签内容内部滚动，头像/标签/确认按钮位置固定，切换标签不再拉高整页。已检查桌面与窄屏、键盘滚动。
+types/investigators.ts 定义公开展示类型，api/investigators.ts 提供 listInvestigators/getInvestigator（moduleId + AbortSignal）；当前读取独立 mock，未读取/复制 backend/data/characters 的 YAML/头像/背景。假头像图集由内置 imagegen 生成，素材提示词归档 docs/design/image-assets.md。
+接入契约见 docs/investigator-api.md。下一步为游戏界面；正式 HTTP、授权摘要与模板实例/存档生命周期另行实现。
+验证：npm ci/lint/typecheck/build、适配层 smoke、桌面/宽屏/短屏/窄屏浏览器检查、四标签键盘导航、选择确认与无效上下文均通过；无后端改动，未重复后端测试。交付记录见 docs/design/done/investigator-selection.md。
+
+以下为服务端资产合并历史：
+
 2026-10-23：将 feat/preset-investigator-data 合并回 design/frontend-ui；保留目标分支现有模组库/详情页及《岭下暗影》内容包，新增十位预设调查员。角色目录仍未接入页面和游戏运行链路。
 
 2026-10-22：在独立分支 feat/preset-investigator-data 按用户确认的格式新增十位预设调查员，位于 backend/data/characters/<id>/{character.yaml,background.md,assets/portrait.png}。无角色包层、无 manifest、无完整角色卡截图；结构不受现有 Character 实现约束。没有移动旧 Excel 或接入运行时/HTTP/前端。

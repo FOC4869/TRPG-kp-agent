@@ -23,6 +23,13 @@ export interface ModulePage {
   total: number
 }
 
+export async function getPublicModule({ id, signal }: { id: string; signal: AbortSignal }): Promise<PublicModule | null> {
+  signal.throwIfAborted()
+  await Promise.resolve()
+  signal.throwIfAborted()
+  return structuredClone(previewModules.find((module) => module.id === id) ?? null)
+}
+
 /** Local preview adapter. Replace its body when a real GET contract is agreed. */
 export async function listPublicModules({ page, pageSize, signal }: {
   page: number

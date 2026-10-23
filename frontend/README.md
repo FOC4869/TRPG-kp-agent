@@ -1,6 +1,6 @@
 # Frontend
 
-Vite + React + TypeScript，桌面优先的 CoC AI Keeper 首页与模组库／详情。
+Vite + React + TypeScript，桌面优先的 CoC AI Keeper 首页、模组库／详情与调查员选择。
 采用原创雨夜旧宅背景、HTML 标题、可交互导航与调查入口。继续调查置灰，本轮无存档功能。
 
 ```sh
@@ -14,7 +14,8 @@ npm run dev
 
 首页与模组库可离线于后端浏览。“开始调查”和“模组库”进入 #/modules；每页最多 3 张卡片，左右翻页并展示所选模组公开详情。
 目录目前来自 src/data/modules.ts 的示例记录：《岭下暗影》与 6 个明确标注待收录的条目，用于 3/3/1 分页预览。src/api/modules.ts 保留异步分页与取消边界，未接模组 HTTP；后续接入时替换读取适配，页面不补空卡。
-“选择调查员”目前仅显示尚未开放提示，不启动游戏。
+“选择调查员”进入 #/investigators?module=<id>，展示十人照片墙、四类档案与确认弹窗；确认仅预览准备信息，不启动游戏。
+人物资料位于 src/data/investigators.ts，全部为独立 UI 示例；照片使用新生成的 investigator-previews.webp 图集，未复制后端角色资产。列表摘要与详情分别由 src/api/investigators.ts 返回，类型位于 src/types/investigators.ts；未来换为真实请求时保留组件结构，见 [API 适配契约](../docs/investigator-api.md)。
 设置提供减少动态效果（本次浏览内生效）及后端健康检查；默认尊重系统减少动态效果偏好。
 主要布局检查尺寸为 1280×720、1440×900、1920×1080 和 2560×1080，短窗口支持纵向滚动。
 素材见 [images/README.md](public/images/README.md)，生图仅作为环境背景，页面文字和按钮可选中、可聚焦、可操作。

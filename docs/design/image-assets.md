@@ -1,5 +1,14 @@
 # 前端视觉素材与生图提示词
 
+## 调查员占位头像图集
+
+`frontend/public/images/investigator-previews.webp` 为 2026-10-23 内置 imagegen 独立生成的十人假照片图集（5×2），不使用后端角色卡或头像作为输入。仅供调查员选择页展示；不是原卡肖像，不证明示例资料与正式角色一致。
+来源原图 `/Users/huantao/.codex/generated_images/01a163d5-3814-7723-8d54-511bccd84f04/exec-afc652be-2381-4cd1-89ca-e5de15440a87.png`，1774×887；cwebp 质量 86、method 6，193822 字节。项目直接消费 WebP，通过 CSS 图集位置展示；未来真实 API 返回普通头像 URL 时可不提供 sprite 元数据。
+
+最终提示词：
+
+> Use case: illustration-story. Production placeholder portrait atlas for a 1920s investigation game UI, NOT a screenshot. Generate ONE single contact sheet with EXACTLY TEN FICTIONAL archival sepia photographs, in a STRICT FIVE COLUMNS by TWO ROWS uniform grid. Landscape overall aspect ratio 2:1, ideally 2560x1280. All ten rectangular cells have identical width and height, fill the entire canvas edge-to-edge with absolutely NO gaps, no padding, no borders, no frames, no text or numbers. Every cell is a different portrait, centered head and shoulders at consistent scale, calm expressions, soft studio lighting and neutral muted antique background. Authentic 1920s clothing, softly weathered photographic grain, warm faded sepia, restrained naturalistic faces. These are dummy portraits; do not replicate the supplied real character assets or any known person's face. Row 1 left to right: (1) friendly strong young clean-shaven man with side-parted hair in dark pullover, (2) middle-aged woman writer with pinned curled hair in tweed jacket, (3) woman scientist in her thirties with short wavy hair in plain blouse, (4) quiet East Asian man in his thirties with neatly parted hair in modest work jacket, (5) serious clean-shaven middle-aged doctor in suit. Row 2 left to right: (6) outgoing middle-aged stage magician in period boater hat and suit, (7) cheerful woman professor in her late thirties in small dark cloche hat and jacket, (8) thoughtful young male priest in clerical collar, (9) confident woman reporter in her thirties with broad dark hat and tailored jacket, (10) introspective young male psychologist with short beard and moustache in dark suit. CRITICAL uniform tile boundaries at exactly 0%,20%,40%,60%,80%,100% width and 0%,50%,100% height; no mixed tile sizes, no overlap, no individual borders. Keep all faces well inside their tile. No text, no labels, no watermark, no UI. One consistent low-saturation archival photographic style. The app will crop cells using CSS, so precision of the 5x2 grid is essential.
+
 ## 模组封面
 
 `beneath-the-hill.webp` 是 2026-10-22 使用内置 imagegen 生成的原创无文字地窖环境，供《岭下暗影》目录卡片使用。来源原图为 `/Users/huantao/.codex/generated_images/01a163d5-3814-7723-8d54-511bccd84f04/exec-01df8b04-0cdc-4995-862f-7cc393d29d66.png`；项目只依赖本目录 WebP。原图 1024×1536，cwebp 质量 88、method 6 后为 358074 字节。没有将官方封面、NPC、守秘人信息或隐藏地图作为素材。

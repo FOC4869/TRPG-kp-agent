@@ -1,13 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { getHealth } from './api/health'
-import type { PublicModule } from './api/modules'
 import { ModuleLibrary } from './components/ModuleLibrary'
+import { InvestigatorSelection } from './components/InvestigatorSelection'
 import { Arrow, DoorMark, FrameCorners, Lock } from './components/Ornaments'
 
-type Panel = 'settings' | 'investigator' | null
+type Panel = 'settings' | null
 
-function currentScreen() {
-  return window.location.hash.split('?')[0] === '#/modules' ? 'modules' : 'home'
+function currentRoute() {
+  const [path, query] = window.location.hash.split('?')
+  const screen = path === '#/investigators' ? 'investigators' : path === '#/modules' ? 'modules' : 'home'
+  return { screen, moduleId: new URLSearchParams(query).get('module') }
 }
 
 function ConnectionCheck() {
@@ -51,33 +53,33 @@ function ConnectionCheck() {
 
 
 function App() {
-  const [screen, setScreen] = useState(currentScreen)
+  const [route, setRoute] = useState(currentRoute)
+  const { screen, moduleId } = route
   const [panel, setPanel] = useState<Panel>(null)
-  const [pendingModule, setPendingModule] = useState<PublicModule | null>(null)
   const [reduceMotion, setReduceMotion] = useState(
     () => window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   )
   const dialog = useRef<HTMLDialogElement>(null)
-  const previousScreen = useRef(screen)
+  const previousScreen = useRef(`${screen}:${moduleId}`)
 
   useEffect(() => {
     function onHashChange() {
       dialog.current?.close()
       setPanel(null)
-      setScreen(currentScreen())
+      setRoute(currentRoute())
     }
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
 
   useEffect(() => {
-    if (previousScreen.current !== screen) {
+    if (previousScreen.current !== `${screen}:${moduleId}`) {
       document.getElementById('main')?.focus()
       window.scrollTo(0, 0)
-      previousScreen.current = screen
+      previousScreen.current = `${screen}:${moduleId}`
     }
-    document.title = screen === 'modules' ? '调查卷宗 · CoC AI Keeper' : 'CoC AI Keeper · 你的下一场调查'
-  }, [screen])
+    document.title = screen === 'investigators' ? '选择调查员 · CoC AI Keeper' : screen === 'modules' ? '调查卷宗 · CoC AI Keeper' : 'CoC AI Keeper · 你的下一场调查'
+  }, [screen, moduleId])
 
   useEffect(() => {
     if (panel && !dialog.current?.open) dialog.current?.showModal()
@@ -90,7 +92,7 @@ function App() {
   }
 
   return (
-    <div className={`home ${screen === 'modules' ? 'library-page' : ''}`} data-reduced-motion={reduceMotion}>
+    <div className={`home ${screen !== 'home' ? 'library-page' : ''} ${screen === 'investigators' ? 'investigators-page' : ''}`} data-reduced-motion={reduceMotion}>
       <a className="skip-link" href="#main" onClick={(event) => {
         event.preventDefault()
         document.getElementById('main')?.focus()
@@ -105,7 +107,7 @@ function App() {
         <a className="brand" href="#/" aria-label="CoC AI Keeper 首页"><DoorMark /><span>CoC AI Keeper</span></a>
         <nav aria-label="主导航">
           <a className={`nav-item ${screen === 'home' ? 'active' : ''}`} href="#/" aria-current={screen === 'home' ? 'page' : undefined}>首页</a>
-          <a className={`nav-item ${screen === 'modules' ? 'active' : ''}`} href="#/modules" aria-current={screen === 'modules' ? 'page' : undefined}>模组库</a>
+          <a className={`nav-item ${screen !== 'home' ? 'active' : ''}`} href="#/modules" aria-current={screen === 'modules' ? 'page' : undefined}>模组库</a>
           <button className="nav-item" aria-haspopup="dialog" onClick={() => setPanel('settings')}>设置</button>
         </nav>
       </header>
@@ -126,31 +128,25 @@ function App() {
             </div>
           </div>
         </main>
-      ) : (
-        <ModuleLibrary onChooseInvestigator={(module) => { setPendingModule(module); setPanel('investigator') }} />
-      )}
+      ) : screen === 'modules' ? (
+        <ModuleLibrary onChooseInvestigator={(module) => {
+          window.location.hash = `/investigators?${new URLSearchParams({ module: module.id })}`
+        }} />
+      ) : <InvestigatorSelection key={moduleId ?? 'missing-module'} moduleId={moduleId} />}
 
-      <footer className={`site-footer ${screen === 'modules' ? 'library-footer' : ''}`}>
+      <footer className={`site-footer ${screen !== 'home' ? 'library-footer' : ''}`}>
         <FrameCorners />
-        {screen === 'modules' ? <a className="back-home" href="#/"><Arrow />返回首页</a> : <p>单人调查 <span>·</span> 自由行动 <span>·</span> AI 主持</p>}
+        {screen !== 'home' ? <a className="back-home" href={screen === 'investigators' ? '#/modules' : '#/'}><Arrow />{screen === 'investigators' ? '返回模组库' : '返回首页'}</a> : <p>单人调查 <span>·</span> 自由行动 <span>·</span> AI 主持</p>}
         <p className="project-credit">DSAI5205 <span>·</span> GROUP PROJECT</p>
       </footer>
 
       <dialog ref={dialog} className="folio-dialog" aria-labelledby="dialog-title" onClose={() => setPanel(null)}>
         <div className="dialog-heading">
-          <p className="eyebrow">{panel === 'investigator' ? 'YOUR NEXT CHAPTER' : 'PREFERENCES'}</p>
+          <p className="eyebrow">PREFERENCES</p>
           <button className="close-button" aria-label="关闭" onClick={closePanel}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg>
           </button>
         </div>
-        {panel === 'investigator' && (
-          <>
-            <h2 id="dialog-title">调查即将启程</h2>
-            <p className="dialog-intro">已选择卷宗：{pendingModule?.title}</p>
-            <p className="preview-notice">调查员选择界面尚未开放。这份卷宗会在准备就绪后，等待你的到来。</p>
-            <button className="dialog-action" onClick={closePanel}>返回卷宗 <Arrow /></button>
-          </>
-        )}
         {panel === 'settings' && (
           <>
             <h2 id="dialog-title">设置</h2>
