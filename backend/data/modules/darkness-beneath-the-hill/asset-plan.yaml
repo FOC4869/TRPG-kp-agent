@@ -1,0 +1,824 @@
+visual_format_version: 0.1.0
+content_fingerprint: 845d616cca69a9226e6d9f7b2b88874b7ce7ce53e3b3a88e227307f8eca501c4
+image_tool: available
+items:
+  default_atmosphere:
+    kind: default_background
+    relates_to: []
+    status: review
+    batch: sample
+    output: default_atmosphere-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: 'Use case: stylized-concept. Independent game fallback background, wide
+      16:9 final 1920x1080. Realistic painterly atmospheric charcoal and desaturated
+      dark brown abstract fine paper grain, very subtle muted amber ambient haze near
+      edges, cool dark center. Readable dark tonal gradation, understated historical
+      investigation horror mood. Entirely nonrepresentational: NO room, objects, doors,
+      furniture, symbols, creatures, people, text, borders or UI. Low detail, suitable
+      behind dialogue and a separate character layer. Match restrained brushwork,
+      ochre-charcoal palette and subdued light of period New England horror illustration.'
+    references: []
+    reuse_of: null
+    input_fingerprint: 15dd439fe71913dbca7f227b8434091f0e87fc377ba44c697e00d50d451eac06
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated candidate; pending user style selection. Background export uses
+        aspect-preserving contain and minimal edge padding; sprite alpha verified.
+    candidate_file: default_atmosphere-v1.webp
+    sha256: 25ffd1c8dd78bcf91eb808e1a6bef64a5db2c1ecc0b00218a0be9d4cc366f3af
+  bg_winscott_house:
+    kind: scene_background
+    relates_to:
+    - winscott_house
+    status: review
+    batch: sample
+    output: bg_winscott_house-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: 'Use case: historical-scene. Standalone 16:9 game background, final 1920x1080.
+      Interior of Josh Winscott''s inherited old New England house on College Hill,
+      Providence, 1920s. Source facts: story.md#meet-josh: renovating house, scattered
+      tools, miscellaneous boxes, furniture under dust sheets, coffee offered to visitors,
+      stairs leading from kitchen to cellar. Depict a modest worn sitting area adjoining
+      kitchen with closed cellar stair doorway, covered furniture and boxes, quiet
+      daylight and soft amber interior light. No people or silhouettes. No monsters,
+      secret clues, writing, UI or borders. Composition: wide eye-level shot, spacious
+      sides for separate NPC overlay and bottom quarter dialogue safe. Style: realistic
+      painterly period horror illustration, subtle brushwork, subdued ochre wood,
+      charcoal, desaturated cool shadows, readable dark detail, restrained atmospheric
+      suspense. Architectural and furniture details are noncanonical artistic interpretation,
+      not gameplay facts.'
+    references: []
+    reuse_of: null
+    input_fingerprint: f8821b15f52b7dc422b0d92d05c0cf3fd995715a66384837b501b1decb68e202
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated candidate; pending user style selection. Background export uses
+        aspect-preserving contain and minimal edge padding; sprite alpha verified.
+    candidate_file: bg_winscott_house-v1.webp
+    sha256: a39f8c156c462f52e76320dd4ec8c1942658073131ee2112b30c46105d21a66c
+  bg_house_cellar:
+    kind: scene_background
+    relates_to:
+    - house_cellar
+    status: planned
+    batch: later
+    output: bg_house_cellar-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 文斯考特宅地窖. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#entering-underground\n\
+      \n进入地底 \n当调查员按照事先约定的时间返回乔什的房屋时，他们会发现屋内无人前来应门。房门没有锁，但向\n屋内呼喊不会得到任何回应。 \n当调查员们来到地下室之后，他们将发现一杯已经冷掉的咖啡。工具随意地被扔在一堵开了一个大洞\n\
+      （大到足以让人通行）的砖墙旁。穿过这个洞，另一边是一条由砖搭建起来的隧道，通向某处看起来像是\n一个巨大的天然洞穴的地方（此处默认调查员们都记得带上了手电筒）。\
+      \ \n成功的追踪技能检定能够让调查员们发现一个男子的足迹通向了这条隧道的深处，但在那之后就因为\n挖掘工作产生的碎石与尘土而无法辨别。隧道向东大约五十英尺的地方看起来就在不久之前完全崩塌了。\n\
+      而沿隧道西行大约二百英尺后，调查员们会发现一些古时人类留下的遗骸，这六具遗骸在距离南墙上的一\n处入口十英尺远的地方。其中三具骸骨的四肢上还戴有铁质的镣铐。一个成功的科学（生物学）或医学技\n\
+      能检定可以辨别出这些骸骨大约有150年的历史。而成功的考古或历史技能检定能辨别出那些没有镣铐的\n尸骨上的残留衣物看起来是来自殖民时代的。大多数骨骼都已经残缺，可能是暴力手段或虫蛀导致的。成\n\
+      功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
+      识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
+      蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: ba51a0ae91340e4e14ae0c31428d713ca2e1c9edd100ec3f07f51d04589571e7
+    attempts: []
+  bg_john_hay_library:
+    kind: scene_background
+    relates_to:
+    - john_hay_library
+    - providence_athenaeum
+    status: planned
+    batch: later
+    output: bg_john_hay_library-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 约翰·海伊图书馆, 普罗维登斯文献馆. Use only environmental facts from sources below; exclude\
+      \ NPCs, actions, checks, secret traps and undiscovered clues. Map connectivity\
+      \ unresolved: do not invent connected rooms. Shared image depicts common environment\
+      \ rather than literal identical architecture. Sources:\nstory.md#research\n\n\
+      展开调查 \n在探索的准备工作期间，调查员们可能会试图去查找某些方面的资料，诸如文斯考特家族与那座房屋\n的历史、普罗维登斯的奴隶制度以及奴隶隧道的传闻。\
+      \ \n在城中有数座图书馆，而且还有普罗维登斯日报，罗德岛州年代最久远的日报的报社。而其中两座图\n书馆是关于普罗维登斯早期历史的尤其有用的信息来源。它们都位于文斯考特宅以北大约半英里的地方，\n\
+      分别是布朗大学的约翰·海伊图书馆与普罗维登斯文献馆。 \n约翰·海伊图书馆：现在的布朗大学图书馆于1910年投入使用，其位于普罗斯佩克特大街20号。按照\n\
+      英国文艺复兴风格以大理石建成，其规模对于容纳庞大的藏书而言已经显得过于狭小。一楼的公共区\n域包括了一个狭长的阅览室，摆放有书架与各种期刊。在二层是哈里斯藏书室，包括有一个堆叠了两\n\
+      15 \n幽暗之门 \n层柴火的带有铭刻的壁炉。而三楼则拥有一个稀有藏书室，一片巨大的展览区与特殊收藏区，其中包\n括了雷德的关于罗德岛历史的藏书。 \n\
+      普罗维登斯文献馆：这座私人图书馆位于贝涅福大街251号，于1838年以漂亮的希腊复古式风格建\n成。这座图书馆内藏有许多历史文献，但要查阅它们需要缴纳15美元以取得会员资格。\
+      \ \n以下是可能找到的线索。 \n\n\nstory.md#research\n\n展开调查 \n在探索的准备工作期间，调查员们可能会试图去查找某些方面的资料，诸如文斯考特家族与那座房屋\n\
+      的历史、普罗维登斯的奴隶制度以及奴隶隧道的传闻。 \n在城中有数座图书馆，而且还有普罗维登斯日报，罗德岛州年代最久远的日报的报社。而其中两座图\n书馆是关于普罗维登斯早期历史的尤其有用的信息来源。它们都位于文斯考特宅以北大约半英里的地方，\n\
+      分别是布朗大学的约翰·海伊图书馆与普罗维登斯文献馆。 \n约翰·海伊图书馆：现在的布朗大学图书馆于1910年投入使用，其位于普罗斯佩克特大街20号。按照\n\
+      英国文艺复兴风格以大理石建成，其规模对于容纳庞大的藏书而言已经显得过于狭小。一楼的公共区\n域包括了一个狭长的阅览室，摆放有书架与各种期刊。在二层是哈里斯藏书室，包括有一个堆叠了两\n\
+      15 \n幽暗之门 \n层柴火的带有铭刻的壁炉。而三楼则拥有一个稀有藏书室，一片巨大的展览区与特殊收藏区，其中包\n括了雷德的关于罗德岛历史的藏书。 \n\
+      普罗维登斯文献馆：这座私人图书馆位于贝涅福大街251号，于1838年以漂亮的希腊复古式风格建\n成。这座图书馆内藏有许多历史文献，但要查阅它们需要缴纳15美元以取得会员资格。\
+      \ \n以下是可能找到的线索。 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 75ab60ac4f5253d73f3b976e4a632b69e3592e78db4a11870e00e817c33d2517
+    attempts: []
+  bg_old_tunnel:
+    kind: scene_background
+    relates_to:
+    - old_tunnel
+    - descending_passage
+    status: planned
+    batch: later
+    output: bg_old_tunnel-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 旧隧道, 下行通道. Use only environmental facts from sources below; exclude NPCs,\
+      \ actions, checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#entering-underground\n\
+      \n进入地底 \n当调查员按照事先约定的时间返回乔什的房屋时，他们会发现屋内无人前来应门。房门没有锁，但向\n屋内呼喊不会得到任何回应。 \n当调查员们来到地下室之后，他们将发现一杯已经冷掉的咖啡。工具随意地被扔在一堵开了一个大洞\n\
+      （大到足以让人通行）的砖墙旁。穿过这个洞，另一边是一条由砖搭建起来的隧道，通向某处看起来像是\n一个巨大的天然洞穴的地方（此处默认调查员们都记得带上了手电筒）。\
+      \ \n成功的追踪技能检定能够让调查员们发现一个男子的足迹通向了这条隧道的深处，但在那之后就因为\n挖掘工作产生的碎石与尘土而无法辨别。隧道向东大约五十英尺的地方看起来就在不久之前完全崩塌了。\n\
+      而沿隧道西行大约二百英尺后，调查员们会发现一些古时人类留下的遗骸，这六具遗骸在距离南墙上的一\n处入口十英尺远的地方。其中三具骸骨的四肢上还戴有铁质的镣铐。一个成功的科学（生物学）或医学技\n\
+      能检定可以辨别出这些骸骨大约有150年的历史。而成功的考古或历史技能检定能辨别出那些没有镣铐的\n尸骨上的残留衣物看起来是来自殖民时代的。大多数骨骼都已经残缺，可能是暴力手段或虫蛀导致的。成\n\
+      功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
+      识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
+      蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n\nstory.md#entering-underground\n\
+      \n进入地底 \n当调查员按照事先约定的时间返回乔什的房屋时，他们会发现屋内无人前来应门。房门没有锁，但向\n屋内呼喊不会得到任何回应。 \n当调查员们来到地下室之后，他们将发现一杯已经冷掉的咖啡。工具随意地被扔在一堵开了一个大洞\n\
+      （大到足以让人通行）的砖墙旁。穿过这个洞，另一边是一条由砖搭建起来的隧道，通向某处看起来像是\n一个巨大的天然洞穴的地方（此处默认调查员们都记得带上了手电筒）。\
+      \ \n成功的追踪技能检定能够让调查员们发现一个男子的足迹通向了这条隧道的深处，但在那之后就因为\n挖掘工作产生的碎石与尘土而无法辨别。隧道向东大约五十英尺的地方看起来就在不久之前完全崩塌了。\n\
+      而沿隧道西行大约二百英尺后，调查员们会发现一些古时人类留下的遗骸，这六具遗骸在距离南墙上的一\n处入口十英尺远的地方。其中三具骸骨的四肢上还戴有铁质的镣铐。一个成功的科学（生物学）或医学技\n\
+      能检定可以辨别出这些骸骨大约有150年的历史。而成功的考古或历史技能检定能辨别出那些没有镣铐的\n尸骨上的残留衣物看起来是来自殖民时代的。大多数骨骼都已经残缺，可能是暴力手段或虫蛀导致的。成\n\
+      功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
+      识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
+      蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: ac49af9ab3f4a13c3d800ddb109754e27c37ed19addade778b571b858ee3760e
+    attempts: []
+  bg_river_brick_wall:
+    kind: scene_background
+    relates_to:
+    - river_brick_wall
+    status: planned
+    batch: later
+    output: bg_river_brick_wall-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 河道方向砖墙. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#entering-underground\n\
+      \n进入地底 \n当调查员按照事先约定的时间返回乔什的房屋时，他们会发现屋内无人前来应门。房门没有锁，但向\n屋内呼喊不会得到任何回应。 \n当调查员们来到地下室之后，他们将发现一杯已经冷掉的咖啡。工具随意地被扔在一堵开了一个大洞\n\
+      （大到足以让人通行）的砖墙旁。穿过这个洞，另一边是一条由砖搭建起来的隧道，通向某处看起来像是\n一个巨大的天然洞穴的地方（此处默认调查员们都记得带上了手电筒）。\
+      \ \n成功的追踪技能检定能够让调查员们发现一个男子的足迹通向了这条隧道的深处，但在那之后就因为\n挖掘工作产生的碎石与尘土而无法辨别。隧道向东大约五十英尺的地方看起来就在不久之前完全崩塌了。\n\
+      而沿隧道西行大约二百英尺后，调查员们会发现一些古时人类留下的遗骸，这六具遗骸在距离南墙上的一\n处入口十英尺远的地方。其中三具骸骨的四肢上还戴有铁质的镣铐。一个成功的科学（生物学）或医学技\n\
+      能检定可以辨别出这些骸骨大约有150年的历史。而成功的考古或历史技能检定能辨别出那些没有镣铐的\n尸骨上的残留衣物看起来是来自殖民时代的。大多数骨骼都已经残缺，可能是暴力手段或虫蛀导致的。成\n\
+      功的侦查检定能揭示出衣物上有撕扯的痕迹与血迹（如果调查员们仔细靠近并观察了这些破布，那么这里\n就不需要侦查检定也能发现线索）。 \n隧道在继续向西延伸半英里后的尽头是一道古老的砖墙（如果通过了一个导航技能检定，调查员将意\n\
+      识到他们现在距离河道很近）。在南墙上的开口处附近（在遗骸区域），调查员能通过成功的侦查检定发\n现一截土耳其香烟的烟头（被文斯考特遗留在这里）。墙上的开口通向一条向下延伸的通道。这条通道蜿\n\
+      蜒而曲折，长度约半英里，并向下延伸了大约两百英尺的深度。在走过一个弯道后，调查员们将会看到一\n处稳定但却昏暗的亮光。而随着他们沿通道径直前行，这亮光也开始愈发明亮，但他们无法知晓光亮的来\n\
+      源究竟为何。很快，这条通道就将他们引至了一处由散发着磷光的地衣所照亮的庞大房间之中。 \n幽暗之门 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 199d151d3d3cb4b1feec25c8b8dc4291906e765bfeb2324a7354e321a6ea7d9a
+    attempts: []
+  bg_entrance_hall:
+    kind: scene_background
+    relates_to:
+    - entrance_hall
+    status: planned
+    batch: later
+    output: bg_entrance_hall-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 入口厅. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#entrance-hall\n\n\
+      入口厅 \n整个大厅都充满了蛇人有意种下的地衣所散发出的光芒。这一整个庞大洞穴系统中的大部分隧道与洞\n窟都被如同烛光般的昏暗光芒所点亮。因此调查员们的照明并不需要完全依赖他们自己携带的光源，但他\n\
+      们仍然会用到这些光源来仔细观察事物的细节、从一段距离外看清物体或照亮崎岖与昏暗的路段。守秘人\n可以描述一下这些荧光，以及在荧光的映射下，调查员们的手电筒在墙壁上留下的跃动、交错而令人不安\n\
+      的光影。 \n当调查员进入大厅之后，他们能发现复杂的雕刻被装饰在这里的墙壁与高达100多英尺的天然石柱\n上。所有的雕刻都十分古老，已经生满了青苔，这些精美的艺术品大部分都已经遭到了损坏。东边的墙壁\n\
+      有大约50英尺的部分已经崩塌，那上面曾有的任何雕刻与信息都已经不复存在。 \n成功的考古学检定只能揭示出这些雕刻极其古老，其年代可能比至今发现的最古老的洞穴壁画都要久\n\
+      远，其风格与技艺也同样远超过目前已发现的原始艺术。蛇的图案在这些雕刻中占据了主导地位，其中有\n一些巨大无比。某些蛇的图案重复出现了多次，其可能具有某种符号象征意义，许多被雕刻得更为精致的\n\
+      蛇的额头上皆装饰有一轮白色的新月图案。抽象的几何图形、曲线与螺旋环绕在蛇形的雕刻旁。某些这样\n的曲折、盘卷与不断重复的雕刻看起来就像是某种文本。一个成功的克苏鲁神话技能检定能够揭示出这些\n\
+      词汇像是阿克洛语*，一种据称来自人类时代以前的神秘语言。 \n*Aklo 蛇人的语言 \n幽暗之门 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 2b0704df6409f081bf6995e7c80963f3cc676d8b288cd280e7234baff10e8a44
+    attempts: []
+  bg_history_hall:
+    kind: scene_background
+    relates_to:
+    - history_hall
+    status: planned
+    batch: later
+    output: bg_history_hall-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 历史厅. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#history-hall\n\n历史厅\
+      \ \n这个长而扭曲的房间装饰有大量精心的雕刻。其中同样包含了蛇形与几何图案，还有一系列的壁画。\n首先是一系列的景观主题的雕刻，刻有高塔与其他各类建筑。身着长袍的蛇形人物被刻画为正在进行各种\n\
+      祭祀活动。一些图像展现了它们正在崇拜一条额头上饰有新月图案的巨蛇，其他雕刻则展现了蛇人与它们\n的城市正被巨大的爬行类动物袭击。一个成功的知识检定可以辨认出那些爬行类的庞然大物正是各种恐\n\
+      龙，其中包括了掳走无助的蛇人的翼手龙。这个来自远古的对恐龙的明确记载会造成一个理智检定\n（0/1d3 理智值损失）。壁画最终的场面描绘了蛇人将他们在地面上的城市抛弃给了爬行类动物并逃入了\n\
+      地底，在那里建造了新的家园。 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: f7adc4faf99ac195987190d425de42e616aced02d20a8614c748bc6446d31d21
+    attempts: []
+  bg_cliff:
+    kind: scene_background
+    relates_to:
+    - cliff
+    status: planned
+    batch: later
+    output: bg_cliff-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 峭壁. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#cliff\n\n峭壁 \n如果调查员们想要在洞穴中探索更远，他们必须垂直降下一段距离。下方的地面距离上方相差20英\n\
+      尺。调查员们有数种选择： \n跳下：极其危险的尝试，需要通过一个跳跃技能检定，如果成功，调查员只承受1D6坠落伤害，如果\n失败，则受到2D6坠落伤害。\
+      \ \n爬下：通过在岩壁上找到的支撑点，调查员可以进行一个攀爬检定，如果成功，他们毫发无损地抵达\n了下方。如果失败，这说明调查员没有在岩壁上找到合适的支撑，他们可能会选择通过花费更多时间\n\
+      攀爬一条更危险的路径来进行孤注一骰。如果孤注一骰仍然失败，调查员坠落并受到2D6伤害（慷慨\n的守秘人可能会由于他们是在半途坠落的因此只让他们承受1D6伤害）。\
+      \ \n使用绳索：调查员们想必会带上一些绳子？如果没有人提到这一点，让他们进行一个幸运检定来看看\n是否有人记得。在旁边有一个坚固的钟乳石，足以固定住绳子，而且还能让调查员们在返回时也能借\n\
+      助它爬上来。让每个调查员进行一个攀爬检定，他们在这次检定中获得一个奖励骰。如果成功，他们\n毫发无损地抵达了地面，呃如果失败，他们在绳索上失手打滑并即将坠落（受到2D6伤害），除非调\n\
+      查员选择进行孤注一骰来重新抓住绳子。而如果在孤注一骰中失败，这意味着他坠落了下去并受到\n2D6伤害。一个思维敏捷的调查员可能会试图进行跳跃检定，如果他成功了，将他受到的伤害减半。\
+      \ \n23 \n幽暗之门 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 741692fc2fc58c624884dc2736b8ef0a667947ed082f3ace186591332f4d56b1
+    attempts: []
+  bg_music_room:
+    kind: scene_background
+    relates_to:
+    - music_room
+    status: planned
+    batch: later
+    output: bg_music_room-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 音乐室. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#music-room\n\n音乐室\
+      \ \n这条道路最终通向一个宽阔的，没有地衣照明的洞穴中。岩壁上镶嵌的水晶在调查员们灯光的照耀下\n闪闪发光。在调查员们的头顶，洞顶大约高出他们150英尺。远处延伸的墙壁形成了一个怪异、扭曲的结\n\
+      构，装饰有交错的青铜管并镶嵌有五光十色、大小各异的水晶。铜管大多串刺于墙壁之中，而其余的则最\n终交汇于上方的尖顶处。在其前方20英尺处，一块岩石被雕刻成了一把座椅的形状，虽然其雕出的座椅\n\
+      与靠背对于人类来说极为不适。 \n当调查员们最初进入房间时，他们无法看清那些尖刺之上竖立的到底是什么。直到接近之后，他们能\n够看见在尖刺之上的是二十颗人类的头颅。在接触到那把座椅之后，他们首先能听见的声响类似于轻轻的\n\
+      风声。很快他们就能意识到这声响发自那些头颅，它们以轻声的低嚎进行着一场哀泣组成的合唱。 \n这些头颅都被改造过，其皮革质的外皮上刻有扭曲的符文。它们的眼睛紧闭，而在它们歌唱之时，其\n\
+      嘴唇与喉咙处的肌肉仍会颤动。一些头颅看起来属于欧洲男性，而另一些则是来自非洲的男性与女性。自\n这些平和的头颅之中唱出的絮语般的歌声拥有一种美感，但目睹这一怪象仍然需要进行理智检定（1/1D4\n\
+      理智值损失）。 \n如果有人坐在了椅子上，歌声会更加清晰而且更加完整。这与调查员之前曾经听过的任何旋律都不\n同。这首歌谣的非人本质足以让调查员的内心满溢恐惧，并引发进一步的理智检定（0/1理智值损失）。\
+      \ \n这个装置可以在调查员对其造成15点伤害之后被摧毁。应当注意的是，让装置唱出完整的歌曲或者\n试图摧毁它都会引来妖鬼的注意。 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 07f7e3061ff023772cfdf6b475c3fdb29c7f2829128081e665ff6a8598147fb6
+    attempts: []
+  bg_nest_west:
+    kind: scene_background
+    relates_to:
+    - nest_west
+    - nest_east
+    - nest_south
+    status: planned
+    batch: later
+    output: bg_nest_west-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 西侧巢窟, 东侧巢窟, 南侧巢窟. Use only environmental facts from sources below; exclude\
+      \ NPCs, actions, checks, secret traps and undiscovered clues. Map connectivity\
+      \ unresolved: do not invent connected rooms. Shared image depicts common environment\
+      \ rather than literal identical architecture. Sources:\nstory.md#degenerate-nest\n\
+      \n巢窟 \n一系列互相连接的空间被用作退化人的巢穴。这里肮脏、难闻而且堆满了骨头与垃圾。 \n总是有数个退化人蜷缩在这里的某个角落休息或进食。它们会野蛮地保护自己的领地与幼崽，但武力\n\
+      可以吓退它们——比如重伤或干掉至少两个退化人又或者有人开了枪。退化人匆匆逃离的声响会吸引来妖\n鬼的注意力——更不用说枪声。 \n24 \n幽暗之门 \n\
+      如果调查员们有机会搜索退化人的巢窟，让他们进行一个侦查检定以找到一份被用力刻在岩壁上的遗\n书（见展示材料：暗影2） \n\n\nstory.md#degenerate-nest\n\
+      \n巢窟 \n一系列互相连接的空间被用作退化人的巢穴。这里肮脏、难闻而且堆满了骨头与垃圾。 \n总是有数个退化人蜷缩在这里的某个角落休息或进食。它们会野蛮地保护自己的领地与幼崽，但武力\n\
+      可以吓退它们——比如重伤或干掉至少两个退化人又或者有人开了枪。退化人匆匆逃离的声响会吸引来妖\n鬼的注意力——更不用说枪声。 \n24 \n幽暗之门 \n\
+      如果调查员们有机会搜索退化人的巢窟，让他们进行一个侦查检定以找到一份被用力刻在岩壁上的遗\n书（见展示材料：暗影2） \n\n\nstory.md#degenerate-nest\n\
+      \n巢窟 \n一系列互相连接的空间被用作退化人的巢穴。这里肮脏、难闻而且堆满了骨头与垃圾。 \n总是有数个退化人蜷缩在这里的某个角落休息或进食。它们会野蛮地保护自己的领地与幼崽，但武力\n\
+      可以吓退它们——比如重伤或干掉至少两个退化人又或者有人开了枪。退化人匆匆逃离的声响会吸引来妖\n鬼的注意力——更不用说枪声。 \n24 \n幽暗之门 \n\
+      如果调查员们有机会搜索退化人的巢窟，让他们进行一个侦查检定以找到一份被用力刻在岩壁上的遗\n书（见展示材料：暗影2） \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 1004a742e080154a7482448739dd55952eb545bdbeb12a35a2531cb81f9b963c
+    attempts: []
+  bg_pit_corridor:
+    kind: scene_background
+    relates_to:
+    - pit_corridor
+    status: planned
+    batch: later
+    output: bg_pit_corridor-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 陷坑走廊. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#pit\n\n陷坑 \n一个陷坑横在这处宽走廊上。如果调查员们只依靠发光地衣作为光源而没有使用手电筒又或者在此急\n\
+      匆匆地行进，他们需要一个成功的侦查检定来避免掉进这个10尺高的陷坑里并受到1D6点伤害。碎石遍\n地的陷坑内部大约有20*30英尺，墙上对调查员们来说无比熟悉的雕刻证明了它曾经与很多如今已被堵塞\n\
+      的洞穴向连通。对于调查员来说独自爬出这个陷坑有些困难（困难难度的攀爬检定，在有人帮助的情况下\n则是普通难度）。一个在陷坑上方的调查员可以放下一条绳子或伸出手拉下面的调查员一把（使用绳子可\n\
+      以给攀爬检定提供一个奖励骰）。 \n陷坑的边缘大约有三英尺宽，可以借助它小心地绕过陷坑走到另一侧。任何在陷坑旁进行战斗的人都\n必须进行一个敏捷检定来避免滑进或被击飞进陷坑里。\
+      \ \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: ffedc54ea7972ed973ed065f40c6b50862292d81127b4c574ddfc7fd40c05ccf
+    attempts: []
+  bg_fungus_area:
+    kind: scene_background
+    relates_to:
+    - fungus_area
+    status: planned
+    batch: later
+    output: bg_fungus_area-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 种植场. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#fungus-area\n\n种植场\
+      \ \n奇怪的真菌与地衣在这个巨大的洞穴内生长，至少两个退化人在此照料着它们。有一些真菌的茎远高\n于调查员。一阵温暖而潮湿的雾气每隔10分钟就会从洞顶的孔中喷出。\
+      \ \n退化人对于调查员在此出现会感到非常好奇，但它们仍然会继续工作，除非调查员打扰到了它们。如\n果调查员与它们搭话，退化人将会发起攻击，但受到重伤、其中一个退化人死亡又或者有人开了枪都会让\n\
+      它们四散逃离。一个妖鬼可能会听见战斗的声音并前来一探究竟。甚至如果调查员没有去接近退化人，那\n些周期性地在此巡逻的妖鬼们也有可能会发现在此逗留的调查员。在妖鬼对调查员发动攻击时，那些退化\n\
+      人同样会四散而逃。 \n在这里种植的真菌只有一部分是被用于其它明确用途的，剩余的大部分都是被用于斯西亚·瑞斯的实验\n（专门针对其有毒的特性进行了培育）。尝试吃下某种真菌的调查员必须进行一个幸运检定，成功意味着\n\
+      他选择的是一种不可食用但至少无害的真菌，而失败则说明他吃下的真菌是有毒的。吃下有毒真菌的调查\n员需要进行一个体质检定，如果他失败了，在1D4小时后，他会开始呕吐、抽搐并受到1D10点伤害（腹\n\
+      痛会一直持续1D4+1小时）。而成功的调查员则需要在1d4小时后忍受胃部的绞痛并受到1D5点伤害\n（如果是极难成功，则不会受到伤害）。严格的守秘人可能会让那些在体质检定中失败（并且活了下来）\n\
+      的调查员在所有技能检定上承受一个惩罚骰直到所有的毒素被排出（1D4小时后）。 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: c24ef79b9e04dd29de7a3e5f8f77b0c0e9924042d939f4088c10d31c62ab2196
+    attempts: []
+  bg_temple_of_yig:
+    kind: scene_background
+    relates_to:
+    - temple_of_yig
+    status: planned
+    batch: later
+    output: bg_temple_of_yig-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 蛇父神殿. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#temple-of-yig\n\n\
+      蛇父神殿 \n25 \n幽暗之门 \n这个洞窟被一个巨大的天然石柱占据了大部分空间，这座石柱被雕刻成了一只庞大而盘卷的蛇的形\n象，在这只巨蛇的前额上有一个由苍白的宝石构成的白色新月符号。而在巨蛇之前则是一个沾染了暗色的\n\
+      痕迹（血迹）的大祭坛，其上装饰有复杂的几何图案与符文。球形的金色香炉坐落在祭坛两侧，全都散发\n着芳香的烟云。 \n探索神殿的调查员们需要进行一个意志检定，成功的调查员会被蛇父伊格赐予其幻境。这个幻象展现\n\
+      为无数不同种类的蛇从巨蛇雕像的口中喷涌而出，每一条蛇的前额上都有一个白色新月图案。被惊呆的调\n查员会很快被翻滚的蛇群所吞没，但他们并不会遭受蛇咬或紧缠，蛇群只会爬上他们的皮肤，吐着蛇信。\n\
+      紧接着，一条巨大的蛇信会穿过蛇群，舔舐着调查员。目睹这个幻象需要进行一个理智检定（1/1D4理智\n值损失）但同样也会获得2点克苏鲁神话技能。 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 9b43ae5c568deb129eeff8368171827fc1139accc59a39e4ec3e41a88910056d
+    attempts: []
+  bg_hibernation_chamber:
+    kind: scene_background
+    relates_to:
+    - hibernation_chamber
+    status: planned
+    batch: later
+    output: bg_hibernation_chamber-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 冬眠室. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#hibernation-chamber\n\
+      \n冬眠室 \n二十一个黄色的半透明茧被挂在这个房间的顶部，它们在洞顶的孔喷出的水雾中轻轻摇晃着。在茧内\n能看见蛇人漂浮在充满泡沫的绿色液体中。一个棕色且皮质的茧已被打开了，而且里面是空的。这个奇异\n\
+      的景象会造成一个理智检定（0/1D6理智值损失）。 \n26 \n幽暗之门 \n这些茧能被切开，里面的内容物会泼溅到地板上。里面的蛇人还未做好从亿万年的沉睡中苏醒的准\n\
+      备，因此在被从茧中放出后会很快死去。把所有的茧都切开需要花费数分钟的时间，而且有可能引来妖鬼\n的注意。这些茧同样极其易燃，一旦里面的液体被点燃就会释放出令人窒息的毒气。除非调查员预料到了\n\
+      这一点并屏住了呼吸，否则他们必须在第一轮进行一个体质检定来防止吸入毒气。如果在检定中失败，他\n们会开始因为有毒的烟雾而开始窒息，受到1D4点伤害。在此之后暴露在毒气中的每一轮都需要进行一个\n\
+      体质检定（并且同样会在失败后受到1D4点伤害）。除非有妖鬼堵住了他们的去路，否则调查员们只需花\n费两轮时间就能逃离毒气。那些聪明的调查员会计划在点火后立即撤离（需要一个敏捷检定），这样同样\n\
+      可以避开毒气。 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 295b848c94a8d7d0cd1bdebfc66c1bcb97f168d02a0555389254478ba1568fc1
+    attempts: []
+  bg_serpent_lair:
+    kind: scene_background
+    relates_to:
+    - serpent_lair
+    - living_area
+    status: planned
+    batch: later
+    output: bg_serpent_lair-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 斯西亚·瑞斯之巢, 生活区. Use only environmental facts from sources below; exclude NPCs,\
+      \ actions, checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#serpent-lair\n\n斯西亚·瑞斯之巢\
+      \ \n斯西亚·瑞斯的住所同样也是他\n的工作间。某处不明热源加热着这\n里的空气，让这里就像是热带雨林\n一样，潮湿并充满了奇异的芳香。\n斯西亚·瑞斯的私人区域由皮质靠垫\n\
+      与毛皮搭建而成，还有一处作为浴\n池的温泉。在其旁边是一处由铁条\n围起的壁龛，铁门紧闭着。在那之\n中是三个骨瘦如柴的退化人婴儿，\n正在污秽中打滚、哀嚎，而乔什·文\n\
+      斯考特则蜷缩成一团，正在喃喃自\n语。 \n工作间内有三张皮革卷轴（刻\n写有蛇人文字）以及一个巨大的实\n验室，里面摆有冒泡的蒸馏器、曲\n颈瓶与其他摆满了桌子的炼金术和\n\
+      奥术仪器。在这张卓子旁是一个大\n铜锣。 \n墙壁上刻着在洞穴中随处可见\n的雕刻字符，但在工作间旁边的墙壁足以吸引成功地进行了一个侦查检定（或仔细地观察了所有符文）的\n\
+      调查员的注意。这些雕刻挤在一处狭窄的空间内，除了大量的螺旋线之外没有别的图案，而且没有与其他\n墙壁上的雕刻交织在一起。一个成功的克苏鲁神话检定能辨认出这些图形与符号用于表示门——一扇用于\n\
+      旅行的魔法传送门。如果有人试图走进墙壁里或触碰它，他会损失1点魔法值与1点理智值并从此地消\n失。对于旁观者来说，这看起来就像使用传送门的人被吸进了墙里一样。使用这扇传送门的人会重新出现\n\
+      在另一个陌生的洞窟之中，这个洞窟最终通向波塔克西特地区的河流，位于普罗维登斯以南5英里处。在\n使用者传送到的那个地方，他们身后的岩壁上会刻有相同的螺旋线，这能让他们以同样的方式传送回斯西\n\
+      亚·瑞斯的房间中（需要消耗1点魔法值与1点理智值），妖鬼与退化人无法使用这道传送门。 \n斯西亚·瑞斯极少前往其他地方。他把大部分醒着的时间都用在于实验室中进行魔法实验或学习卷轴\n\
+      上。他偶尔会在隧道中寻找某种真菌。有三个较为聪明而且受过训练的退化人作为他的助手，帮助他搬运\n物品。他有时同样也会前往神殿冥想或去往音乐室放松。他每隔几天进食一次，在那时他会活吞下一整个\n\
+      退化人婴儿（目睹如此恐怖的进食场面需要进行一个理智检定，造成0/1D2的理智值损失）。他只会偶尔\n睡眠，通常是在进食之后。由于他无法合眼，而且一般只是坐在工作间小睡一会——调查员有可能无法意\n\
+      识到他正在睡觉，除非他们观察到了他正一动不动。在他睡觉时，他的助手也会同样睡眠。 \n擅长隐蔽的调查员有可能得以趁斯西亚·瑞斯睡觉或专心工作时观察或接近他。那些辨识出了传送门正\n\
+      确用法的调查员也可能使用它来快速地隐蔽起自己来。如果这是调查员们第一次接触克苏鲁神话（因此他\n28 \n幽暗之门 \n29 \n们没有克苏鲁神话技能值），守秘人可以让斯西亚·瑞斯使用一次传送门，以便引导调查员想出它的正确用\n\
+      途。 \n在斯西亚·瑞斯醒着的时候暗中观察他的调查员需要每个人都在潜行检定上成功。只要有一个人失败，\n斯西亚·瑞斯就会警觉起来并发现调查员8。如果他未能发现调查员，他们可以继续观察他或试图攻击他—\n\
+      —这将会被算作一次突袭。应当注意的是，陷入疯狂的调查员，不管是临时疯狂还是其他更糟的状况，都\n有可能因为其疯狂发作引来注意。 \n不幸的是，即使调查员们能悄悄地接近壁龛中的笼子，他们通常仍然无法不出声响地直接打开笼子\n\
+      门，除非他们能通过另一个潜行技能检定来无声地开启它。 \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n\
+      锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
+      在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
+      （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
+      \ \n \n\n\nstory.md#serpent-lair\n\n斯西亚·瑞斯之巢 \n斯西亚·瑞斯的住所同样也是他\n的工作间。某处不明热源加热着这\n\
+      里的空气，让这里就像是热带雨林\n一样，潮湿并充满了奇异的芳香。\n斯西亚·瑞斯的私人区域由皮质靠垫\n与毛皮搭建而成，还有一处作为浴\n池的温泉。在其旁边是一处由铁条\n\
+      围起的壁龛，铁门紧闭着。在那之\n中是三个骨瘦如柴的退化人婴儿，\n正在污秽中打滚、哀嚎，而乔什·文\n斯考特则蜷缩成一团，正在喃喃自\n语。 \n工作间内有三张皮革卷轴（刻\n\
+      写有蛇人文字）以及一个巨大的实\n验室，里面摆有冒泡的蒸馏器、曲\n颈瓶与其他摆满了桌子的炼金术和\n奥术仪器。在这张卓子旁是一个大\n铜锣。 \n墙壁上刻着在洞穴中随处可见\n\
+      的雕刻字符，但在工作间旁边的墙壁足以吸引成功地进行了一个侦查检定（或仔细地观察了所有符文）的\n调查员的注意。这些雕刻挤在一处狭窄的空间内，除了大量的螺旋线之外没有别的图案，而且没有与其他\n\
+      墙壁上的雕刻交织在一起。一个成功的克苏鲁神话检定能辨认出这些图形与符号用于表示门——一扇用于\n旅行的魔法传送门。如果有人试图走进墙壁里或触碰它，他会损失1点魔法值与1点理智值并从此地消\n\
+      失。对于旁观者来说，这看起来就像使用传送门的人被吸进了墙里一样。使用这扇传送门的人会重新出现\n在另一个陌生的洞窟之中，这个洞窟最终通向波塔克西特地区的河流，位于普罗维登斯以南5英里处。在\n\
+      使用者传送到的那个地方，他们身后的岩壁上会刻有相同的螺旋线，这能让他们以同样的方式传送回斯西\n亚·瑞斯的房间中（需要消耗1点魔法值与1点理智值），妖鬼与退化人无法使用这道传送门。\
+      \ \n斯西亚·瑞斯极少前往其他地方。他把大部分醒着的时间都用在于实验室中进行魔法实验或学习卷轴\n上。他偶尔会在隧道中寻找某种真菌。有三个较为聪明而且受过训练的退化人作为他的助手，帮助他搬运\n\
+      物品。他有时同样也会前往神殿冥想或去往音乐室放松。他每隔几天进食一次，在那时他会活吞下一整个\n退化人婴儿（目睹如此恐怖的进食场面需要进行一个理智检定，造成0/1D2的理智值损失）。他只会偶尔\n\
+      睡眠，通常是在进食之后。由于他无法合眼，而且一般只是坐在工作间小睡一会——调查员有可能无法意\n识到他正在睡觉，除非他们观察到了他正一动不动。在他睡觉时，他的助手也会同样睡眠。\
+      \ \n擅长隐蔽的调查员有可能得以趁斯西亚·瑞斯睡觉或专心工作时观察或接近他。那些辨识出了传送门正\n确用法的调查员也可能使用它来快速地隐蔽起自己来。如果这是调查员们第一次接触克苏鲁神话（因此他\n\
+      28 \n幽暗之门 \n29 \n们没有克苏鲁神话技能值），守秘人可以让斯西亚·瑞斯使用一次传送门，以便引导调查员想出它的正确用\n途。 \n在斯西亚·瑞斯醒着的时候暗中观察他的调查员需要每个人都在潜行检定上成功。只要有一个人失败，\n\
+      斯西亚·瑞斯就会警觉起来并发现调查员8。如果他未能发现调查员，他们可以继续观察他或试图攻击他—\n—这将会被算作一次突袭。应当注意的是，陷入疯狂的调查员，不管是临时疯狂还是其他更糟的状况，都\n\
+      有可能因为其疯狂发作引来注意。 \n不幸的是，即使调查员们能悄悄地接近壁龛中的笼子，他们通常仍然无法不出声响地直接打开笼子\n门，除非他们能通过另一个潜行技能检定来无声地开启它。\
+      \ \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。\
+      \ \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n\
+      或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n（失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n\
+      向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。 \n \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 4f5b4a38b6acf7802e542d3309d424351463040b70fb16510bc9fa4475638199
+    attempts: []
+  bg_cage_area:
+    kind: scene_background
+    relates_to:
+    - cage_area
+    status: planned
+    batch: later
+    output: bg_cage_area-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 壁龛铁笼区. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#serpent-lair\n\n斯西亚·瑞斯之巢\
+      \ \n斯西亚·瑞斯的住所同样也是他\n的工作间。某处不明热源加热着这\n里的空气，让这里就像是热带雨林\n一样，潮湿并充满了奇异的芳香。\n斯西亚·瑞斯的私人区域由皮质靠垫\n\
+      与毛皮搭建而成，还有一处作为浴\n池的温泉。在其旁边是一处由铁条\n围起的壁龛，铁门紧闭着。在那之\n中是三个骨瘦如柴的退化人婴儿，\n正在污秽中打滚、哀嚎，而乔什·文\n\
+      斯考特则蜷缩成一团，正在喃喃自\n语。 \n工作间内有三张皮革卷轴（刻\n写有蛇人文字）以及一个巨大的实\n验室，里面摆有冒泡的蒸馏器、曲\n颈瓶与其他摆满了桌子的炼金术和\n\
+      奥术仪器。在这张卓子旁是一个大\n铜锣。 \n墙壁上刻着在洞穴中随处可见\n的雕刻字符，但在工作间旁边的墙壁足以吸引成功地进行了一个侦查检定（或仔细地观察了所有符文）的\n\
+      调查员的注意。这些雕刻挤在一处狭窄的空间内，除了大量的螺旋线之外没有别的图案，而且没有与其他\n墙壁上的雕刻交织在一起。一个成功的克苏鲁神话检定能辨认出这些图形与符号用于表示门——一扇用于\n\
+      旅行的魔法传送门。如果有人试图走进墙壁里或触碰它，他会损失1点魔法值与1点理智值并从此地消\n失。对于旁观者来说，这看起来就像使用传送门的人被吸进了墙里一样。使用这扇传送门的人会重新出现\n\
+      在另一个陌生的洞窟之中，这个洞窟最终通向波塔克西特地区的河流，位于普罗维登斯以南5英里处。在\n使用者传送到的那个地方，他们身后的岩壁上会刻有相同的螺旋线，这能让他们以同样的方式传送回斯西\n\
+      亚·瑞斯的房间中（需要消耗1点魔法值与1点理智值），妖鬼与退化人无法使用这道传送门。 \n斯西亚·瑞斯极少前往其他地方。他把大部分醒着的时间都用在于实验室中进行魔法实验或学习卷轴\n\
+      上。他偶尔会在隧道中寻找某种真菌。有三个较为聪明而且受过训练的退化人作为他的助手，帮助他搬运\n物品。他有时同样也会前往神殿冥想或去往音乐室放松。他每隔几天进食一次，在那时他会活吞下一整个\n\
+      退化人婴儿（目睹如此恐怖的进食场面需要进行一个理智检定，造成0/1D2的理智值损失）。他只会偶尔\n睡眠，通常是在进食之后。由于他无法合眼，而且一般只是坐在工作间小睡一会——调查员有可能无法意\n\
+      识到他正在睡觉，除非他们观察到了他正一动不动。在他睡觉时，他的助手也会同样睡眠。 \n擅长隐蔽的调查员有可能得以趁斯西亚·瑞斯睡觉或专心工作时观察或接近他。那些辨识出了传送门正\n\
+      确用法的调查员也可能使用它来快速地隐蔽起自己来。如果这是调查员们第一次接触克苏鲁神话（因此他\n28 \n幽暗之门 \n29 \n们没有克苏鲁神话技能值），守秘人可以让斯西亚·瑞斯使用一次传送门，以便引导调查员想出它的正确用\n\
+      途。 \n在斯西亚·瑞斯醒着的时候暗中观察他的调查员需要每个人都在潜行检定上成功。只要有一个人失败，\n斯西亚·瑞斯就会警觉起来并发现调查员8。如果他未能发现调查员，他们可以继续观察他或试图攻击他—\n\
+      —这将会被算作一次突袭。应当注意的是，陷入疯狂的调查员，不管是临时疯狂还是其他更糟的状况，都\n有可能因为其疯狂发作引来注意。 \n不幸的是，即使调查员们能悄悄地接近壁龛中的笼子，他们通常仍然无法不出声响地直接打开笼子\n\
+      门，除非他们能通过另一个潜行技能检定来无声地开启它。 \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n\
+      锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
+      在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
+      （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
+      \ \n \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: b7cffc849190cf537f0689a6c943560856671579f25ad1a400e445be4141fd4e
+    attempts: []
+  bg_laboratory:
+    kind: scene_background
+    relates_to:
+    - laboratory
+    status: planned
+    batch: later
+    output: bg_laboratory-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 实验室. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#serpent-lair\n\n斯西亚·瑞斯之巢\
+      \ \n斯西亚·瑞斯的住所同样也是他\n的工作间。某处不明热源加热着这\n里的空气，让这里就像是热带雨林\n一样，潮湿并充满了奇异的芳香。\n斯西亚·瑞斯的私人区域由皮质靠垫\n\
+      与毛皮搭建而成，还有一处作为浴\n池的温泉。在其旁边是一处由铁条\n围起的壁龛，铁门紧闭着。在那之\n中是三个骨瘦如柴的退化人婴儿，\n正在污秽中打滚、哀嚎，而乔什·文\n\
+      斯考特则蜷缩成一团，正在喃喃自\n语。 \n工作间内有三张皮革卷轴（刻\n写有蛇人文字）以及一个巨大的实\n验室，里面摆有冒泡的蒸馏器、曲\n颈瓶与其他摆满了桌子的炼金术和\n\
+      奥术仪器。在这张卓子旁是一个大\n铜锣。 \n墙壁上刻着在洞穴中随处可见\n的雕刻字符，但在工作间旁边的墙壁足以吸引成功地进行了一个侦查检定（或仔细地观察了所有符文）的\n\
+      调查员的注意。这些雕刻挤在一处狭窄的空间内，除了大量的螺旋线之外没有别的图案，而且没有与其他\n墙壁上的雕刻交织在一起。一个成功的克苏鲁神话检定能辨认出这些图形与符号用于表示门——一扇用于\n\
+      旅行的魔法传送门。如果有人试图走进墙壁里或触碰它，他会损失1点魔法值与1点理智值并从此地消\n失。对于旁观者来说，这看起来就像使用传送门的人被吸进了墙里一样。使用这扇传送门的人会重新出现\n\
+      在另一个陌生的洞窟之中，这个洞窟最终通向波塔克西特地区的河流，位于普罗维登斯以南5英里处。在\n使用者传送到的那个地方，他们身后的岩壁上会刻有相同的螺旋线，这能让他们以同样的方式传送回斯西\n\
+      亚·瑞斯的房间中（需要消耗1点魔法值与1点理智值），妖鬼与退化人无法使用这道传送门。 \n斯西亚·瑞斯极少前往其他地方。他把大部分醒着的时间都用在于实验室中进行魔法实验或学习卷轴\n\
+      上。他偶尔会在隧道中寻找某种真菌。有三个较为聪明而且受过训练的退化人作为他的助手，帮助他搬运\n物品。他有时同样也会前往神殿冥想或去往音乐室放松。他每隔几天进食一次，在那时他会活吞下一整个\n\
+      退化人婴儿（目睹如此恐怖的进食场面需要进行一个理智检定，造成0/1D2的理智值损失）。他只会偶尔\n睡眠，通常是在进食之后。由于他无法合眼，而且一般只是坐在工作间小睡一会——调查员有可能无法意\n\
+      识到他正在睡觉，除非他们观察到了他正一动不动。在他睡觉时，他的助手也会同样睡眠。 \n擅长隐蔽的调查员有可能得以趁斯西亚·瑞斯睡觉或专心工作时观察或接近他。那些辨识出了传送门正\n\
+      确用法的调查员也可能使用它来快速地隐蔽起自己来。如果这是调查员们第一次接触克苏鲁神话（因此他\n28 \n幽暗之门 \n29 \n们没有克苏鲁神话技能值），守秘人可以让斯西亚·瑞斯使用一次传送门，以便引导调查员想出它的正确用\n\
+      途。 \n在斯西亚·瑞斯醒着的时候暗中观察他的调查员需要每个人都在潜行检定上成功。只要有一个人失败，\n斯西亚·瑞斯就会警觉起来并发现调查员8。如果他未能发现调查员，他们可以继续观察他或试图攻击他—\n\
+      —这将会被算作一次突袭。应当注意的是，陷入疯狂的调查员，不管是临时疯狂还是其他更糟的状况，都\n有可能因为其疯狂发作引来注意。 \n不幸的是，即使调查员们能悄悄地接近壁龛中的笼子，他们通常仍然无法不出声响地直接打开笼子\n\
+      门，除非他们能通过另一个潜行技能检定来无声地开启它。 \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n\
+      锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
+      在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
+      （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
+      \ \n \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 164940cff1c90519befc2dfb14bb2151e0c6b754fdd07821c04d241c5088c522
+    attempts: []
+  bg_portal_area:
+    kind: scene_background
+    relates_to:
+    - portal_area
+    status: planned
+    batch: later
+    output: bg_portal_area-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 传送门所在区域. Use only environmental facts from sources below; exclude NPCs, actions,\
+      \ checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#serpent-lair\n\n斯西亚·瑞斯之巢\
+      \ \n斯西亚·瑞斯的住所同样也是他\n的工作间。某处不明热源加热着这\n里的空气，让这里就像是热带雨林\n一样，潮湿并充满了奇异的芳香。\n斯西亚·瑞斯的私人区域由皮质靠垫\n\
+      与毛皮搭建而成，还有一处作为浴\n池的温泉。在其旁边是一处由铁条\n围起的壁龛，铁门紧闭着。在那之\n中是三个骨瘦如柴的退化人婴儿，\n正在污秽中打滚、哀嚎，而乔什·文\n\
+      斯考特则蜷缩成一团，正在喃喃自\n语。 \n工作间内有三张皮革卷轴（刻\n写有蛇人文字）以及一个巨大的实\n验室，里面摆有冒泡的蒸馏器、曲\n颈瓶与其他摆满了桌子的炼金术和\n\
+      奥术仪器。在这张卓子旁是一个大\n铜锣。 \n墙壁上刻着在洞穴中随处可见\n的雕刻字符，但在工作间旁边的墙壁足以吸引成功地进行了一个侦查检定（或仔细地观察了所有符文）的\n\
+      调查员的注意。这些雕刻挤在一处狭窄的空间内，除了大量的螺旋线之外没有别的图案，而且没有与其他\n墙壁上的雕刻交织在一起。一个成功的克苏鲁神话检定能辨认出这些图形与符号用于表示门——一扇用于\n\
+      旅行的魔法传送门。如果有人试图走进墙壁里或触碰它，他会损失1点魔法值与1点理智值并从此地消\n失。对于旁观者来说，这看起来就像使用传送门的人被吸进了墙里一样。使用这扇传送门的人会重新出现\n\
+      在另一个陌生的洞窟之中，这个洞窟最终通向波塔克西特地区的河流，位于普罗维登斯以南5英里处。在\n使用者传送到的那个地方，他们身后的岩壁上会刻有相同的螺旋线，这能让他们以同样的方式传送回斯西\n\
+      亚·瑞斯的房间中（需要消耗1点魔法值与1点理智值），妖鬼与退化人无法使用这道传送门。 \n斯西亚·瑞斯极少前往其他地方。他把大部分醒着的时间都用在于实验室中进行魔法实验或学习卷轴\n\
+      上。他偶尔会在隧道中寻找某种真菌。有三个较为聪明而且受过训练的退化人作为他的助手，帮助他搬运\n物品。他有时同样也会前往神殿冥想或去往音乐室放松。他每隔几天进食一次，在那时他会活吞下一整个\n\
+      退化人婴儿（目睹如此恐怖的进食场面需要进行一个理智检定，造成0/1D2的理智值损失）。他只会偶尔\n睡眠，通常是在进食之后。由于他无法合眼，而且一般只是坐在工作间小睡一会——调查员有可能无法意\n\
+      识到他正在睡觉，除非他们观察到了他正一动不动。在他睡觉时，他的助手也会同样睡眠。 \n擅长隐蔽的调查员有可能得以趁斯西亚·瑞斯睡觉或专心工作时观察或接近他。那些辨识出了传送门正\n\
+      确用法的调查员也可能使用它来快速地隐蔽起自己来。如果这是调查员们第一次接触克苏鲁神话（因此他\n28 \n幽暗之门 \n29 \n们没有克苏鲁神话技能值），守秘人可以让斯西亚·瑞斯使用一次传送门，以便引导调查员想出它的正确用\n\
+      途。 \n在斯西亚·瑞斯醒着的时候暗中观察他的调查员需要每个人都在潜行检定上成功。只要有一个人失败，\n斯西亚·瑞斯就会警觉起来并发现调查员8。如果他未能发现调查员，他们可以继续观察他或试图攻击他—\n\
+      —这将会被算作一次突袭。应当注意的是，陷入疯狂的调查员，不管是临时疯狂还是其他更糟的状况，都\n有可能因为其疯狂发作引来注意。 \n不幸的是，即使调查员们能悄悄地接近壁龛中的笼子，他们通常仍然无法不出声响地直接打开笼子\n\
+      门，除非他们能通过另一个潜行技能检定来无声地开启它。 \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n\
+      锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
+      在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
+      （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
+      \ \n \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 7505eafd6c8168ab668b3a9bf1c08cca739a2fbc7653ede9cfdcdfe3e956fa39
+    attempts: []
+  bg_portal_exit_cavern:
+    kind: scene_background
+    relates_to:
+    - portal_exit_cavern
+    status: planned
+    batch: later
+    output: bg_portal_exit_cavern-v1.webp
+    size:
+    - 1920
+    - 1080
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Background only, no characters,\
+      \ wide 16:9 1920x1080, sides for sprite and lower quarter dialogue-safe. Depict\
+      \ 波塔克西特出口洞窟. Use only environmental facts from sources below; exclude NPCs,\
+      \ actions, checks, secret traps and undiscovered clues. Map connectivity unresolved:\
+      \ do not invent connected rooms. Shared image depicts common environment rather\
+      \ than literal identical architecture. Sources:\nstory.md#serpent-lair\n\n斯西亚·瑞斯之巢\
+      \ \n斯西亚·瑞斯的住所同样也是他\n的工作间。某处不明热源加热着这\n里的空气，让这里就像是热带雨林\n一样，潮湿并充满了奇异的芳香。\n斯西亚·瑞斯的私人区域由皮质靠垫\n\
+      与毛皮搭建而成，还有一处作为浴\n池的温泉。在其旁边是一处由铁条\n围起的壁龛，铁门紧闭着。在那之\n中是三个骨瘦如柴的退化人婴儿，\n正在污秽中打滚、哀嚎，而乔什·文\n\
+      斯考特则蜷缩成一团，正在喃喃自\n语。 \n工作间内有三张皮革卷轴（刻\n写有蛇人文字）以及一个巨大的实\n验室，里面摆有冒泡的蒸馏器、曲\n颈瓶与其他摆满了桌子的炼金术和\n\
+      奥术仪器。在这张卓子旁是一个大\n铜锣。 \n墙壁上刻着在洞穴中随处可见\n的雕刻字符，但在工作间旁边的墙壁足以吸引成功地进行了一个侦查检定（或仔细地观察了所有符文）的\n\
+      调查员的注意。这些雕刻挤在一处狭窄的空间内，除了大量的螺旋线之外没有别的图案，而且没有与其他\n墙壁上的雕刻交织在一起。一个成功的克苏鲁神话检定能辨认出这些图形与符号用于表示门——一扇用于\n\
+      旅行的魔法传送门。如果有人试图走进墙壁里或触碰它，他会损失1点魔法值与1点理智值并从此地消\n失。对于旁观者来说，这看起来就像使用传送门的人被吸进了墙里一样。使用这扇传送门的人会重新出现\n\
+      在另一个陌生的洞窟之中，这个洞窟最终通向波塔克西特地区的河流，位于普罗维登斯以南5英里处。在\n使用者传送到的那个地方，他们身后的岩壁上会刻有相同的螺旋线，这能让他们以同样的方式传送回斯西\n\
+      亚·瑞斯的房间中（需要消耗1点魔法值与1点理智值），妖鬼与退化人无法使用这道传送门。 \n斯西亚·瑞斯极少前往其他地方。他把大部分醒着的时间都用在于实验室中进行魔法实验或学习卷轴\n\
+      上。他偶尔会在隧道中寻找某种真菌。有三个较为聪明而且受过训练的退化人作为他的助手，帮助他搬运\n物品。他有时同样也会前往神殿冥想或去往音乐室放松。他每隔几天进食一次，在那时他会活吞下一整个\n\
+      退化人婴儿（目睹如此恐怖的进食场面需要进行一个理智检定，造成0/1D2的理智值损失）。他只会偶尔\n睡眠，通常是在进食之后。由于他无法合眼，而且一般只是坐在工作间小睡一会——调查员有可能无法意\n\
+      识到他正在睡觉，除非他们观察到了他正一动不动。在他睡觉时，他的助手也会同样睡眠。 \n擅长隐蔽的调查员有可能得以趁斯西亚·瑞斯睡觉或专心工作时观察或接近他。那些辨识出了传送门正\n\
+      确用法的调查员也可能使用它来快速地隐蔽起自己来。如果这是调查员们第一次接触克苏鲁神话（因此他\n28 \n幽暗之门 \n29 \n们没有克苏鲁神话技能值），守秘人可以让斯西亚·瑞斯使用一次传送门，以便引导调查员想出它的正确用\n\
+      途。 \n在斯西亚·瑞斯醒着的时候暗中观察他的调查员需要每个人都在潜行检定上成功。只要有一个人失败，\n斯西亚·瑞斯就会警觉起来并发现调查员8。如果他未能发现调查员，他们可以继续观察他或试图攻击他—\n\
+      —这将会被算作一次突袭。应当注意的是，陷入疯狂的调查员，不管是临时疯狂还是其他更糟的状况，都\n有可能因为其疯狂发作引来注意。 \n不幸的是，即使调查员们能悄悄地接近壁龛中的笼子，他们通常仍然无法不出声响地直接打开笼子\n\
+      门，除非他们能通过另一个潜行技能检定来无声地开启它。 \n那一面巨大的铜锣被斯西亚·瑞斯用于召唤妖鬼前来援助他——如果他受到了威胁，他就会如此做。铜\n\
+      锣被敲响后，一个妖鬼会在1D10+2轮后赶到。如果局面开始对蛇人不利，他也会通过传送门逃离这里。 \n这个实验室极其易爆。明火、枪击或翻倒溶液使之混合都会导致爆炸，在1码范围内造成3D6伤害，\n\
+      在2码远的距离造成2D6伤害并在3码远的地方造成1D6伤害。思维敏捷的调查员可能会要求进行闪躲\n或跳跃检定来逃离爆炸区域（或减少受到的伤害）。注意在这个房间内开火极有可能命中那些化学物质\n\
+      （失手的枪击有30%的几率命中实验室器材）。调查员也可以抓起一个装有各种化学物质的瓶子或小瓶掷\n向他们的敌人，如果在投掷技能检定中成功，毒液能在1D3轮内每一轮造成1D6伤害。\
+      \ \n \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: ed0601723d940f5dd83a5bde977e56c0f1efdab3a7d988163472f81fac418605
+    attempts: []
+  sprite_josh_base:
+    kind: npc_sprite
+    relates_to:
+    - josh
+    status: review
+    batch: sample
+    output: sprite_josh_base-v1.png
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: 'Use case: historical-scene / stylized-concept. Independent NPC sprite
+      for Josh Winscott, friendly New England magazine writer in 1920s Providence,
+      excited about exploring a tunnel but tired from renovating inherited house.
+      Source story.md#meet-josh and #josh-statblock; appearance not specified: artistic
+      interpretation is an approachable white man about 40, lean average build, slightly
+      tousled brown hair, clean-shaven, kind intelligent eyes, light fatigue, cream
+      rolled-sleeve collared shirt, muted brown wool waistcoat, dark brown trousers.
+      These invented facial/clothing details are cosmetic only. Neutral relaxed standing
+      pose, both hands complete and naturally at sides, eyes toward viewer, friendly
+      restrained expression. Head through upper thighs fully inside canvas, 5 percent
+      safe margin, isolated on GENUINE TRANSPARENT ALPHA BACKGROUND, 1024x1536 portrait.
+      Realistic painterly historical horror illustration with restrained brushwork,
+      natural anatomy, subdued ochre charcoal palette, soft neutral face light, gentle
+      warm edge light. No floor, no scenery, no furniture contact, no cast floor shadow,
+      no lettering or UI, no checkerboard painted into pixels. One basic portrait
+      only, not a character sheet or multiple poses.'
+    references:
+    - assets/sprite_josh_base-attempt1.png
+    reuse_of: null
+    input_fingerprint: d0a89b92f6810dcb646775103dd54d312bc98cb7edb16083b58759fa71e14462
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: Generated candidate; pending user style selection. Background export uses
+        aspect-preserving contain and minimal edge padding; sprite alpha verified.
+    - tool: Codex built-in imagegen
+      outcome: review
+      note: 'Edit original Josh image: remove background and glow, genuine alpha zero
+        outside silhouette; preserve face, hairstyle, clothing, pose, colors and anatomy.
+        Full hands and upper thighs, 1024x1536, no painted checkerboard.'
+    candidate_file: sprite_josh_base-v1.png
+    sha256: bad5eba3be7b06e93e12c91ae3432f0e347eaf330200e85a5cdbbba921dcb2ff
+    artistic_additions: Age about 40, hair, face and outfit are artistic interpretation;
+      not specified in source.
+  sprite_ssyaa_hrisss_base:
+    kind: creature_sprite
+    relates_to:
+    - ssyaa_hrisss
+    status: planned
+    batch: later
+    output: sprite_ssyaa_hrisss_base-v1.png
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Single basic independent\
+      \ transparent creature sprite of 斯西亚·瑞斯. 1024x1536 portrait, fit entire silhouette\
+      \ with margin, genuine transparent alpha, no environment/floor/shadow. Neutral\
+      \ readable pose; no variants or extra individuals. Source story.md#serpent-statblock:\n\
+      \n斯西亚·瑞斯，蛇形的科学家 \nSTR50 CON45 SIZ65 DEX70 INT90 \nAPP-- POW95 EDU-- SAN-- HP:20*\
+      \ \n伤害加深：0 体格：- 移动：8 MP：19 \n*给校对：这里的HP似乎原文算错了，多算了接近一倍，按照规则应该是11点 \n战斗 \n每轮攻击：1（爪、咬或武器）\
+      \ \n格斗 50%（25/10） 伤害1D3（或刀，1D6） \n咬   35%（17/7） 伤害1D8+毒素* \n闪避 35%（17/7） \n\
+      *毒素：受害者必须在极难体质检定中成功或承受+1D8伤害 \n技能 \n恐吓65%，聆听40%，科学（生物学70%，化学90%），侦查45%，潜行50%。\
+      \ \n语言：英语60% \n护甲：1-鳞片 \n法术：酿造黄金蜂蜜酒，透特之咏，记忆模糊术、迷身术、精神震爆术、折磨术 \n理智损失：直视蛇人损失0/1D6点理智值。\
+      \ \n"
+    references: []
+    reuse_of: null
+    input_fingerprint: e1357d90c208d20a6e268e911b6aa8f0ea70526d7be80aea5d25bbddaed1e116
+    attempts: []
+  sprite_degenerate_base:
+    kind: creature_sprite
+    relates_to:
+    - degenerate
+    status: planned
+    batch: later
+    output: sprite_degenerate_base-v1.png
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Single basic independent\
+      \ transparent creature sprite of 退化人. 1024x1536 portrait, fit entire silhouette\
+      \ with margin, genuine transparent alpha, no environment/floor/shadow. Neutral\
+      \ readable pose; no variants or extra individuals. Source story.md#degenerate-statblock:\n\
+      \n退化人，堕落的人类 \n属性 \n平均 \nSTR \n50 \nCON \n掷骰 \n（3D6 *5） \n35 \n（2D6 *5） \nSIZ\
+      \ \n20 \nDEX \n（1D6+1 *5） \n70 \n（4D6 *5） \nINT \n20 \nPOW \n（1D6 *5） \n45 \n\
+      （2D6+2 *5） \nHP：5 \n30 \n幽暗之门 \n平均伤害加成：-1 \n平均体格：-1 \n移动：9 \n理智损失：直视退化人损失0/1D4理智。\
+      \ \n战斗 \n每轮攻击：1（爪、拳击或棍棒） \n格斗 40%（20/8）,伤害1D3-1 \n棍棒 40%（20/8），伤害1D6-1 \n闪避\
+      \ 40%（20/8） \n技能 \n攀爬60%，跳跃60%，潜行50%，偷东西60% \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: cda4fc1cd90a412b8231c819e2c5716c49eb898b26d08bd031904d619331a954
+    attempts: []
+  sprite_ghast_base:
+    kind: creature_sprite
+    relates_to:
+    - ghast
+    status: planned
+    batch: later
+    output: sprite_ghast_base-v1.png
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: "Realistic painterly 1920s Providence horror, restrained ochre charcoal\
+      \ palette, readable cool darks, subtle brushwork. No text, UI, frame or watermark.\
+      \ Cosmetic interpretation must not add gameplay facts. Single basic independent\
+      \ transparent creature sprite of 妖鬼. 1024x1536 portrait, fit entire silhouette\
+      \ with margin, genuine transparent alpha, no environment/floor/shadow. Neutral\
+      \ readable pose; no variants or extra individuals. Source story.md#ghast-statblock:\n\
+      \n妖鬼，可憎的监工 \nSTR110 CON70 SIZ130 DEX65 INT15 \nAPP--- POW5O EDU--- SAN-- HP：20\
+      \ \n伤害加成：+2D6 体格：3 MOV 10 MP：10 \n战斗 \n每轮攻击：2（爪、拳击或咬） \n格斗 45%（22/9），伤害1D6+2D6\
+      \ \n闪避 35%（17/7） \n技能 \n聆听60%，潜行70%。 \n护甲：无 \n\n"
+    references: []
+    reuse_of: null
+    input_fingerprint: 292550591caf36d73760ec15cd786d59c8dc823a629da23fd97e5a327f2726f4
+    attempts: []

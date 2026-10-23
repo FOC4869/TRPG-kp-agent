@@ -4,36 +4,50 @@ locations:
     source:
       document: story.md
       anchor: meet-josh
+    presentation:
+      background: bg_winscott_house
   house_cellar:
     name: 文斯考特宅地窖
     source:
       document: story.md
       anchor: entering-underground
+    presentation:
+      background: bg_house_cellar
   john_hay_library:
     name: 约翰·海伊图书馆
     source:
       document: story.md
       anchor: research
+    presentation:
+      background: bg_john_hay_library
   providence_athenaeum:
     name: 普罗维登斯文献馆
     source:
       document: story.md
       anchor: research
+    presentation:
+      background: bg_john_hay_library
   old_tunnel:
     name: 旧隧道
     source:
       document: story.md
       anchor: entering-underground
+    presentation:
+      background: bg_old_tunnel
   river_brick_wall:
     name: 河道方向砖墙
     source:
       document: story.md
       anchor: entering-underground
+    presentation:
+      background: bg_river_brick_wall
   descending_passage:
     name: 下行通道
     source:
       document: story.md
       anchor: entering-underground
+    presentation:
+      background: bg_old_tunnel
   underground_complex:
     name: 蛇人洞穴系统
     source:
@@ -47,6 +61,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 1
+    presentation:
+      background: bg_entrance_hall
   history_hall:
     name: 历史厅
     source:
@@ -55,6 +71,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 2
+    presentation:
+      background: bg_history_hall
   cliff:
     name: 峭壁
     source:
@@ -63,6 +81,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 3
+    presentation:
+      background: bg_cliff
   music_room:
     name: 音乐室
     source:
@@ -71,6 +91,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 4
+    presentation:
+      background: bg_music_room
   nest_west:
     name: 西侧巢窟
     source:
@@ -80,6 +102,8 @@ locations:
       asset: caverns_map
       label: 5
     mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+    presentation:
+      background: bg_nest_west
   nest_east:
     name: 东侧巢窟
     source:
@@ -89,6 +113,8 @@ locations:
       asset: caverns_map
       label: 5
     mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+    presentation:
+      background: bg_nest_west
   nest_south:
     name: 南侧巢窟
     source:
@@ -98,6 +124,8 @@ locations:
       asset: caverns_map
       label: 5
     mapping_status: 按总图中分开的5号区域登记；具体边界与连接待核准
+    presentation:
+      background: bg_nest_west
   pit_corridor:
     name: 陷坑走廊
     source:
@@ -106,6 +134,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 7
+    presentation:
+      background: bg_pit_corridor
   fungus_area:
     name: 种植场
     source:
@@ -114,6 +144,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 8
+    presentation:
+      background: bg_fungus_area
   temple_of_yig:
     name: 蛇父神殿
     source:
@@ -122,6 +154,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 9
+    presentation:
+      background: bg_temple_of_yig
   hibernation_chamber:
     name: 冬眠室
     source:
@@ -130,6 +164,8 @@ locations:
     map_ref:
       asset: caverns_map
       label: 10
+    presentation:
+      background: bg_hibernation_chamber
   serpent_lair:
     name: 斯西亚·瑞斯之巢
     source:
@@ -139,6 +175,8 @@ locations:
       asset: caverns_map
       label: 11
     detail_map: lair_detail_map
+    presentation:
+      background: bg_serpent_lair
   living_area:
     name: 生活区
     source:
@@ -148,6 +186,8 @@ locations:
       asset: caverns_map
       label: 12
     parent: serpent_lair
+    presentation:
+      background: bg_serpent_lair
   cage_area:
     name: 壁龛铁笼区
     source:
@@ -157,6 +197,8 @@ locations:
       asset: caverns_map
       label: 13
     parent: serpent_lair
+    presentation:
+      background: bg_cage_area
   laboratory:
     name: 实验室
     source:
@@ -166,6 +208,8 @@ locations:
       asset: caverns_map
       label: 14
     parent: serpent_lair
+    presentation:
+      background: bg_laboratory
   portal_area:
     name: 传送门所在区域
     source:
@@ -175,11 +219,15 @@ locations:
       asset: caverns_map
       label: 15
     parent: serpent_lair
+    presentation:
+      background: bg_portal_area
   portal_exit_cavern:
     name: 波塔克西特出口洞窟
     source:
       document: story.md
       anchor: serpent-lair
+    presentation:
+      background: bg_portal_exit_cavern
 connections:
 - id: house_to_cellar
   from_location: winscott_house
