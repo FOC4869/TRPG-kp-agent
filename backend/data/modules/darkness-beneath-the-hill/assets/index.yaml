@@ -995,3 +995,35 @@ assets:
     anchor:
     - 0.5
     - 1.0
+  module_cover:
+    file: module-cover-v1.webp
+    title: 岭下暗影模组封面
+    kind: module_cover
+    media_type: image/webp
+    sha256: e4cdd072f43dd8f97b1312208a5e92c513de49f4a5c7582a115e344c506a8205
+    source:
+      kind: generated
+    relates_to: []
+    tags:
+    - AI生成
+    - 模组封面
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: false
+    generation:
+      plan_id: module_cover
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 504de02a18a1fad0f6ff075de8b248f48a29e3b5a840a985bb8eb555923dbfdf
+      tool: Codex built-in imagegen
+      artistic_additions: 地窖石砌结构、灯光、杂物及阶梯仅作公开引言氛围表现，不作为地图或剧情事实。
+      review:
+        status: accepted
+        note: '2026-10-23 agent visual review under user-authorized existing style:
+          readable cellar and tunnel, no text/UI/characters/hidden entities. Furnishings,
+          masonry and descending passage are artistic interpretation, not navigation
+          facts.'

@@ -59,6 +59,7 @@ state_policy:
   derived: 可重建索引和摘要，不是事实来源
 presentation:
   default_background: default_atmosphere
+  cover: module_cover
 capabilities:
   content_review: true
   visual_assets: true

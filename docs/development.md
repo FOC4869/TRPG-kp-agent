@@ -22,10 +22,18 @@ npm ci
 npm run dev
 ```
 
-访问 http://127.0.0.1:5173，显示桌面游戏首页。可单独运行前端预览视觉，“设置”内通过 /api/health 检查后端。
-开始调查与模组库进入 #/modules，提供左右分页及公开详情。目录暂用本地示例，不请求不存在的模组 HTTP 接口；可用模组进入调查员选择页，继续调查禁用。
+访问 http://127.0.0.1:5173，显示桌面游戏首页。可单独运行前端预览视觉，开发时通过 /api/health 检查后端。
+开始调查与模组库进入 #/modules，提供左右分页及公开详情。目录与人物页需要启动后端，使用真实只读 HTTP；可用模组进入调查员选择页，继续调查禁用；游戏通过自身URL恢复。
 FastAPI 文档为 http://127.0.0.1:8000/docs。前端 5173 端口被占用会直接报错，避免无意切换端口。
 需要更改后端端口时，同步调整 frontend/vite.config.ts 的代理目标。
+
+## 网页游戏
+
+网页行动需要backend/.env中配置DEEPSEEK_API_KEY；模型默认deepseek-flash、关闭思考。密钥不放VITE变量，不提交.env。目录与健康离线可用，游戏行动未配置模型时明确失败，保留原请求供配置后恢复。
+
+POST创建成功后进入#/game?game=<id>；每局自动保存到saves/<id>/game.json。根目录进程锁只允许一个运行器进程／worker，启动时不要加--workers 2；开发--reload会在旧worker退出后释放锁。WEB_GAME_SAVES可选指定独立保存根目录，避免与另一个开发进程冲突。网页服务保留至应用退出才关闭模型与存储。
+
+离线测试使用fake Agent和临时目录，不消耗模型。显式付费评估：`uv run --locked python scripts/evaluate_web_mvp.py --live`，稳定请求／游戏可恢复，指标位于output/web-mvp-evaluation/report.json；脚本最多90请求，为浏览器等额外测试预留会话总120请求预算。不要删除报告后重复跑来绕开总预算。完整规则与多人上线不在当前范围。
 
 ## CLI 与模型配置
 
@@ -59,6 +67,8 @@ npm ci
 npm run lint
 npm run typecheck
 npm run build
+node scripts/check-catalogue.mjs
+node scripts/check-game-preview.mjs # 当前验证真实SSE适配器的离线拆块／去重／断流
 ```
 
 后端保留原底层测试并合并 Agent 测试，测试使用 mock 或临时存档，默认不调用付费模型。
@@ -70,13 +80,13 @@ openpyxl 读取旧角色卡可能提示不支持的 Excel 扩展；导入流程�
 视觉验收包括背景裁切、按钮可见性、弹窗关闭与焦点恢复、键盘操作、减少动态效果及连接失败/重试。
 首页范围与素材来源见 docs/design 下的 homepage 文档及 frontend/public/images/README.md。
 
-模组库同样以桌面为主，窄屏下详情移至列表下方。验收每页 3 项、末页 1 项、首尾按钮禁用、卡片与详情同步、翻页焦点、返回首页/浏览器返回/刷新；仅《岭下暗影》展示用户提供的公开引言。示例条目见 frontend/src/data/modules.ts；日后接 HTTP 时替换 api/modules.ts 并同步接口契约。
+模组库同样以桌面为主，窄屏下详情移至列表下方。验收每页最多 3 项、末页不补空卡、首尾按钮禁用、卡片与详情同步、翻页焦点、返回首页/浏览器返回/刷新；仅《岭下暗影》展示用户提供的公开引言。发布清单见 backend/data/module-catalogue.json；当前仅一条真实模组，3／3／1 分页使用后端临时七项清单测试。
 
 ## 预设调查员数据
 
-预设调查员数据位于 backend/data/characters/<id>/，每位包含 character.yaml、background.md、assets/portrait.png。字段、原卡疑点和附件引用约定见 backend/data/characters/README.md。新增角色不需要注册 manifest；未来加载器按角色文件扫描。当前未接入 CLI 或网页，不根据新数据改变原有角色加载流程。
+预设调查员数据位于 backend/data/characters/<id>/，每位包含 character.yaml、background.md、assets/portrait.png。字段、原卡疑点和附件引用约定见 backend/data/characters/README.md。新增角色不需要独立 manifest；网页发布需要在 module-catalogue.json 的 investigatorIds 登记。当前已接网页选择页，CLI 仍使用原有角色加载流程。
 
-前端选择页 `#/investigators?module=darkness-beneath-the-hill` 当前使用独立假资料与原创假头像，并未读取上述后端目录。
+前端选择页 `#/investigators?module=darkness-beneath-the-hill` 通过 HTTP 获取上述目录的公开资料和限定头像 URL；不直接导入后端文件。
 列表/详情通过 api/investigators.ts，显示类型在 types/investigators.ts；页面不直接导入 mock。接入指南见 [调查员 API 适配契约](investigator-api.md)。
 验收十张卡片、四标签及键盘左右/Home/End、未知字段、确认/Escape、快速切换、刷新/返回和无效模组；首次无选择时确认禁用。桌面主视口为 1280×720、1440×900、1920×1080 和宽屏；档案面板高度随视口调整，长内容在标签面板内滚动，确认按钮保持可见，切换标签不改变整页高度。
 
@@ -113,7 +123,9 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py <m
 
 参考：[Vite 初始化](https://vite.dev/guide/)、[FastAPI 入口](https://fastapi.tiangolo.com/tutorial/first-steps/)、[uv 项目文件](https://docs.astral.sh/uv/concepts/projects/layout/)。
 
-## 游戏主界面预览
+## 游戏主界面验证
 
-从调查员确认进入开场游戏页。回复为离线固定脚本，不调用模型、不创建游戏/存档；刷新回到开场。`node scripts/check-game-preview.mjs` 验证客户端适配。浏览器验收独立背景/立绘、发送/等待/建议、内部滚动、五种抽屉、线索去重、键盘、无效上下文、返回/刷新与桌面/窄屏。真实错误/流式恢复与服务端幂等需正式接入后另验，见 game-preview-api.md。
-设置可触发“查看结案弹窗示例”，该操作结束本次本地预览。验收自动显示、关闭/Escape 后输入不恢复、“查看结案”重开和返回首页；长总结内部滚动，窄屏/短屏保留返回按钮。真实结束条件尚未实现。
+从调查员确认创建真实游戏。桌面验收独立背景／立绘、发送／等待／建议、内部滚动、人物／背包／线索／记录抽屉、中文输入、检定顺序、断线／刷新／重启恢复、无NPC场景和结案。SSE字节拆分等由离线脚本验证，模型与桌面证据见evaluation/playable-mvp.md。
+真实结束条件由运行器执行。验收最终正文保存后弹窗、关闭/Escape后输入不恢复、“查看结案”重开和返回首页；长总结内部滚动，窄屏／短屏保留返回按钮。
+
+公开目录服务与发布步骤见 [目录 HTTP 契约](catalogue-api.md)。适配 smoke 需要先准备 backend/.venv；默认只用真实公开投影及测试端 HTTP mock，不调用模型。

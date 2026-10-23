@@ -1,17 +1,17 @@
 # TRPG AI KP
 
-基于 Vite、React、FastAPI 和 LangGraph 的 AI 守秘人项目。当前已完成的业务主体是 LangGraph Agent、RAG 和角色／骰子工具；网页已实现桌面首页、分页模组库／详情和假数据调查员选择页，游戏主界面已有离线开场预览，真实游戏 HTTP 待接入。
+基于 Vite、React、FastAPI、LangGraph 与 DeepSeek 的单人 AI 守秘人。已接通真实目录、十位调查员、创建与恢复、自然语言行动、自动检定、流式叙述和游戏内结案。当前可执行范围为《岭下暗影》的独立单人简化改编。
 
 ## 从哪里开始
 
 | 目录 | 职责 |
 |---|---|
-| `frontend/` | Vite + React + TypeScript；首页、模组库／详情、调查员选择、开场游戏预览与设置面板 |
-| `backend/app/` | FastAPI HTTP 适配；当前仅实现 `GET /api/health` |
+| `frontend/` | Vite + React + TypeScript；首页、模组库／详情、调查员选择、可游玩游戏页 |
+| `backend/app/` | FastAPI HTTP 适配；健康、目录及游戏 HTTP／SSE |
 | `backend/kp_agent/` | LangGraph 行动编排、RAG、场景、模型和现有存储适配 |
 | `backend/trpg/` | 唯一的角色、骰子、检定与规则实现 |
 | `backend/data/`、`backend/characters/` | 后端规则资料、剧情配置和角色卡 |
-| `backend/data/characters/` | 十位预设调查员的 YAML、背景正文与头像；格式见目录 README，尚未接入游戏 |
+| `backend/data/characters/` | 十位预设调查员的 YAML、背景正文与头像；格式见目录 README，已接选择页和游戏实例快照 |
 | `backend/tests/`、`backend/scripts/` | 统一后端测试和评估脚本 |
 | `docs/` | 架构、开发、接口说明、评估及历史证据 |
 | `versions/ai-kp-v1/` | 旧链接迁移指引，不再维护源码 |
@@ -36,13 +36,13 @@ npm ci
 npm run dev
 ```
 
-打开 <http://127.0.0.1:5173>。首页与模组库可以在不启动后端时浏览；“开始调查”进入每页 3 项的模组库，点击卡片切换右侧详情。“继续调查”灰显禁用，本轮不实现存档。
-模组库直达地址为 <http://127.0.0.1:5173/#/modules>。当前使用前端示例目录：《岭下暗影》的公开引言与 6 条待收录占位记录，用于展示 3／3／1 翻页。
-选择《岭下暗影》后进入调查员页：十人照片墙、概览/属性技能/背景/物品四标签及确认弹窗。人物资料和头像均为独立假数据/假资源，未加载后端原卡。确认后可进入游戏开场预览，不创建后端游戏/存档；[API 适配契约](docs/investigator-api.md)描述后续接入点。
-游戏页采用独立背景/NPC、内部滚动对话、自由输入、人物/物品/线索/记录抽屉；回复为固定 mock，刷新重置。开场素材只选用住宅和乔什，未接入完整模组。详见 [游戏页适配草案](docs/game-preview-api.md)。
-结案在游戏内用弹窗呈现简短总结与“返回首页”，不另建页面。设置里的“查看结案弹窗示例”可预览；正式接入时复用最终 Keeper 叙述和结束标志，不需要额外总结接口。
-设置面板提供减少动态效果和按需连接检查。Vite 会把 `/api` 转发至本地后端；接口文档位于 <http://127.0.0.1:8000/docs>。
-健康检查不加载模型或玩家存档，不会产生模型费用。连接成功代表健康接口可达。
+打开 <http://127.0.0.1:5173>，从模组库选择《岭下暗影》和调查员，点击“开始调查”创建真实游戏。网页游戏使用 `backend/.env` 的 `DEEPSEEK_API_KEY` 与可选 `DEEPSEEK_MODEL=deepseek-flash`；密钥只放后端，正常每轮最多两次付费模型调用。健康与只读目录不调用模型。
+
+游戏地址为 `#/game?game=<game_id>`，刷新或重启后可恢复；每局自动保存到 `backend/saves/<game_id>/game.json`。首页“继续调查”仍灰显，不提供存档管理。只允许一个后端进程／worker，运行器会检查进程锁；本地监听回环地址。
+
+自由输入后通过 SSE 依次展示自动 D100 检定、实际 HP／SAN 与物品／线索变化、流式 Keeper 正文。六场景支持立即同行和次日失踪两条乔什路线；游戏内结案弹窗复用最终正文。网络失败用原请求恢复，不静默切换假回复。复杂 CoC 规则暂未实现。
+
+Vite 将 `/api` 转发至本地8000；接口文档 <http://127.0.0.1:8000/docs>，契约见 [HTTP／SSE](docs/interfaces.md)，范围与验证见 [MVP](docs/design/done/simplified-mvp.md) 和 [评估](docs/evaluation/playable-mvp.md)。
 
 现有离线 Agent CLI：
 
@@ -72,8 +72,13 @@ npm run build
 
 - [架构与边界](docs/architecture.md)
 - [开发指南](docs/development.md)
+- [可游玩单人 MVP](docs/design/done/simplified-mvp.md)
+- [当前用户旅程](docs/user-journey.md)
+- [模组存储结构](docs/module-storage.md)
+- [人物存储结构](docs/character-storage.md)
 - [已有 Agent 能力及 CLI](docs/agent-guide.md)
-- [Python 接口及待接入 HTTP 契约](docs/interfaces.md)
+- [已实现的公开目录 HTTP](docs/catalogue-api.md)
+- [网页游戏 HTTP／SSE 契约](docs/interfaces.md)
 - [结构迁移记录](docs/history/structure-migration.md)
 
 ## 可安装的模组制作 skill
@@ -84,7 +89,7 @@ npm run build
 
 离线验证：`uv run --locked --script skills/coc-module-builder/scripts/validate_module.py --self-test`。依赖和锁文件仅属于该 skill，不改变后端或前端依赖。制作输出仍是声明式草案，不等于已接入游戏。
 
-《岭下暗影》的完整正文、结构化资料和附件见[模组内容包](backend/data/modules/darkness-beneath-the-hill/README.md)。当前用于内容审阅，尚未接入 CLI 或网页游戏。
+《岭下暗影》的完整正文、结构化资料和附件见[模组内容包](backend/data/modules/darkness-beneath-the-hill/README.md)。完整包用于内容审阅，网页运行器另以独立单人简化配置引用其中场景与素材，不宣称完整包全部可执行。
 
 ## 可安装的角色卡导入 Skill
 

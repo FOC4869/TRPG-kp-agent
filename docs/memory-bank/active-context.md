@@ -1,5 +1,24 @@
 # 当前上下文
 
+2026-10-24：用户批准的完整可游玩 MVP 已在 feat/playable-mvp 实现。保留开始前所有目录／封面／文档未提交改动；未 stash/revert/commit/push。当前四页和结案弹窗已接真实开局、恢复与行动：kp_agent/gameplay 独立 LangGraph（理解→工具→叙述），trpg计算，FastAPI薄适配，DeepSeek结构化规划＋真实流正文。data/runtime/darkness-solo-mvp-v1.json 的35事件／六场景支持乔什立即同行或次日失踪、装备／线索、普通D100、HP/SAN和完成／撤离／失败；完整原包仍不宣称全面可执行。网页不再引用旧game-preview假回复；旧图片按用户要求保留。
+
+每局 saves/<id>/game.json＋有效备份／校验和，出目先保存、效果一次提交、正文最后保存。单worker进程锁、同局接收锁、未决回合限制；请求幂等，断线不取消任务，刷新／重启从同请求恢复，不重掷或重复扣资源。创建URL为#/game?game=<id>，没有存档管理页。素材由本局授权接口返回，原始模板／存档／密钥不传前端。确认撤离和固定3HP通过使用确定性提示，未确认不执行。叙述上下文动态反映当前通路／乔什，提示mvp-2修复旧场景文案覆盖当前进度的问题；模型措辞仍有偏差风险。
+
+验证：224项后端离线测试、CLI帮助与临时SQLite demo；前端npm ci/lint/typecheck/build及目录／SSE拆块适配通过。真实DeepSeek两线34回合状态与事件映射通过，加浏览器6回合和确认回归2回合；本轮累计94次模型请求（授权上限120），后续不要无授权追加付费评估。初版正文发现过通路和乔什描述不一致，已修正并做针对性真实回归，未将旧报告改写为完美结果。桌面1440×900／1280×720、窄屏390×844、检定静态恢复、断线和重启、结案关闭／重开／键盘返回通过；长历史辅助文本撑高外层页面已修复。未测Windows或真人游玩时长。详细证据见 [评估](../evaluation/playable-mvp.md)，[API](../interfaces.md)、[架构](../architecture.md)、[ADR-0004](../decisions/ADR-0004-web-game-runtime.md)。实施设计已移入docs/design/done/。下一步由用户试玩反馈决定，不扩展复杂CoC、多人或认证。
+
+以下为此前阶段记录（其中“尚未实现”等仅描述当时状态，已完成设计现位于docs/design/done/）：
+
+2026-10-23：用户要求记录单人简化版 MVP，并明确现有 LangGraph 若不合适应优化。新增 docs/design/active/simplified-mvp.md，作为后续 M3／M4 玩法与实现计划入口：AI Keeper 负责动态叙事、NPC、自由行动理解、受约束工具规划与结果主持；普通 D100 只分成功／失败，少量 HP／SAN，单次危险替代完整战斗，阶段触发替代计时。建议 5–6 场景、3–5 关键检定、20–30 分钟为待试玩目标，成功／撤离／失败三类结案；原模组只读另写简化配置，乔什时间线等实施前定稿。网页存储拟按 `saves/<game_id>/game.json`＋有效备份保存完整状态／对话／回合；单进程同局锁、原子写、出目／效果幂等、先提交再叙述及失败恢复保留。旧 SQLite CLI 仍为现状，LangGraph 先评审分流／注入／恢复再改，不把当前线性图定死。同步 backend-integration、architecture 和 README 入口；当前预览素材按用户要求不动。本轮仅文档，未实现运行时、调用模型或修改数据。验证：git diff --check、5 份文档的 UTF-8／代码围栏／25 处本地链接检查通过；无代码变更，未重复后端测试和前端构建；未提交／推送。
+
+2026-10-23：按用户要求使用 coc-module-builder 与内置imagegen新生成岭下暗影封面 assets/module-cover-v1.webp（1024×1536不透明WebP），登记manifest.presentation.cover、assets索引、asset-plan完整提示词／单次生成记录及当前指纹。沿用用户既有批准风格，agent审阅通过，不宣称用户另行批准新图。发布清单改为coverAsset，封面服务核对manifest与索引kind／MIME后按模组根目录返回；data/public已删除，接口URL不变。封面只用公开引言，美术陈设不作为地图事实。 验证：208项后端单测、目录／游戏适配smoke通过；模组--complete零错误零警告（25项生成素材skip，34项索引）；浏览器确认封面GET加载1024×1536新图。前端源码未改，未重复lint/build；未调用游戏模型、未改游戏执行器或存档。
+
+2026-10-23：按用户要求精简前端：移除模组详情年代／地点／玩法／原作人数／内容提示、单人改编预览标签、后端来源提示、DSAI5205页脚、人物数量／来源说明与准备弹窗预览说明；全站设置入口及对应面板移除，确认按钮改为“开始调查”。动画继续遵循系统偏好；后台目录字段、真实资料与游戏结束响应处理保留。前端lint/typecheck/build、目录与游戏smoke通过；未改后端逻辑，未重复后端测试。
+
+2026-10-23：feat/catalogue-api 按用户授权实现 M1/M2：公开模组列表／详情／封面、模组调查员列表／详情／头像 GET。data/module-catalogue.json 显式允许清单映射模组ID与十位调查员；Catalogue 从 manifest 与 YAML／Markdown 构造公开投影，不静态挂载后台数据。前端 fetch＋响应校验、取消和错误重试；移除假目录、假人物与假图集，封面移到后端公开目录。人物页保留内部滚动，游戏使用真实人物资料但动作／结案仍为演示，M3/M4未实现。直接声明 PyYAML 并同步锁，未升级其版本。此前相关未提交文档均保留。契约 docs/catalogue-api.md，设计 docs/design/active/backend-integration.md，决定 ADR-0003。
+验证：207项后端全量离线测试（含目录边界）、CLI help；前端 npm ci/lint/typecheck/build、目录／游戏 smoke；浏览器1440×900和390×844、头像、内部滚动、确认跳转、断线恢复通过。无模型调用／DB写入；未在Windows运行或推送。
+
+2026-10-23：docs/user-journey-and-storage 基于 taosdev 当前代码新增 docs/user-journey.md、module-storage.md、character-storage.md，并在 README 提供入口。记录四页＋结案弹窗、模组0.2.0与运行能力区别、调查员/NPC/前端mock三类人物、版本/出处/素材索引/本局状态边界，以及前后端模组ID差异。仅文档变更，不修改数据、接口或运行时。
+
 2026-10-23：经用户要求，将fix/darkness-module-adjudications的87db34a合并到taosdev，保留现有游戏预览和结案弹窗。模组裁定与运行时能力边界不变；本次未推送。
 
 2026-10-23：用户将结案简化为游戏内弹窗，取消独立总结页/统计。feat/investigation-ending-dialog 实现结束标题、复用最终 Keeper 叙述、“返回首页”；公开展示 DTO 支持可选 ended，设置提供 ending-preview。关闭可回看记录/重新打开，但行动不恢复；不新增真实 HTTP、总结接口或模型调用。实现记录 docs/design/done/investigation-ending-dialog.md。验证 npm ci/lint/typecheck/build、扩展离线 smoke、桌面/窄屏/短屏弹窗、关闭/重开/返回首页通过。无后端改动，未重复后端测试；真实结束实例限制待正式接口接入。

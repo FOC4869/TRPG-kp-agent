@@ -1,53 +1,32 @@
+// The former mock-preview smoke now verifies the real stream adapter offline.
 import assert from 'node:assert/strict'
 import { createServer } from 'vite'
-
 const server = await createServer({ server: { middlewareMode: true }, appType: 'custom' })
 try {
-  const { loadGamePreview, submitGameAction } = await server.ssrLoadModule('/src/api/game.ts')
-  const context = { moduleId: 'darkness-beneath-the-hill', investigatorId: 'chris' }
-  const signal = () => new AbortController().signal
-  const initial = await loadGamePreview(context, signal())
-  assert.equal(initial.investigator.id, 'chris')
-  assert.equal(initial.facts.length, 0)
-  assert.equal(initial.messages.length, 2)
-  initial.investigator.resources.hp = -1
-  initial.messages[0].text = 'changed'
-  const fresh = await loadGamePreview(context, signal())
-  assert.equal(fresh.investigator.resources.hp, 10)
-  assert.notEqual(fresh.messages[0].text, 'changed')
-  await assert.rejects(loadGamePreview({ ...context, investigatorId: 'missing' }, signal()))
-  await assert.rejects(loadGamePreview({ ...context, moduleId: 'missing' }, signal()))
-  const cancelled = new AbortController()
-  cancelled.abort()
-  await assert.rejects(loadGamePreview(context, cancelled.signal), { name: 'AbortError' })
-  const action = { requestId: 'test-1', text: '询问隧道', kind: 'action' }
-  const reply = await submitGameAction(context, action, signal())
-  assert.equal(reply.facts[0].id, 'tunnel')
-  assert.deepEqual(await submitGameAction(context, action, signal()), reply)
-  const pending = new AbortController()
-  const promise = submitGameAction(context, action, pending.signal)
-  setTimeout(() => pending.abort(), 30)
-  await assert.rejects(promise, { name: 'AbortError' })
-  await assert.rejects(submitGameAction(context, { ...action, text: ' ' }, signal()))
-  await assert.rejects(submitGameAction(context, { ...action, text: 'x'.repeat(1001) }, signal()))
-  const preparation = await submitGameAction(context, { ...action, text: '准备装备' }, signal())
-  assert.equal(preparation.facts[0].id, 'preparations')
-  assert.deepEqual((await loadGamePreview(context, signal())).investigator.equipment, fresh.investigator.equipment)
-  const unknown = await submitGameAction(context, { ...action, text: '飞到月球' }, signal())
-  assert.match(unknown.messages[0].text, /不能完整裁定/)
-  const check = await submitGameAction(context, { ...action, kind: 'check-preview' }, signal())
-  assert.equal(check.messages[0].kind, 'check')
-  assert.equal(check.messages[0].check.roll, 28)
-  assert.deepEqual((await loadGamePreview(context, signal())).investigator.resources, fresh.investigator.resources)
-  const ending = await submitGameAction(context, { ...action, kind: 'ending-preview' }, signal())
-  assert.equal(ending.ended, true)
-  assert.equal(ending.messages.at(-1).kind, 'keeper')
-  assert.ok(ending.messages.at(-1).text.trim())
-  assert.deepEqual(ending.facts, [])
-  const endingWords = await submitGameAction(context, { ...action, text: '结束调查' }, signal())
-  assert.notEqual(endingWords.ended, true, 'Player text must not decide that the game ended')
-  assert.notEqual((await loadGamePreview(context, signal())).ended, true, 'Preview is not persisted')
-  console.log('Game preview smoke passed: context, clones, cancellation, retry, bounds, facts, fixed check and explicit ending flag.')
-} finally {
-  await server.close()
-}
+  const { readGameEvents, submitGameAction } = await server.ssrLoadModule('/src/api/game.ts')
+  const encoder = new TextEncoder()
+  const events = [
+    { type:'turn.started', turnId:'t', seq:1 },
+    { type:'check.started', turnId:'t', seq:2, check:{checkId:'c1',skill:'侦查',target:45,reason:'寻找线索'} },
+    { type:'check.resolved', turnId:'t', seq:3, check:{checkId:'c1',skill:'侦查',target:45,reason:'寻找线索',roll:28,success:true,result:'成功',details:[]} },
+    { type:'message.started', turnId:'t', seq:4, message:{id:'m',kind:'keeper',speaker:'守秘人',text:''} },
+    { type:'message.delta', turnId:'t', seq:5, messageId:'m',delta:'你好，调查员。' },
+    { type:'turn.completed', turnId:'t', seq:6 },
+  ]
+  const bytes=encoder.encode(': heartbeat\r\n\r\n'+events.map(e=>`event: ${e.type}\r\ndata: ${JSON.stringify(e)}\r\n\r\n`).join(''))
+  const stream=()=>new ReadableStream({start(controller){for(let i=0;i<bytes.length;i++)controller.enqueue(bytes.slice(i,i+1));controller.close()}})
+  const received=[]
+  await readGameEvents(stream(),e=>received.push(e),new AbortController().signal)
+  assert.deepEqual(received,events,'Chinese UTF-8 and CRLF survive one-byte splits')
+  const savedFetch=globalThis.fetch
+  globalThis.fetch=async()=>new Response(new ReadableStream({start(c){c.enqueue(encoder.encode([...events,events[4]].map(e=>`data: ${JSON.stringify(e)}\n\n`).join('')));c.close()}}),{headers:{'content-type':'text/event-stream'}})
+  const dedup=[]
+  await submitGameAction('a'.repeat(32),{requestId:'t',text:'行动',expectedVersion:1},new AbortController().signal,e=>dedup.push(e))
+  assert.equal(dedup.length,6)
+  globalThis.fetch=async()=>new Response('data: {"type":"message.delta","turnId":"t","seq":1,"messageId":"m","delta":"中"}\n\n',{headers:{'content-type':'text/event-stream'}})
+  await assert.rejects(submitGameAction('a'.repeat(32),{},new AbortController().signal,()=>{}),/中断/)
+  globalThis.fetch=savedFetch
+  const aborted=new AbortController();aborted.abort()
+  await assert.rejects(readGameEvents(stream(),()=>{},aborted.signal),{name:'AbortError'})
+  console.log('Game SSE checks passed: byte splits, UTF-8, CRLF, heartbeat, duplicate events, premature EOF and abort.')
+} finally {await server.close()}
