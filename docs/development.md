@@ -62,7 +62,7 @@ npm run build
 ```
 
 后端保留原底层测试并合并 Agent 测试，测试使用 mock 或临时存档，默认不调用付费模型。
-CI 执行后端离线测试、CLI 帮助和前端检查；本地增加健康接口与 Vite 代理 smoke。
+当前未配置 CI。提交前在本地手动执行上述后端离线测试、CLI 帮助和前端检查；涉及接口或启动流程时增加健康接口与 Vite 代理 smoke。
 Windows 启动器的真实双击行为需要 Windows 人工验证，macOS 检查不代表 Windows 已验证。
 openpyxl 读取旧角色卡可能提示不支持的 Excel 扩展；导入流程只读，迁移不重写原文件。
 

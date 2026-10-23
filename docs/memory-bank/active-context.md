@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23：按用户要求删除 .github/workflows/ci.yml，后端测试和前端 lint/typecheck/build 改为开发者提交前手动执行。历史初始化报告中的 CI 描述仅反映当时状态。
+
 2026-10-23：design/frontend-ui 已快进合并到 taosdev。按当前 frontend/backend/skills 目录调整根 .gitignore、.gitattributes、.editorconfig：运行输出按目录忽略，JSONL/ZIP 样本和素材不再全局排除，保留依赖锁和评估证据。
 
 2026-10-23：经用户要求，将 coc-module-builder 提交并合并到 design/frontend-ui；保留角色卡导入 skill 及前端已有功能。合并验证继续使用该 skill 的 34 项离线测试，真实素材试制另行进行。
