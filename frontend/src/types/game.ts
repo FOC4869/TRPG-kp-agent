@@ -18,6 +18,7 @@ export interface GamePreview {
   facts: GameFact[]
   suggestions: string[]
   source: 'mock'
+  ended?: boolean
 }
-export interface GameAction { requestId: string; text: string; kind: 'action' | 'check-preview' }
-export interface GameReply { messages: GameMessage[]; facts: GameFact[] }
+export interface GameAction { requestId: string; text: string; kind: 'action' | 'check-preview' | 'ending-preview' }
+export interface GameReply { messages: GameMessage[]; facts: GameFact[]; ended?: boolean }

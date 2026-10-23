@@ -3,6 +3,7 @@ import type { FormEvent } from 'react'
 import { loadGamePreview, submitGameAction } from '../api/game'
 import type { GameAction, GameContext, GameFact, GameMessage, GamePreview } from '../types/game'
 import { Arrow, DoorMark, FrameCorners } from './Ornaments'
+import { InvestigationEndingDialog } from './InvestigationEndingDialog'
 import { Portrait } from './Portrait'
 import { GameDrawerContent, GameMessages } from './GameDrawer'
 import type { GamePanel } from './GameDrawer'
@@ -25,6 +26,8 @@ export function GamePage({ moduleId, investigatorId, reduceMotion, onMotion }: {
   const [draft, setDraft] = useState('')
   const [pending, setPending] = useState(false)
   const [failed, setFailed] = useState<GameAction | null>(null)
+  const [endingSummary, setEndingSummary] = useState<string | null>(null)
+  const [endingOpen, setEndingOpen] = useState(false)
   const [panel, setPanel] = useState<GamePanel | null>(null)
   const [atBottom, setAtBottom] = useState(true)
   const [imageFailed, setImageFailed] = useState({ background: false, npc: false })
@@ -42,6 +45,10 @@ export function GamePage({ moduleId, investigatorId, reduceMotion, onMotion }: {
     loadGamePreview({ moduleId, investigatorId }, controller.signal).then((result) => {
       if (controller.signal.aborted) return
       setGame(result); setMessages(result.messages); setFacts(result.facts)
+      if (result.ended) {
+        setEndingSummary(result.messages.filter((message) => message.kind === 'keeper').at(-1)?.text.trim() || '本次调查已经结束。')
+        setEndingOpen(true)
+      }
     }).catch(() => { if (!controller.signal.aborted) setLoadError(true) })
     return () => { controller.abort(); activeRequest.current?.abort() }
   }, [moduleId, investigatorId, attempt])
@@ -56,7 +63,7 @@ export function GamePage({ moduleId, investigatorId, reduceMotion, onMotion }: {
   }
 
   async function send(action?: GameAction) {
-    if (!context || !game || activeRequest.current || (!action && !draft.trim())) return
+    if (!context || !game || endingSummary !== null || activeRequest.current || (!action && !draft.trim())) return
     const request: GameAction = action ?? { requestId: crypto.randomUUID(), text: draft.trim(), kind: 'action' }
     const controller = new AbortController()
     activeRequest.current = controller
@@ -69,6 +76,12 @@ export function GamePage({ moduleId, investigatorId, reduceMotion, onMotion }: {
       setMessages((items) => [...items, ...reply.messages.filter((item) => !items.some((previous) => previous.id === item.id))])
       setFacts((items) => [...items, ...reply.facts.filter((item) => !items.some((previous) => previous.id === item.id))])
       if (request.kind === 'action') setDraft('')
+      if (reply.ended) {
+        drawer.current?.close()
+        setDraft(''); setFailed(null)
+        setEndingSummary(reply.messages.filter((message) => message.kind === 'keeper').at(-1)?.text.trim() || '本次调查已经结束。')
+        setEndingOpen(true)
+      }
     } catch {
       // Unmount cancellation is silent; a timeout is actionable.
       if (!controller.signal.aborted || controller.signal.reason?.message === 'timeout') setFailed(request)
@@ -118,16 +131,19 @@ export function GamePage({ moduleId, investigatorId, reduceMotion, onMotion }: {
       {!atBottom && <button className="game-latest" onClick={() => { followLatest.current = true; conversation.current?.scrollTo({ top: conversation.current.scrollHeight }); setAtBottom(true) }}>最新内容 ↓</button>}
     </section>
     <form className="game-composer" onSubmit={onSubmit}>
+      {endingSummary !== null ? <div className="game-ended-bar"><p>本次调查已结束</p><button type="button" onClick={() => setEndingOpen(true)}>查看结案 <Arrow /></button></div> : <>
       <div className="game-suggestions" aria-label="行动建议">{game.suggestions.map((suggestion) => <button key={suggestion} type="button" disabled={pending || !!failed} onClick={() => { setDraft(suggestion); input.current?.focus() }}>{suggestion}</button>)}<span>也可以自由描述行动</span></div>
       {failed && <div className="game-action-error" role="alert">回应未完成，行动内容已保留。<button type="button" onClick={() => void send(failed)}>重试</button><button type="button" onClick={() => setFailed(null)}>编辑行动</button></div>}
       <label className="sr-only" htmlFor="game-action">你的行动</label>
       <div className="game-input-row"><textarea id="game-action" ref={input} value={draft} maxLength={1000} rows={2} readOnly={pending} placeholder="你想做什么？可以行动、观察，或与乔什交谈……" onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing && event.nativeEvent.keyCode !== 229) { event.preventDefault(); if (!failed) void send() } }} /><button type="submit" disabled={!draft.trim() || pending || !!failed}><span>{pending ? '回应中' : '行动'}</span><Arrow /></button></div>
       <p className="game-input-hint"><span>Enter 发送 · Shift + Enter 换行</span><span>{draft.length} / 1000</span></p>
+      </>}
     </form>
     <p className="sr-only" role="status">{!pending && messages.at(-1)?.kind !== 'player' ? messages.at(-1)?.text : ''}</p>
     <dialog className="game-drawer" ref={drawer} aria-labelledby="game-drawer-title" onClose={() => setPanel(null)}>
       <div className="game-drawer-heading"><div><p className="eyebrow">INVESTIGATION JOURNAL</p><h2 id="game-drawer-title">{panel && gamePanelNames[panel]}</h2></div><button className="close-button" aria-label="关闭面板" onClick={() => drawer.current?.close()}>×</button></div>
-      <div className="game-drawer-body">{panel && <GameDrawerContent panel={panel} game={game} facts={facts} messages={messages} reduceMotion={reduceMotion} onMotion={onMotion} busy={pending || !!failed} onCheck={() => { drawer.current?.close(); void send({ requestId: crypto.randomUUID(), text: '固定检定展示', kind: 'check-preview' }) }} />}</div>
+      <div className="game-drawer-body">{panel && <GameDrawerContent panel={panel} game={game} facts={facts} messages={messages} reduceMotion={reduceMotion} onMotion={onMotion} busy={pending || !!failed || endingSummary !== null} onEnding={() => { drawer.current?.close(); void send({ requestId: crypto.randomUUID(), text: '结案弹窗示例', kind: 'ending-preview' }) }} onCheck={() => { drawer.current?.close(); void send({ requestId: crypto.randomUUID(), text: '固定检定展示', kind: 'check-preview' }) }} />}</div>
     </dialog>
+    <InvestigationEndingDialog open={endingOpen} summary={endingSummary ?? ''} onDismiss={() => setEndingOpen(false)} />
   </main>
 }

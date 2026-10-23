@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23：用户将结案简化为游戏内弹窗，取消独立总结页/统计。feat/investigation-ending-dialog 实现结束标题、复用最终 Keeper 叙述、“返回首页”；公开展示 DTO 支持可选 ended，设置提供 ending-preview。关闭可回看记录/重新打开，但行动不恢复；不新增真实 HTTP、总结接口或模型调用。实现记录 docs/design/done/investigation-ending-dialog.md。验证 npm ci/lint/typecheck/build、扩展离线 smoke、桌面/窄屏/短屏弹窗、关闭/重开/返回首页通过。无后端改动，未重复后端测试；真实结束实例限制待正式接口接入。
+
 2026-10-23：按用户要求移除游戏主界面侧栏的“存档 · 暂未开放”按钮，清理专用样式与 Lock 导入。
 
 2026-10-23：feat/gameplay-preview 从干净 design/frontend-ui 建立，实现开场游戏 UI。调查员确认进入 #/game，沿用所选假人物；住宅背景与乔什透明立绘分层，固定内部滚动对话、自由输入、建议、人物/物品/线索/记录/设置抽屉。api/game.ts 暂为固定离线回复，正式 HTTP/规则/存档未接；设置中的检定仅固定展示。仅两张已审阅开场图进入 frontend 静态预览允许清单，不改变原模组 keeper_only，未来必须由服务端按本局授权素材。接口草案 docs/game-preview-api.md，工作记录 docs/design/done/gameplay-preview.md。验证 npm ci/lint/typecheck/build、离线适配 smoke 和桌面/窄屏核心交互通过；无后端改动，未运行真实模型或重复后端单测。待正式游戏 HTTP、状态/素材授权与网络恢复。

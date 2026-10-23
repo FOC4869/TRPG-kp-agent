@@ -39,7 +39,15 @@ try {
   assert.equal(check.messages[0].kind, 'check')
   assert.equal(check.messages[0].check.roll, 28)
   assert.deepEqual((await loadGamePreview(context, signal())).investigator.resources, fresh.investigator.resources)
-  console.log('Game preview smoke passed: context, clone isolation, cancellation, retry, input bounds, facts and fixed check.')
+  const ending = await submitGameAction(context, { ...action, kind: 'ending-preview' }, signal())
+  assert.equal(ending.ended, true)
+  assert.equal(ending.messages.at(-1).kind, 'keeper')
+  assert.ok(ending.messages.at(-1).text.trim())
+  assert.deepEqual(ending.facts, [])
+  const endingWords = await submitGameAction(context, { ...action, text: '结束调查' }, signal())
+  assert.notEqual(endingWords.ended, true, 'Player text must not decide that the game ended')
+  assert.notEqual((await loadGamePreview(context, signal())).ended, true, 'Preview is not persisted')
+  console.log('Game preview smoke passed: context, clones, cancellation, retry, bounds, facts, fixed check and explicit ending flag.')
 } finally {
   await server.close()
 }

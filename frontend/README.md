@@ -23,3 +23,4 @@ npm run dev
 验证：`npm ci`、`npm run lint`、`npm run typecheck`、`npm run build`。
 
 游戏页通过 src/api/game.ts 获取独立 mock，背景/NPC 分层、长对话内部滚动，人物/物品/线索/记录使用侧边抽屉。未知行动说明预览范围；设置可查看固定检定样例。刷新重置进度。离线核对：`node scripts/check-game-preview.mjs`；正式 API 与素材授权边界见 ../docs/game-preview-api.md。
+结案用游戏内弹窗展示最后一段 Keeper 叙述和返回首页按钮，不另建页面。设置中可查看演示，结束后关闭弹窗仍不能继续行动。

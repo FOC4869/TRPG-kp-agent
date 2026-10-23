@@ -14,6 +14,10 @@ export const openingScene = {
 /** Scripted preview responses, not an intent model or a rules engine. */
 export function previewReply(action: GameAction): GameReply {
   const message = (kind: GameMessage['kind'], text: string): GameMessage => ({ id: `${action.requestId}-reply`, kind, speaker: kind === 'npc' ? '乔什·文斯考特' : '守秘人', text })
+  if (action.kind === 'ending-preview') return {
+    messages: [message('keeper', '你合上笔记，将这段经历留在纸页之间。窗外的普罗维登斯一如往常，而关于那条隧道的疑问，仍萦绕在你的脑海。\n\n本次界面演示到此结束。')],
+    facts: [], ended: true,
+  }
   if (action.kind === 'check-preview') return {
     messages: [{ ...message('check', '这是一张固定的检定展示样例，没有实际掷骰或改变人物状态。'), check: { skill: '聆听', target: 35, roll: 28, result: '普通成功' } }], facts: [],
   }
