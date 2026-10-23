@@ -1,0 +1,96 @@
+schema_version: '1.0'
+version: 1.0.0
+id: melissa
+name: 梅丽莎·德弗丽丝
+age: 31
+occupation: 科学家
+background: background.md
+source:
+  description: 用户提供的预设角色卡截图；仅保留裁切头像，未收录完整截图。
+  image_number: 3
+assets:
+  portrait:
+    file: assets/portrait.png
+    media_type: image/png
+    description: 从该角色原卡裁切，保留相框。
+attributes:
+  STR: 55
+  CON: 65
+  SIZ: 60
+  DEX: 50
+  INT: 80
+  APP: 70
+  POW: 70
+  EDU: 80
+initial_resources:
+  hp: 12
+  san: 70
+  mp: 14
+  luck: 45
+authored_derived:
+  hp_max: 12
+  mp_max: 14
+  mov: 7
+  db: '0'
+  build: 0
+skills:
+  斗殴: 25
+  手枪（.22）: 40
+  闪避: 30
+  信用评级: 45
+  恐吓: 45
+  语言（法语）: 40
+  法律: 25
+  图书馆使用: 55
+  聆听: 30
+  医学: 30
+  博物学: 40
+  说服: 20
+  心理学: 35
+  科学（生物学）: 50
+  科学（化学）: 40
+  科学（Forensics）: 60
+  侦查: 50
+  潜行: 30
+attacks:
+- id: unarmed
+  label: 徒手斗殴
+  skill: 斗殴
+  damage:
+    base: 1D3
+    add_damage_bonus: false
+- id: pistol_22
+  label: .22 手枪
+  skill: 手枪（.22）
+  damage:
+    base: 1D6
+    add_damage_bonus: false
+starting_equipment:
+- id: pistol_22
+  name: .22 小型自动手枪
+  quantity: 1
+  ammunition: null
+- id: science_case
+  name: 装有各种科学仪器的小手提箱
+  quantity: 1
+  contents_unspecified: true
+- id: notebook
+  name: 笔记本
+  quantity: 1
+- id: pencils
+  name: 铅笔
+  quantity: null
+starting_money:
+  currency: USD
+  amount: 10
+customization:
+- section: people
+  anchor: people
+  editable: true
+- section: places
+  anchor: places
+  editable: true
+- section: treasured
+  anchor: treasured
+  editable: true
+source_issues: []

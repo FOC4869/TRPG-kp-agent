@@ -65,6 +65,10 @@ CI 执行后端离线测试、CLI 帮助和前端检查；本地增加健康接�
 Windows 启动器的真实双击行为需要 Windows 人工验证，macOS 检查不代表 Windows 已验证。
 openpyxl 读取旧角色卡可能提示不支持的 Excel 扩展；导入流程只读，迁移不重写原文件。
 
+## 预设调查员数据
+
+预设调查员数据位于 backend/data/characters/<id>/，每位包含 character.yaml、background.md、assets/portrait.png。字段、原卡疑点和附件引用约定见 backend/data/characters/README.md。新增角色不需要注册 manifest；未来加载器按角色文件扫描。当前未接入 CLI 或网页，不根据新数据改变原有角色加载流程。
+
 ## 依赖更新
 
 后端声明为 pyproject.toml，解析结果为 uv.lock；`uv add <package>` / `uv add --dev <package>` 后提交两者。

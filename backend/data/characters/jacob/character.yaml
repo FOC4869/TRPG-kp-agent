@@ -1,0 +1,95 @@
+schema_version: '1.0'
+version: 1.0.0
+id: jacob
+name: 雅各布·吉普森
+age: 36
+occupation: 门卫
+background: background.md
+source:
+  description: 用户提供的预设角色卡截图；仅保留裁切头像，未收录完整截图。
+  image_number: 4
+assets:
+  portrait:
+    file: assets/portrait.png
+    media_type: image/png
+    description: 从该角色原卡裁切，保留相框。
+attributes:
+  STR: 70
+  CON: 65
+  SIZ: 65
+  DEX: 45
+  INT: 50
+  APP: 55
+  POW: 70
+  EDU: 70
+initial_resources:
+  hp: 13
+  san: 70
+  mp: 14
+  luck: 60
+authored_derived:
+  hp_max: 13
+  mp_max: 14
+  mov: 8
+  db: +1D4
+  build: 1
+skills:
+  斗殴: 60
+  闪避: 45
+  魅惑: 40
+  攀爬: 40
+  信用评级: 15
+  汽车驾驶: 40
+  电气维修: 50
+  聆听: 35
+  锁匠: 40
+  机械维修: 70
+  操作重型机械: 39
+  侦查: 45
+  潜行: 50
+attacks:
+- id: unarmed
+  label: 徒手斗殴
+  skill: 斗殴
+  damage:
+    base: 1D3
+    add_damage_bonus: true
+- id: wrench
+  label: 扳手
+  skill: 斗殴
+  damage:
+    base: 1D8
+    add_damage_bonus: true
+starting_equipment:
+- id: toolbox
+  name: 工具箱
+  quantity: 1
+  contents_unspecified: true
+- id: work_trousers
+  name: 工装裤
+  quantity: 1
+- id: cigarettes
+  name: 一包烟
+  quantity: 1
+- id: lighter
+  name: 打火机
+  quantity: 1
+starting_money:
+  currency: USD
+  amount: 10
+customization:
+- section: people
+  anchor: people
+  editable: true
+- section: places
+  anchor: places
+  editable: true
+- section: treasured
+  anchor: treasured
+  editable: true
+source_issues:
+- id: wrench_not_in_equipment
+  field: starting_equipment
+  status: needs_review
+  source_text: 格斗列出扳手；道具仅列出工具箱等
+  note: 保留扳手攻击，但原卡未明确工具箱含扳手，不自动补发独立扳手。

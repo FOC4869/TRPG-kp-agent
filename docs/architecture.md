@@ -19,6 +19,7 @@
 - backend/kp_agent：现有 LangGraph 流程、模型、检索、场景和存储适配。保留包名与相对路径。
 - backend/trpg：角色、骰子和规则的唯一实现。迁移采用原发布子目录后续实现。
 - backend/data 与 characters：服务端输入资产，不作为 FastAPI 静态目录公开。
+- backend/data/characters/<id>：新增预设调查员的 YAML、Markdown 与头像，按 ID 独立组织，无 manifest；格式见该目录 README。模板与游戏存档分开，目前未接入运行时。旧 backend/characters 下的 Excel 路径保留。
 - backend/saves 与 output：本地状态与生成结果，Git 忽略。
 - docs/evaluation 与 history：归档的评估和历史依据，不作为运行输入。
 

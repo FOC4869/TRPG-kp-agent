@@ -1,0 +1,111 @@
+schema_version: '1.0'
+version: 1.0.0
+id: geraldine
+name: 杰拉尔丁“格里”桑希尔
+age: 32
+occupation: 记者
+aliases:
+- 格里
+background: background.md
+source:
+  description: 用户提供的预设角色卡截图；仅保留裁切头像，未收录完整截图。
+  image_number: 9
+assets:
+  portrait:
+    file: assets/portrait.png
+    media_type: image/png
+    description: 从该角色原卡裁切，保留相框。
+attributes:
+  STR: 55
+  CON: 60
+  SIZ: 70
+  DEX: 45
+  INT: 75
+  APP: 70
+  POW: 65
+  EDU: 80
+initial_resources:
+  hp: 13
+  san: 65
+  mp: 13
+  luck: 55
+authored_derived:
+  hp_max: 13
+  mp_max: 13
+  mov: 7
+  db: +1D4
+  build: 1
+skills:
+  斗殴: 40
+  闪避: 30
+  会计: 25
+  艺术与手艺（写作）: 70
+  艺术与手艺（摄影）: 45
+  魅惑: 30
+  信用评级: 24
+  话术: 55
+  历史: 9
+  图书馆使用: 50
+  博物学: 18
+  神秘学: 45
+  说服: 55
+  心理学: 60
+  侦查: 45
+  潜行: 35
+attacks:
+- id: unarmed
+  label: 徒手斗殴
+  skill: 斗殴
+  damage:
+    base: 1D3
+    add_damage_bonus: true
+- id: switchblade
+  label: 弹簧刀
+  skill: 斗殴
+  damage:
+    base: 1D4
+    add_damage_bonus: true
+starting_equipment:
+- id: notepad
+  name: 便条簿
+  quantity: 1
+- id: pencils
+  name: 铅笔
+  quantity: null
+- id: camera
+  name: 照相机
+  quantity: 1
+- id: film
+  name: 胶片
+  quantity: null
+- id: switchblade
+  name: 弹簧刀
+  quantity: 1
+- id: whisky_flask
+  name: 一小瓶上等的加拿大威士忌
+  quantity: 1
+  container: 扁平的金属小酒壶
+starting_money:
+  currency: USD
+  amount: 10
+customization:
+- section: people
+  anchor: people
+  editable: true
+- section: places
+  anchor: places
+  editable: true
+- section: treasured
+  anchor: treasured
+  editable: true
+source_issues:
+- id: history_threshold_conflict
+  field: skills.历史
+  status: needs_review
+  source_text: 历史 9%（15/6）
+  note: 基础值按截图保存为 9；括号值与基础值不一致，不推测补成 30。
+- id: library_threshold_conflict
+  field: skills.图书馆使用
+  status: needs_review
+  source_text: 图书馆使用 50%（12/10）
+  note: 基础值按截图保存为 50；困难值 12 与基础值不一致，括号值不作为独立执行数据。
