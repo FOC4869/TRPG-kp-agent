@@ -1,0 +1,73 @@
+objects:
+  head_music_device:
+    name: 人头音乐装置
+    location: music_room
+    source:
+      document: story.md
+      anchor: music-room
+    details: 接触椅子产生低声合唱；坐下后完整歌声；累计15伤害可摧毁，完整演奏或破坏引来妖鬼注意。
+  hibernation_cocoons:
+    name: 冬眠茧
+    location: hibernation_chamber
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+    details: 21个黄色半透明茧及1个已打开的棕色空茧；切开后其中蛇人很快死亡；可燃，燃烧产生毒气。
+  prisoner_cage:
+    name: 壁龛铁笼
+    location: cage_area
+    source:
+      document: story.md
+      anchor: captivity
+    details: 铁条老化，可用力量掰弯，一次一人通过；无声开门另需潜行。
+  summoning_gong:
+    name: 召援铜锣
+    location: laboratory
+    source:
+      document: story.md
+      anchor: serpent-lair
+    details: 敲响后1D10+2轮有一只妖鬼到达；须使用现有实例并记录计时。
+  laboratory_apparatus:
+    name: 实验器材
+    location: laboratory
+    source:
+      document: story.md
+      anchor: serpent-lair
+    details: 明火、枪击或溶液混合可能引发爆炸；失手枪击有30%命中器材。
+  magic_portal:
+    name: 魔法传送门
+    location: portal_area
+    source:
+      document: story.md
+      anchor: serpent-lair
+    details: 接触或尝试进入扣1MP和1SAN，通往城南5英里附近出口洞窟；同法返回，妖鬼与退化人不能使用。
+    destination: portal_exit_cavern
+    costs:
+    - resource: MP
+      amount: 1
+    - resource: SAN
+      amount: 1
+    excluded_templates:
+    - ghast
+    - degenerate
+  pit_hazard:
+    name: 陷坑
+    location: pit_corridor
+    source:
+      document: story.md
+      anchor: pit
+    details: 深10英尺、约20×30英尺；边缘约3英尺宽。
+  cliff_rope_anchor:
+    name: 绳索固定点
+    location: cliff
+    source:
+      document: story.md
+      anchor: cliff
+    details: 坚固钟乳石；固定绳索后攀爬获奖励骰，亦可用于返回。
+  poisonous_fungi:
+    name: 真菌
+    location: fungus_area
+    source:
+      document: story.md
+      anchor: fungus-area
+    details: 可食性由尝食时幸运决定；有毒者随后体质检定并延迟生效。
