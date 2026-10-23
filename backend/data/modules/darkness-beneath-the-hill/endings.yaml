@@ -27,12 +27,14 @@ rewards:
       anchor: rewards
   abandon_josh:
     condition: 将乔什留下独自面对其命运
-    san_loss: null
+    san_loss: 1D6+1
     printed: -1D6+1
     issue: abandonment_san
     source:
       document: story.md
       anchor: rewards
+    origin: house_rule
+    adjudication: abandonment_san
   escape_without_defeat:
     condition: 逃离地下且未击败斯西亚·瑞斯
     san_gain: 1D4

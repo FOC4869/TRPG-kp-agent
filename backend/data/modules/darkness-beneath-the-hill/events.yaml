@@ -5,6 +5,7 @@ policy:
 - 同一行动的随机结果、延迟计时与已结算效果须持久化，重试不重掷。
 - 未声明的重复策略、失败后果或具体时长不由模型静默补齐。
 - 新方案与非预写行动允许独立裁定，不能仅因不在列表拒绝。
+- rulings.yaml 是已选定项目裁定；事件记录仍非可执行DSL。
 events:
   meet_josh:
     source:
@@ -63,6 +64,12 @@ events:
     on_failure: 未推断出年代。
     clue: cavern_age
     issue: geography_skill
+    adjudication: geography_skill
+    check:
+      skill: science_geology
+      difficulty: regular
+      mapping_basis: project_mapping
+      printed_skill: 科学（地理学）
   rapid_travel_navigation:
     source:
       document: story.md
@@ -101,6 +108,7 @@ events:
     on_success: 仍受1D6坠落伤害。
     on_failure: 受到2D6坠落伤害。
     location: cliff
+    adjudication: cliff_reaction_order
   climb_cliff:
     source:
       document: story.md
@@ -111,6 +119,7 @@ events:
     on_failure: 未找到支点，可选择原文允许的孤注一骰；孤注失败坠落2D6。
     location: cliff
     optional_override: generous_cliff_damage
+    adjudication: cliff_reaction_order
   rope_cliff:
     source:
       document: story.md
@@ -124,6 +133,7 @@ events:
     - 未提及带绳时原文允许幸运检查是否记得携带。
     - 可提出跳跃成功将坠落伤害减半。
     issue: cliff_reaction_order
+    adjudication: cliff_reaction_order
   music_contact:
     source:
       document: story.md
@@ -140,6 +150,7 @@ events:
     trigger: 坐在椅子上
     on_success: 听到完整歌曲，进一步SAN 0/1；引来妖鬼注意。
     location: music_room
+    adjudication: repeat_policy
   destroy_music_device:
     source:
       document: story.md
@@ -268,8 +279,9 @@ events:
     on_success: 获得伊格幻象，SAN 1/1D4，克苏鲁神话+2。
     on_failure: 未获此幻象。
     location: temple_of_yig
-    note: 注意是意志成功触发幻象；重复触发范围原文未明确。
+    note: 每位调查员每次本模组会话仅结算一次幻象及神话奖励；重入不刷奖励。
     issue: repeat_policy
+    adjudication: repeat_policy
   see_cocoons:
     source:
       document: story.md
@@ -281,6 +293,7 @@ events:
     reveals:
     - hibernation_cocoons_visible
     issue: repeat_policy
+    adjudication: repeat_policy
   cut_cocoons:
     source:
       document: story.md
@@ -301,6 +314,7 @@ events:
     - 预见危险并屏息可避免首轮吸入。
     - 计划点火后立即撤离可用DEX成功避开毒气。
     issue: toxic_gas_sequence
+    adjudication: toxic_gas_sequence
   captured:
     source:
       document: story.md
@@ -349,8 +363,9 @@ events:
     origin: extracted
     trigger: 在蛇人醒着时暗中观察，每位观察者进行潜行
     on_success: 全部成功可继续观察或尝试突袭。
-    on_failure: 任一失败后蛇人警觉；是否立即定位有译注争议。
+    on_failure: 任一观察者潜行失败即被察觉；不自动获赠攻击或定位未暴露者。
     issue: stealth_detection
+    adjudication: stealth_detection
   open_cage_quietly:
     source:
       document: story.md
@@ -369,6 +384,7 @@ events:
     on_success: 保存一次1D10+2轮的到达计时；从两只既有妖鬼中选择可响应者。
     object: summoning_gong
     issue: unavailable_ghast
+    adjudication: unavailable_ghast
   laboratory_explosion:
     source:
       document: story.md
@@ -379,8 +395,9 @@ events:
     object: laboratory_apparatus
     notes:
     - 失手枪击有30%命中器材。
-    - 可提出闪躲或跳跃以逃离或减伤，具体裁定待确认。
+    - 采用explosion_mitigation项目裁定：一次闪躲或跳跃成功，伤害减半向下取整。
     issue: explosion_mitigation
+    adjudication: explosion_mitigation
   throw_chemical:
     source:
       document: story.md
@@ -396,13 +413,14 @@ events:
       anchor: serpent-lair
     origin: extracted
     trigger: 接触传送门或试图走入墙壁
-    on_success: 支付1MP和1SAN并移动到对应另一端。
+    on_success: 按insufficient_portal_resources验证支付1MP（不足可按项目裁定由HP补足）和1SAN，原子完成移动，再处理SAN归零后果。
     object: magic_portal
     notes:
     - 不要求先通过克苏鲁神话辨认。
     - 妖鬼和退化人无法使用。
     - 单向改动仅在显式选用主持选项时生效。
     issue: insufficient_portal_resources
+    adjudication: insufficient_portal_resources
   calm_josh:
     source:
       document: story.md
@@ -413,6 +431,7 @@ events:
     on_failure: 需轻轻推搡引导其离开。
     target: josh
     issue: repeat_policy
+    adjudication: repeat_policy
   josh_combat_regression:
     source:
       document: story.md
@@ -439,3 +458,4 @@ events:
     location: music_room
     reveals:
     - music_device_heads_visible
+    adjudication: repeat_policy

@@ -2,7 +2,7 @@ id: darkness_beneath_the_hill
 title: 岭下暗影
 original_title: The Darkness Beneath the Hill
 schema_version: 0.1.0
-content_version: 0.1.1
+content_version: 0.2.0
 status: authored_draft
 runtime_compatible: false
 language: zh-CN
@@ -18,11 +18,14 @@ entry:
   event: meet_josh
 rules:
   system: Call of Cthulhu
-  edition: null
+  edition: CoC 7e
   issue: rules_edition
   external_dependencies:
   - spell_definitions
   - combat_and_sanity_rules
+  profile: darkness_solo_v1
+  profile_scope: 显式项目裁定；不声明官方勘误或已实现执行器
+  profile_sha256: 21f14c679f032c14815b787b9e87712d4f9ec6474dbbf792522cc963f69d142b
 files:
   story: story.md
   characters: characters.yaml
@@ -37,6 +40,7 @@ files:
   guide: README.md
   visual_style: visual-style.yaml
   asset_plan: asset-plan.yaml
+  rulings: rulings.yaml
 source:
   text_attachment: 已粘贴的文本.txt
   text_sha256: ad7dd3877d1e5d85681fe512066baadd7bafc9381b4f27891c4f955374653f8f
@@ -55,3 +59,10 @@ state_policy:
   derived: 可重建索引和摘要，不是事实来源
 presentation:
   default_background: default_atmosphere
+capabilities:
+  content_review: true
+  visual_assets: true
+  runtime_adapter: false
+  event_execution: false
+  spell_execution: false
+  solo_playtest: false

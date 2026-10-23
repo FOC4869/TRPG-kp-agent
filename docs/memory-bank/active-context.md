@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-23：fix/darkness-module-adjudications 按用户授权处理16项疑点，内容版本0.2.0；新增rulings.yaml及只读检查，manifest记录裁定摘要及能力。HP11、妖鬼SAN0/1D8补齐；其余歧义采用显式项目裁定，照片/原附件以限制措施结案，不称恢复原件；地图为显式场景抽象并有高差/危险/笼门/传送门禁，非精确战术地图。191后端单测、专用约定检查、标准--complete（零错误/警告）通过；正文/图像字节不改，历史配置与指纹归档。尚未实现事件执行、法术适配、单人游玩测试，runtime_compatible仍false；不将issues resolved等同运行就绪。交付见docs/design/done/darkness-adjudications.md；未提交合并推送。
+
 2026-10-23：用户明确通过新增素材审阅，24项生成素材全部accepted并登记assets/index.yaml（加9项原材料共33项）。重复ID已通过仅将事件degenerate_origin重命名为investigate_degenerate_origin解决，线索ID及事件clue引用保持原状；内容版本0.1.1，图像字节不改，旧生产指纹/索引归档assets/visual-approval-history-v1.json，核对仅ID区分后更新当前验收指纹。标准--complete校验通过，24项均skip；规则/地图/原始来源等既有issues保留，runtime_compatible仍false。
 
 2026-10-23：用户认可首批并要求续做，feat/darkness-visual-assets 新增18张背景及斯西亚·瑞斯、退化人、妖鬼3张基础透明立绘；共24张均落盘，尺寸/解码/哈希/真实alpha检查通过。完整调用提示词及参考路径写入asset-plan；首批3项accepted进入索引，新增21项review等待审阅；历史厅火盆、传送门矩形刻纹、生活区植物等美术偏差已留review_note。visual-preview.html支持背景/人物切换与16:9/21:9，未运行浏览器QA；visual-validation.json区分正式校验和继续阶段诊断，二者均仍报告既有degenerate_origin重复ID，不能称整包通过。未改运行时/前端，未提交推送。

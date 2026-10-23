@@ -81,7 +81,7 @@ characters:
       INT: 90
       POW: 95
     stats:
-      HP: null
+      HP: 11
       MP: 19
       move: 8
       armor: 1
@@ -129,6 +129,7 @@ characters:
     presentation:
       sprites:
         base: sprite_ssyaa_hrisss_base
+    adjudication: serpent_hp
   degenerate:
     name: 退化人
     kind: creature_template
@@ -171,6 +172,7 @@ characters:
     presentation:
       sprites:
         base: sprite_degenerate_base
+    attribute_generation: fixed_average
   ghast:
     name: 妖鬼
     kind: creature_template
@@ -206,6 +208,10 @@ characters:
     presentation:
       sprites:
         base: sprite_ghast_base
+    sanity:
+      success: '0'
+      failure: 1D8
+    adjudication: ghast_sanity
 instances:
   ghast_1:
     template: ghast
@@ -228,3 +234,4 @@ notes:
 - 模板为附录平均值；不擅自重掷或修正数值。
 - 乔什SAN36是地下遭遇时附录数据，不推断为会面前历史SAN。
 - 妖鬼POW中原文5O按50转录；原文本身保留于story.md。
+- 0.2.0：原文数值仍保存在story/printed_hp；采用值与项目裁定见rulings.yaml。
