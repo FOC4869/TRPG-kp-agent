@@ -148,10 +148,13 @@ export function GamePage({ gameId }: { gameId: string | null }) {
       <p className="eyebrow">调查员</p><div className="game-investigator"><Portrait portrait={investigator.portrait} name={investigator.displayName} /><h2>{investigator.displayName}</h2><p>{investigator.occupation}</p></div>
       <dl className="game-resources">{[
         { label: 'HP', value: resources.hp, max: resources.hpMax, color: 'hp' },
-        { label: 'SAN', value: resources.san, max: null, color: 'san' },
+        { label: 'SAN', value: resources.san, max: 100, color: 'san', showMax: false },
         { label: 'MP', value: resources.mp, max: resources.mpMax, color: 'mp' },
-        { label: '幸运', value: resources.luck, max: null, color: 'luck' },
-      ].map(({ label, value, max, color }) => <div key={label}><dt>{label}</dt><dd><span className={`game-resource-mark ${color}`} aria-hidden="true" /><span>{value ?? '—'}{max !== null && ` / ${max}`}</span></dd></div>)}</dl>
+        { label: '幸运', value: resources.luck, max: 100, color: 'luck', showMax: false },
+      ].map(({ label, value, max, color, showMax = true }) => {
+        const percentage = value !== null && max !== null && max > 0 ? Math.min(100, Math.max(0, value / max * 100)) : 0
+        return <div key={label}><dt>{label}</dt><dd><span className={`game-resource-mark ${color}`} aria-hidden="true"><span className="game-resource-fill" style={{ width: `${percentage}%` }} /></span><span>{value ?? '—'}{showMax && max !== null && ` / ${max}`}</span></dd></div>
+      })}</dl>
       <nav aria-label="调查工具">{(['character', 'inventory', 'clues'] as const).map((tool) => <button key={tool} onClick={() => openPanel(tool)} aria-label={gamePanelNames[tool]} aria-haspopup="dialog"><ToolIcon kind={tool} />{gamePanelNames[tool]}{tool === 'clues' && facts.length > 0 && <span className="fact-count">{facts.length}</span>}</button>)}</nav>
       <div className="game-sidebar-bottom"><a href="#/">← 返回首页</a><p>自动保存 · 此地址可恢复调查</p></div>
     </aside>

@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-24：在fix/game-resource-meters修复游戏侧栏固定色块不随数值更新的问题。GamePage与game.css改为固定底槽＋按当前资源填充；HP／MP使用各自上限，SAN／幸运按100，缺值／无有效上限留空、比例限制在0–100%。同步simplified-mvp展示约定。npm ci/lint/typecheck/build通过；浏览器1440×900确认初始比例，通过仅在浏览器拦截的SSE夹具验证7/14HP＝50%、32SAN＝32%、0/13MP＝0%、25幸运＝25%，1280×720与390×844无横向溢出，移除夹具刷新恢复真实数值。无控制台错误，不改后端／真实存档、不调用模型，故未重复后端测试；本次未提交／推送。此前继续调查功能已在6a087b3提交。
+
 2026-10-24：在新分支feat/resume-investigation接通首页“继续调查”。frontend/src/state/recent-game.ts只把最近可恢复game_id记在localStorage（coc:last-active-game）；创建／直接游戏地址读取更新，最终结案只清除同一局。ContinueInvestigation在首页进入／聚焦／跨标签变更时GET校验，显示案件和人物，跳回原地址；空或404禁用，网络／损坏／版本错误保留编号并重试。终局但最终叙述未完成仍可进入既有“恢复本轮”，不自动重发、不新增Checkpointer或后端API。旧存档需先用原地址打开一次，浏览器禁用存储时原URL仍可恢复。本轮不调用模型，未commit/push；MVP已在此前b879d31提交，首页英文已在0fe2b16删除。
 
 验证：npm ci/lint/typecheck/build和目录／SSE／新recent-game回归通过，涵盖活动／未决／终局、404／故障、身份不匹配、取消、存储禁用及旧局不清新局。真实浏览器完成新建→首页→原game_id→刷新、断网重试、跨标签失效清理、旧结案不覆盖新局，未决入口用HTTP夹具验收；1440×900／1280×720／390×844无横向溢出，两个桌面继续按钮可见。只有主动断网／404的预期网络错误。无后端代码变化，未重复后端全量测试或付费模型；复用此前224项及恢复测试。记录见docs/design/done/resume-investigation.md，README／architecture／development／用户旅程已同步。

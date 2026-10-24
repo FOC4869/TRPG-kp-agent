@@ -19,8 +19,9 @@
 .game-resources > div { display: flex; align-items: center; gap: 9px; }
 .game-resources dt { width: 38px; font: 14px var(--font-latin); flex: none; }
 .game-resources dd { margin: 0; display: flex; align-items: center; gap: 10px; flex: 1; justify-content: space-between; font: 16px var(--font-latin); white-space: nowrap; }
-.game-resource-mark { width: 42%; height: 5px; border: 1px solid #a2916860; background: #82704b; }
-.game-resource-mark.hp { background: #6d9382; }.game-resource-mark.san { background: #977163; }.game-resource-mark.mp { background: #6c879b; }
+.game-resource-mark { width: 42%; flex: none; height: 5px; overflow: hidden; border: 1px solid #a2916860; background: #ffffff0a; }
+.game-resource-fill { display: block; height: 100%; background: #82704b; }
+.game-resource-mark.hp .game-resource-fill { background: #6d9382; }.game-resource-mark.san .game-resource-fill { background: #977163; }.game-resource-mark.mp .game-resource-fill { background: #6c879b; }
 .game-sidebar nav { border-top: 1px solid #715b3b; padding: 16px 0; display: grid; gap: 5px; }
 .game-sidebar nav button { display: flex; align-items: center; gap: 15px; min-height: 48px; padding: 8px 0; background: none; border: 0; text-align: left; font-size: 16px; color: #dfcda9; }
 .game-sidebar nav button:hover, .game-header-tools button:hover { color: #ffe5af; }
