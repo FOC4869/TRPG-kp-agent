@@ -70,6 +70,7 @@ npm run build
 依赖分别以 `backend/pyproject.toml` + `backend/uv.lock`、`frontend/package.json` + `frontend/package-lock.json` 为准。
 不要提交 `.env`、虚拟环境、`node_modules`、玩家存档或构建产物；不要把后端剧情和密钥复制到前端。
 
+- [MVP冻结基线（2026-10-24）](docs/releases/mvp-freeze-2026-10-24.md)
 - [架构与边界](docs/architecture.md)
 - [开发指南](docs/development.md)
 - [可游玩单人 MVP](docs/design/done/simplified-mvp.md)

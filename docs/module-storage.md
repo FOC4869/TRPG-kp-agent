@@ -108,16 +108,16 @@ presentation:
 
 ## 5. 前端当前使用什么
 
-网页目录已通过真实 GET 读取显式公开引言与 manifest 标题，调查员通过真实目录接口读取。回复仍经 api/game.ts 的演示脚本；未执行此内容包的事件、规则或场景。
+网页目录已通过真实 GET 读取显式公开引言与 manifest 标题，调查员通过真实目录接口读取。游戏经api/game.ts接入真实HTTP／SSE，执行独立MVP配置；完整内容包本身仍不是可执行配置。
 
-游戏页只选用两张开场图的原字节副本：
+早期开场预览保留以下两张静态副本，当前正式游戏不再引用：
 
 | 模组资源 | 前端静态预览 |
 |---|---|
 | `assets/bg_winscott_house-v1.webp` | `frontend/public/images/game-preview/winscott-house.webp` |
 | `assets/sprite_josh_base-v1.png` | `frontend/public/images/game-preview/josh.png` |
 
-这是用户指定的开场预览允许清单，不修改原模组 `keeper_only`，不构成整包公开授权。正式游戏需返回本局授权的素材 URL 并移除静态副本，不将 `backend/data/modules/` 整体挂为静态目录。
+这是用户指定的开场预览允许清单，不修改原模组 `keeper_only`，不构成整包公开授权。正式游戏已返回本局授权的素材URL；按既有决定暂保留静态副本，不将 `backend/data/modules/` 整体挂为静态目录。
 
 玩家检索先按本局、接收者和已揭示事实过滤，再搜索。授权前隐藏标题、摘要和缩略图也不得泄露；地图原图不直接给玩家，探索图需单独处理。
 
@@ -126,9 +126,9 @@ presentation:
 | 数据 | 归属 |
 |---|---|
 | 正文、NPC 模板、地点、裁定、图片索引 | 当前只读内容包 |
-| 当前位置、已揭示事实、伤势、检定、计时器、结束状态 | 未来独立本局状态，绑定内容版本与指纹，不写回内容包 |
-| 当前网页消息和线索 | React 内存，刷新丢失 |
-| 既有 CLI 存储 | 独立 SQLite 适配，不代表已完成网页服务 |
+| 当前位置、已揭示事实、HP／SAN、检定与结束状态 | 本局JSON，绑定内容版本与指纹，不写回内容包；不实现自由计时器 |
+| 完整网页消息和线索 | 本局JSON持久化，刷新通过GET恢复 |
+| 既有 CLI 存储 | 独立SQLite适配，与网页JSON存档隔离 |
 
 CLI 仍使用 `backend/data/campaign.json` 和 `backend/data/scenes/*.json` 等运行配置。该 YAML 包不能直接传给当前 `--campaign` 加载器，目录完成不代表兼容运行时。
 
@@ -147,14 +147,14 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py ba
 
 ## 网页MVP运行配置
 
-2026-10-24首版新增 `backend/data/runtime/darkness-solo-mvp-v1.json`（现已由v2替代执行，v1只用于兼容），独立于原内容包。目录发布清单的runtimeProfile绑定darkness-solo-mvp。配置引用原场景与素材，但单独定义简化事件／前提／普通检定／损失与重复策略；完整包manifest的runtime_compatible:false继续表示原包不能被当成全面可执行模组。开局保存配置hash及原包版本，更新不兼容时显式报错。正式游戏资产通过game_id素材接口按已进入场景授权，原data目录不静态挂载。
+2026-10-24首版新增 `backend/data/runtime/darkness-solo-mvp-v1.json`（新局现为v4，v1只用于兼容），独立于原内容包。目录发布清单的runtimeProfile绑定darkness-solo-mvp。配置引用原场景与素材，但单独定义简化事件／前提／普通检定／损失与重复策略；完整包manifest的runtime_compatible:false继续表示原包不能被当成全面可执行模组。开局保存配置hash及原包版本，更新不兼容时显式报错。正式游戏资产通过game_id素材接口按已进入场景授权，原data目录不静态挂载。
 
-## 7. 网页可执行配置
+## 8. 网页可执行配置
 
-原始内容包与每局状态之间增加独立的schemaVersion=2配置。`data/runtime/index.json`按公开moduleId与runtimeProfile显式登记当前文件；当前`darkness-solo-mvp-v3.json`记录场景、NPC、可见目标、挑战、条件／效果及结案，旧v2以固定指纹保留，原v1用于兼容识别。Python只解释通用工具，不按模组名、NPC名或场景名分支。
+原始内容包与每局状态之间增加独立的schemaVersion=2配置。`data/runtime/index.json`按公开moduleId与runtimeProfile显式登记当前文件；当前`darkness-solo-mvp-v4.json`记录场景、NPC、可见目标、挑战、条件／效果及结案，旧v2／v3以固定指纹保留，原v1用于兼容识别。Python只解释通用工具，不按模组名、NPC名或场景名分支。
 
 现有原文包不能仅靠加入目录就自动游玩，需要整理为受支持的运行配置并验证。已有机制的新模组无需改Python；复杂新机制仍需通用能力实现。接入、私有数据边界和旧存档升级见[运行配置说明](runtime-profiles.md)。
 
 ## 调查内容发布版本
 
-当前新开局使用 `data/runtime/darkness-solo-mvp-v3.json`（3.0.0，调查扩充版）。11场景和22类线索由配置驱动；原完整模组内容包与素材不变。`runtime/index.json`以current选择新局配置，以retained固定哈希保留旧v2，v1兼容仍只升级到v2。已有game_id不会被切换到更长的新剧情，详见[运行配置](runtime-profiles.md)及[调查扩充](design/done/darkness-investigation.md)。
+当前新开局使用 `data/runtime/darkness-solo-mvp-v4.json`（4.0.0，调查扩充与目标交互版）。十一场景、线索和地窖工具箱动作由配置驱动；原完整模组内容包与素材不变。`runtime/index.json`以current选择新局配置，以retained固定哈希保留旧v2／v3，v1兼容仍只升级到v2。已有game_id不会被切换到更长的新剧情，详见[运行配置](runtime-profiles.md)及[调查扩充](design/done/darkness-investigation.md)。

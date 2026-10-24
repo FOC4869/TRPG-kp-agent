@@ -1,5 +1,7 @@
 # 当前上下文
 
+2026-10-24：按用户要求提交当前工作（9dde42b），将全部既有开发工作合并到taosdev（6a2ef3f），保留210f535文档历史；五份文档冲突采用最新实现并保留旧记录。祖先检查确认25个本地分支端点均已纳入。冻结标签mvp-freeze-2026-10-24及[冻结说明](../releases/mvp-freeze-2026-10-24.md)记录可复现基线、验证和后续修复约定；人物／模组存储说明清理旧预览表述。推送范围限定为origin的taosdev、feat/common-actions和冻结标签；无新增模型调用、密钥或存档提交。
+
 
 2026-10-24：完成常见自由行动。独立工作区feat/common-actions-work在原脏基线之上实施并校验，集成分支feat/common-actions；未自动commit/push。新增use_item/drop/give/confirm_action、持久危险确认、独立伤害effect卡/SSE和声明式实体actions。common-actions-v1按原始装备ID冻结能力，大砍刀1D6/徒手1D3为明确MVP改编。当前v4增加地窖工具箱动作，v3保留原指纹；旧局只读补mechanics、不换剧情。修改Keeper提示词尊重玩家意图、简短回应，不伪造玩家自行收手；未支持动作仍需裁定，不能凭叙述修改状态。
 

@@ -1,12 +1,12 @@
 # 人物存储结构
 
-更新日期：2026-10-23。覆盖玩家预设调查员和模组 NPC／生物；两者格式、用途和生命周期不同。字段细节以实际文件和[调查员说明](../backend/data/characters/README.md)为准。
+更新日期：2026-10-24。覆盖玩家预设调查员和模组 NPC／生物；两者格式、用途和生命周期不同。字段细节以实际文件和[调查员说明](../backend/data/characters/README.md)为准。
 
 ## 1. 数据分别放在哪里
 
 | 类型 | 位置 | 当前用途 |
 |---|---|---|
-| 预设调查员模板 | `backend/data/characters/<id>/` | 十位原卡转录资料，已接网页只读目录，未创建运行实例 |
+| 预设调查员模板 | `backend/data/characters/<id>/` | 十位原卡转录资料，已接网页只读目录；开局创建独立游戏快照 |
 | NPC／生物 | `backend/data/modules/<module-directory>/characters.yaml` | 随模组存放定义、实例和群组，引用同包立绘 |
 
 `backend/characters/` 仍有旧 CLI 使用的 Excel 卡，不能与 `backend/data/characters/` 混为一谈。现有 CLI 没有自动改用新 YAML 模板。
@@ -83,13 +83,13 @@ initial_resources:
   luck: 60
 ```
 
-文件引用相对 `character.yaml` 所在目录。未来加载器需校验路径与符号链接，拒绝越出人物目录。头像为原卡裁切，不是 NPC 透明立绘；目录不保存完整角色卡截图。
+文件引用相对 `character.yaml` 所在目录。目录加载器校验路径与符号链接，拒绝越出人物目录。头像为原卡裁切，不是 NPC 透明立绘；目录不保存完整角色卡截图。
 
 ## 4. 背景正文与留白
 
 `background.md` 保存人物描述、特质、信念、重要之人、地点、宝贵之物、经历等正文，并设置稳定 HTML 锚点。`customization[].anchor` 指向可填写部分，原卡留白继续保留，不由导入流程补写。
 
-背景“宝贵之物”不自动加入背包，人物经历不自动授予技能、装备或奖励。前端示例背景不是后端原卡正文的同步副本。
+背景“宝贵之物”不自动加入背包，人物经历不自动授予技能、装备或奖励。网页背景通过后端投影读取，不维护独立假资料副本。
 
 ## 5. 模板资料与可执行规则的区别
 
@@ -120,13 +120,13 @@ groups
 └── trained_assistants  # 引用 degenerate，定义数量
 ```
 
-条目包含数值、技能、行为、来源、初始／阶段说明等。实际伤势、当前位置和命运应由未来本局状态管理，不把游玩变化写回模板。数值约定同时参考模组 `rulings.yaml`，不能只读旧原文。
+条目包含数值、技能、行为、来源、初始／阶段说明等。实际位置、阶段和命运由本局JSON管理，不把游玩变化写回模板；完整NPC伤势与战斗尚未实现。数值约定同时参考模组 `rulings.yaml`，不能只读旧原文。
 
 `presentation.sprites.base` 引用同包 `assets/index.yaml` 的素材 ID。每类一张基础透明立绘，多个生物实例复用；没有表情、受伤或服装变体，变化由叙述表达。NPC 立绘与调查员头像的展示用途不同，不共享文件格式约定。
 
 ## 7. 当前前端如何使用人物
 
-选择页经 `api/investigators.ts` 的 `listInvestigators` / `getInvestigator` 获取展示资料；它们目前通过真实 GET 获取后端 YAML／Markdown 投影。游戏预览沿用所选真实人物展示资料，动作仍为固定演示。
+选择页经 `api/investigators.ts` 的 `listInvestigators` / `getInvestigator` 获取展示资料；它们目前通过真实 GET 获取后端 YAML／Markdown 投影。游戏创建独立人物实例，行动通过真实HTTP／SSE修改本局状态。
 
 | 后端模板概念 | 客户端展示形式 |
 |---|---|
@@ -148,10 +148,11 @@ groups
 |---|---|
 | 调查员 YAML／背景／头像 | 只读、版本化模板 |
 | NPC／生物定义及立绘 | 模组只读资产，随内容版本维护 |
-| 玩家填写、当前 HP／SAN／MP、装备消耗、NPC 本局状态 | 未来游戏实例，绑定模板／内容 ID、版本及开局快照 |
-| 当前网页选择、消息、线索 | React 内存，刷新重置，无真实存档 |
+| 当前资源、物品归属、NPC位置／阶段及剧情进度 | backend/saves/<game_id>/game.json，绑定模板／内容版本与开局快照；MP／幸运暂仅展示 |
+| 当前网页选择 | React页面状态，未确认前不创建游戏 |
+| 完整消息、线索与检定结果 | 本局JSON持久化，网页GET恢复 |
 
-当前没有新模板自动实例化流程。既有 CLI Excel／SQLite 链路独立存在，选中人物并不创建后端角色或游戏。
+选择人物只读取目录；确认“开始调查”后才由POST /api/games创建实例。既有CLI Excel／SQLite链路独立存在。
 
 维护时保持目录 ID、文件 `id`、附件路径和背景锚点一致；改模板数值需更新内容版本、复核疑点。另见[调查员格式说明](../backend/data/characters/README.md)、[角色卡导入 Skill](../skills/coc-character-card-import/SKILL.md)、[模组存储结构](module-storage.md)、[用户旅程](user-journey.md)与[调查员适配契约](investigator-api.md)。
 
