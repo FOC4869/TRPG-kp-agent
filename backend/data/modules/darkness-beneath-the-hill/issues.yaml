@@ -1,0 +1,210 @@
+issues:
+  rules_edition:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: introduction
+    description: 用户文本未明确版本，接规则执行前确认规则书版本及术语映射。
+    resolution:
+      decision: rules_edition
+      document: rulings.yaml
+      method: project_baseline
+      outcome: adopted_for_project
+      summary: 选择现有backend/trpg/rules.py一致的CoC7标准规则；不启用Pulp。
+  serpent_hp:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: serpent-statblock
+    description: 印刷HP20；译者校对注认为11。保留两者，执行HP为空，不静默修正。
+    resolution:
+      decision: serpent_hp
+      document: rulings.yaml
+      method: derived_with_source_note
+      outcome: adopted_for_project
+      summary: 采用11；保留印刷20和译注，不称为官方勘误。
+  stealth_detection:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: serpent-lair
+    description: 译注不确定潜行失败后立即发现还是开始搜寻；需要确认裁定。
+    resolution:
+      decision: stealth_detection
+      document: rulings.yaml
+      method: source_text_choice
+      outcome: adopted_for_project
+      summary: 遵循正文主句：任一观察者潜行失败即被察觉；不额外赠送攻击、定位其他未暴露人员或强制输掉战斗。
+  abandonment_san:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: rewards
+    description: 原文“-1D6+1理智值”的损失运算含义待确认，不直接解析为表达式。
+    resolution:
+      decision: abandonment_san
+      document: rulings.yaml
+      method: house_rule
+      outcome: adopted_for_project
+      summary: 将含糊负号记法明确选为损失1D6+1；不是声称原文唯一解释。
+  map_topology:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: serpent-domain
+    description: 三张图已保存；正文外的洞窟相邻、岔路与峭壁层级需逐边核准后录入。
+    resolution:
+      decision: map_topology
+      document: rulings.yaml
+      method: reviewed_scene_abstraction
+      outcome: adopted_for_project
+      summary: 对照地图1/2/3建立粗粒度场景图；峭壁上/下、未编号岔路另设节点。用于场景可达性，不代替精确战术地图或补画怪物窄道。
+  building_identity:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: research
+    description: 图片无图注，建筑身份仅从上下文推测；确认前不自动按地点展示。
+    resolution:
+      decision: building_identity
+      document: rulings.yaml
+      method: mitigation
+      outcome: mitigated_not_recovered
+      summary: 原图身份未证实，保留为未标注参考，不自动按建筑地点展示；生成的通用资料室可继续使用。
+  repeat_policy:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: friend-in-distress
+    description: 安抚重试、幻象和重复目睹的结算范围未统一明确；需规则或主持策略。
+    resolution:
+      decision: repeat_policy
+      document: rulings.yaml
+      method: house_rule
+      outcome: adopted_for_project
+      summary: 行动及SAN记录幂等；不允许无代价反复抽检定。
+  explosion_mitigation:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: serpent-lair
+    description: 原文允许闪躲/跳跃逃离或减伤，但未明确统一幅度。
+    resolution:
+      decision: explosion_mitigation
+      document: rulings.yaml
+      method: house_rule
+      outcome: adopted_for_project
+      summary: 每次爆炸一次结算；成功反应统一减半，向下取整，不同时获得移出范围和减伤。
+  degenerate_attribute_dice:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: degenerate-statblock
+    description: 粘贴的属性随机公式跨行错位，暂用附录平均值，不重建随机公式。
+    resolution:
+      decision: degenerate_attribute_dice
+      document: rulings.yaml
+      method: bounded_profile
+      outcome: adopted_for_project
+      summary: 只用附录平均模板；禁用随机属性生成，跨行公式不重建。
+  ghast_sanity:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: ghast-statblock
+    description: 该粘贴附录未列妖鬼目睹SAN，需外部规则来源，不能猜填。
+    resolution:
+      decision: ghast_sanity
+      document: rulings.yaml
+      method: external_rule
+      outcome: adopted_for_project
+      summary: 补齐妖鬼SAN损失0/1D8。
+  geography_skill:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: deeper-caverns
+    description: 原文科学（地理学）与洞穴年代判断的技能映射需核对；保持原文。
+    resolution:
+      decision: geography_skill
+      document: rulings.yaml
+      method: project_skill_mapping
+      outcome: adopted_for_project
+      summary: 洞穴地质年代判断映射科学（地质学）；保留原文科学（地理学），不修改玩家技能值。
+  cliff_reaction_order:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: cliff
+    description: 绳索失手、孤注一骰与跳跃减伤的时序需在执行器中明确。
+    resolution:
+      decision: cliff_reaction_order
+      document: rulings.yaml
+      method: source_plus_house_order
+      outcome: adopted_for_project
+      summary: 明确选择下降方式；伤害只结算一次，救绳孤注不无限串联。
+  toxic_gas_sequence:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+    description: 首轮屏息、立即撤离DEX、逐轮CON及堵路的结算顺序待实现确认。
+    resolution:
+      decision: toxic_gas_sequence
+      document: rulings.yaml
+      method: source_plus_house_order
+      outcome: adopted_for_project
+      summary: 先处理已声明的立即撤离，再按每轮暴露结算；屏息只豁免首轮。
+  unavailable_ghast:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: serpent-lair
+    description: 两只妖鬼均不可响应时铜锣如何处理，原文未明确；不可生成第三只。
+    resolution:
+      decision: unavailable_ghast
+      document: rulings.yaml
+      method: house_rule
+      outcome: adopted_for_project
+      summary: 只调度两只既有妖鬼；没有可响应者铜锣仍发声但不生成援军。
+  insufficient_portal_resources:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: serpent-lair
+    description: 使用者MP或SAN不足时传送如何结算，须核对通用规则。
+    resolution:
+      decision: insufficient_portal_resources
+      document: rulings.yaml
+      method: house_rule_informed_by_core_magic
+      outcome: adopted_for_project
+      summary: 借用通用MP耗尽使用HP原则；触门不是学习施法，不加新施法检定。
+  visual_source_recovery:
+    status: resolved
+    blocks_runtime: false
+    source:
+      document: story.md
+      anchor: meet-josh
+    description: 原始文本附件未在仓库；派生 source-text 与原附件哈希不同。正文不改，原哈希保留，仅用于视觉制作，不能宣称原附件字节保真。
+    resolution:
+      decision: visual_source_recovery
+      document: rulings.yaml
+      method: accepted_provenance_limit
+      outcome: mitigated_not_recovered
+      summary: 原附件未找到；将source-text明确限定为派生文本。保留原附件名称和哈希，未宣称恢复原件；不再将它作为运行时阻塞。
+policy: resolved表示本项目已有显式裁定或限制措施，不等于原书缺失信息已恢复、官方勘误或执行器已实现；能力就绪由manifest.capabilities单独记录。

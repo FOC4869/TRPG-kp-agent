@@ -1,0 +1,64 @@
+source:
+  document: story.md
+  anchor: endings
+outcome_dimensions:
+- 每位调查员的存活、逃离与被囚状态
+- 乔什获救、留下、死亡或其他已确认命运
+- 蛇人被击败、逃离或仍在地下
+- 冬眠茧中蛇人的存活与摧毁情况
+- 每只妖鬼是否被击败
+- 各调查员的逃离路线
+epilogues:
+- 乔什获救后仍需长期照护；未治疗可能继续追索蛇人历史。
+- 蛇人幸存时可成为后续冒险人物，当前不立即威胁地表。
+- 调查员可准备后再返地下；向官方声称地底蛇人通常不获帮助。
+reward_policy:
+  recipients: 存活调查员
+  timing: 确认结案后一次结算；暂时撤离和回访不自动发奖
+  idempotency: 按game_id、调查员、奖励ID保存骰子和结算状态
+  exclusivity: 两种逃离奖励互斥；救出与留下乔什不可同时成立；其他满足条件者可组合
+  scope: 妖鬼奖励上限按每位获奖调查员累计，数值上限8
+rewards:
+  rescue_josh:
+    condition: 乔什被成功救出
+    san_gain: 1D6
+    source:
+      document: story.md
+      anchor: rewards
+  abandon_josh:
+    condition: 将乔什留下独自面对其命运
+    san_loss: 1D6+1
+    printed: -1D6+1
+    issue: abandonment_san
+    source:
+      document: story.md
+      anchor: rewards
+    origin: house_rule
+    adjudication: abandonment_san
+  escape_without_defeat:
+    condition: 逃离地下且未击败斯西亚·瑞斯
+    san_gain: 1D4
+    exclusive_group: escape_result
+    source:
+      document: story.md
+      anchor: rewards
+  escape_with_defeat:
+    condition: 击败斯西亚·瑞斯且逃离地下
+    san_gain: 1D6
+    exclusive_group: escape_result
+    source:
+      document: story.md
+      anchor: rewards
+  destroy_sleepers:
+    condition: 摧毁茧中的蛇人
+    san_gain: 1D4
+    source:
+      document: story.md
+      anchor: rewards
+  defeat_ghasts:
+    condition: 击败妖鬼
+    san_gain_per_defeated: 1D8
+    total_gain_cap: 8
+    source:
+      document: story.md
+      anchor: rewards

@@ -1,0 +1,4 @@
+format_version: 0.1.0
+path_base: assets/
+policy: 仅服务端；按本局、接收者和揭示事实筛选。
+assets: {}

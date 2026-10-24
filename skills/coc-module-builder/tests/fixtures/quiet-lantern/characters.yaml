@@ -1,0 +1,18 @@
+characters:
+  archivist:
+    name: 档案员林
+    kind: npc
+    source:
+      document: story.md
+      anchor: introduction
+    attributes: {}
+    stats: {}
+    skills: {}
+    initial:
+      location: hall
+      condition: calm
+    presentation:
+      sprites:
+        base: archivist_base
+instances: {}
+groups: {}

@@ -1,0 +1,187 @@
+{
+  "complete_validator": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "content_fingerprint": "185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003",
+    "resume": [
+      {
+        "id": "bg_cage_area",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "58c37337ee10228b188454653ab27cd46068035e590ce99bdbd0333f41507925"
+      },
+      {
+        "id": "bg_cliff",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "b008f37cf57ac4763b077b3779f55e19d67246ab240c294720b561700edf91f3"
+      },
+      {
+        "id": "bg_entrance_hall",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "35d84ab26bb3dafb37bdfacae4a97ce7647c40b972cfe2d64acd04f8ffebfaf5"
+      },
+      {
+        "id": "bg_fungus_area",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "0bc19c5f401916de83c83807cf417b239ec35da35f8ad15535e0833ff3a49cf3"
+      },
+      {
+        "id": "bg_hibernation_chamber",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "7a3d89fe8954c488302035119f512f733208117eb1c4645aa813e157806f3ab7"
+      },
+      {
+        "id": "bg_history_hall",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "de6efe5214999c058508aab18335d02f80b897c6a6a78ac49fc5d7671c62b419"
+      },
+      {
+        "id": "bg_house_cellar",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "9c8caf8d5b095829ad7b837e4de5a3bf9819bfa5c3b23b5542b5e73a72d95a02"
+      },
+      {
+        "id": "bg_john_hay_library",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "a70a406948be2a96eeaffc9da70841075a376564e2237fb86bffc78bc6e00571"
+      },
+      {
+        "id": "bg_laboratory",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "30b2b1a012ccd64f085455fd6136d47730aa7a9c2c4aebaee0f710d5f4ad2345"
+      },
+      {
+        "id": "bg_music_room",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "46e8a3154cbe71b727e8a29607a647db5db0a56c6bb70a47001eda5d4c6d6007"
+      },
+      {
+        "id": "bg_nest_west",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "1bf3f1379a6d967bd85584e82d069e0e592f70fbee24eb1c48ba344221397734"
+      },
+      {
+        "id": "bg_old_tunnel",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "0b9c27286f93e2b2b0800e04c2427068f94554a6b2d578ab45d26c18440be3d1"
+      },
+      {
+        "id": "bg_pit_corridor",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "9bc842d139a4d16a77957694e4b16f0a281d283c391dc4518ba2e39224964768"
+      },
+      {
+        "id": "bg_portal_area",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "6e1635e05ffcd5dafaae4e0799b951ff63dbd0907bc1171588ade8320b9e7cd5"
+      },
+      {
+        "id": "bg_portal_exit_cavern",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "668e7daf0cb83c374399040e92720ac8fd5eb1878ca97af1da74b8e0d364b984"
+      },
+      {
+        "id": "bg_river_brick_wall",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "f51f6b08e2946c76c3521327690d61a8031588a28c3f149dc7a25b1e94ddee0d"
+      },
+      {
+        "id": "bg_serpent_lair",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "4cd330a80bc45419a623b8cc321bada7829432e8f91804797ae220f10a023b15"
+      },
+      {
+        "id": "bg_temple_of_yig",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "2b2d54ced0ee37dd4a7c42d2cd8061a9cd2c2292b2e653a3b396e5938f18ec0a"
+      },
+      {
+        "id": "bg_winscott_house",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "8796f3190f065481c911cfa7f2f3d3426e1fea1dca36a8dda0fc4d6c781ef306"
+      },
+      {
+        "id": "default_atmosphere",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "295535157d7d4adec7abe8b262377746717410d638e8ce7c62b2ce48e2c60a5a"
+      },
+      {
+        "id": "module_cover",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "504de02a18a1fad0f6ff075de8b248f48a29e3b5a840a985bb8eb555923dbfdf"
+      },
+      {
+        "id": "sprite_degenerate_base",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "33988e6ef7c04c97aa2948bfe910d5447cdd72a38e090b2e8f36c38899337847"
+      },
+      {
+        "id": "sprite_ghast_base",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "70f12ec274fef4f03f6cad08847dfa5e14cd4241ad05ec77f6a281200da152fe"
+      },
+      {
+        "id": "sprite_josh_base",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "f918634a5d9ee594b941a49706ad6b0c1392f7c1772997b1f6a8569f8f5c779f"
+      },
+      {
+        "id": "sprite_ssyaa_hrisss_base",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "46a76cd13a565a4f3f60b437074af3a9292b03bbf7694aba2e4b52a00615efdc"
+      }
+    ],
+    "progress": {
+      "planned": 25,
+      "indexed": 34,
+      "reusable": 25
+    }
+  },
+  "adjudications_checked": 16,
+  "graph_nodes": 29,
+  "graph_edges": 27,
+  "scene_graph_reachable_nodes": 26,
+  "scope": "content contracts only; runtime remains unimplemented",
+  "source_limitations": [
+    "原始附件未恢复",
+    "两张无图注建筑身份未证实",
+    "地图是显式项目粗粒度抽象，非精确战术导航"
+  ],
+  "image_checks_count": 24,
+  "user_visual_review": "accepted",
+  "runtime_compatible": false,
+  "cover_review": {
+    "date": "2026-10-23",
+    "asset": "module_cover",
+    "reviewer": "agent",
+    "user_authorization": "Generate cover in existing approved style and serve via catalogue API",
+    "semantic_review": "No characters, text, UI, occult symbols or hidden entities. Cellar furnishings and stair geometry are artistic interpretation; not a source of map facts.",
+    "format": "1024x1536 opaque WebP, cwebp q88 method6, no resize/crop",
+    "publication": "Only explicit module-catalogue coverAsset via /api/modules/{id}/cover; default package access remains keeper_only."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "profiles": [
+    {
+      "id": "darkness-solo-mvp",
+      "moduleId": "darkness-beneath-the-hill",
+      "current": "darkness-solo-mvp-v4.json",
+      "compatible": [
+        {
+          "source": "darkness-solo-mvp-v1.json",
+          "targetHash": "7045a99d7b90cd3b95dd5087a9ae77531d1d1ed8d0541c4735942ab054e734a2",
+          "schemaVersion": 1
+        }
+      ],
+      "retained": [
+        {
+          "source": "darkness-solo-mvp-v2.json",
+          "hash": "7045a99d7b90cd3b95dd5087a9ae77531d1d1ed8d0541c4735942ab054e734a2"
+        },
+        {
+          "source": "darkness-solo-mvp-v3.json",
+          "hash": "17476a7092db9042c9ed1a837783b68dd9887dbf5acbf47bd442e0bc5e196bf9"
+        }
+      ]
+    }
+  ]
+}

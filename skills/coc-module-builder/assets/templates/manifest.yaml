@@ -1,0 +1,47 @@
+id: new_module
+title: 待命名模组
+original_title: null
+schema_version: 0.1.0
+content_version: 0.1.0
+status: authored_draft
+runtime_compatible: false
+language: zh-CN
+players:
+  recommended_min: null
+  recommended_max: null
+  solo_requires_adaptation: true
+setting:
+  period: null
+  city: null
+entry:
+  location: null
+  event: null
+rules:
+  system: Call of Cthulhu
+  edition: null
+  issue: rules_edition
+  external_dependencies: []
+files:
+  characters: characters.yaml
+  locations: locations.yaml
+  clues: clues.yaml
+  objects: objects.yaml
+  events: events.yaml
+  endings: endings.yaml
+  issues: issues.yaml
+  story: story.md
+  keeper_options: keeper-options.yaml
+  assets: assets/index.yaml
+  visual_style: visual-style.yaml
+  asset_plan: asset-plan.yaml
+source:
+  document: assets/source-text.txt
+  text_sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+access:
+  default: keeper_only
+  static_publication: false
+state_policy:
+  definitions: 只读来源和声明；不回写本局变化
+  sessions: 独立本局状态，绑定内容版本
+  derived: 制作记录和索引可重建
+presentation: {}

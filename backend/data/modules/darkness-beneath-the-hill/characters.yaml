@@ -1,0 +1,237 @@
+characters:
+  josh:
+    name: 乔什·文斯考特
+    kind: npc
+    source:
+      document: story.md
+      anchor: josh-statblock
+    attributes:
+      STR: 55
+      CON: 65
+      SIZ: 50
+      DEX: 45
+      INT: 75
+      APP: 65
+      POW: 50
+      EDU: 85
+    stats:
+      SAN: 36
+      HP: 11
+      MP: 10
+      move: 8
+      build: 0
+      damage_bonus: '0'
+    skills:
+      brawl: 50
+      dodge: 25
+      climb: 40
+      credit_rating: 60
+      fast_talk: 40
+      history: 30
+      jump: 35
+      library_use: 25
+      occult: 20
+      persuade: 50
+      psychology: 35
+      stealth: 30
+      throw: 45
+      language_english: 85
+      language_french: 65
+    weapons:
+    - skill: brawl
+      damage: 1D3
+    initial:
+      location: winscott_house
+      condition: excited_and_tired
+      missing: false
+    phase_notes:
+    - source:
+        document: story.md
+        anchor: entering-underground
+      phase: agreed_return
+      condition: missing
+    - source:
+        document: story.md
+        anchor: friend-in-distress
+      phase: found_captive
+      condition: catatonic
+      can_act_independently: false
+    - source:
+        document: story.md
+        anchor: endings
+      phase: rescued
+      condition: needs_long_term_care
+    presentation:
+      sprites:
+        base: sprite_josh_base
+  ssyaa_hrisss:
+    name: 斯西亚·瑞斯
+    aliases:
+    - S’syaa-H’risss
+    - S'syaa-H'risss
+    kind: npc
+    source:
+      document: story.md
+      anchor: serpent-statblock
+    attributes:
+      STR: 50
+      CON: 45
+      SIZ: 65
+      DEX: 70
+      INT: 90
+      POW: 95
+    stats:
+      HP: 11
+      MP: 19
+      move: 8
+      armor: 1
+      damage_bonus: '0'
+    printed_hp: 20
+    hp_issue: serpent_hp
+    skills:
+      brawl: 50
+      bite: 35
+      dodge: 35
+      intimidate: 65
+      listen: 40
+      science_biology: 70
+      science_chemistry: 90
+      spot_hidden: 45
+      stealth: 50
+      language_english: 60
+    weapons:
+    - name: 爪
+      skill: brawl
+      damage: 1D3
+    - name: 刀
+      skill: brawl
+      damage: 1D6
+    - name: 咬
+      skill: bite
+      damage: 1D8
+      poison: 极难体质失败额外1D8伤害；外部规则适配待实现
+    sanity:
+      success: '0'
+      failure: 1D6
+    spells:
+    - 酿造黄金蜂蜜酒
+    - 透特之咏
+    - 记忆模糊术
+    - 迷身术
+    - 精神震爆术
+    - 折磨术
+    initial:
+      location: serpent_lair
+    behavior:
+    - 通常研究或实验，偶尔采真菌、前往神殿或音乐室。
+    - 受威胁时可能敲铜锣求援；局面不利时通过传送门逃走。
+    - 可选演示传送门；不保证每局都发生。
+    presentation:
+      sprites:
+        base: sprite_ssyaa_hrisss_base
+    adjudication: serpent_hp
+  degenerate:
+    name: 退化人
+    kind: creature_template
+    source:
+      document: story.md
+      anchor: degenerate-statblock
+    attributes:
+      STR: 50
+      CON: 35
+      SIZ: 20
+      DEX: 70
+      INT: 20
+      POW: 45
+    stats:
+      HP: 5
+      move: 9
+      build: -1
+      damage_bonus: '-1'
+    skills:
+      brawl: 40
+      dodge: 40
+      climb: 60
+      jump: 60
+      stealth: 50
+      steal: 60
+    weapons:
+    - name: 爪或拳击
+      damage: 1D3-1
+    - name: 棍棒
+      damage: 1D6-1
+    attacks_per_round: 1
+    sanity:
+      success: '0'
+      failure: 1D4
+    population: 原文无固定总数，可按需要放置，至少调查员人数加1D4；本包不自动生成。
+    behavior:
+    - 观察、偷窃、伏击弱者；遇强敌逃跑。
+    - 可使用人类不能通行的狭窄隧道。
+    issue: degenerate_attribute_dice
+    presentation:
+      sprites:
+        base: sprite_degenerate_base
+    attribute_generation: fixed_average
+  ghast:
+    name: 妖鬼
+    kind: creature_template
+    source:
+      document: story.md
+      anchor: ghast-statblock
+    attributes:
+      STR: 110
+      CON: 70
+      SIZ: 130
+      DEX: 65
+      INT: 15
+      POW: 50
+    stats:
+      HP: 20
+      MP: 10
+      move: 10
+      build: 3
+      damage_bonus: +2D6
+      armor: 0
+    skills:
+      brawl: 45
+      dodge: 35
+      listen: 60
+      stealth: 70
+    weapons:
+    - name: 爪、拳或咬
+      damage: 1D6+2D6
+    attacks_per_round: 2
+    behavior:
+    - 洞穴内游荡；对噪声、逗留或召唤作出反应。
+    issue: ghast_sanity
+    presentation:
+      sprites:
+        base: sprite_ghast_base
+    sanity:
+      success: '0'
+      failure: 1D8
+    adjudication: ghast_sanity
+instances:
+  ghast_1:
+    template: ghast
+    source:
+      document: story.md
+      anchor: ghasts
+  ghast_2:
+    template: ghast
+    source:
+      document: story.md
+      anchor: ghasts
+groups:
+  trained_assistants:
+    template: degenerate
+    count: 3
+    source:
+      document: story.md
+      anchor: serpent-lair
+notes:
+- 模板为附录平均值；不擅自重掷或修正数值。
+- 乔什SAN36是地下遭遇时附录数据，不推断为会面前历史SAN。
+- 妖鬼POW中原文5O按50转录；原文本身保留于story.md。
+- 0.2.0：原文数值仍保存在story/printed_hp；采用值与项目裁定见rulings.yaml。

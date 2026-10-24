@@ -1,0 +1,11 @@
+clues:
+  small_key:
+    name: 小钥匙
+    source:
+      document: story.md
+      anchor: introduction
+    locations:
+    - hall
+    acquisition:
+    - 仔细检查灯座，无需检定。
+    player_fact: 灯座下有一把钥匙。

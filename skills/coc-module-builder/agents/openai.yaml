@@ -1,0 +1,4 @@
+interface:
+  display_name: "CoC 模组制作"
+  short_description: "整理可追溯模组内容，制作统一风格背景与透明立绘，并校验续做状态"
+  default_prompt: "使用 $coc-module-builder 整理我提供的 CoC 模组，规划素材并制作首批视觉样本。"

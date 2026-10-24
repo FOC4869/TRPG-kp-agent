@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-24",
+  "branch": "feat/playable-mvp",
+  "platform": "macOS",
+  "model": "deepseek-flash",
+  "currentPromptVersion": "mvp-2",
+  "backendTests": {"passed": 224, "modelRequests": 0},
+  "frontend": {"npmCi": true, "lint": true, "typecheck": true, "build": true, "catalogueAdapter": true, "sseAdapter": true},
+  "live": {
+    "authorizedPlayerTurns": 60,
+    "authorizedModelRequests": 120,
+    "modelRequests": 94,
+    "fullGameTurns": 42,
+    "routeBaseline": {
+      "promptVersion": "mvp-1",
+      "togetherTurns": 21,
+      "missingTurns": 13,
+      "expectedEventMappingsPassed": 34,
+      "bothCompleted": true,
+      "modelRequests": 68,
+      "medianTurnMs": 2719,
+      "minTurnMs": 1733,
+      "maxTurnMs": 4508,
+      "inputTokens": 123683,
+      "outputTokens": 3854,
+      "narrationIssuesFound": true
+    },
+    "browser": {"turns": 6, "modelRequests": 12},
+    "confirmationRegression": {"promptVersion": "mvp-2", "turns": 2, "modelRequests": 3, "passed": true},
+    "semanticAndConnectionProbes": {"modelRequests": 7},
+    "narrationRegression": {"modelRequests": 4, "initialIssueFound": true, "finalTargetedRegressionPassed": true},
+    "finalPromptFullRouteRerun": false
+  },
+  "browserViewports": ["1440x900", "1280x720", "390x844"],
+  "remainingLimits": ["local single worker", "no account authorization", "simplified rules only", "model wording may drift", "Windows not tested", "human play duration not measured"],
+  "committed": false,
+  "pushed": false
+}

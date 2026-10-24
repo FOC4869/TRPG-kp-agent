@@ -1,0 +1,90 @@
+schema_version: '1.0'
+version: 1.0.0
+id: stephen
+name: 史蒂芬·谢泼洛夫斯基神父
+age: 25
+occupation: 天主教神父
+background: background.md
+source:
+  description: 用户提供的预设角色卡截图；仅保留裁切头像，未收录完整截图。
+  image_number: 8
+assets:
+  portrait:
+    file: assets/portrait.png
+    media_type: image/png
+    description: 从该角色原卡裁切，保留相框。
+attributes:
+  STR: 70
+  CON: 75
+  SIZ: 70
+  DEX: 55
+  INT: 70
+  APP: 50
+  POW: 70
+  EDU: 70
+initial_resources:
+  hp: 14
+  san: 70
+  mp: 14
+  luck: 50
+authored_derived:
+  hp_max: 14
+  mp_max: 14
+  mov: 8
+  db: +1D4
+  build: 1
+skills:
+  斗殴: 50
+  闪避: 40
+  会计: 35
+  魅惑: 30
+  信用评级: 20
+  历史: 45
+  急救: 40
+  语言（意大利语）: 30
+  语言（拉丁语）: 70
+  图书馆使用: 40
+  聆听: 40
+  神秘学: 30
+  说服: 50
+  心理学: 40
+  侦查: 34
+  追踪: 45
+attacks:
+- id: unarmed
+  label: 徒手斗殴
+  skill: 斗殴
+  damage:
+    base: 1D3
+    add_damage_bonus: true
+starting_equipment:
+- id: gold_cross
+  name: 挂在金链子上的小小的金质十字架
+  quantity: 1
+- id: bible
+  name: 翻旧了的口袋大小的圣经
+  quantity: 1
+- id: folding_knife
+  name: 小型折叠刀
+  quantity: 1
+  combat_profile: null
+- id: pen
+  name: 钢笔
+  quantity: 1
+- id: playing_cards
+  name: 扑克牌
+  quantity: null
+- id: cigarettes
+  name: 香烟
+  quantity: null
+starting_money:
+  currency: USD
+  amount: 10
+customization:
+- section: people
+  anchor: people
+  editable: true
+- section: treasured
+  anchor: treasured
+  editable: true
+source_issues: []

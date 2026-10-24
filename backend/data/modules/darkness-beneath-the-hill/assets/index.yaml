@@ -1,0 +1,1029 @@
+format_version: 0.1.0
+path_base: assets/
+policy: 先检查 game_id、接收者及揭示事实，再返回允许的素材；秘密标题、描述和路径亦不得泄露。
+assets:
+  library_building_01:
+    file: library-building-01.png
+    title: 建筑照片一
+    media_type: image/png
+    sha256: 3f6a9125c63463f19de0234ea71c6a4adfcc0241f8bf036e3bf1efbbad0c378a
+    source:
+      document: story.md
+      anchor: research
+      attachment: codex-clipboard-83897b39-8daf-4458-a468-555b901ff374.png
+    relates_to:
+    - john_hay_library
+    description: 无图注建筑参考，身份未证实；不自动作为具体建筑展示。
+    tags:
+    - 场景图片
+    - 建筑照片一
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    issue: building_identity
+    identity_confirmed: false
+    automatic_location_display: false
+  library_building_02:
+    file: library-building-02.png
+    title: 建筑照片二
+    media_type: image/png
+    sha256: 7ddd5cbe7a5a4aeead661e72fd59111e78bbeefed483a56bc2fdda50464c0344
+    source:
+      document: story.md
+      anchor: research
+      attachment: codex-clipboard-b88e0640-0091-4440-aff9-86384ca10c35.png
+    relates_to:
+    - providence_athenaeum
+    description: 无图注建筑参考，身份未证实；不自动作为具体建筑展示。
+    tags:
+    - 场景图片
+    - 建筑照片二
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    issue: building_identity
+    identity_confirmed: false
+    automatic_location_display: false
+  tunnel_map:
+    file: tunnel-map.png
+    title: 地图1：旧隧道
+    media_type: image/png
+    sha256: 444d3d18b39f4411149bb333088fb326ee49e745951739c3615803f4369c1a86
+    source:
+      document: story.md
+      anchor: entering-underground
+      attachment: codex-clipboard-39a58093-b715-4520-b9c5-052671ce5443.png
+    relates_to:
+    - old_tunnel
+    - house_cellar
+    description: 地窖、遗骸、河道方向与通往蛇人地穴的入口。
+    tags:
+    - 地图
+    - 地图1：旧隧道
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+  caverns_map:
+    file: caverns-map.png
+    title: 地图2：地下洞穴总图
+    media_type: image/png
+    sha256: b598de0695d764c924c9164680ab9b1ff12fc2b55e796f0bd9806b5187125847
+    source:
+      document: story.md
+      anchor: serpent-domain
+      attachment: codex-clipboard-40bd1fe0-bef3-42b6-b633-0f4d9e1d5e63.png
+    relates_to:
+    - underground_complex
+    description: 地下区域1至15；注明另有未画出的怪物狭窄隧道。
+    tags:
+    - 地图
+    - 地图2：地下洞穴总图
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+  music_room_illustration:
+    file: music-room.png
+    title: 音乐室装置插画
+    media_type: image/png
+    sha256: 81bfa6f93fc5b54e0a6648bbbb96594815311008ff7cc3097ffd6e80fdb1d58f
+    source:
+      document: story.md
+      anchor: music-room
+      attachment: codex-clipboard-d0e5f073-82c9-4a0c-a79a-46e4da08b84e.png
+    relates_to:
+    - music_room
+    - head_music_device
+    description: 带有头颅的发声装置；插画动作和数量不作为本局事实。
+    tags:
+    - 场景图片
+    - 音乐室装置插画
+    access:
+      default: keeper_only
+      player_reveal_fact: music_device_heads_visible
+  hibernation_illustration:
+    file: hibernation-chamber.png
+    title: 冬眠室插画
+    media_type: image/png
+    sha256: cf48f5cfe12012eff5ce9a6d9743d51f63ca83d01aaa3375afe8adfaa17bab49
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+      attachment: codex-clipboard-90d1a402-bd85-4f26-8df2-327b6ac854fe.png
+    relates_to:
+    - hibernation_chamber
+    - hibernation_cocoons
+    description: 悬挂的茧与探索者；数量及实际行动以正文和结算为准。
+    tags:
+    - 场景图片
+    - 冬眠室插画
+    access:
+      default: keeper_only
+      player_reveal_fact: hibernation_cocoons_visible
+  lair_detail_map:
+    file: lair-detail-map.png
+    title: 地图3：住所与实验室
+    media_type: image/png
+    sha256: 1db1561c2d3ec2ddbca6ae0e44d8a2f50cdec88defa4de3a9571d9070a072046
+    source:
+      document: story.md
+      anchor: serpent-lair
+      attachment: codex-clipboard-6411595f-c5e1-47d7-9c8b-73fdb4ea04b5.png
+    relates_to:
+    - serpent_lair
+    - prisoner_cage
+    - summoning_gong
+    - magic_portal
+    description: 地图2中巢穴区域的细节图，含传送门标注。
+    tags:
+    - 地图
+    - 地图3：住所与实验室
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+  handout_shadow_1:
+    title: 暗影1：彼希的信件
+    media_type: text/markdown
+    content_ref:
+      document: story.md
+      anchor: handout-shadow-1
+    source:
+      document: story.md
+      anchor: handout-shadow-1
+    relates_to:
+    - peck_letter
+    tags:
+    - 展示材料
+    - 暗影1：彼希的信件
+    access:
+      default: keeper_only
+      player_reveal_fact: handout_shadow_1_revealed
+  handout_shadow_2:
+    title: 暗影2：哈珀的遗书
+    media_type: text/markdown
+    content_ref:
+      document: story.md
+      anchor: handout-shadow-2
+    source:
+      document: story.md
+      anchor: handout-shadow-2
+    relates_to:
+    - harper_testament
+    tags:
+    - 展示材料
+    - 暗影2：哈珀的遗书
+    access:
+      default: keeper_only
+      player_reveal_fact: handout_shadow_2_revealed
+  default_atmosphere:
+    file: default_atmosphere-v1.webp
+    title: default_atmosphere
+    kind: default_background
+    media_type: image/webp
+    sha256: 25ffd1c8dd78bcf91eb808e1a6bef64a5db2c1ecc0b00218a0be9d4cc366f3af
+    source:
+      kind: generated
+    relates_to: []
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: default_atmosphere
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 295535157d7d4adec7abe8b262377746717410d638e8ce7c62b2ce48e2c60a5a
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_winscott_house:
+    file: bg_winscott_house-v1.webp
+    title: bg_winscott_house
+    kind: scene_background
+    media_type: image/webp
+    sha256: a39f8c156c462f52e76320dd4ec8c1942658073131ee2112b30c46105d21a66c
+    source:
+      kind: generated
+    relates_to:
+    - winscott_house
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_winscott_house
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 8796f3190f065481c911cfa7f2f3d3426e1fea1dca36a8dda0fc4d6c781ef306
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  sprite_josh_base:
+    file: sprite_josh_base-v1.png
+    title: sprite_josh_base
+    kind: npc_sprite
+    media_type: image/png
+    sha256: bad5eba3be7b06e93e12c91ae3432f0e347eaf330200e85a5cdbbba921dcb2ff
+    source:
+      kind: generated
+    relates_to:
+    - josh
+    tags:
+    - AI生成
+    - 基础立绘
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: true
+    generation:
+      plan_id: sprite_josh_base
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: f918634a5d9ee594b941a49706ad6b0c1392f7c1772997b1f6a8569f8f5c779f
+      tool: Codex built-in imagegen
+      artistic_additions: Age about 40, hair, face and outfit are artistic interpretation;
+        not specified in source.
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    anchor:
+    - 0.5
+    - 1.0
+  bg_house_cellar:
+    file: bg_house_cellar-v1.webp
+    title: bg_house_cellar
+    kind: scene_background
+    media_type: image/webp
+    sha256: 94928d44bdac1213a318e70d2181995008991014fd03a190ddb4e2968fe281ef
+    source:
+      kind: generated
+    relates_to:
+    - house_cellar
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_house_cellar
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 9c8caf8d5b095829ad7b837e4de5a3bf9819bfa5c3b23b5542b5e73a72d95a02
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_john_hay_library:
+    file: bg_john_hay_library-v1.webp
+    title: bg_john_hay_library
+    kind: scene_background
+    media_type: image/webp
+    sha256: 7ee13bd4d9ad58c612ad721ca88ce2b296672c2d3e534a63d62c0d7af9e7a115
+    source:
+      kind: generated
+    relates_to:
+    - john_hay_library
+    - providence_athenaeum
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_john_hay_library
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: a70a406948be2a96eeaffc9da70841075a376564e2237fb86bffc78bc6e00571
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_old_tunnel:
+    file: bg_old_tunnel-v1.webp
+    title: bg_old_tunnel
+    kind: scene_background
+    media_type: image/webp
+    sha256: cbc7bce6a4e1a97a491d1ce79a24ef3d2d676d62d3cccfbd1d0b7529fffb5bd5
+    source:
+      kind: generated
+    relates_to:
+    - old_tunnel
+    - descending_passage
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_old_tunnel
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 0b9c27286f93e2b2b0800e04c2427068f94554a6b2d578ab45d26c18440be3d1
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_river_brick_wall:
+    file: bg_river_brick_wall-v1.webp
+    title: bg_river_brick_wall
+    kind: scene_background
+    media_type: image/webp
+    sha256: 3fb3d1d37ddbafa867c8dc807f1e612c94779b7da58238792492d7fb32880162
+    source:
+      kind: generated
+    relates_to:
+    - river_brick_wall
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_river_brick_wall
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: f51f6b08e2946c76c3521327690d61a8031588a28c3f149dc7a25b1e94ddee0d
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_entrance_hall:
+    file: bg_entrance_hall-v1.webp
+    title: bg_entrance_hall
+    kind: scene_background
+    media_type: image/webp
+    sha256: 46eff54d7e89f5abd6aecdd061826f853d6bb76e9d1d62a06db80f2db62457f7
+    source:
+      kind: generated
+    relates_to:
+    - entrance_hall
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_entrance_hall
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 35d84ab26bb3dafb37bdfacae4a97ce7647c40b972cfe2d64acd04f8ffebfaf5
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_history_hall:
+    file: bg_history_hall-v1.webp
+    title: bg_history_hall
+    kind: scene_background
+    media_type: image/webp
+    sha256: 877b52578ea21cc1d5b1a985b19435607be3f120baf36767adebd1e06569f861
+    source:
+      kind: generated
+    relates_to:
+    - history_hall
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_history_hall
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: de6efe5214999c058508aab18335d02f80b897c6a6a78ac49fc5d7671c62b419
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_cliff:
+    file: bg_cliff-v1.webp
+    title: bg_cliff
+    kind: scene_background
+    media_type: image/webp
+    sha256: cc27e4530b6277a67e4bca5d487b1d2cb12db09da433a728d2c6b44cf0f61ba8
+    source:
+      kind: generated
+    relates_to:
+    - cliff
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_cliff
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: b008f37cf57ac4763b077b3779f55e19d67246ab240c294720b561700edf91f3
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_music_room:
+    file: bg_music_room-v1.webp
+    title: bg_music_room
+    kind: scene_background
+    media_type: image/webp
+    sha256: f330e38ac5f6af982ebfe71f7ee0766b7d7763227e122259b73936a729ac0cc1
+    source:
+      kind: generated
+    relates_to:
+    - music_room
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_music_room
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 46e8a3154cbe71b727e8a29607a647db5db0a56c6bb70a47001eda5d4c6d6007
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_nest_west:
+    file: bg_nest_west-v1.webp
+    title: bg_nest_west
+    kind: scene_background
+    media_type: image/webp
+    sha256: 85da51dc25ffa2fc4112385291bac78165be660dff96904e9ace2cddbb807d27
+    source:
+      kind: generated
+    relates_to:
+    - nest_west
+    - nest_east
+    - nest_south
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_nest_west
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 1bf3f1379a6d967bd85584e82d069e0e592f70fbee24eb1c48ba344221397734
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_pit_corridor:
+    file: bg_pit_corridor-v1.webp
+    title: bg_pit_corridor
+    kind: scene_background
+    media_type: image/webp
+    sha256: d68f7c6061c7238a0a6322e09c9d9891d2ba5bec9f9022b656131580f1c32037
+    source:
+      kind: generated
+    relates_to:
+    - pit_corridor
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_pit_corridor
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 9bc842d139a4d16a77957694e4b16f0a281d283c391dc4518ba2e39224964768
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_fungus_area:
+    file: bg_fungus_area-v1.webp
+    title: bg_fungus_area
+    kind: scene_background
+    media_type: image/webp
+    sha256: de9c35e15ea087a37f226f75b8fa52b2001725774493f82d8154893cf5e82a13
+    source:
+      kind: generated
+    relates_to:
+    - fungus_area
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_fungus_area
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 0bc19c5f401916de83c83807cf417b239ec35da35f8ad15535e0833ff3a49cf3
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_temple_of_yig:
+    file: bg_temple_of_yig-v1.webp
+    title: bg_temple_of_yig
+    kind: scene_background
+    media_type: image/webp
+    sha256: 8b2375f028cbdf7818dcabfe3531b651077bc431cf83fac9c8cdc720dce0a327
+    source:
+      kind: generated
+    relates_to:
+    - temple_of_yig
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_temple_of_yig
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 2b2d54ced0ee37dd4a7c42d2cd8061a9cd2c2292b2e653a3b396e5938f18ec0a
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_hibernation_chamber:
+    file: bg_hibernation_chamber-v1.webp
+    title: bg_hibernation_chamber
+    kind: scene_background
+    media_type: image/webp
+    sha256: 390a8ad12b238fccfecb9d37094ccb3a59fd37dac94decb318efb30cf474588a
+    source:
+      kind: generated
+    relates_to:
+    - hibernation_chamber
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_hibernation_chamber
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 7a3d89fe8954c488302035119f512f733208117eb1c4645aa813e157806f3ab7
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_serpent_lair:
+    file: bg_serpent_lair-v1.webp
+    title: bg_serpent_lair
+    kind: scene_background
+    media_type: image/webp
+    sha256: d8b64b3ed1bd82c1aa2e1660598599af68521b7e38e0cd722ac9c87846e96fbd
+    source:
+      kind: generated
+    relates_to:
+    - serpent_lair
+    - living_area
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_serpent_lair
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 4cd330a80bc45419a623b8cc321bada7829432e8f91804797ae220f10a023b15
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_cage_area:
+    file: bg_cage_area-v1.webp
+    title: bg_cage_area
+    kind: scene_background
+    media_type: image/webp
+    sha256: a7f7cf4d7c4bc9e2abc3aa40ba6aa3e1d8a7c677816aeab267227a8911882463
+    source:
+      kind: generated
+    relates_to:
+    - cage_area
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_cage_area
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 58c37337ee10228b188454653ab27cd46068035e590ce99bdbd0333f41507925
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_laboratory:
+    file: bg_laboratory-v1.webp
+    title: bg_laboratory
+    kind: scene_background
+    media_type: image/webp
+    sha256: 376c924afcd3dec4cc192d95d05f803e5da73941f2c482a16de252e64c14d48f
+    source:
+      kind: generated
+    relates_to:
+    - laboratory
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_laboratory
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 30b2b1a012ccd64f085455fd6136d47730aa7a9c2c4aebaee0f710d5f4ad2345
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_portal_area:
+    file: bg_portal_area-v1.webp
+    title: bg_portal_area
+    kind: scene_background
+    media_type: image/webp
+    sha256: 6558e1d8d89a490ab7866ef66b1bfaeda6bc4b579be9a96a40d9ac5da9445e4b
+    source:
+      kind: generated
+    relates_to:
+    - portal_area
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_portal_area
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 6e1635e05ffcd5dafaae4e0799b951ff63dbd0907bc1171588ade8320b9e7cd5
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  bg_portal_exit_cavern:
+    file: bg_portal_exit_cavern-v1.webp
+    title: bg_portal_exit_cavern
+    kind: scene_background
+    media_type: image/webp
+    sha256: 130b8de78579ae4cd4d7822a3217a544f9e99177cede6a5c32fe6c76eeb87f7c
+    source:
+      kind: generated
+    relates_to:
+    - portal_exit_cavern
+    tags:
+    - AI生成
+    - 场景背景
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1920
+    height: 1080
+    has_alpha: false
+    generation:
+      plan_id: bg_portal_exit_cavern
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 668e7daf0cb83c374399040e92720ac8fd5eb1878ca97af1da74b8e0d364b984
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    focus:
+    - 0.5
+    - 0.5
+  sprite_ssyaa_hrisss_base:
+    file: sprite_ssyaa_hrisss_base-v1.png
+    title: sprite_ssyaa_hrisss_base
+    kind: creature_sprite
+    media_type: image/png
+    sha256: 30083de83fd1d2001496da26ebcbf973eff1ec13a35ba7f8cfeec8d666d5b39d
+    source:
+      kind: generated
+    relates_to:
+    - ssyaa_hrisss
+    tags:
+    - AI生成
+    - 基础立绘
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: true
+    generation:
+      plan_id: sprite_ssyaa_hrisss_base
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 46a76cd13a565a4f3f60b437074af3a9292b03bbf7694aba2e4b52a00615efdc
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    anchor:
+    - 0.5
+    - 1.0
+  sprite_degenerate_base:
+    file: sprite_degenerate_base-v1.png
+    title: sprite_degenerate_base
+    kind: creature_sprite
+    media_type: image/png
+    sha256: d208f1e6da626973baaaaf3eda6711c5bb0f76ddffc68a67745e96679cc27b74
+    source:
+      kind: generated
+    relates_to:
+    - degenerate
+    tags:
+    - AI生成
+    - 基础立绘
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: true
+    generation:
+      plan_id: sprite_degenerate_base
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 33988e6ef7c04c97aa2948bfe910d5447cdd72a38e090b2e8f36c38899337847
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    anchor:
+    - 0.5
+    - 1.0
+  sprite_ghast_base:
+    file: sprite_ghast_base-v1.png
+    title: sprite_ghast_base
+    kind: creature_sprite
+    media_type: image/png
+    sha256: 8d0563945cced2c0b8e66ac97f8848a258a8bafcf0039dabf2f42fc415470110
+    source:
+      kind: generated
+    relates_to:
+    - ghast
+    tags:
+    - AI生成
+    - 基础立绘
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: true
+    generation:
+      plan_id: sprite_ghast_base
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 70f12ec274fef4f03f6cad08847dfa5e14cd4241ad05ec77f6a281200da152fe
+      tool: Codex built-in imagegen
+      artistic_additions: 构图、纹理、陈设、服装与光照含美术解释；不是规则或地图事实。
+      review:
+        status: accepted
+        note: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
+      revalidation_note: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
+    anchor:
+    - 0.5
+    - 1.0
+  module_cover:
+    file: module-cover-v1.webp
+    title: 岭下暗影模组封面
+    kind: module_cover
+    media_type: image/webp
+    sha256: e4cdd072f43dd8f97b1312208a5e92c513de49f4a5c7582a115e344c506a8205
+    source:
+      kind: generated
+    relates_to: []
+    tags:
+    - AI生成
+    - 模组封面
+    access:
+      default: keeper_only
+      player_reveal_fact: null
+    visual_format_version: 0.1.0
+    width: 1024
+    height: 1536
+    has_alpha: false
+    generation:
+      plan_id: module_cover
+      style_version: 0.1.0
+      content_fingerprint: 185584ead29a8ee6ee05940a313459b45f616c8d14759da85cb234e64fa2e003
+      input_fingerprint: 504de02a18a1fad0f6ff075de8b248f48a29e3b5a840a985bb8eb555923dbfdf
+      tool: Codex built-in imagegen
+      artistic_additions: 地窖石砌结构、灯光、杂物及阶梯仅作公开引言氛围表现，不作为地图或剧情事实。
+      review:
+        status: accepted
+        note: '2026-10-23 agent visual review under user-authorized existing style:
+          readable cellar and tunnel, no text/UI/characters/hidden entities. Furnishings,
+          masonry and descending passage are artistic interpretation, not navigation
+          facts.'

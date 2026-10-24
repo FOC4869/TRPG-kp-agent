@@ -1,0 +1,461 @@
+status: authored_draft
+execution: descriptive_only
+policy:
+- 触发、检定与效果是提取记录，尚未接入执行器。
+- 同一行动的随机结果、延迟计时与已结算效果须持久化，重试不重掷。
+- 未声明的重复策略、失败后果或具体时长不由模型静默补齐。
+- 新方案与非预写行动允许独立裁定，不能仅因不在列表拒绝。
+- rulings.yaml 是已选定项目裁定；事件记录仍非可执行DSL。
+events:
+  meet_josh:
+    source:
+      document: story.md
+      anchor: meet-josh
+    origin: extracted
+    trigger: 调查员应邀到访
+    on_success: 乔什介绍发现，建议准备靴子、绳索和手电筒并次日探索；调查员也可自行决定时间。
+    location: winscott_house
+  josh_missing:
+    source:
+      document: story.md
+      anchor: entering-underground
+    origin: extracted
+    trigger: 按约定返回
+    on_success: 屋内无人回应，地窖有冷咖啡、工具和墙洞；乔什失踪。
+    location: house_cellar
+    note: 玩家提前跟随等偏离原文的行动需裁定，不能强制演出失踪。
+  research_letter:
+    source:
+      document: story.md
+      anchor: peck-letter-discovery
+    origin: extracted
+    trigger: 研究家族或隧道传闻并通过图书馆使用
+    on_success: 揭示信件及暗影1。
+    on_failure: 未找到信件；不锁定地下探索。
+    clue: peck_letter
+  identify_remains:
+    source:
+      document: story.md
+      anchor: entering-underground
+    origin: extracted
+    trigger: 研究遗骸
+    on_success: 按技能分别揭示年代、衣物、血迹。
+    on_failure: 未获对应解释。
+    clues:
+    - ancient_remains
+    - bloodied_clothing
+    note: 仔细观察衣物无需侦查；不同信息不合并成一次必需检定。
+  discover_cigarette:
+    source:
+      document: story.md
+      anchor: entering-underground
+    origin: extracted
+    trigger: 在南墙开口附近侦查成功
+    on_success: 发现香烟烟头。
+    on_failure: 未发现烟头。
+    clue: cigarette_butt
+  discover_cavern_age:
+    source:
+      document: story.md
+      anchor: deeper-caverns
+    origin: extracted
+    trigger: 探索一段时间后通过原文科学（地理学）检定
+    on_success: 获知古老年代；SAN 0/1D3。
+    on_failure: 未推断出年代。
+    clue: cavern_age
+    issue: geography_skill
+    adjudication: geography_skill
+    check:
+      skill: science_geology
+      difficulty: regular
+      mapping_basis: project_mapping
+      printed_skill: 科学（地理学）
+  rapid_travel_navigation:
+    source:
+      document: story.md
+      anchor: deeper-caverns
+    origin: extracted
+    trigger: 选择快速前往某处；Keeper可要求导航
+    on_success: 找到路径。
+    on_failure: 走到死路，需要返回另寻路径。
+    optional_check: true
+  rapid_travel_injury:
+    source:
+      document: story.md
+      anchor: deeper-caverns
+    origin: extracted
+    trigger: 奔跑或疾行，进行DEX检定
+    on_success: 避免受伤。
+    on_failure: 受到1D3伤害。
+    difficulty: regular
+    modifiers:
+    - 没有自带光源时为困难。
+  identify_dinosaurs:
+    source:
+      document: story.md
+      anchor: history-hall
+    origin: extracted
+    trigger: 知识成功识别壁画中的恐龙
+    on_success: 认识其远古记录并进行SAN 0/1D3。
+    on_failure: 未辨认出恐龙。
+    clue: dinosaur_murals
+  jump_cliff:
+    source:
+      document: story.md
+      anchor: cliff
+    origin: extracted
+    trigger: 从20英尺峭壁跳下，跳跃检定
+    on_success: 仍受1D6坠落伤害。
+    on_failure: 受到2D6坠落伤害。
+    location: cliff
+    adjudication: cliff_reaction_order
+  climb_cliff:
+    source:
+      document: story.md
+      anchor: cliff
+    origin: extracted
+    trigger: 徒手攀爬检定
+    on_success: 安全抵达。
+    on_failure: 未找到支点，可选择原文允许的孤注一骰；孤注失败坠落2D6。
+    location: cliff
+    optional_override: generous_cliff_damage
+    adjudication: cliff_reaction_order
+  rope_cliff:
+    source:
+      document: story.md
+      anchor: cliff
+    origin: extracted
+    trigger: 固定绳索后攀爬，获得一个奖励骰
+    on_success: 安全抵达。
+    on_failure: 失手即将坠落2D6；可孤注一骰抓绳，失败则坠落。
+    location: cliff
+    notes:
+    - 未提及带绳时原文允许幸运检查是否记得携带。
+    - 可提出跳跃成功将坠落伤害减半。
+    issue: cliff_reaction_order
+    adjudication: cliff_reaction_order
+  music_contact:
+    source:
+      document: story.md
+      anchor: music-room
+    origin: extracted
+    trigger: 接触音乐装置前的椅子
+    on_success: 头颅开始低声合唱。
+    location: music_room
+  music_full_song:
+    source:
+      document: story.md
+      anchor: music-room
+    origin: extracted
+    trigger: 坐在椅子上
+    on_success: 听到完整歌曲，进一步SAN 0/1；引来妖鬼注意。
+    location: music_room
+    adjudication: repeat_policy
+  destroy_music_device:
+    source:
+      document: story.md
+      anchor: music-room
+    origin: extracted
+    trigger: 对音乐装置累计造成15伤害
+    on_success: 摧毁装置并引来妖鬼注意。
+    object: head_music_device
+  investigate_degenerate_origin:
+    source:
+      document: story.md
+      anchor: degenerates
+    origin: extracted
+    trigger: 对被制服或死亡个体进行生物学或困难知识检定
+    on_success: 发现人类关联，SAN 1/1D3。
+    on_failure: 未能确认关联。
+    clue: degenerate_origin
+  degenerate_bones:
+    source:
+      document: story.md
+      anchor: degenerates
+    origin: extracted
+    trigger: 发现碎骨并通过生物学
+    on_success: 无法定种但发现人类联系，SAN 0/1。
+    on_failure: 未确认联系。
+  degenerate_fight:
+    source:
+      document: story.md
+      anchor: degenerates
+    origin: extracted
+    trigger: 目睹两只退化人厮杀及吞食
+    on_success: SAN 1/(1D6+1)；介入者可能遭攻击。
+  degenerate_ambush:
+    source:
+      document: story.md
+      anchor: degenerates
+    origin: extracted
+    trigger: 退化人试图伏击落单或队尾调查员，允许聆听
+    on_success: 听见后方接近。
+    on_failure: 退化人获得突袭机会。
+  ghast_response:
+    source:
+      document: story.md
+      anchor: ghasts
+    origin: extracted
+    trigger: 噪声、逗留或其他合适时机
+    on_success: Keeper可安排现有妖鬼接近；非固定概率自动刷怪。
+    selection: keeper_discretion
+  nest_defense:
+    source:
+      document: story.md
+      anchor: degenerate-nest
+    origin: extracted
+    trigger: 调查员侵入巢窟
+    on_success: 退化人保护领地；重伤或杀死至少两只，或开枪，可令其逃跑；逃跑与枪声引来妖鬼注意。
+  find_testament:
+    source:
+      document: story.md
+      anchor: degenerate-nest
+    origin: extracted
+    trigger: 搜索巢窟，侦查成功
+    on_success: 揭示哈珀遗书及暗影2。
+    on_failure: 未发现遗书。
+    clue: harper_testament
+  pit_detection:
+    source:
+      document: story.md
+      anchor: pit
+    origin: extracted
+    trigger: 仅靠地衣照明，或匆忙通过陷坑区域，侦查检定
+    on_success: 避免坠入。
+    on_failure: 坠落10英尺，受到1D6伤害。
+    location: pit_corridor
+  pit_escape:
+    source:
+      document: story.md
+      anchor: pit
+    origin: extracted
+    trigger: 从陷坑爬出
+    on_success: 困难攀爬；有人帮助为普通；绳索可提供一个奖励骰。
+    on_failure: 原文未明确新的坠落后果，不自动重复扣血。
+    location: pit_corridor
+  pit_edge_combat:
+    source:
+      document: story.md
+      anchor: pit
+    origin: extracted
+    trigger: 在陷坑旁战斗，DEX检定
+    on_success: 未滑落。
+    on_failure: 滑入或被击飞入陷坑。
+    location: pit_corridor
+  fungus_workers:
+    source:
+      document: story.md
+      anchor: fungus-area
+    origin: extracted
+    trigger: 与种植场退化人搭话或干扰
+    on_success: 退化人攻击；重伤、一个死亡或枪声令其逃散；妖鬼可能被引来。
+    location: fungus_area
+  eat_fungus:
+    source:
+      document: story.md
+      anchor: fungus-area
+    origin: extracted
+    trigger: 吃真菌，幸运检定
+    on_success: 选中不可食用但无害的真菌。
+    on_failure: 选中有毒真菌，进一步进行CON检定。
+    object: poisonous_fungi
+    delayed_effects:
+      on_con_failure:
+        delay: 1D4 hours
+        damage: 1D10
+        pain_duration: 1D4+1 hours
+      on_con_success:
+        delay: 1D4 hours
+        damage: 1D5
+      on_con_extreme:
+        damage: '0'
+    optional_override: strict_fungus_penalty
+  yig_vision:
+    source:
+      document: story.md
+      anchor: temple-of-yig
+    origin: extracted
+    trigger: 探索神殿并进行POW检定
+    on_success: 获得伊格幻象，SAN 1/1D4，克苏鲁神话+2。
+    on_failure: 未获此幻象。
+    location: temple_of_yig
+    note: 每位调查员每次本模组会话仅结算一次幻象及神话奖励；重入不刷奖励。
+    issue: repeat_policy
+    adjudication: repeat_policy
+  see_cocoons:
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+    origin: extracted
+    trigger: 看见冬眠茧
+    on_success: SAN 0/1D6。
+    location: hibernation_chamber
+    reveals:
+    - hibernation_cocoons_visible
+    issue: repeat_policy
+    adjudication: repeat_policy
+  cut_cocoons:
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+    origin: extracted
+    trigger: 切开冬眠茧
+    on_success: 其中蛇人很快死亡；全部切开需要数分钟并可能引来妖鬼。
+    object: hibernation_cocoons
+  burn_cocoons:
+    source:
+      document: story.md
+      anchor: hibernation-chamber
+    origin: extracted
+    trigger: 点燃茧中液体
+    on_success: 释放毒气；逐轮CON失败受1D4伤害；无妖鬼堵路通常两轮可逃。
+    object: hibernation_cocoons
+    exceptions:
+    - 预见危险并屏息可避免首轮吸入。
+    - 计划点火后立即撤离可用DEX成功避开毒气。
+    issue: toxic_gas_sequence
+    adjudication: toxic_gas_sequence
+  captured:
+    source:
+      document: story.md
+      anchor: captivity
+    origin: extracted
+    trigger: 被击倒或活捉
+    on_success: 进入巢穴牢笼；前两天无食水，之后提供掺药食水。
+    note: 俘虏是可选遭遇结果，不能把未失败的行动强制改为被俘。
+  bend_bars:
+    source:
+      document: story.md
+      anchor: captivity
+    origin: extracted
+    trigger: 力量检定掰弯铁条
+    on_success: 形成一次一人可通过的开口。
+    on_failure: 未能掰开。
+    object: prisoner_cage
+    notes:
+    - 制造大量噪声时幸运检查是否引来注意。
+    - 再次逃跑必须幸运成功以避免提高警惕的蛇人发现。
+  drugged_food:
+    source:
+      document: story.md
+      anchor: captivity
+    origin: extracted
+    trigger: 吃喝掺药食水后CON检定
+    on_success: 物理行动惩罚骰持续2D10小时；极难成功完全免疫。
+    on_failure: 昏睡1D6天；解毒剂可迅速恢复。
+    location: cage_area
+    clue: drugged_supplies
+  interrogation:
+    source:
+      document: story.md
+      anchor: captivity
+    origin: extracted
+    trigger: 药物等待数小时后蛇人带走一名俘虏
+    on_success: 解毒并拷问；可力量挣绳、困难DEX或普通妙手脱缚。
+    notes:
+    - 蛇人假定所有人都已中毒，不逐一确认。
+    - 若遭折磨或实验：SAN 0/1D10，HP损失1D3。
+    - 具体法术须查外部规则，不从名称生成数值效果。
+  observe_serpent:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 在蛇人醒着时暗中观察，每位观察者进行潜行
+    on_success: 全部成功可继续观察或尝试突袭。
+    on_failure: 任一观察者潜行失败即被察觉；不自动获赠攻击或定位未暴露者。
+    issue: stealth_detection
+    adjudication: stealth_detection
+  open_cage_quietly:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 无声打开牢笼，另做潜行检定
+    on_success: 无声打开。
+    on_failure: 未能无声打开。
+    object: prisoner_cage
+  summon_ghast:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 蛇人敲响铜锣
+    on_success: 保存一次1D10+2轮的到达计时；从两只既有妖鬼中选择可响应者。
+    object: summoning_gong
+    issue: unavailable_ghast
+    adjudication: unavailable_ghast
+  laboratory_explosion:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 明火、命中器材的枪击或溶液混合
+    on_success: 按距离：1码内3D6、2码2D6、3码1D6伤害。
+    object: laboratory_apparatus
+    notes:
+    - 失手枪击有30%命中器材。
+    - 采用explosion_mitigation项目裁定：一次闪躲或跳跃成功，伤害减半向下取整。
+    issue: explosion_mitigation
+    adjudication: explosion_mitigation
+  throw_chemical:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 投掷化学瓶，投掷成功
+    on_success: 毒液持续1D3轮，每轮1D6伤害。
+    on_failure: 未命中目标；附带器材风险按实际落点裁定。
+    location: laboratory
+  use_portal:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 接触传送门或试图走入墙壁
+    on_success: 按insufficient_portal_resources验证支付1MP（不足可按项目裁定由HP补足）和1SAN，原子完成移动，再处理SAN归零后果。
+    object: magic_portal
+    notes:
+    - 不要求先通过克苏鲁神话辨认。
+    - 妖鬼和退化人无法使用。
+    - 单向改动仅在显式选用主持选项时生效。
+    issue: insufficient_portal_resources
+    adjudication: insufficient_portal_resources
+  calm_josh:
+    source:
+      document: story.md
+      anchor: friend-in-distress
+    origin: extracted
+    trigger: 接触被囚且紧张无助的乔什，精神分析检定
+    on_success: 乔什冷静，可默默遵从简单指引，仍不能自主行动或视为痊愈。
+    on_failure: 需轻轻推搡引导其离开。
+    target: josh
+    issue: repeat_policy
+    adjudication: repeat_policy
+  josh_combat_regression:
+    source:
+      document: story.md
+      anchor: friend-in-distress
+    origin: extracted
+    trigger: 乔什在场且战斗开始
+    on_success: 逃至角落，再次蜷缩、无法行动。
+    target: josh
+  serpent_feeding:
+    source:
+      document: story.md
+      anchor: serpent-lair
+    origin: extracted
+    trigger: 目睹蛇人吞食退化人婴儿
+    on_success: SAN 0/1D2。
+    note: 每隔几天进食一次；不自动在到访时发生。
+  see_music_heads:
+    source:
+      document: story.md
+      anchor: music-room
+    origin: extracted
+    trigger: 接近并看清装置上改造过的人类头颅
+    on_success: 目睹怪象，SAN 1/1D4。
+    location: music_room
+    reveals:
+    - music_device_heads_visible
+    adjudication: repeat_policy

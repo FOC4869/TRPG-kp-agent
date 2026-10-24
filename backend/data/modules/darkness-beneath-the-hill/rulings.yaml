@@ -1,0 +1,221 @@
+format_version: 0.1.0
+id: darkness_solo_v1
+status: authored_adjudications
+execution: descriptive_only
+authorization: 2026-10-23 用户要求按合理方式处理疑点；允许来源核实与显式项目裁定。
+precedence:
+- 原文事实保留
+- 经核实的规则基线
+- 本文件显式项目裁定覆盖歧义
+- 没有裁定的情况不由LLM临时生成数值
+evidence:
+  coc7_hp:
+    url: https://cthulhuwiki.chaosium.com/investigators/step-two-secondary-attributes.html
+    checked: '2026-10-23'
+    finding: HP按CON与SIZ之和除10向下取整；此通用派生原则结合本模组译注采用11，并非已取得官方勘误。
+  ghast_basic:
+    url: https://roll20.net/compendium/coc/Monsters:Ghast
+    checked: '2026-10-23'
+    finding: CoC Free Basic Rules条目，妖鬼目睹损失0/1D8；平均属性与模组妖鬼相符。
+  checks:
+    url: https://cthulhuwiki.chaosium.com/rules/game-system.html
+    checked: '2026-10-23'
+    finding: 孤注一骰需要行动理由和更严重的失败后果；本项目具体次数和事件范围另行裁定。
+  magic:
+    url: https://cthulhuwiki.chaosium.com/rules/magic.html
+    checked: '2026-10-23'
+    finding: 一般施法MP耗尽后可用HP补足；本模组门的项目裁定明确借用该原则，不推断所有魔法物件均如此。
+decisions:
+  rules_edition:
+    basis: project_baseline
+    summary: 选择现有backend/trpg/rules.py一致的CoC7标准规则；不启用Pulp。
+    edition: CoC 7e
+    pulp: false
+  serpent_hp:
+    basis: derived_with_source_note
+    summary: 采用11；保留印刷20和译注，不称为官方勘误。
+    evidence:
+    - coc7_hp
+    formula: floor((CON+SIZ)/10)
+    con: 45
+    siz: 65
+    adopted_hp: 11
+  stealth_detection:
+    basis: source_text_choice
+    summary: 遵循正文主句：任一观察者潜行失败即被察觉；不额外赠送攻击、定位其他未暴露人员或强制输掉战斗。
+    on_failure: detected
+    automatic_enemy_attack: false
+    surprise_after_detection: false
+  abandonment_san:
+    basis: house_rule
+    summary: 将含糊负号记法明确选为损失1D6+1；不是声称原文唯一解释。
+    loss_dice: 1D6+1
+    minimum: 2
+    maximum: 7
+    resource_floor: 0
+  repeat_policy:
+    basis: house_rule
+    summary: 行动及SAN记录幂等；不允许无代价反复抽检定。
+    evidence:
+    - checks
+    same_action_retry: return_saved_result
+    push_limit: 1
+    push_requires:
+    - new_justification
+    - announced_failure_consequence
+    - explicit_player_choice
+    push_exclusions:
+    - sanity
+    - luck
+    - combat
+    new_attempt_requires: 新方法、工具、实际帮助或情境改变并记录新attempt_id
+    event_once_per_investigator:
+    - yig_vision
+    - see_cocoons
+    - see_music_heads
+    - music_full_song
+    - serpent_feeding
+    - discover_cavern_age
+    - identify_dinosaurs
+    - investigate_degenerate_origin
+    monster_san_cap_per_scenario:
+      degenerate: 4
+      ghast: 8
+      ssyaa_hrisss: 6
+    group_sighting: 同场景同种群只一次SAN检定，不按个体数重复
+    calm_josh: 首次失败可护送离开；无变化不重掷，合理改变后可声明一次孤注，后果为噪声触发既有敌人警觉；战斗退缩是新状态，不重发之前SAN
+    key_fields:
+    - game_id
+    - investigator_id
+    - event_id
+    - subject_id
+    - occurrence_id
+    - attempt_id
+  explosion_mitigation:
+    basis: house_rule
+    summary: 每次爆炸一次结算；成功反应统一减半，向下取整，不同时获得移出范围和减伤。
+    bands:
+    - up_to_yards: 1
+      damage: 3D6
+    - up_to_yards: 2
+      damage: 2D6
+    - up_to_yards: 3
+      damage: 1D6
+    outside_damage: 0
+    reaction_choices:
+    - dodge
+    - jump
+    reaction_limit: 1
+    reaction_difficulty: regular
+    on_success: floor(rolled_damage/2)
+    on_failure: rolled_damage
+    push_allowed: false
+    sequence:
+    - 固定爆炸瞬间距离
+    - 预告反应后果并选择一种技能
+    - 每人一次反应检定
+    - 按距离一次掷伤害
+    - 成功减半
+    - 持久化结果；网络重试复用
+  degenerate_attribute_dice:
+    basis: bounded_profile
+    summary: 只用附录平均模板；禁用随机属性生成，跨行公式不重建。
+    generation_mode: fixed_average
+    random_generation_enabled: false
+  ghast_sanity:
+    basis: external_rule
+    summary: 补齐妖鬼SAN损失0/1D8。
+    evidence:
+    - ghast_basic
+    success: '0'
+    failure: 1D8
+  geography_skill:
+    basis: project_skill_mapping
+    summary: 洞穴地质年代判断映射科学（地质学）；保留原文科学（地理学），不修改玩家技能值。
+    printed: 科学（地理学）
+    canonical: science_geology
+    display: 科学（地质学）
+    aliases:
+    - 科学（地质学）
+    - 科学(地质学)
+    - 地质学
+    fallback: 缺专长时使用规则引擎配置的科学专长基础值，未接配置则报告unsupported；不取其它最高科学技能
+  cliff_reaction_order:
+    basis: source_plus_house_order
+    summary: 明确选择下降方式；伤害只结算一次，救绳孤注不无限串联。
+    height_feet: 20
+    rope_bonus_dice: 1
+    climb_initial_failure: 徒手无支点先停在上缘；不立即扣伤害
+    rope_initial_failure: 打滑，给予原文允许的一次抓绳孤注选择
+    push_limit: 1
+    terminal_fall_damage: 2D6
+    jump_down_success: 1D6
+    jump_down_failure: 2D6
+    fall_jump_reaction: 绳索失手最终坠落时可作一次普通跳跃反应；成功把同一次2D6减半向下取整，失败不追加伤害；不能孤注；主动跳下不再获得此二次减伤
+    optional_generous_damage: 仅显式开启generous_cliff_damage时徒手孤注失败改1D6；不与主动跳下伤害叠加
+  toxic_gas_sequence:
+    basis: source_plus_house_order
+    summary: 先处理已声明的立即撤离，再按每轮暴露结算；屏息只豁免首轮。
+    normal_escape_rounds: 2
+    damage: 1D4
+    sequence:
+    - 点火前保存撤离/屏息声明
+    - 已声明立即撤离者普通DEX成功直接离开且0次CON；失败进入第1轮
+    - 第1轮屏息者免CON，其余暴露者一次CON，失败一次1D4
+    - 第2轮仍暴露者一次CON，失败一次1D4
+    - 正常路线在第2轮末离开；无论同轮其它叙述不重复结算
+    - 若实际有敌人堵路，结算该轮后继续轮次，直到实际脱离
+    con_per_round: 1
+    breath_hold_exempt_rounds:
+    - 1
+    blocked_exit: 不自动两轮传送离开；按实际堵路状态延长
+    idempotency: investigator+hazard_instance+round
+  unavailable_ghast:
+    basis: house_rule
+    summary: 只调度两只既有妖鬼；没有可响应者铜锣仍发声但不生成援军。
+    eligible:
+    - ghast_1
+    - ghast_2
+    selection: 存活、可行动、路径可达且未占用计时；同等时稳定ID排序
+    delay: 1D10+2
+    spawn_new: false
+    duplicate_gong: 复用既有援军计时，不重掷、不加速、不重复派同一实例
+    unavailable: 无计时、无新增敌人；若之后再次敲锣才重新检查可响应者
+  insufficient_portal_resources:
+    basis: house_rule_informed_by_core_magic
+    summary: 借用通用MP耗尽使用HP原则；触门不是学习施法，不加新施法检定。
+    evidence:
+    - magic
+    mp_cost: 1
+    san_cost: 1
+    hp_substitution: true
+    minimum_san: 1
+    hp_must_remain_above_zero: true
+    failed_payment: 先验证全部可支付且不会因HP替代跌至0；失败不扣任何资源、不移动
+    san_zero: SAN为0时不能自愿激活；不允许负SAN或无代价通过
+    san_one: 扣到0后仍原子完成传送，再处理失控/结案状态
+    excluded:
+    - ghast
+    - degenerate
+    idempotency: 一次触碰请求仅支付一次，站在出口不会自动反复触发
+  building_identity:
+    basis: mitigation
+    summary: 原图身份未证实，保留为未标注参考，不自动按建筑地点展示；生成的通用资料室可继续使用。
+    identity_confirmed: false
+    automatic_location_display: false
+  visual_source_recovery:
+    basis: accepted_provenance_limit
+    summary: 原附件未找到；将source-text明确限定为派生文本。保留原附件名称和哈希，未宣称恢复原件；不再将它作为运行时阻塞。
+    original_recovered: false
+    byte_identity_claim: false
+  map_topology:
+    basis: reviewed_scene_abstraction
+    summary: 对照地图1/2/3建立粗粒度场景图；峭壁上/下、未编号岔路另设节点。用于场景可达性，不代替精确战术地图或补画怪物窄道。
+    maps:
+    - tunnel_map
+    - caverns_map
+    - lair_detail_map
+    monster_only_unmapped_routes: false
+    distance_mode: story_only_no_pixel_measurement
+    boundary: 图示未编号通路合并为命名岔路；峭壁作为深入地下的门禁，这是本项目明确选定的粗粒度路线抽象，不声称原版每条细支路已逐像素转录。
+    chase_ready: false

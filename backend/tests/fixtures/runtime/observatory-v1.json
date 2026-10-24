@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 2,
+  "id": "observatory-solo",
+  "version": "1.0.0",
+  "moduleId": "silent-observatory",
+  "adaptation": "原创离线验证夹具，不进入正式目录。",
+  "initial": {
+    "scene": "lobby",
+    "flags": {
+      "hatch_open": false,
+      "recovered": false,
+      "seen": false
+    },
+    "npcs": {
+      "curator": {
+        "stage": "waiting",
+        "location": "lobby",
+        "topics": []
+      }
+    }
+  },
+  "opening": [
+    {
+      "id": "arrival",
+      "kind": "keeper",
+      "speaker": "守秘人",
+      "text": "你来到一座沉寂的天文台。值班管理员请你找回地下室的观测日志。"
+    }
+  ],
+  "scenes": {
+    "lobby": {
+      "name": "天文台门厅",
+      "region": "北部山地",
+      "background": "bg-lobby",
+      "public": "门厅中有管理员、黄铜钥匙和一扇通往地下室的舱门。"
+    },
+    "vault": {
+      "name": "观测档案室",
+      "region": "北部山地",
+      "background": "bg-vault",
+      "public": "一份日志放在桌上，纸页边缘有模糊痕迹。"
+    }
+  },
+  "npcs": {
+    "curator": {
+      "name": "林管理员",
+      "role": "天文台值班员",
+      "sprite": "sprite-curator",
+      "public": "一位忧心忡忡的管理员。",
+      "knowledge": [
+        {
+          "when": {},
+          "text": "他只知道门锁卡住，日志存放在地下室，不知道日志的内容。"
+        },
+        {
+          "when": {
+            "flag:recovered": true
+          },
+          "text": "日志已经找回，可以一起结束调查。"
+        }
+      ]
+    }
+  },
+  "entities": {
+    "key": {
+      "name": "黄铜钥匙",
+      "scenes": [
+        "lobby"
+      ],
+      "public": "一把黄铜钥匙。",
+      "requires": {
+        "item:brass_key": false
+      }
+    },
+    "hatch": {
+      "name": "舱门",
+      "scenes": [
+        "lobby"
+      ],
+      "public": "舱门的机械锁卡住了。"
+    },
+    "journal": {
+      "name": "观测日志",
+      "scenes": [
+        "vault"
+      ],
+      "public": "一册合上的观测日志。"
+    },
+    "cabinet": {
+      "name": "观测器材柜",
+      "scenes": [
+        "lobby"
+      ],
+      "public": "一只卡住柜门的旧铁柜。",
+      "initialState": {
+        "opened": false
+      },
+      "clauses": [
+        {
+          "when": {
+            "entity:cabinet:opened": true
+          },
+          "text": "柜门已经打开。"
+        }
+      ],
+      "actions": [
+        {
+          "id": "open",
+          "label": "打开器材柜",
+          "description": "调整柜门或使用撬棍打开。",
+          "skills": [
+            "STR",
+            "机械维修"
+          ],
+          "aids": [
+            "pry"
+          ],
+          "requires": {
+            "entity:cabinet:opened": false
+          },
+          "success": [
+            {
+              "op": "state",
+              "target": "cabinet",
+              "key": "opened",
+              "value": true
+            }
+          ],
+          "repeat": "method"
+        }
+      ]
+    }
+  },
+  "affordances": [
+    {
+      "id": "ask_work",
+      "tool": "talk",
+      "target": "curator",
+      "label": "ask_work",
+      "description": "测试模组中的ask_work",
+      "scenes": [
+        "lobby"
+      ],
+      "option": "work",
+      "effects": [
+        {
+          "op": "clue",
+          "key": "request",
+          "title": "找回日志",
+          "text": "管理员希望找回地下室的日志。"
+        }
+      ]
+    },
+    {
+      "id": "pick_key",
+      "tool": "take",
+      "target": "key",
+      "label": "pick_key",
+      "description": "测试模组中的pick_key",
+      "scenes": [
+        "lobby"
+      ],
+      "requires": {
+        "item:brass_key": false
+      },
+      "effects": [
+        {
+          "op": "item",
+          "key": "brass_key",
+          "name": "黄铜钥匙",
+          "note": "管理员提供的钥匙"
+        }
+      ]
+    },
+    {
+      "id": "unlock",
+      "tool": "interact",
+      "target": "hatch",
+      "label": "unlock",
+      "description": "测试模组中的unlock",
+      "scenes": [
+        "lobby"
+      ],
+      "requires": {
+        "flag:hatch_open": false
+      },
+      "repeat": "method",
+      "challenge": {
+        "key": "hatch",
+        "skills": [
+          "STR",
+          "机械维修"
+        ],
+        "aids": [
+          "brass_key"
+        ],
+        "reason": "你尝试打开卡住的机械锁。",
+        "failureLoss": {
+          "resource": "hp",
+          "dice": "1D3"
+        },
+        "success": [
+          {
+            "op": "flag",
+            "key": "hatch_open",
+            "value": true
+          }
+        ],
+        "failure": []
+      }
+    },
+    {
+      "id": "go_vault",
+      "tool": "move",
+      "target": "vault",
+      "label": "go_vault",
+      "description": "测试模组中的go_vault",
+      "scenes": [
+        "lobby"
+      ],
+      "requires": {
+        "flag:hatch_open": true
+      },
+      "repeat": "always",
+      "effects": [
+        {
+          "op": "move",
+          "to": "vault"
+        },
+        {
+          "op": "check",
+          "key": "first_sight",
+          "skill": "SAN",
+          "reason": "异常的观测记录让你不安。",
+          "failureLoss": {
+            "resource": "san",
+            "dice": "1D3"
+          },
+          "when": {
+            "flag:seen": false
+          }
+        },
+        {
+          "op": "flag",
+          "key": "seen",
+          "value": true
+        }
+      ]
+    },
+    {
+      "id": "go_lobby",
+      "tool": "move",
+      "target": "lobby",
+      "label": "go_lobby",
+      "description": "测试模组中的go_lobby",
+      "scenes": [
+        "vault"
+      ],
+      "repeat": "always",
+      "effects": [
+        {
+          "op": "move",
+          "to": "lobby"
+        }
+      ]
+    },
+    {
+      "id": "read_journal",
+      "tool": "inspect",
+      "target": "journal",
+      "label": "read_journal",
+      "description": "测试模组中的read_journal",
+      "scenes": [
+        "vault"
+      ],
+      "effects": [
+        {
+          "op": "flag",
+          "key": "recovered",
+          "value": true
+        },
+        {
+          "op": "clue",
+          "key": "coordinates",
+          "title": "异常坐标",
+          "text": "日志中记录的坐标与天文台的实际位置不符。"
+        }
+      ]
+    }
+  ],
+  "endings": {
+    "returnScene": "lobby",
+    "safeScenes": [
+      "lobby"
+    ],
+    "completeWhen": {
+      "flag:recovered": true
+    },
+    "confirmation": [
+      {
+        "when": {},
+        "text": "确认返回门厅并结束调查？"
+      }
+    ],
+    "descriptions": {
+      "completed": "你带着观测日志安全返回管理员身边。",
+      "retreated": "你放弃找回日志，离开天文台。",
+      "failed": "调查员失去继续调查的能力。"
+    }
+  },
+  "itemAliases": {},
+  "assetGrants": [],
+  "legacyActions": {}
+}
