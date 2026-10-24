@@ -33,9 +33,17 @@ FastAPI 文档为 http://127.0.0.1:8000/docs。前端 5173 端口被占用会直
 
 POST创建成功后进入#/game?game=<id>；每局自动保存到saves/<id>/game.json。根目录进程锁只允许一个运行器进程／worker，启动时不要加--workers 2；开发--reload会在旧worker退出后释放锁。WEB_GAME_SAVES可选指定独立保存根目录，避免与另一个开发进程冲突。网页服务保留至应用退出才关闭模型与存储。
 
-离线测试使用fake Agent和临时目录，不消耗模型。显式付费评估：`uv run --locked python scripts/evaluate_web_mvp.py --live`，稳定请求／游戏可恢复，指标位于output/web-mvp-evaluation/report.json；脚本最多90请求，为浏览器等额外测试预留会话总120请求预算。不要删除报告后重复跑来绕开总预算。完整规则与多人上线不在当前范围。
+离线测试使用fake Agent和临时目录，不消耗模型。历史v1/v2显式付费评估：`uv run --locked python scripts/evaluate_web_mvp.py --live`（仅恢复原报告中的旧游戏；不能用旧步骤新建v3/v4），稳定请求／游戏可恢复，指标位于output/web-mvp-evaluation/report.json；脚本最多90请求，为浏览器等额外测试预留会话总120请求预算。不要删除报告后重复跑来绕开总预算。完整规则与多人上线不在当前范围。
 
 首页继续调查只保存localStorage键`coc:last-active-game`，值为game_id；同源、同浏览器生效。此前已有的存档用原游戏地址打开一次后会记住。结案完整落盘或明确404时清除相同编号；中断最终叙述仍保留入口。网络／损坏／版本错误保留编号，允许重新检查，不扫描服务端存档。测试清除此键不会删除后端存档。
+
+## 多模组运行器
+
+网页通过 `data/runtime/index.json` 和发布清单的 runtimeProfile 绑定v2运行配置。通用工具与剧情数据分离，新增符合能力范围的模组不改Python。启动前可执行 `uv run --locked python -m kp_agent.gameplay.validate_content` 只读校验已发布配置；完整步骤、格式和原创测试例子见[runtime-profiles](runtime-profiles.md)。修改运行配置后重启后端；存档指纹不兼容时明确报错，不自行清空或修改保存文件。
+
+通用动作见[设计](design/done/common-actions.md)及[ADR-0006](decisions/ADR-0006-common-actions.md)：`tests.test_common_actions`覆盖十人物能力、取放归属、确认、独立伤害、断点恢复及两模组声明式目标。新增use_item/drop/give/confirm_action和effect.resolved；旧局GET仅内存补齐mechanics，真实存档不作为测试输入。本轮未新增付费模型调用；自然语言策略提示已经更新，真实DeepSeek理解效果尚待试玩。
+
+本轮默认离线：`tests.test_darkness_investigation`验证v3的双时间线、线索用途、失败替代、撤离路线及历史指纹；`tests.test_module_runtime`验证第二模组、自由观察／交谈、技能／道具挑战、跨局／模组隔离及旧回合恢复。v1→v2升级GET不写盘，下一次原子保存保留备份；旧出目与已提交效果不重做。没有为本次重构新增付费调用授权。
 
 ## CLI 与模型配置
 
@@ -72,6 +80,7 @@ npm run build
 node scripts/check-recent-game.mjs # 编号、活动／未决／终局、404／故障、取消与浏览器存储边界
 node scripts/check-catalogue.mjs
 node scripts/check-game-preview.mjs # 当前验证真实SSE适配器的离线拆块／去重／断流
+node scripts/check-game-changes.mjs # 公开状态变化、首次读取／重复恢复不重放、未知值与物品／线索边界
 ```
 
 后端保留原底层测试并合并 Agent 测试，测试使用 mock 或临时存档，默认不调用付费模型。

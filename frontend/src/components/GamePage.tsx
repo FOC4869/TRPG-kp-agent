@@ -1,13 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { getGame, submitGameAction } from '../api/game'
+import { GameRequestError, getGame, submitGameAction } from '../api/game'
 import type { GameAction, GameEvent, GameMessage, GameState } from '../types/game'
 import { canResumeGame, forgetRecentGame, rememberGame } from '../state/recent-game'
+import { gameChanges } from '../state/game-changes'
+import type { GameChange } from '../state/game-changes'
 import { Arrow, DoorMark, FrameCorners } from './Ornaments'
 import { InvestigationEndingDialog } from './InvestigationEndingDialog'
 import { Portrait } from './Portrait'
 import { GameDrawerContent, GameMessages } from './GameDrawer'
 import type { GamePanel } from './GameDrawer'
+import { GameStateFeedback } from './GameStateFeedback'
 
 const gamePanelNames: Record<GamePanel, string> = { character: '人物档案', inventory: '随身物品', clues: '线索笔记', history: '对话记录' }
 function ToolIcon({ kind }: { kind: GamePanel }) {
@@ -39,6 +42,9 @@ export function GamePage({ gameId }: { gameId: string | null }) {
   const [panel, setPanel] = useState<GamePanel | null>(null)
   const [atBottom, setAtBottom] = useState(true)
   const [imageFailed, setImageFailed] = useState({ background: '', npc: '' })
+  const [feedback, setFeedback] = useState<{ id: string; changes: GameChange[] } | null>(null)
+  const dismissFeedback = useCallback(() => setFeedback(null), [])
+  const lastSnapshot = useRef<GameState | null>(null)
   const drawer = useRef<HTMLDialogElement>(null)
   const conversation = useRef<HTMLDivElement>(null)
   const input = useRef<HTMLTextAreaElement>(null)
@@ -48,6 +54,12 @@ export function GamePage({ gameId }: { gameId: string | null }) {
   const facts = game?.facts ?? []
 
   function applySnapshot(state: GameState) {
+    const previous = lastSnapshot.current
+    if (previous?.gameId === state.gameId && state.version < previous.version) return
+    const changes = gameChanges(previous, state)
+    lastSnapshot.current = state
+    if (previous && previous.gameId !== state.gameId) setFeedback(null)
+    if (changes.length) setFeedback({ id: `${state.gameId}:${state.version}`, changes })
     setGame(state); setMessages(state.messages)
     if (!canResumeGame(state)) forgetRecentGame(state.gameId)
     if (state.ended && state.endingSummary) {
@@ -61,7 +73,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
       if (controller.signal.aborted) return
       rememberGame(state)
       applySnapshot(state)
-      if (state.pendingTurn) setFailed({ requestId: state.pendingTurn.requestId, text: state.pendingTurn.text, expectedVersion: state.version })
+      if (state.pendingTurn) setFailed({ requestId: state.pendingTurn.requestId, text: state.pendingTurn.text, expectedVersion: state.version, ...(state.pendingTurn.confirmationId ? { confirmationId: state.pendingTurn.confirmationId } : {}) })
     }).catch((error: unknown) => { if (!controller.signal.aborted) setLoadError(error instanceof Error ? error.message : '读取失败。') })
     return () => { controller.abort(); activeRequest.current?.abort() }
   }, [gameId, attempt])
@@ -70,9 +82,9 @@ export function GamePage({ gameId }: { gameId: string | null }) {
   }, [messages, pending])
   function openPanel(value: GamePanel) { setPanel(value); drawer.current?.showModal() }
 
-  async function send(retry?: GameAction) {
-    if (!gameId || !game || endingSummary !== null || activeRequest.current || (!retry && !draft.trim())) return
-    const request = { ...(retry ?? { requestId: crypto.randomUUID(), text: draft.trim(), expectedVersion: game.version }) }
+  async function send(retry?: GameAction, decision?: 'confirm' | 'cancel') {
+    if (!gameId || !game || endingSummary !== null || activeRequest.current || (!retry && !decision && !draft.trim())) return
+    const request = { ...(retry ?? { requestId: crypto.randomUUID(), text: decision ? decision === 'confirm' ? '确认执行' : '取消这次行动' : draft.trim(), expectedVersion: game.version, ...(decision && game.pendingAction ? { confirmationId: game.pendingAction.id } : {}) }) }
     const controller = new AbortController(); activeRequest.current = controller
     setPending(true); setFailed(null); setErrorText(''); followLatest.current = true; setAtBottom(true)
     let queue = Promise.resolve()
@@ -96,6 +108,10 @@ export function GamePage({ gameId }: { gameId: string | null }) {
         setMessages((items) => replaceMessage(items, { id: check.checkId, kind: 'check', speaker: '规则检定', text: check.reason, check: { ...check, display: 'resolved' } }))
         if (animate) await pause(250, controller.signal)
       }
+      if (event.type === 'effect.resolved' && event.effect) {
+        const effect = event.effect
+        setMessages((items) => replaceMessage(items, { id: effect.effectId, kind: 'effect', speaker: '行动结果', text: effect.reason, effect }))
+      }
       if (event.type === 'state.updated' && event.state) applySnapshot(event.state)
       if (event.type === 'message.started' && event.message) setMessages((items) => replaceMessage(items, event.message!))
       if (event.type === 'message.delta') setMessages((items) => items.map((item) => item.id === event.messageId ? { ...item, text: item.text + event.delta } : item))
@@ -111,7 +127,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
         fresh.messages.filter((m) => m.check?.roll !== undefined).forEach((m) => shownChecks.add(m.check!.checkId))
         if (!fresh.pendingTurn && fresh.messages.some((m) => m.id === request.requestId + ':keeper')) { setDraft(''); return }
         if (fresh.pendingTurn && fresh.pendingTurn.requestId !== request.requestId) {
-          setFailed({ requestId: fresh.pendingTurn.requestId, text: fresh.pendingTurn.text, expectedVersion: fresh.version })
+          setFailed({ requestId: fresh.pendingTurn.requestId, text: fresh.pendingTurn.text, expectedVersion: fresh.version, ...(fresh.pendingTurn.confirmationId ? { confirmationId: fresh.pendingTurn.confirmationId } : {}) })
           setErrorText('另一行动正在处理中，请先恢复该回合。')
           return
         }
@@ -126,6 +142,15 @@ export function GamePage({ gameId }: { gameId: string | null }) {
     } catch (error) {
       await queue
       if (!controller.signal.aborted) {
+        if (error instanceof GameRequestError && error.code === 'confirmation_expired') {
+          const fresh = await getGame(gameId, controller.signal).catch(() => null)
+          if (fresh && !controller.signal.aborted) {
+            applySnapshot(fresh)
+            setFailed(fresh.pendingTurn ? { requestId: fresh.pendingTurn.requestId, text: fresh.pendingTurn.text, expectedVersion: fresh.version, ...(fresh.pendingTurn.confirmationId ? { confirmationId: fresh.pendingTurn.confirmationId } : {}) } : null)
+            setErrorText('')
+            return
+          }
+        }
         setFailed(request); setErrorText(error instanceof TypeError ? '网络连接中断，请恢复原回合。' : error instanceof Error ? error.message : '连接中断，请恢复原回合。')
         setMessages((items) => items.map((m) => m.check?.display === 'rolling' ? { ...m, check: { ...m.check, display: 'error' } } : m))
       }
@@ -138,10 +163,10 @@ export function GamePage({ gameId }: { gameId: string | null }) {
 
   const investigator = game.investigator
   const resources = investigator.resources
-  return <main id="main" className="game-shell" tabIndex={-1}>
+  return <main id="main" className={`game-shell${game.pendingAction ? ' has-confirmation' : ''}`} tabIndex={-1}>
     <header className="game-header">
       <a className="brand" href="#/" aria-label="CoC AI Keeper 首页"><DoorMark /><span>CoC AI Keeper</span></a>
-      <div className="game-case"><h1>{game.module.title}</h1><span>THE DARKNESS BENEATH THE HILL</span></div>
+      <div className="game-case"><h1>{game.module.title}</h1>{game.module.englishTitle && <span>{game.module.englishTitle}</span>}</div>
       <div className="game-header-tools">{(['history'] as const).map((tool) => <button key={tool} onClick={() => openPanel(tool)} aria-label={gamePanelNames[tool]} aria-haspopup="dialog"><ToolIcon kind={tool} /><span>{gamePanelNames[tool]}</span></button>)}</div>
     </header>
     <aside className="game-sidebar" aria-label="调查员与工具">
@@ -165,7 +190,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
       <div className="game-location"><FrameCorners /><span>{game.scene.region}</span><h2>{game.scene.name}</h2></div>
       {game.npc && imageFailed.npc !== game.npc.spriteUrl && <img className="game-npc" src={game.npc.spriteUrl} alt={`${game.npc.name}，当前交谈的 NPC`} onError={() => setImageFailed((value) => ({ ...value, npc: game.npc?.spriteUrl ?? '' }))} />}
       <>{game.npc && <div className="game-npc-name"><strong>{game.npc.name}</strong><span>NPC · {game.npc.role}</span></div>}</>
-
+      {feedback && <GameStateFeedback key={feedback.id} changes={feedback.changes} onDismiss={dismissFeedback} />}
     </section>
     <section className="game-dialogue" aria-label="当前叙事">
       <div className="game-conversation" ref={conversation} tabIndex={0} aria-label="叙事内容，可滚动" onScroll={(event) => { const element = event.currentTarget; const bottom = element.scrollHeight - element.scrollTop - element.clientHeight < 30; followLatest.current = bottom; setAtBottom(bottom) }}>
@@ -176,7 +201,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
     </section>
     <form className="game-composer" onSubmit={onSubmit}>
       {endingSummary !== null ? <div className="game-ended-bar"><p>本次调查已结束</p><button type="button" onClick={() => setEndingOpen(true)}>查看结案 <Arrow /></button></div> : <>
-      <div className="game-suggestions" aria-label="行动建议">{game.suggestions.map((suggestion) => <button key={suggestion} type="button" disabled={pending || !!failed} onClick={() => { setDraft(suggestion); input.current?.focus() }}>{suggestion}</button>)}<span>也可以自由描述行动</span></div>
+      {game.pendingAction ? <div className="game-confirmation" role="group" aria-label="确认行动后果"><p>{game.pendingAction.prompt}</p><div><button type="button" disabled={pending || !!failed} onClick={() => void send(undefined, 'confirm')}>继续执行</button><button type="button" disabled={pending || !!failed} onClick={() => void send(undefined, 'cancel')}>取消</button></div></div> : <div className="game-suggestions" aria-label="行动建议">{game.suggestions.map((suggestion) => <button key={suggestion} type="button" disabled={pending || !!failed} onClick={() => { setDraft(suggestion); input.current?.focus() }}>{suggestion}</button>)}<span>也可以自由描述行动</span></div>}
       {failed && <div className="game-action-error" role="alert">{errorText || '本轮尚未完成，请恢复原行动。'}<button type="button" disabled={pending} onClick={() => void send(failed)}>恢复本轮</button></div>}
       <label className="sr-only" htmlFor="game-action">你的行动</label>
       <div className="game-input-row"><textarea id="game-action" ref={input} value={draft} maxLength={1000} rows={2} readOnly={pending || !!failed} placeholder="你想做什么？可以行动、观察，或与在场人物交谈……" onChange={(event) => setDraft(event.target.value)} onKeyDown={(event) => { if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing && event.nativeEvent.keyCode !== 229) { event.preventDefault(); if (!failed) void send() } }} /><button type="submit" disabled={!draft.trim() || pending || !!failed}><span>{pending ? '回应中' : '行动'}</span><Arrow /></button></div>

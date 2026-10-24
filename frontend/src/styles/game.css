@@ -22,6 +22,17 @@
 .game-resource-mark { width: 42%; flex: none; height: 5px; overflow: hidden; border: 1px solid #a2916860; background: #ffffff0a; }
 .game-resource-fill { display: block; height: 100%; background: #82704b; }
 .game-resource-mark.hp .game-resource-fill { background: #6d9382; }.game-resource-mark.san .game-resource-fill { background: #977163; }.game-resource-mark.mp .game-resource-fill { background: #6c879b; }
+.game-state-feedback { position: absolute; z-index: 3; left: 28px; bottom: 24px; width: min(340px, calc(100% - 56px)); max-height: calc(100% - 150px); display: flex; flex-direction: column; border: 1px solid #9e8154; color: #e4d4b6; background: #17130df5; box-shadow: 0 8px 24px #0006; }
+.game-feedback-heading { display: flex; align-items: center; justify-content: space-between; flex: none; min-height: 36px; padding-left: 14px; border-bottom: 1px solid #715b3b; font-size: 11px; letter-spacing: .1em; color: #c3aa7a; }
+.game-feedback-heading button { flex: none; width: 36px; height: 36px; padding: 0; border: 0; background: none; color: #d3bd96; font-size: 22px; }
+.game-feedback-heading button:hover { color: #fff0cf; background: #493820; }
+.game-feedback-body { min-height: 0; overflow-y: auto; overscroll-behavior-y: contain; scrollbar-width: thin; scrollbar-color: #9e8154 transparent; }
+.game-feedback-body ul { margin: 0; padding: 9px 14px 12px; list-style: none; display: grid; gap: 6px; }
+.game-feedback-body li { display: flex; align-items: baseline; gap: 9px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.game-feedback-body li > span { flex: none; color: #d8bc85; }
+.game-feedback-body .game-change-loss, .game-feedback-body .game-change-loss > span { color: #edb1a3; }
+.game-feedback-body .game-change-gain, .game-feedback-body .game-change-gain > span { color: #b4d2bb; }
+@media (max-width: 900px) { .game-state-feedback { left: 15px; bottom: 15px; width: min(300px, calc(100% - 30px)); max-height: calc(100% - 110px); }.game-feedback-body li { font-size: 12px; } }
 .game-sidebar nav { border-top: 1px solid #715b3b; padding: 16px 0; display: grid; gap: 5px; }
 .game-sidebar nav button { display: flex; align-items: center; gap: 15px; min-height: 48px; padding: 8px 0; background: none; border: 0; text-align: left; font-size: 16px; color: #dfcda9; }
 .game-sidebar nav button:hover, .game-header-tools button:hover { color: #ffe5af; }
@@ -144,3 +155,18 @@
 .game-dialogue, .game-composer, .game-stage { min-width: 0; }
 @media (max-width: 600px) { .check-result { gap: 12px; }.check-result b { font-size: 24px; }.game-suggestions button { max-width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .check-rolling b { opacity: 0; } }
+
+.game-effect { max-width: 620px; padding: 14px 20px; border: 1px solid #956b55; background: linear-gradient(115deg, #34201b, #171512); }
+.game-effect > div { display: flex; justify-content: space-between; gap: 20px; color: #edc9a3; }
+.game-effect > div span { font: 23px var(--font-latin); }
+.game-effect p { margin: 8px 0 0; color: #c5ad95; font-size: 13px; }
+.game-effect b { color: #f2d4b2; font-size: 19px; }
+.game-confirmation { display: flex; gap: 16px; align-items: center; padding: 10px 14px; margin-bottom: 10px; border: 1px solid #9e8154; background: #261d15; }
+.game-confirmation p { flex: 1; margin: 0; font-size: 13px; line-height: 1.6; max-height: 3.2em; overflow-y: auto; }
+.game-confirmation > div { display: flex; gap: 8px; flex-shrink: 0; }
+.game-confirmation button { padding: 8px 14px; min-height: 38px; background: #42301e; border: 1px solid #9e8154; color: #efdbb5; }
+.game-confirmation button:disabled { opacity: .5; }
+.game-confirmation button:focus-visible { outline: 2px solid #efdbb5; outline-offset: 3px; }
+@media (min-width: 901px) { .game-shell.has-confirmation { grid-template-rows: 70px minmax(220px, 1fr) 220px 174px; } }
+@media (max-height: 800px) and (min-width: 901px) { .game-shell.has-confirmation { grid-template-rows: 58px minmax(170px, 1fr) 170px 174px; } }
+@media (max-width: 600px) { .game-confirmation { flex-wrap: wrap; }.game-confirmation p { flex-basis: 100%; } }

@@ -6,10 +6,11 @@ import uuid
 from collections import defaultdict
 from typing import TypedDict
 from langgraph.graph import StateGraph, START, END
-from .agent import DeepSeekAgent
+from .agent import DeepSeekAgent, Plan
 from .content import Content, GameError
-from .engine import event_choices, execute, projection, scene_description
+from .engine import tool_choices, execute, projection, scene_description, exit_response
 from .store import JsonStore
+from .common_actions import public_pending
 
 class GraphState(TypedDict):
     game: dict
@@ -67,12 +68,12 @@ class GameRuntime:
                 self.store.save(game)
         return projection(self.content, game)
 
-    async def action(self, game_id, request_id, text, expected_version):
+    async def action(self, game_id, request_id, text, expected_version, confirmation_id=None):
         async with self.locks[game_id]:
             game = self.read(game_id)
             turn = next((t for t in game['turns'] if t['id'] == request_id), None)
             if turn:
-                if turn['text'] != text: raise GameError('request_conflict', '相同请求 ID 的行动内容不能改变。')
+                if turn['text'] != text or turn.get('confirmationId') != confirmation_id: raise GameError('request_conflict', '相同请求 ID 的行动内容不能改变。')
                 job = self.jobs.get((game_id, request_id))
                 if job and not job.done: return job
                 if turn['stage'] == 'completed':
@@ -81,12 +82,17 @@ class GameRuntime:
                     job.emit('turn.completed', state=projection(self.content, game)); job.done = True
                     return job
             else:
+                pending = public_pending(game)
+                if confirmation_id and (not pending or pending['id'] != confirmation_id):
+                    raise GameError('confirmation_expired', '这次确认已经失效，请重新读取当前调查。')
+                if confirmation_id and text not in ('确认执行', '取消这次行动'):
+                    raise GameError('confirmation_invalid', '请选择继续或取消，或直接描述新的行动。')
                 if any(t['stage'] != 'completed' for t in game['turns']):
                     raise GameError('turn_pending', '上一行动尚未确认，请先恢复原回合。')
                 if game['ending']: raise GameError('game_ended', '本次调查已结束。')
                 if expected_version != game['version']: raise GameError('version_conflict', '游戏状态已经更新，请重新读取后再行动。')
                 turn = {'id': request_id, 'text': text, 'stage': 'accepted', 'plan': None, 'rolls': [], 'committed': False,
-                        'results': [], 'metrics': [], 'messageId': request_id + ':keeper'}
+                        'results': [], 'metrics': [], 'confirmationId': confirmation_id, 'messageId': request_id + ':keeper'}
                 game['turns'].append(turn)
                 game['messages'].append({'id': request_id + ':player', 'kind': 'player', 'speaker': game['investigator']['displayName'], 'text': text})
                 self.store.save(game)
@@ -119,13 +125,16 @@ class GameRuntime:
         game, turn = state['game'], state['turn']
         if turn['plan'] is None:
             self._job(state).emit('turn.status', stage='understanding')
-            scene = self.content.profile['scenes'][game['sceneId']]
-            context = {'input': turn['text'], 'scene': {**scene, 'public': scene_description(self.content, game), 'id': game['sceneId']},
-                       'legalEvents': event_choices(self.content, game), 'facts': game['facts'],
-                       'resources': game['investigator']['resources'], 'inventory': [i['name'] for i in game['inventory']],
-                       'timeline': game['flags']['timeline'], 'exitPending': game['flags'].get('exit_pending', False),
-                       'recent': game['messages'][-12:]}
-            turn['plan'] = await self.agent.plan(context, lambda metric: self._metric(state, metric))
+            content = self.content.for_game(game)
+            scene = content.profile['scenes'][game['sceneId']]
+            context = {'input': turn['text'], 'scene': {'id': game['sceneId'], 'name': scene['name'], 'public': scene_description(content, game), 'keeper': scene['keeper']},
+                       'availableTools': tool_choices(content, game), 'entities': {key: {'name': e['name'], 'public': e['public']} for key, e in content.entities(game).items()}, 'npcs': content.knowledge(game),
+                       'facts': game['facts'], 'resources': game['investigator']['resources'], 'inventory': game['inventory'],
+                       'pendingExit': game['pendingExit'], 'pendingAction': public_pending(game), 'nearbyItems': projection(self.content, game)['nearbyItems'], 'recent': game['messages'][-12:]}
+            if turn.get('confirmationId'):
+                turn['plan'] = {'kind': 'tool', 'tool': {'name': 'confirm_action', 'target': turn['confirmationId'], 'option': 'confirm' if turn['text'] == '确认执行' else 'cancel', 'skill': None, 'item': None, 'approach': turn['text']}}
+            else:
+                turn['plan'] = Plan.model_validate(await self.agent.plan(context, lambda metric: self._metric(state, metric))).model_dump()
             turn['stage'] = 'planned'; self._save(state)
         return state
 
@@ -143,6 +152,8 @@ class GameRuntime:
         for result in turn['rolls']:
             job.emit('check.started', check={k: result[k] for k in ('checkId', 'skill', 'target', 'reason')})
             job.emit('check.resolved', check=result)
+        for result in turn.get('damageRolls', []):
+            job.emit('effect.resolved', effect={k: v for k, v in result.items() if k != 'key'})
         job.emit('state.updated', state=projection(self.content, state['game']))
         return state
 
@@ -153,22 +164,25 @@ class GameRuntime:
         job.emit('turn.status', stage='narrating')
         job.emit('message.started', message={'id': turn['messageId'], 'kind': 'keeper', 'speaker': '守秘人', 'text': ''})
         public = projection(self.content, game)
-        context = {'input': turn['text'], 'kind': turn['plan']['kind'], 'results': turn['results'],
-                   'scene': scene_description(self.content, game), 'facts': game['facts'],
-                   'currentResources': game['investigator']['resources'], 'npcs': public['npcs'],
-                   'joshStatus': game['npcs']['josh']['stage'], 'timeline': game['flags']['timeline'],
-                   'ending': game['ending'], 'committedProgress': {key: game['flags'].get(key, False) for key in ('threat_passed', 'cage_open', 'final_solved', 'exit_pending', 'force_offered')}, 'legalNextActions': public['suggestions'], 'recent': game['messages'][-12:]}
-        event_id = turn.get('executedEvent', turn['plan'].get('eventId'))
-        # These prompts seek authorization for a later action. A deterministic
-        # confirmation cannot accidentally narrate that future action as done.
-        if event_id == 'end_request' and not game['ending'] and game['flags'].get('exit_pending'):
-            text = '\n'.join(turn['results']) + '\n你要确认撤离，还是继续调查？'
-        elif event_id == 'force_offer' and not game['ending']:
-            text = '强行通过会损失固定3点HP，目前尚未扣除。明确确认后才执行；你也可以选择其他方法，或沿来路撤离。'
+        content = self.content.for_game(game)
+        context = {'input': turn['text'], 'kind': turn['plan']['kind'], 'outcome': turn.get('outcome'), 'pendingAction': public_pending(game), 'results': turn['results'],
+                   'scene': scene_description(content, game), 'facts': game['facts'], 'inventory': game['inventory'],
+                   'currentResources': game['investigator']['resources'], 'npcs': content.knowledge(game),
+                   'visibleEntities': [e['public'] for e in content.entities(game).values()],
+                   'ending': game['ending'], 'legalNextActions': public['suggestions'], 'recent': game['messages'][-12:]}
+        response = turn.get('response')
+        # Compatible old committed turns may predate the saved deterministic response.
+        if not response and turn.get('executedEvent') and not game['ending']:
+            call = turn['plan'].get('tool') or {}
+            if call.get('name') == 'finish' and call.get('option') == 'request' and game['pendingExit']:
+                response = exit_response(content, game)
+            else:
+                response = next((a.get('response') for a in content.affordances if a['tool'] == call.get('name') and a['target'] == call.get('target') and a.get('option') == call.get('option')), None)
+        if response and not game['ending']:
+            text = response
+            job.emit('message.delta', messageId=turn['messageId'], delta=text)
         else:
             text = await self.agent.narrate(context, lambda delta: job.emit('message.delta', messageId=turn['messageId'], delta=delta), lambda metric: self._metric(state, metric))
-        if event_id in ('end_request', 'force_offer') and not game['ending']:
-            job.emit('message.delta', messageId=turn['messageId'], delta=text)
         message = {'id': turn['messageId'], 'kind': 'keeper', 'speaker': '守秘人', 'text': text, 'final': bool(game['ending'])}
         game['messages'].append(message)
         turn['stage'] = 'completed'
@@ -191,6 +205,7 @@ class GameRuntime:
                 turn = next(t for t in game['turns'] if t['id'] == request_id)
                 turn['errorPhase'] = turn['stage']; turn['stage'] = 'failed'
                 turn['errorType'] = type(error).__name__
+                turn['errorCode'] = error.code if isinstance(error, GameError) else 'turn_interrupted'
                 self.store.save(game)
             except Exception:
                 pass  # Preserve disk evidence; report failure, never fabricate success.

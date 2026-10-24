@@ -55,6 +55,8 @@ async def main():
  try:
   for route,steps in ROUTES.items():
    if route not in report['games']:
+    if runtime.content.for_module('darkness-beneath-the-hill').profile['version'] != '2.0.0':
+     raise RuntimeError('This historical v1/v2 evaluation can resume recorded games only; the current investigation profile needs its own authorized live evaluation.')
     game=runtime.create(str(uuid.uuid4()),'darkness-beneath-the-hill','jessica');report['games'][route]=game['gameId'];save()
    game_id=report['games'][route]
    for index,(expected,text) in enumerate(steps):
@@ -65,10 +67,15 @@ async def main():
     raw=runtime.read(game_id);turn=next(t for t in raw['turns'] if t['id']==request_id)
     entry={'route':route,'index':index,'expected':expected,'input':text,'plan':turn['plan'],'stage':turn['stage'],'durationMs':round((time.monotonic()-started)*1000),'metrics':turn['metrics'],'checks':turn['rolls'],'scene':raw['sceneId'],'ending':raw['ending'],'errorPhase':turn.get('errorPhase')}
     report['turns'].append(entry);save()
-    actual=turn['plan']['eventId'] if turn['plan'] and turn['plan']['kind']=='event' else (turn['plan'] or {}).get('kind')
+    plan=turn['plan'] or {}
+    call=plan.get('tool')
+    expected_call=runtime.content.for_game(raw).profile['legacyActions'].get(expected)
+    fields=('name','target','option','skill','item')
+    matched=(all(call.get(k)==expected_call.get(k) for k in fields) if call and expected_call else plan.get('kind')==expected)
+    actual=call or plan.get('kind')
     print(json.dumps({'route':route,'step':index,'expected':expected,'actual':actual,'stage':turn['stage'],'ms':entry['durationMs']},ensure_ascii=False),flush=True)
     if turn['stage']!='completed':raise RuntimeError('Turn failed; inspect report, explicitly resume same request.')
-    if actual!=expected:raise RuntimeError('Semantic mismatch; inspect committed facts before continuing.')
+    if not matched:raise RuntimeError('Semantic mismatch; inspect committed facts before continuing.')
    if runtime.get(game_id)['ending']!='completed':raise RuntimeError('Route did not complete.')
   report['passed']=True;save()
  finally:await runtime.close()

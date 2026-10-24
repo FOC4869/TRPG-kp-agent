@@ -19,6 +19,12 @@ try {
     npc: null, npcs: [], inventory: [], messages: [{ id: 'opening', kind: 'keeper', speaker: '守秘人', text: '开场' }],
     facts: [], suggestions: [], ended: false, ending: null, endingSummary: null, status: 'active', pendingTurn: null,
   }
+  const { isGameState } = await server.ssrLoadModule('/src/api/game.ts')
+  const independentModule = { ...state, module: { id: 'silent-observatory', title: '沉寂天文台', englishTitle: 'The Silent Observatory' }, scene: { ...state.scene, id: 'lobby', name: '门厅', backgroundUrl: `/api/games/${a}/assets/bg-lobby` }, npcs: [{ id: 'curator', name: '管理员', role: '值班员', spriteUrl: `/api/games/${a}/assets/sprite-curator` }] }
+  assert.equal(isGameState(independentModule), true, 'Another module and hyphenated asset IDs use the same public contract')
+  assert.equal(isGameState({ ...independentModule, module: { ...independentModule.module, englishTitle: null } }), true)
+  assert.equal(isGameState({ ...independentModule, module: { ...independentModule.module, englishTitle: 123 } }), false)
+  assert.equal(isGameState({ ...independentModule, scene: { ...independentModule.scene, backgroundUrl: `/api/games/${a}/assets/../private` } }), false)
   const signal = () => new AbortController().signal
   let calls = []
   let reply = state

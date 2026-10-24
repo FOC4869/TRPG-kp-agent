@@ -10,6 +10,7 @@ from unittest.mock import patch
 from app.services.catalogue import Catalogue
 from kp_agent.gameplay.content import GameError
 from kp_agent.gameplay.runtime import GameRuntime
+from tests.runtime_helpers import HistoricalCatalogue
 
 MODULE = 'darkness-beneath-the-hill'
 class Agent:
@@ -18,7 +19,9 @@ class Agent:
         self.calls.append('plan')
         if self.wait: await self.wait.wait()
         text = context['input']
-        return {'kind': 'event' if text != 'question' else 'question', 'eventId': text if text != 'question' else None}
+        if text == 'question': return {'kind': 'question', 'tool': None}
+        profile = json.loads((Path(__file__).parents[1] / 'data/runtime/darkness-solo-mvp-v2.json').read_text())
+        return {'kind': 'tool', 'tool': profile['legacyActions'].get(text, {'name': 'interact', 'target': 'unknown', 'option': None, 'skill': None, 'item': None, 'approach': text})}
     async def narrate(self, context, emit, metric):
         self.calls.append('narrate')
         if self.fail_narration: raise TimeoutError()
@@ -29,7 +32,8 @@ class Agent:
 class WebGameTests(unittest.IsolatedAsyncioTestCase):
     async def asyncSetUp(self):
         self.temp = TemporaryDirectory(); self.agent = Agent()
-        self.runtime = GameRuntime(Catalogue(), Path(self.temp.name), self.agent)
+        self.catalogue = HistoricalCatalogue(self.temp.name)
+        self.runtime = GameRuntime(self.catalogue, Path(self.temp.name), self.agent)
         self.game = self.runtime.create(str(uuid.uuid4()), MODULE, 'jessica')
     async def asyncTearDown(self):
         await self.runtime.close(); self.temp.cleanup()
@@ -94,7 +98,7 @@ class WebGameTests(unittest.IsolatedAsyncioTestCase):
             job = await self.runtime.action(self.game['gameId'], request, 'search_traces', self.game['version']); await job.task
         saved = self.runtime.read(self.game['gameId']); original_roll = copy.deepcopy(saved['turns'][-1]['rolls'])
         self.assertEqual(len(original_roll), 1); self.assertFalse(saved['turns'][-1]['committed'])
-        await self.runtime.close(); self.runtime = GameRuntime(Catalogue(), Path(self.temp.name), self.agent)
+        await self.runtime.close(); self.runtime = GameRuntime(self.catalogue, Path(self.temp.name), self.agent)
         with patch('kp_agent.gameplay.engine.coc_check', side_effect=AssertionError('must not reroll')): job = await self.act('search_traces', request)
         self.assertEqual(self.runtime.read(self.game['gameId'])['turns'][-1]['rolls'], original_roll)
         self.assertEqual(len([m for m in self.game['messages'] if m['kind'] == 'check']), 1)

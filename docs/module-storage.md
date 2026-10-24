@@ -1,6 +1,6 @@
 # 模组存储结构
 
-更新日期：2026-10-23。说明实际落盘的内容包及与前端的关系；字段细节以当前文件和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)为依据，不新增运行时 schema。
+更新日期：2026-10-24。说明实际落盘的内容包及与前端的关系；字段细节以当前文件和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)为依据，网页运行配置格式另见[模组运行配置](runtime-profiles.md)。
 
 ## 1. 存储位置
 
@@ -147,4 +147,14 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py ba
 
 ## 网页MVP运行配置
 
-2026-10-24新增 `backend/data/runtime/darkness-solo-mvp-v1.json`，独立于原内容包。目录发布清单的runtimeProfile绑定darkness-solo-mvp。配置引用原场景与素材，但单独定义简化事件／前提／普通检定／损失与重复策略；完整包manifest的runtime_compatible:false继续表示原包不能被当成全面可执行模组。开局保存配置hash及原包版本，更新不兼容时显式报错。正式游戏资产通过game_id素材接口按已进入场景授权，原data目录不静态挂载。
+2026-10-24首版新增 `backend/data/runtime/darkness-solo-mvp-v1.json`（现已由v2替代执行，v1只用于兼容），独立于原内容包。目录发布清单的runtimeProfile绑定darkness-solo-mvp。配置引用原场景与素材，但单独定义简化事件／前提／普通检定／损失与重复策略；完整包manifest的runtime_compatible:false继续表示原包不能被当成全面可执行模组。开局保存配置hash及原包版本，更新不兼容时显式报错。正式游戏资产通过game_id素材接口按已进入场景授权，原data目录不静态挂载。
+
+## 7. 网页可执行配置
+
+原始内容包与每局状态之间增加独立的schemaVersion=2配置。`data/runtime/index.json`按公开moduleId与runtimeProfile显式登记当前文件；当前`darkness-solo-mvp-v3.json`记录场景、NPC、可见目标、挑战、条件／效果及结案，旧v2以固定指纹保留，原v1用于兼容识别。Python只解释通用工具，不按模组名、NPC名或场景名分支。
+
+现有原文包不能仅靠加入目录就自动游玩，需要整理为受支持的运行配置并验证。已有机制的新模组无需改Python；复杂新机制仍需通用能力实现。接入、私有数据边界和旧存档升级见[运行配置说明](runtime-profiles.md)。
+
+## 调查内容发布版本
+
+当前新开局使用 `data/runtime/darkness-solo-mvp-v3.json`（3.0.0，调查扩充版）。11场景和22类线索由配置驱动；原完整模组内容包与素材不变。`runtime/index.json`以current选择新局配置，以retained固定哈希保留旧v2，v1兼容仍只升级到v2。已有game_id不会被切换到更长的新剧情，详见[运行配置](runtime-profiles.md)及[调查扩充](design/done/darkness-investigation.md)。

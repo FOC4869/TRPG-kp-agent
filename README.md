@@ -1,6 +1,6 @@
 # TRPG AI KP
 
-基于 Vite、React、FastAPI、LangGraph 与 DeepSeek 的单人 AI 守秘人。已接通真实目录、十位调查员、创建与恢复、自然语言行动、自动检定、流式叙述和游戏内结案。当前可执行范围为《岭下暗影》的独立单人简化改编。
+基于 Vite、React、FastAPI、LangGraph 与 DeepSeek 的单人 AI 守秘人。已接通真实目录、十位调查员、创建与恢复、自然语言行动、自动检定、流式叙述和游戏内结案。当前正式发布《岭下暗影》的独立单人简化改编；通用运行器支持通过结构化配置接入使用现有机制的新模组。
 
 ## 从哪里开始
 
@@ -40,7 +40,7 @@ npm run dev
 
 游戏地址为 `#/game?game=<game_id>`，刷新或重启后可恢复；每局自动保存到 `backend/saves/<game_id>/game.json`。首页“继续调查”会恢复本浏览器最近打开的未结案游戏；浏览器只记编号，不保存完整游戏内容，不提供存档管理列表。只允许一个后端进程／worker，运行器会检查进程锁；本地监听回环地址。
 
-自由输入后通过 SSE 依次展示自动 D100 检定、实际 HP／SAN 与物品／线索变化、流式 Keeper 正文。六场景支持立即同行和次日失踪两条乔什路线；游戏内结案弹窗复用最终正文。网络失败用原请求恢复，不静默切换假回复。复杂 CoC 规则暂未实现。
+自由输入后通过 SSE 依次展示自动 D100 检定、实际 HP／SAN 与物品／线索变化、独立伤害卡、流式 Keeper 正文。新局使用十一场景调查扩充版：城内查档、河墙备用出口、壁画／音乐室／巢窟、陷坑和牢笼。线索提供替代方法与结案证据，保留立即同行和次日失踪两条乔什路线；已有存档继续原配置；游戏内结案弹窗复用最终正文。持有物品可照明、取放或交给在场NPC；危险动作先确认后结算，新局工具箱演示目标技能与工具交互。网络失败用原请求恢复，不静默切换假回复。复杂 CoC 规则暂未实现。
 
 Vite 将 `/api` 转发至本地8000；接口文档 <http://127.0.0.1:8000/docs>，契约见 [HTTP／SSE](docs/interfaces.md)，范围与验证见 [MVP](docs/design/done/simplified-mvp.md) 和 [评估](docs/evaluation/playable-mvp.md)。
 
@@ -75,6 +75,7 @@ npm run build
 - [可游玩单人 MVP](docs/design/done/simplified-mvp.md)
 - [当前用户旅程](docs/user-journey.md)
 - [模组存储结构](docs/module-storage.md)
+- [模组运行配置与接入](docs/runtime-profiles.md)
 - [人物存储结构](docs/character-storage.md)
 - [已有 Agent 能力及 CLI](docs/agent-guide.md)
 - [已实现的公开目录 HTTP](docs/catalogue-api.md)

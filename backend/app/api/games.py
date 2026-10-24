@@ -23,6 +23,7 @@ class Action(BaseModel):
     requestId: UUID
     text: str = Field(min_length=1, max_length=1000)
     expectedVersion: Annotated[int, Field(strict=True, ge=1)]
+    confirmationId: UUID | None = None
 
     @field_validator('text')
     @classmethod
@@ -61,7 +62,7 @@ async def get_game(game_id: str, response: Response, runtime=Depends(get_runtime
 @router.post('/{game_id}/actions', response_class=StreamingResponse,
              responses={200: {'content': {'text/event-stream': {'schema': {'type': 'string'}}}}})
 async def game_action(game_id: str, body: Action, runtime=Depends(get_runtime)):
-    with game_errors(): job = await runtime.action(game_id, str(body.requestId), body.text, body.expectedVersion)
+    with game_errors(): job = await runtime.action(game_id, str(body.requestId), body.text, body.expectedVersion, str(body.confirmationId) if body.confirmationId else None)
     async def stream():
         async for event in job.stream():
             if event is None: yield ': heartbeat\n\n'

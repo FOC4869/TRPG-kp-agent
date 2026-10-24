@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "adaptation": "MVP简化物品能力。大砍刀伤害1D6、徒手危险行为1D3属于独立改编规则，不是对原始角色卡缺项的转录或完整CoC裁定。",
+  "items": {
+    "machete": {"tags": ["cut"], "damage": "1D6"},
+    "rope": {"tags": ["rope"], "damage": null},
+    "crowbar": {"tags": ["pry"], "damage": null},
+    "flashlight": {"tags": ["light"], "damage": null},
+    "helmet_light": {"tags": ["light"], "damage": null}
+  }
+}
