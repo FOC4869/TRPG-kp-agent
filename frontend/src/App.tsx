@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { ModuleLibrary } from './components/ModuleLibrary'
 import { GamePage } from './components/GamePage'
 import { InvestigatorSelection } from './components/InvestigatorSelection'
-import { Arrow, DoorMark, FrameCorners, Lock } from './components/Ornaments'
+import { ContinueInvestigation } from './components/ContinueInvestigation'
+import { Arrow, DoorMark, FrameCorners } from './components/Ornaments'
 
 function currentRoute() {
   const [path, query] = window.location.hash.split('?')
@@ -66,9 +67,7 @@ function App() {
             <p className="hero-description">翻开卷宗，扮演调查员。<br />让 AI 守秘人带你走进未知。</p>
             <div className="hero-actions">
               <a className="investigate-button" href="#/modules"><FrameCorners /><span>开始调查</span><Arrow /></a>
-              <button className="continue-button" disabled aria-describedby="continue-note">
-                <Lock /><span>继续调查</span><span id="continue-note" className="unavailable">暂未开放</span>
-              </button>
+              <ContinueInvestigation />
             </div>
           </div>
         </main>

@@ -23,7 +23,7 @@ npm run dev
 ```
 
 访问 http://127.0.0.1:5173，显示桌面游戏首页。可单独运行前端预览视觉，开发时通过 /api/health 检查后端。
-开始调查与模组库进入 #/modules，提供左右分页及公开详情。目录与人物页需要启动后端，使用真实只读 HTTP；可用模组进入调查员选择页，继续调查禁用；游戏通过自身URL恢复。
+开始调查与模组库进入 #/modules，提供左右分页及公开详情。目录与人物页需要启动后端，使用真实只读 HTTP；可用模组进入调查员选择页，首页继续调查会校验本浏览器最近游戏，游戏也可通过自身URL恢复。
 FastAPI 文档为 http://127.0.0.1:8000/docs。前端 5173 端口被占用会直接报错，避免无意切换端口。
 需要更改后端端口时，同步调整 frontend/vite.config.ts 的代理目标。
 
@@ -34,6 +34,8 @@ FastAPI 文档为 http://127.0.0.1:8000/docs。前端 5173 端口被占用会直
 POST创建成功后进入#/game?game=<id>；每局自动保存到saves/<id>/game.json。根目录进程锁只允许一个运行器进程／worker，启动时不要加--workers 2；开发--reload会在旧worker退出后释放锁。WEB_GAME_SAVES可选指定独立保存根目录，避免与另一个开发进程冲突。网页服务保留至应用退出才关闭模型与存储。
 
 离线测试使用fake Agent和临时目录，不消耗模型。显式付费评估：`uv run --locked python scripts/evaluate_web_mvp.py --live`，稳定请求／游戏可恢复，指标位于output/web-mvp-evaluation/report.json；脚本最多90请求，为浏览器等额外测试预留会话总120请求预算。不要删除报告后重复跑来绕开总预算。完整规则与多人上线不在当前范围。
+
+首页继续调查只保存localStorage键`coc:last-active-game`，值为game_id；同源、同浏览器生效。此前已有的存档用原游戏地址打开一次后会记住。结案完整落盘或明确404时清除相同编号；中断最终叙述仍保留入口。网络／损坏／版本错误保留编号，允许重新检查，不扫描服务端存档。测试清除此键不会删除后端存档。
 
 ## CLI 与模型配置
 
@@ -67,6 +69,7 @@ npm ci
 npm run lint
 npm run typecheck
 npm run build
+node scripts/check-recent-game.mjs # 编号、活动／未决／终局、404／故障、取消与浏览器存储边界
 node scripts/check-catalogue.mjs
 node scripts/check-game-preview.mjs # 当前验证真实SSE适配器的离线拆块／去重／断流
 ```

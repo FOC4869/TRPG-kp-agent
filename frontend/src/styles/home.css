@@ -97,7 +97,12 @@
 .corner-br { top: auto; left: auto; right: 2px; bottom: 2px; transform: rotate(180deg); }
 .continue-button { gap: 14px; height: 59px; border-color: #55514b; background: linear-gradient(110deg, rgb(40 39 37 / 88%), rgb(28 27 27 / 88%)); color: #96928a; font-size: 22px; letter-spacing: .12em; }
 .continue-button > svg { width: 17px; height: 21px; stroke: currentColor; stroke-width: 1.5; }
-.unavailable { padding-left: 18px; margin-left: 8px; border-left: 1px solid #55514b; font-size: 14px; letter-spacing: .06em; }
+.continue-investigation { display: grid; gap: 8px; min-width: 0; }
+.continue-button.available { color: #dfc99d; border-color: #9a8055; background: linear-gradient(110deg, rgb(60 47 29 / 88%), rgb(26 24 20 / 88%)); }
+.continue-button.available:hover { color: #ffe5af; border-color: #e5c587; background-color: #5b4427; }
+.continue-button.available > svg { width: 25px; height: 18px; }
+.continue-note { margin: 0; font-size: 12px; line-height: 1.7; color: #c0b398; letter-spacing: .03em; overflow-wrap: anywhere; }
+.continue-note.has-error { color: #e1b69a; }
 .site-footer {
   position: relative;
   display: flex;

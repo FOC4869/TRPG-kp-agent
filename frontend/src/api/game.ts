@@ -4,7 +4,8 @@ import type { GameAction, GameCheck, GameEvent, GameMessage, GameState } from '.
 
 export class GameRequestError extends Error {
   code: string
-  constructor(code: string, message: string) { super(message); this.name = 'GameRequestError'; this.code = code }
+  status?: number
+  constructor(code: string, message: string, status?: number) { super(message); this.name = 'GameRequestError'; this.code = code; this.status = status }
 }
 const integer = (n: unknown): n is number => typeof n === 'number' && Number.isSafeInteger(n) && n >= 0
 const gameAsset = (url: unknown) => typeof url === 'string' && /^\/api\/games\/[a-f0-9]{32}\/assets\/[a-z0-9_]+$/.test(url)
@@ -35,7 +36,7 @@ export function isGameState(value: unknown): value is GameState {
 async function responseError(response: Response): Promise<never> {
   const data: unknown = await response.json().catch(() => null)
   const detail = record(data) && record(data.detail) ? data.detail : null
-  throw new GameRequestError(detail && text(detail.code) ? detail.code : 'http_error', detail && text(detail.message) ? detail.message : `游戏请求失败（${response.status}），请重新读取后恢复。`)
+  throw new GameRequestError(detail && text(detail.code) ? detail.code : 'http_error', detail && text(detail.message) ? detail.message : `游戏请求失败（${response.status}），请重新读取后恢复。`, response.status)
 }
 async function snapshot(url: string, signal: AbortSignal, body?: unknown): Promise<GameState> {
   const response = await fetch(url, { signal, ...(body ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) } : {}) })

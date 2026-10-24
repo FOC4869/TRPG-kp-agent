@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
 import { getGame, submitGameAction } from '../api/game'
 import type { GameAction, GameEvent, GameMessage, GameState } from '../types/game'
+import { canResumeGame, forgetRecentGame, rememberGame } from '../state/recent-game'
 import { Arrow, DoorMark, FrameCorners } from './Ornaments'
 import { InvestigationEndingDialog } from './InvestigationEndingDialog'
 import { Portrait } from './Portrait'
@@ -48,6 +49,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
 
   function applySnapshot(state: GameState) {
     setGame(state); setMessages(state.messages)
+    if (!canResumeGame(state)) forgetRecentGame(state.gameId)
     if (state.ended && state.endingSummary) {
       setEndingSummary(state.endingSummary); setEndingOpen(true); drawer.current?.close()
     }
@@ -57,6 +59,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
     const controller = new AbortController()
     getGame(gameId, controller.signal).then((state) => {
       if (controller.signal.aborted) return
+      rememberGame(state)
       applySnapshot(state)
       if (state.pendingTurn) setFailed({ requestId: state.pendingTurn.requestId, text: state.pendingTurn.text, expectedVersion: state.version })
     }).catch((error: unknown) => { if (!controller.signal.aborted) setLoadError(error instanceof Error ? error.message : '读取失败。') })

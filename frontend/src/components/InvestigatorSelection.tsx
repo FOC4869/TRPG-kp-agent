@@ -1,4 +1,5 @@
 import { createGame } from '../api/game'
+import { rememberGame } from '../state/recent-game'
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { getInvestigator, InvestigatorRequestError, listInvestigators } from '../api/investigators'
@@ -110,6 +111,7 @@ export function InvestigatorSelection({ moduleId }: { moduleId: string | null })
     setCreating(true); setCreateError('')
     try {
       const game = await createGame(requestId, moduleId, confirmed.id, controller.signal)
+      rememberGame(game)
       sessionStorage.removeItem(key)
       window.location.hash = `/game?${new URLSearchParams({ game: game.gameId })}`
     } catch (error) {
