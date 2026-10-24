@@ -76,7 +76,7 @@ export function ModuleLibrary({ onChooseInvestigator }: { onChooseInvestigator: 
                     <button
                       ref={index === 0 ? firstCard : undefined}
                       className={`case-card ${module.cover ? 'illustrated' : 'upcoming'} ${selectedId === module.id ? 'selected' : ''}`}
-                      aria-label={`卷宗 ${module.caseNumber}：${module.title}${module.status === 'coming-soon' ? '，尚未开放' : '，单人改编'}`}
+                      aria-label={`卷宗 ${module.caseNumber}：${module.title}${module.status === 'coming-soon' ? '，尚未开放' : ''}`}
                       aria-pressed={selectedId === module.id}
                       aria-controls="module-details"
                       onClick={() => setSelectedId(module.id)}
@@ -85,7 +85,7 @@ export function ModuleLibrary({ onChooseInvestigator }: { onChooseInvestigator: 
                       {!module.cover && <div className="placeholder-arch" aria-hidden="true"><DoorMark className="placeholder-door" /></div>}
                       <div className="case-cover-shade" aria-hidden="true" />
                       <FrameCorners />
-                      <div className="case-label"><span className="case-number">CASE {module.caseNumber}</span><span className="case-title">{module.title}</span><span className="case-badge">{module.status === 'preview' ? '单人改编' : '尚未开放'}</span></div>
+                      <div className="case-label"><span className="case-number">CASE {module.caseNumber}</span><span className="case-title">{module.title}</span>{module.status === 'coming-soon' && <span className="case-badge">尚未开放</span>}</div>
                       {selectedId === module.id && <span className="selected-seal" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="m4 8 3 3 5-6" /></svg></span>}
                     </button>
                   </li>
@@ -97,7 +97,6 @@ export function ModuleLibrary({ onChooseInvestigator }: { onChooseInvestigator: 
           <div className="catalogue-pagination">
             <p className="page-label" aria-live="polite" aria-atomic="true"><span />第 {data?.page ?? page} 页{data && <small> / {totalPages}</small>}<span /></p>
             <p className="catalogue-hint">点击卷宗，查看案件详情</p>
-            <p className="sample-note">预览目录 · 含待收录占位卷宗</p>
           </div>
         </section>
 
@@ -106,16 +105,11 @@ export function ModuleLibrary({ onChooseInvestigator }: { onChooseInvestigator: 
           {selected ? (
             <>
               <p className="dossier-eyebrow">SELECTED CASE <span>·</span> {selected.caseNumber}</p>
-              <div className="dossier-title"><h2 id="module-title">{selected.title}</h2><span className="dossier-tag">{selected.status === 'preview' ? '单人改编' : '尚未开放'}</span></div>
+              <div className="dossier-title"><h2 id="module-title">{selected.title}</h2>{selected.status === 'coming-soon' && <span className="dossier-tag">尚未开放</span>}</div>
               {selected.englishTitle && <p className="english-title" lang="en">{selected.englishTitle}</p>}
               <div className="dossier-rule" aria-hidden="true"><span /></div>
               <div className="dossier-introduction"><h3>案件引言</h3>{selected.introduction.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <dl className="dossier-metadata">
-                <div><dt>时代背景</dt><dd>{selected.era}</dd></div><div><dt>调查地点</dt><dd>{selected.location}</dd></div>
-                <div><dt>本作玩法</dt><dd>{selected.playStyle}</dd></div><div><dt>原作人数</dt><dd>{selected.originalPlayers}</dd></div>
-              </dl>
               <div className="dossier-bottom">
-                {selected.contentNote && <p className="content-note">内容提示：{selected.contentNote}</p>}
                 <button className="investigate-button dossier-action" disabled={selected.status !== 'preview'} onClick={() => onChooseInvestigator(selected)}>
                   <FrameCorners /><span>选择调查员</span><Arrow />
                 </button>

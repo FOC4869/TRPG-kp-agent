@@ -18,7 +18,13 @@ class TestHealth(unittest.TestCase):
             self.assertEqual(response.status_code, 200)
             self.assertEqual(response.json(), {"status": "ok", "service": "trpg-kp-backend"})
             schema = client.get("/openapi.json").json()
-            self.assertEqual(set(schema["paths"]), {"/api/health"})
+            self.assertEqual(set(schema["paths"]), {
+                "/api/games", "/api/games/{game_id}", "/api/games/{game_id}/actions", "/api/games/{game_id}/assets/{asset_id}",
+                "/api/health", "/api/modules", "/api/modules/{module_id}",
+                "/api/modules/{module_id}/cover", "/api/modules/{module_id}/investigators",
+                "/api/modules/{module_id}/investigators/{investigator_id}",
+                "/api/modules/{module_id}/investigators/{investigator_id}/portrait",
+            })
 
     def test_app_import_does_not_load_agent_or_create_files(self):
         root = Path(__file__).resolve().parents[1]

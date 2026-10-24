@@ -1,3 +1,5 @@
+import { createGame } from '../api/game'
+import { rememberGame } from '../state/recent-game'
 import { useEffect, useRef, useState } from 'react'
 import type { KeyboardEvent } from 'react'
 import { getInvestigator, InvestigatorRequestError, listInvestigators } from '../api/investigators'
@@ -96,6 +98,26 @@ export function InvestigatorSelection({ moduleId }: { moduleId: string | null })
   const [listAttempt, setListAttempt] = useState(0)
   const [detailAttempt, setDetailAttempt] = useState(0)
   const [confirmed, setConfirmed] = useState<InvestigatorDetail | null>(null)
+  const [creating, setCreating] = useState(false)
+  const [createError, setCreateError] = useState('')
+  const createController = useRef<AbortController | null>(null)
+  useEffect(() => () => createController.current?.abort(), [])
+  async function startGame() {
+    if (!moduleId || !confirmed || createController.current) return
+    const key = `pending-creation:${moduleId}:${confirmed.id}`
+    const requestId = sessionStorage.getItem(key) || crypto.randomUUID()
+    sessionStorage.setItem(key, requestId)
+    const controller = new AbortController(); createController.current = controller
+    setCreating(true); setCreateError('')
+    try {
+      const game = await createGame(requestId, moduleId, confirmed.id, controller.signal)
+      rememberGame(game)
+      sessionStorage.removeItem(key)
+      window.location.hash = `/game?${new URLSearchParams({ game: game.gameId })}`
+    } catch (error) {
+      if (!controller.signal.aborted) setCreateError(error instanceof Error ? error.message : '暂时无法创建调查，请重试。')
+    } finally { createController.current = null; if (!controller.signal.aborted) setCreating(false) }
+  }
   const confirmation = useRef<HTMLDialogElement>(null)
 
   useEffect(() => {
@@ -149,7 +171,6 @@ export function InvestigatorSelection({ moduleId }: { moduleId: string | null })
             <span className="investigator-card-name">{investigator.displayName}</span><span className="investigator-card-occupation">{investigator.occupation}</span>
           </button>
         </li>)}</ul> : <div className="investigator-gallery-message"><p>这个案件暂无可选调查员。</p><a className="text-button" href="#/modules">返回模组库</a></div>)}
-        {data && <p className="investigator-gallery-note">{data.items.length} 位预设调查员 <span>·</span> {data.source === 'mock' ? '资料与头像均为示例' : '选择一位开始调查'}</p>}
       </section>
       <aside id="investigator-dossier" className="investigator-dossier" aria-labelledby="investigator-title" aria-busy={detail.status === 'loading'}>
         <FrameCorners />
@@ -163,12 +184,11 @@ export function InvestigatorSelection({ moduleId }: { moduleId: string | null })
         </div>}
       </aside>
       <p className="sr-only" aria-live="polite">{ready ? `已选择${ready.name}，人物资料已更新。` : ''}</p>
-      <dialog className="folio-dialog" ref={confirmation} aria-labelledby="investigation-ready-title">
-        <div className="dialog-heading"><p className="eyebrow">YOUR NEXT CHAPTER</p><button className="close-button" aria-label="关闭调查准备" onClick={() => confirmation.current?.close()}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></div>
+      <dialog className="folio-dialog" onCancel={(event) => { if (creating) event.preventDefault() }} ref={confirmation} aria-labelledby="investigation-ready-title">
+        <div className="dialog-heading"><p className="eyebrow">YOUR NEXT CHAPTER</p><button className="close-button" aria-label="关闭调查准备" disabled={creating} onClick={() => confirmation.current?.close()}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" /></svg></button></div>
         <h2 id="investigation-ready-title">调查准备</h2>
         <dl className="ready-summary"><div><dt>案件</dt><dd>{data?.module.title}</dd></div><div><dt>调查员</dt><dd>{confirmed?.name}</dd></div><div><dt>职业</dt><dd>{confirmed?.occupation}</dd></div></dl>
-        <p className="preview-notice">即将进入开场界面预览，使用固定回复，不创建后端游戏或存档。</p>
-        {data && confirmed && <a className="dialog-action" href={`#/game?${new URLSearchParams({ module: data.module.id, investigator: confirmed.id })}`}>进入调查预览 <Arrow /></a>}
+        {createError && <p role="alert">{createError}</p>}{data && confirmed && <button className="dialog-action" disabled={creating} onClick={() => void startGame()}>{creating ? '正在创建调查…' : createError ? '重试创建调查' : '开始调查'} <Arrow /></button>}
       </dialog>
     </main>
   )

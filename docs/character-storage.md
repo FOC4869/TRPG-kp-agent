@@ -6,9 +6,8 @@
 
 | 类型 | 位置 | 当前用途 |
 |---|---|---|
-| 预设调查员模板 | `backend/data/characters/<id>/` | 十位原卡转录资料，后端只读资产，未接运行时 |
+| 预设调查员模板 | `backend/data/characters/<id>/` | 十位原卡转录资料，已接网页只读目录，未创建运行实例 |
 | NPC／生物 | `backend/data/modules/<module-directory>/characters.yaml` | 随模组存放定义、实例和群组，引用同包立绘 |
-| 前端示例人物 | `frontend/src/data/investigators.ts` | 独立 UI 假数据，用于选择页和游戏预览 |
 
 `backend/characters/` 仍有旧 CLI 使用的 Excel 卡，不能与 `backend/data/characters/` 混为一谈。现有 CLI 没有自动改用新 YAML 模板。
 
@@ -28,7 +27,7 @@ backend/data/characters/
     └── ...
 ```
 
-每位人物独立成目录，没有角色包层或全局 `manifest.yaml`。十位人物均有上述文件。未来可扫描 `*/character.yaml` 并按文件 `id` 建索引，目前尚无正式目录加载器。
+每位人物独立成目录，没有角色包层或全局 `manifest.yaml`。十位人物均有上述文件。目录服务仅读取 module-catalogue.json 显式登记的 investigatorIds；新增文件不会自动对玩家公开。
 
 | ID | 姓名 | 职业 |
 |---|---|---|
@@ -43,7 +42,7 @@ backend/data/characters/
 | `geraldine` | 杰拉尔丁“格里”桑希尔 | 记者 |
 | `maximilian` | 麦克斯米兰·赫斯特 | 心理学家 |
 
-姓名用于展示，ID 用于引用。未来模组关联预设调查员应引用 ID，不复制目录；当前并未实现模组可选人物的后端关联机制。
+姓名用于展示，ID 用于引用。模组通过发布清单 investigatorIds 关联调查员 ID，不复制目录。
 
 ## 3. character.yaml 保存什么
 
@@ -127,21 +126,21 @@ groups
 
 ## 7. 当前前端如何使用人物
 
-选择页经 `api/investigators.ts` 的 `listInvestigators` / `getInvestigator` 获取展示资料；它们目前读取独立 mock，没有打开后端目录。游戏页沿用所选假人物。
+选择页经 `api/investigators.ts` 的 `listInvestigators` / `getInvestigator` 获取展示资料；它们目前通过真实 GET 获取后端 YAML／Markdown 投影。游戏预览沿用所选真实人物展示资料，动作仍为固定演示。
 
 | 后端模板概念 | 客户端展示形式 |
 |---|---|
 | 身份 | `id`、`name`、`displayName`、`occupation`、`age` |
-| `assets.portrait.file` | `portrait.url`；当前假图集还带可选 sprite 裁切信息 |
+| `assets.portrait.file` | `portrait.url`；使用限定人物头像 GET 路由 |
 | 八属性 | `attributes`，允许未知值 |
 | 开局资源与上限 | `resources` 中 HP／MP 当前值和上限、SAN、幸运 |
 | 技能映射 | `skills[]` 的名称、数值、主要技能标记 |
-| 背景 Markdown | `background[]` 展示段落，目前没有真实解析器 |
+| 背景 Markdown | `background[]` 展示段落，后端按二级标题提取纯文本，空白项为 null |
 | 装备与现金 | `equipment[]`、`cash`，区分 carried / owned |
 
-上表说明适配方向，不代表 YAML 到 DTO 的转换已实现。前端假头像来自 `frontend/public/images/investigator-previews.webp`；姓名／ID 相近也不保证数值与原卡一致。
+上述投影已实现；假人物数据与假头像图集已移除。嵌套物品展开时保留容器名称，单位与未知参数保留在 note；不补全原卡数值或执行物品特例。
 
-后台原卡、背景、裁切头像和来源资料不得直接打包进前端或整体静态公开。正式 API 返回授权摘要、详情及头像 URL；来源疑点、服务器路径和模板全文不属于人物目录摘要。
+后台原卡、背景、裁切头像和来源资料不得直接打包进前端或整体静态公开。已实现 API 返回明确发布的摘要、详情及头像 URL；来源疑点、服务器路径和模板全文不属于人物目录摘要。
 
 ## 8. 模板与游戏实例分开
 
@@ -155,3 +154,7 @@ groups
 当前没有新模板自动实例化流程。既有 CLI Excel／SQLite 链路独立存在，选中人物并不创建后端角色或游戏。
 
 维护时保持目录 ID、文件 `id`、附件路径和背景锚点一致；改模板数值需更新内容版本、复核疑点。另见[调查员格式说明](../backend/data/characters/README.md)、[角色卡导入 Skill](../skills/coc-character-card-import/SKILL.md)、[模组存储结构](module-storage.md)、[用户旅程](user-journey.md)与[调查员适配契约](investigator-api.md)。
+
+## 网页人物实例
+
+2026-10-24：创建调查时按真实人物模板初始化当前资源、属性、技能、随身物品，并将完整公开初始快照与模板版本/hash写入本局JSON。缺失技能使用trpg现有基础值表；拥有资产只作人物档案展示，不自动当作随身工具。游戏只修改本局资源和背包，永不回写模板。十位人物均已验证可初始化、两局相互隔离。

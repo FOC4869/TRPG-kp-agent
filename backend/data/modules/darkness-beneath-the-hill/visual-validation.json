@@ -126,6 +126,12 @@
         "input_fingerprint": "295535157d7d4adec7abe8b262377746717410d638e8ce7c62b2ce48e2c60a5a"
       },
       {
+        "id": "module_cover",
+        "action": "skip",
+        "reasons": [],
+        "input_fingerprint": "504de02a18a1fad0f6ff075de8b248f48a29e3b5a840a985bb8eb555923dbfdf"
+      },
+      {
         "id": "sprite_degenerate_base",
         "action": "skip",
         "reasons": [],
@@ -151,9 +157,9 @@
       }
     ],
     "progress": {
-      "planned": 24,
-      "indexed": 33,
-      "reusable": 24
+      "planned": 25,
+      "indexed": 34,
+      "reusable": 25
     }
   },
   "adjudications_checked": 16,
@@ -168,5 +174,14 @@
   ],
   "image_checks_count": 24,
   "user_visual_review": "accepted",
-  "runtime_compatible": false
+  "runtime_compatible": false,
+  "cover_review": {
+    "date": "2026-10-23",
+    "asset": "module_cover",
+    "reviewer": "agent",
+    "user_authorization": "Generate cover in existing approved style and serve via catalogue API",
+    "semantic_review": "No characters, text, UI, occult symbols or hidden entities. Cellar furnishings and stair geometry are artistic interpretation; not a source of map facts.",
+    "format": "1024x1536 opaque WebP, cwebp q88 method6, no resize/crop",
+    "publication": "Only explicit module-catalogue coverAsset via /api/modules/{id}/cover; default package access remains keeper_only."
+  }
 }

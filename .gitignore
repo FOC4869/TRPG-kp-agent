@@ -60,3 +60,6 @@ Desktop.ini
 
 # Keep lockfiles, module archives, JSONL fixtures and evaluation evidence versioned.
 # Put generated exports/logs in the ignored output/, logs/ or backend/saves/ paths.
+
+# Playwright CLI transient browser evidence
+.playwright-cli/

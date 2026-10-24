@@ -1,6 +1,6 @@
 # 模组存储结构
 
-更新日期：2026-10-23。说明实际落盘的内容包及与前端的关系；字段细节以当前文件和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)为依据，不新增运行时 schema。
+更新日期：2026-10-24。说明实际落盘的内容包及与前端的关系；字段细节以当前文件和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)为依据，网页运行配置格式另见[模组运行配置](runtime-profiles.md)。
 
 ## 1. 存储位置
 
@@ -54,7 +54,7 @@ backend/data/modules/darkness-beneath-the-hill/
 | `access.default` / `static_publication` | `keeper_only` / `false` |
 | `runtime_compatible` | `false` |
 
-前端目录 ID 为 `darkness-beneath-the-hill`，与清单 ID 的下划线写法不同。目录名、清单 ID 和前端公开 ID 不能直接混用，正式适配需要明确映射；目前没有自动映射加载器。
+前端目录 ID 为 `darkness-beneath-the-hill`，与清单 ID 的下划线写法不同。目录名、清单 ID 和前端公开 ID 不能直接混用，发布清单 module-catalogue.json 已显式映射三者，不依靠字符串替换推断。
 
 `capabilities` 独立标记能力：内容审阅和视觉素材为 true，运行适配、事件执行、法术执行、单人游玩测试为 false。内容通过检查或疑点 resolved 不等于运行就绪。
 
@@ -93,14 +93,14 @@ presentation:
 
 `assets/index.yaml` 记录文件／正文引用、标题、媒体类型、SHA-256、来源、关联实体、标签与访问条件。生成图还保存尺寸、alpha、画风版本、生成与验收指纹。
 
-当前索引共 33 项：7 张原书图片、2 份正文展示材料、24 项已验收生成素材。生成素材为 1 张默认背景、19 张场景背景、4 张基础透明立绘；旧尝试图片和历史 JSON 不自动成为可展示素材。
+当前索引共 34 项：7 张原书图片、2 份正文展示材料、25 项已验收生成素材。生成素材为 1 张模组封面、1 张默认背景、19 张场景背景、4 张基础透明立绘；旧尝试图片和历史 JSON 不自动成为可展示素材。
 
 | 素材 | 当前约定 |
 |---|---|
 | 背景 | `1920×1080 WebP`，不含人物，与立绘独立 |
 | NPC／生物 | `1024×1536 PNG`，真实透明通道，每类一张 `base` |
 | 同类生物实例 | 复用模板立绘，不按实例重复制图 |
-| 竖版模组封面 | 制作规范支持，但当前清单未配置 `presentation.cover`；前端封面是独立预览资源 |
+| 竖版模组封面 | `presentation.cover: module_cover`；文件 assets/module-cover-v1.webp；发布清单 coverAsset 明确授权，封面 GET 按索引返回，不公开整包 |
 
 多个地点可以共享背景。图片不能决定路线、物件数量或已发生事件；图中陈设不自动成为剧情事实。两张身份未确认的建筑参考图仍禁止自动按具体建筑展示。
 
@@ -108,7 +108,7 @@ presentation:
 
 ## 5. 前端当前使用什么
 
-网页未加载此内容包。目录、调查员和回复分别经前端 `api/modules.ts`、`api/investigators.ts`、`api/game.ts` 的 mock 读取。
+网页目录已通过真实 GET 读取显式公开引言与 manifest 标题，调查员通过真实目录接口读取。回复仍经 api/game.ts 的演示脚本；未执行此内容包的事件、规则或场景。
 
 游戏页只选用两张开场图的原字节副本：
 
@@ -144,3 +144,17 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py ba
 ```
 
 检查证明内容和素材记录一致，不证明执行器、法术或单人游戏完成。另见[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)、[裁定交付记录](design/done/darkness-adjudications.md)、[人物存储结构](character-storage.md)、[用户旅程](user-journey.md)。
+
+## 网页MVP运行配置
+
+2026-10-24首版新增 `backend/data/runtime/darkness-solo-mvp-v1.json`（现已由v2替代执行，v1只用于兼容），独立于原内容包。目录发布清单的runtimeProfile绑定darkness-solo-mvp。配置引用原场景与素材，但单独定义简化事件／前提／普通检定／损失与重复策略；完整包manifest的runtime_compatible:false继续表示原包不能被当成全面可执行模组。开局保存配置hash及原包版本，更新不兼容时显式报错。正式游戏资产通过game_id素材接口按已进入场景授权，原data目录不静态挂载。
+
+## 7. 网页可执行配置
+
+原始内容包与每局状态之间增加独立的schemaVersion=2配置。`data/runtime/index.json`按公开moduleId与runtimeProfile显式登记当前文件；当前`darkness-solo-mvp-v3.json`记录场景、NPC、可见目标、挑战、条件／效果及结案，旧v2以固定指纹保留，原v1用于兼容识别。Python只解释通用工具，不按模组名、NPC名或场景名分支。
+
+现有原文包不能仅靠加入目录就自动游玩，需要整理为受支持的运行配置并验证。已有机制的新模组无需改Python；复杂新机制仍需通用能力实现。接入、私有数据边界和旧存档升级见[运行配置说明](runtime-profiles.md)。
+
+## 调查内容发布版本
+
+当前新开局使用 `data/runtime/darkness-solo-mvp-v3.json`（3.0.0，调查扩充版）。11场景和22类线索由配置驱动；原完整模组内容包与素材不变。`runtime/index.json`以current选择新局配置，以retained固定哈希保留旧v2，v1兼容仍只升级到v2。已有game_id不会被切换到更长的新剧情，详见[运行配置](runtime-profiles.md)及[调查扩充](design/done/darkness-investigation.md)。

@@ -56,3 +56,8 @@ uv run --locked --script skills/coc-module-builder/scripts/validate_module.py ba
 ```
 
 第一条检查裁定覆盖、采用值、事件引用、关键路线可达及门禁；不冒充毒气、战斗或传送执行器测试。第二条校验内容和素材格式、出处、哈希与验收指纹。
+
+
+## 模组封面
+
+2026-10-23新增 assets/module-cover-v1.webp，1024×1536不透明WebP；manifest.presentation.cover引用module_cover，完整生成提示词和验收记录位于asset-plan.yaml，索引位于assets/index.yaml。采用既有已批准画风，agent检查无文字／人物／秘密内容；地窖陈设与阶梯为美术解释，不是地图事实。后台发布清单显式授权该素材ID，目录封面接口返回图片，不公开整个assets。

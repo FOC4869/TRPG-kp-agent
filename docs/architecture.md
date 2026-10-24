@@ -1,52 +1,45 @@
 # 当前架构
 
-项目采用 frontend/backend 单仓布局。技术栈由用户确定为 Vite + React + FastAPI + LangGraph。
-本文件是当前目录与边界的说明；原始产品设计保留在 history/foundation-design.md，Agent 专题设计见 agent-design.md。
+项目采用 frontend/backend 单仓布局：React + FastAPI + LangGraph + DeepSeek。唯一源码入口为 frontend 与 backend。
 
-## 运行链路
+## 网页运行链路
 
-当前网页提供桌面首页、分页模组库／公开详情、假数据调查员选择、开场游戏预览与设置弹窗。这些页面独立于后端；打开设置时执行 React → Vite 的 /api 开发代理 → FastAPI GET /api/health。
-开始调查进入 #/modules；卡片选择更新详情，每页最多 3 项。可用模组进入 #/investigators?module=<id>，确认调查员显示案件/人物摘要，再进入 #/game?module=<id>&investigator=<id>，不创建后端游戏。继续调查禁用；网页不读写存档。
-frontend/src/api/modules.ts 是前端分页适配入口，目前从 data/modules.ts 的明确示例目录读取，不请求后端。PublicModule 只允许公开的目录资料；后续确认 GET 契约后替换读取实现，不把守秘人信息传给前端。7 条示例包含《岭下暗影》和 6 条待收录记录；真实接入时按后端 total/items 渲染，末页不补占位项。
-调查员展示类型在 frontend/src/types/investigators.ts，api/investigators.ts 分开读取摘要与详情，当前仅访问 data/investigators.ts 的独立 mock。请求传 moduleId/AbortSignal，切换或卸载取消旧请求；不复制后端人物数据和头像。未来适配 HTTP 返回授权资料及头像 URL，不要求页面理解 YAML 或后端路径，详见 [调查员适配契约](investigator-api.md)。
-游戏页组件通过 api/game.ts 的可取消 mock 查询读取既有假调查员、公开开场消息和两个静态预览素材；背景、立绘、消息、事实由 DTO 描述。行动关键词仅驱动明确标记的 UI 样例，页面不结算规则、生成物品或保存状态。住宅与乔什是用户指定开场预览的独立允许清单，不改变原模组默认 keeper_only；无其他后台素材/数据打包或静态目录暴露，正式接入前须实现按 game_id 授权投影并移除静态副本。详见 [游戏页适配草案](game-preview-api.md)。
-当前游戏链路是 CLI → KeeperService → LangGraph → 场景校验、RAG、trpg 和 SQLite 适配。
-两条链路尚未连接成网页游戏。健康接口只表明进程可响应，不检查模型配置、剧情或数据库。
-结案简化为游戏内 dialog；客户端展示投影的可选 ended 标志触发展示，直接复用最终 Keeper 叙述，结束后停止接受输入，可回看记录或返回首页。不新建结案路由/统计服务；真实结束判定与结束实例写入限制由未来后端负责，当前仅离线演示。
+首页 → 模组库／详情 → 调查员 → 创建游戏 → `#/game?game=<game_id>` → 自由行动 → 游戏内结案弹窗。首页继续调查通过localStorage中的最近game_id和现有GET接口校验后进入原地址；保留游戏地址也可刷新或重启后恢复，不提供存档管理页。
 
-未来游戏 HTTP 层调用现有 KeeperService，路由只负责请求校验、错误映射与资源生命周期。
-业务规则、骰子、状态提交仍由后端处理。interfaces.md 中的游戏 HTTP 地址仍为建议。
+目录为 React → Vite /api代理 → app/api/modules → Catalogue → 显式 module-catalogue.json发布清单／模组manifest／人物YAML。服务端构造公开DTO，不把原模板交给浏览器。封面位于对应模组assets，通过限定接口返回。清单的runtimeProfile将《岭下暗影》绑定到独立单人运行配置；preview是沿用的目录状态，不再单独用它判定可执行性。
 
-## 目录与数据归属
+游戏为 React → app/api/games → kp_agent/gameplay.GameRuntime → LangGraph（understand→execute_tools→narrate）。FastAPI仅校验、错误映射与生命周期，编排和状态提交在kp_agent，D100和损失骰调用trpg。模型返回结构化通用工具调用（move／observe／talk／take／inspect／interact／finish／use_item／drop／give／confirm_action），由执行节点校验模组配置、目标方法、前提与尝试次数。普通观察和在场NPC交谈无需逐句事件，关键效果仍来自服务端配置。模型不能直接写资源或存档。正文使用DeepSeek Responses真实流式输出，每轮正常最多两次调用。
 
-- frontend/src：React UI、api 请求封装、styles；不放秘密剧情或模型凭据。
-- frontend/public/images：原创生成的首页背景、地窖封面及独立假头像图集。标题、导航与按钮由 HTML/CSS 实现，不以整张生图替代交互；完整提示词位于 docs/design/image-assets.md，不随 public 分发。
-- backend/app：FastAPI 入口和路由。导入应用不初始化 Agent、模型或存档。
-- backend/kp_agent：现有 LangGraph 流程、模型、检索、场景和存储适配。保留包名与相对路径。
-- backend/trpg：角色、骰子和规则的唯一实现。迁移采用原发布子目录后续实现。
-- backend/data 与 characters：服务端输入资产，不作为 FastAPI 静态目录公开。
-- backend/data/characters/<id>：新增预设调查员的 YAML、Markdown 与头像，按 ID 独立组织，无 manifest；格式见该目录 README。模板与游戏存档分开，目前未接入运行时。旧 backend/characters 下的 Excel 路径保留。
-- backend/saves 与 output：本地状态与生成结果，Git 忽略。
-- docs/evaluation 与 history：归档的评估和历史依据，不作为运行输入。
-- skills/coc-character-card-import：可独立安装的 CoC 角色卡导入技能；自带格式说明和辅助脚本，不导入游戏实现，不属于运行时链路。
+内容由 `data/module-catalogue.json` 的 runtimeProfile 与 `data/runtime/index.json` 显式绑定，按本局 moduleId 延迟加载。v2 schema 校验场景、实体、NPC知识／可见性／跟随条件、挑战技能与道具、效果和结案条件；执行器和提示词不含专用模组／人物分支。支持已有工具能力的新模组只增加数据，接入步骤见[运行配置](runtime-profiles.md)和[ADR-0005](decisions/ADR-0005-module-driven-runtime.md)。
 
-当前 Agent 通过现有 SQLite 适配统一保存角色与剧情。它是本地单玩家演示，不是已完成的多人数据库方案。
-接 HTTP 游戏接口前必须明确 SQLite 连接的线程归属、KeeperService 生命周期、请求并发、game_id 隔离和关闭流程，不能直接把一个 CLI 实例放进任意线程池。
+规划上下文包含当前合法工具与必要Keeper提示；叙述只包含已提交结果、当前公开描述、可见实体和NPC可说知识，不接收原始标志与未来剧情。场景的条件化公开描述覆盖最新进度。撤离与模组定义的代价确认用固定公开提示，不提前执行后续动作；其余正文真实流式生成。
 
-## 工程决定
+《岭下暗影》新局运行 `data/runtime/darkness-solo-mvp-v4.json` 的十一场景调查扩充版。原v2、v3通过registry.retained固定指纹保留，已有游戏按原版本继续；原v1只升级到已冻结的v2。通用Ending的returnRoutes按条件选择返回地点，用于已准备的河岸出口，HTTP／SSE不变。原完整内容包继续只读，manifest的runtime_compatible:false仍准确；不宣称法术、复杂战斗或完整原模组可运行。原创天文台模组仅作为离线复用夹具，不进入产品目录。
 
-- Python 3.12，uv 管理依赖与 backend/.venv；npm 管理独立前端依赖。
-- LangGraph、OpenAI SDK、Pydantic、dotenv 和 openpyxl 保持原发布基线；新增 FastAPI/uvicorn/httpx 用于 HTTP 骨架及测试。
-- 开发仅监听回环地址。Vite 将 /api 代理至 127.0.0.1:8000；不需要为本地代理开启通配 CORS。
-- 生产构建只含前端资产；将来的部署需要同源 /api 反向代理，vite preview 不提供开发代理保证。
-- 暂不引入共享包、任务编排框架、前端状态库、ORM 或部署平台。出现实际需求再做决定。
+实体actions编译到同一受控挑战执行器，布尔state效果仅引用声明字段。独立common-actions-v1物品能力按原始装备ID匹配并随局冻结；mechanics保存归属、实体状态与待确认动作。危险行动先持久确认，实际伤害使用trpg骰子、先保存出目再提交，effect消息/SSE不伪装D100。旧局只读补齐mechanics、不更换原剧情，见[ADR-0006](decisions/ADR-0006-common-actions.md)。
 
-目录迁移的决定与替代方案见 [ADR-0001](decisions/ADR-0001-project-layout.md)。
+每局JSON位于backend/saves/<game_id>/game.json，保存初始模板快照、当前状态、完整消息、出目、请求和执行阶段。校验和、同目录临时文件、flush/fsync/原子替换、有效备份；损坏或不兼容显式报错，不自动重置/回滚。出目先保存、效果一次提交、正文最后保存；失败按检查点恢复。见[ADR-0004](decisions/ADR-0004-web-game-runtime.md)。
 
-## 模组内容包
+单进程／单worker，存档根目录进程锁防止多worker误用。同局请求接收锁与未决回合限制防止并发提交；任务独立于SSE订阅者，取消HTTP不取消行动。API只投影公开状态，素材按本局visited／揭示标志限定；不静态挂载data、characters、saves。详见[接口](interfaces.md)。明确登记的v1存档只向v2在内存升级，GET不写盘；下一次原子保存写v2并保留备份，旧出目、消息、请求与已提交效果不重做。未知版本不自动升级。
 
-仓库 skills/coc-module-builder 是可单独分发的制作工具，包含格式说明、原创模板、视觉扩展约定和只读校验器；不依赖 kp_agent/trpg，也不加载存档或启动 HTTP。视觉扩展单独版本化，不迁移现有模组。实际展示授权、素材 API 与游戏执行器仍需另行实现。
+首页仅在浏览器记录一个最近打开的可恢复游戏编号，创建成功和有效游戏地址读取时更新；流式快照只清除已完成的同一局，不让旧局覆盖新局。主页重新进入、聚焦或跨标签编号变化时重新GET。明确404／完整结案清理编号，网络、损坏、版本错误保留并允许重试；终局但最终叙述待恢复仍可进入。没有新增后端API或模型调用，禁用本地存储时原URL恢复仍可用。
 
-`backend/data/modules/darkness-beneath-the-hill/` 保存《岭下暗影》完整正文、YAML 提取资料与统一附件索引。它是服务端内容包草案，尚未接入现有 `CampaignDefinition` JSON 加载器或 KeeperService。素材分类依靠索引，不要求固定类型目录；默认不对玩家开放。见 [ADR-0002](decisions/ADR-0002-module-content-package.md) 和[包说明](../backend/data/modules/darkness-beneath-the-hill/README.md)。
+## CLI 与目录边界
 
-《岭下暗影》0.2.0 的 rulings.yaml 保存来源核实与显式项目裁定，manifest.files.rulings 引用、rules.profile_sha256 绑定版本；checks/validate_rulings.py 为独立只读内容检查。地图采用带门禁的场景抽象，issues resolved 只代表内容问题有处理方案，执行器/法术/单人游玩能力仍由 manifest.capabilities 独立标记未实现。见[裁定交付记录](design/done/darkness-adjudications.md)。
+CLI → 原KeeperService／LangGraph → RAG、trpg、SQLite，保留独立连接生命周期与active_game语义，不与网页共享。旧故事存档不迁移为网页JSON。
+
+- frontend/src：UI、HTTP与SSE适配、类型和样式；无模型密钥／原始模组剧情。
+- frontend/public/images：首页及暂保留的旧开场图；正式游戏不引用预览素材。
+- backend/app：HTTP；导入应用和健康检查不加载模型、不创建玩家存档。
+- backend/kp_agent/gameplay：网页内容加载、JSON存储、规则工具、LangGraph、后台任务及公开投影。
+- backend/kp_agent其他文件：既有CLI Agent、RAG与SQLite适配。
+- backend/trpg：唯一数值规则与骰子实现。
+- backend/data/modules与data/characters：原始只读模组／十位人物数据；frontend不打包它们。
+- backend/data/runtime：独立网页简化改编；backend/saves/output/logs：Git忽略的本地状态和评估证据。
+- skills：可独立安装的制作／导入工具，不属于HTTP运行时。
+
+## 工程约束
+
+Python3.12／uv，Node24／npm；锁文件固定依赖。单进程本地监听回环地址，Vite转发/api至8000；不开放通配CORS。部署需要同源反向代理并重新设计鉴权、多进程事务存储，当前游戏URL仅是本地恢复凭证。
+
+完整内容包、裁定和素材来源分别见[ADR-0002](decisions/ADR-0002-module-content-package.md)、[模组README](../backend/data/modules/darkness-beneath-the-hill/README.md)和其rulings.yaml。目录发布决定见[ADR-0003](decisions/ADR-0003-public-catalogue.md)。目录迁移见[ADR-0001](decisions/ADR-0001-project-layout.md)。

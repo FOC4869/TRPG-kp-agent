@@ -1,0 +1,34 @@
+{
+  "modules": [
+    {
+      "id": "darkness-beneath-the-hill",
+      "directory": "darkness-beneath-the-hill",
+      "manifestId": "darkness_beneath_the_hill",
+      "caseNumber": "001",
+      "status": "preview",
+      "introduction": [
+        "1920 年代，普罗维登斯。",
+        "你的熟人乔什·文斯考特，近日在自家地窖中发现了一条隧道。他邀请你前来，一同探查通道背后的秘密。"
+      ],
+      "era": "1920 年代",
+      "location": "普罗维登斯",
+      "playStyle": "单人改编预览",
+      "originalPlayers": "2–6 人",
+      "contentNote": "恐怖、暴力与涉及奴隶制、种族歧视的历史背景",
+      "investigatorIds": [
+        "stanley",
+        "jessica",
+        "melissa",
+        "jacob",
+        "john_lucas",
+        "david",
+        "chris",
+        "stephen",
+        "geraldine",
+        "maximilian"
+      ],
+      "coverAsset": "module_cover",
+      "runtimeProfile": "darkness-solo-mvp"
+    }
+  ]
+}

@@ -1317,3 +1317,47 @@ items:
     visual_review: 2026-10-23 用户明确审阅通过；保留已注明美术解释和偏差，不改变剧情、规则与默认权限。
     content_reconciliation: 0.2.0：复核rulings/HP/SAN/奖励/粗粒度路线变化不改变本图环境与人物外观；图像原字节及既有用户验收保留。生成时指纹见assets/adjudication-history-v1.json。
     visual_impact_review: nonvisual_rules_and_route_abstraction_only
+  module_cover:
+    kind: module_cover
+    relates_to: []
+    status: accepted
+    batch: sample
+    output: module-cover-v1.webp
+    size:
+    - 1024
+    - 1536
+    style_version: 0.1.0
+    prompt: 'Use case: historical-scene. Asset type: module library cover illustration
+      for The Darkness Beneath the Hill, a 1920s Providence investigation. Source
+      facts: player-public introduction only: acquaintance Josh Winscott recently
+      discovered a tunnel in the cellar of his old house on College Hill, Providence;
+      investigators are invited to explore. Artistic additions: the masonry texture,
+      modest cellar furnishings and understated lamp are atmospheric interpretation,
+      not evidence, clues or a definitive map. Style: realistic painterly historical
+      horror illustration, restrained natural ochre and charcoal browns, subdued blue-grey
+      shadows, coherent fine brushwork, soft neutral illumination, readable shadow
+      detail, no crushed blacks. Scene: a quiet old New England house cellar with
+      rough stone masonry and an unassuming recently revealed dark passage opening,
+      a modest period lamp casting subdued warm light near the threshold, mysterious
+      and inviting rather than overtly supernatural. Composition: portrait 2:3, final
+      1024x1536; concentrated main subject in center/lower middle; generous quiet
+      upper region for frontend title overlay, balanced readable silhouette at card
+      size; atmospheric depth without revealing what is inside the tunnel. Constraints:
+      no people, no NPCs, no creatures, no snake motifs, no occult symbols, no secret
+      clues, no bones, no gore, no future locations, no text, letters, title, logo,
+      watermark, UI or border. Single opaque full-bleed illustration, no book mockup.'
+    references: []
+    reuse_of: null
+    attempts:
+    - tool: Codex built-in imagegen
+      outcome: accepted
+      note: 'Generated 1024x1536 opaque PNG; cwebp q88 method6 conversion only; no
+        crop or rescale. Agent visual review: no text/characters/spoilers, restrained
+        cellar illustration, existing approved style reused. User requested this cover;
+        no claim of separate user image approval.'
+    candidate_file: module-cover-v1.webp
+    sha256: e4cdd072f43dd8f97b1312208a5e92c513de49f4a5c7582a115e344c506a8205
+    visual_review: '2026-10-23 agent visual review under user-authorized existing
+      style: readable cellar and tunnel, no text/UI/characters/hidden entities. Furnishings,
+      masonry and descending passage are artistic interpretation, not navigation facts.'
+    input_fingerprint: 504de02a18a1fad0f6ff075de8b248f48a29e3b5a840a985bb8eb555923dbfdf
