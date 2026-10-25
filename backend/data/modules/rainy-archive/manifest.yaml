@@ -1,0 +1,7 @@
+id: rainy_archive_v2
+title: 雨夜来信：书房与地下档案
+content_version: 2.0.0
+presentation:
+  cover: rainy_archive_cover
+files:
+  assets: assets/index.yaml

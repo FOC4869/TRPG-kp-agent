@@ -1,0 +1,6 @@
+path_base: assets/
+assets:
+  rainy_archive_cover:
+    file: cover.svg
+    kind: module_cover
+    media_type: image/svg+xml

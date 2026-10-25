@@ -1,6 +1,0 @@
-# 保留队友原 requirements.txt；这是你负责的 Agent 运行依赖。
--r requirements.txt
-langgraph==1.2.16
-openai==2.54.0
-pydantic==2.14.1
-python-dotenv==1.2.1

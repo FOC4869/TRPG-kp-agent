@@ -1,34 +1,25 @@
 {
   "modules": [
     {
-      "id": "darkness-beneath-the-hill",
-      "directory": "darkness-beneath-the-hill",
-      "manifestId": "darkness_beneath_the_hill",
+      "id": "rainy-archive",
+      "directory": "rainy-archive",
+      "manifestId": "rainy_archive_v2",
       "caseNumber": "001",
       "status": "preview",
+      "runtimeProfile": "rainy-archive",
+      "coverAsset": "rainy_archive_cover",
       "introduction": [
-        "1920 年代，普罗维登斯。",
-        "你的熟人乔什·文斯考特，近日在自家地窖中发现了一条隧道。他邀请你前来，一同探查通道背后的秘密。"
+        "雨夜，你受托来到旧书房，寻找失踪学者留下的消息。",
+        "调查眼前环境，与在场的人交谈，按实际找到的线索继续追查。"
       ],
-      "era": "1920 年代",
-      "location": "普罗维登斯",
-      "playStyle": "单人改编预览",
-      "originalPlayers": "2–6 人",
-      "contentNote": "恐怖、暴力与涉及奴隶制、种族歧视的历史背景",
+      "era": "未限定年代",
+      "location": "旧书房及周边地点",
+      "playStyle": "单人调查",
+      "originalPlayers": "1 人",
+      "contentNote": "包含轻度恐怖描写与理智检定。",
       "investigatorIds": [
-        "stanley",
-        "jessica",
-        "melissa",
-        "jacob",
-        "john_lucas",
-        "david",
-        "chris",
-        "stephen",
-        "geraldine",
-        "maximilian"
-      ],
-      "coverAsset": "module_cover",
-      "runtimeProfile": "darkness-solo-mvp"
+        "richard"
+      ]
     }
   ]
 }

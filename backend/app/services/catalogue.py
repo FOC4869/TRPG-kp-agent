@@ -238,9 +238,10 @@ class Catalogue:
             raise CatalogueUnavailable()
         index = yaml.safe_load(read_text(root, manifest['files']['assets']))
         asset = index['assets'][p.coverAsset]
-        if index['path_base'] != 'assets/' or asset['kind'] != 'module_cover' or asset['media_type'] != 'image/webp':
-            raise CatalogueUnavailable()
-        if Path(asset['file']).suffix != '.webp':
+        cover_formats = {'.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml'}
+        suffix = Path(asset['file']).suffix.lower()
+        if (index['path_base'] != 'assets/' or asset['kind'] != 'module_cover'
+                or cover_formats.get(suffix) != asset['media_type']):
             raise CatalogueUnavailable()
         return safe_file(root, f'assets/{asset["file"]}')
 
@@ -259,7 +260,8 @@ class Catalogue:
     def portrait(self, module_id: str, investigator_id: str) -> Path:
         root, raw = self.character(module_id, investigator_id)
         portrait = raw['assets']['portrait']
-        if portrait['media_type'] != 'image/png' or Path(portrait['file']).suffix != '.png':
+        portrait_formats = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml'}
+        if portrait_formats.get(Path(portrait['file']).suffix.lower()) != portrait['media_type']:
             raise CatalogueUnavailable()
         return safe_file(root, portrait['file'])
 

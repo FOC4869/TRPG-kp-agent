@@ -1,12 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { FormEvent } from 'react'
-import { GameRequestError, getGame, submitGameAction } from '../api/game'
+import { GameRequestError, getGame, getGameReview, submitGameAction } from '../api/game'
 import type { GameAction, GameEvent, GameMessage, GameState } from '../types/game'
 import { canResumeGame, forgetRecentGame, rememberGame } from '../state/recent-game'
 import { gameChanges } from '../state/game-changes'
 import type { GameChange } from '../state/game-changes'
 import { Arrow, DoorMark, FrameCorners } from './Ornaments'
 import { InvestigationEndingDialog } from './InvestigationEndingDialog'
+import { GameReviewDialog } from './GameReviewDialog'
 import { Portrait } from './Portrait'
 import { GameDrawerContent, GameMessages } from './GameDrawer'
 import type { GamePanel } from './GameDrawer'
@@ -39,6 +40,10 @@ export function GamePage({ gameId }: { gameId: string | null }) {
   const [errorText, setErrorText] = useState('')
   const [endingSummary, setEndingSummary] = useState<string | null>(null)
   const [endingOpen, setEndingOpen] = useState(false)
+  const [reviewOpen, setReviewOpen] = useState(false)
+  const [reviewText, setReviewText] = useState<string | null>(null)
+  const [reviewLoading, setReviewLoading] = useState(false)
+  const [reviewError, setReviewError] = useState('')
   const [panel, setPanel] = useState<GamePanel | null>(null)
   const [atBottom, setAtBottom] = useState(true)
   const [imageFailed, setImageFailed] = useState({ background: '', npc: '' })
@@ -49,6 +54,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
   const conversation = useRef<HTMLDivElement>(null)
   const input = useRef<HTMLTextAreaElement>(null)
   const activeRequest = useRef<AbortController | null>(null)
+  const reviewRequest = useRef<AbortController | null>(null)
   const followLatest = useRef(true)
   const returnUrl = '#/modules'
   const facts = game?.facts ?? []
@@ -62,7 +68,9 @@ export function GamePage({ gameId }: { gameId: string | null }) {
     if (changes.length) setFeedback({ id: `${state.gameId}:${state.version}`, changes })
     setGame(state); setMessages(state.messages)
     if (!canResumeGame(state)) forgetRecentGame(state.gameId)
-    if (state.ended && state.endingSummary) {
+    if (state.paused) {
+      setEndingSummary(null); setEndingOpen(false)
+    } else if (state.ended && state.endingSummary) {
       setEndingSummary(state.endingSummary); setEndingOpen(true); drawer.current?.close()
     }
   }
@@ -75,15 +83,34 @@ export function GamePage({ gameId }: { gameId: string | null }) {
       applySnapshot(state)
       if (state.pendingTurn) setFailed({ requestId: state.pendingTurn.requestId, text: state.pendingTurn.text, expectedVersion: state.version, ...(state.pendingTurn.confirmationId ? { confirmationId: state.pendingTurn.confirmationId } : {}) })
     }).catch((error: unknown) => { if (!controller.signal.aborted) setLoadError(error instanceof Error ? error.message : '读取失败。') })
-    return () => { controller.abort(); activeRequest.current?.abort() }
+    return () => { controller.abort(); activeRequest.current?.abort(); reviewRequest.current?.abort() }
   }, [gameId, attempt])
   useEffect(() => {
     if (followLatest.current && conversation.current) conversation.current.scrollTop = conversation.current.scrollHeight
   }, [messages, pending])
   function openPanel(value: GamePanel) { setPanel(value); drawer.current?.showModal() }
+  function dismissReview() {
+    reviewRequest.current?.abort(); reviewRequest.current = null
+    setReviewLoading(false); setReviewOpen(false)
+  }
+  async function openReview(force = false) {
+    if (!gameId || !game?.ended || game.paused || reviewLoading) return
+    setEndingOpen(false); setReviewOpen(true)
+    if (reviewText !== null && !force) return
+    const controller = new AbortController(); reviewRequest.current = controller
+    setReviewLoading(true); setReviewError('')
+    try {
+      const review = await getGameReview(gameId, controller.signal)
+      if (!controller.signal.aborted) setReviewText(review.text)
+    } catch (error) {
+      if (!controller.signal.aborted) setReviewError(error instanceof GameRequestError ? error.message : '暂时无法读取复盘，请检查连接后重试。')
+    } finally {
+      if (reviewRequest.current === controller) { reviewRequest.current = null; setReviewLoading(false) }
+    }
+  }
 
   async function send(retry?: GameAction, decision?: 'confirm' | 'cancel') {
-    if (!gameId || !game || endingSummary !== null || activeRequest.current || (!retry && !decision && !draft.trim())) return
+    if (!gameId || !game || (game.paused && !retry) || endingSummary !== null || activeRequest.current || (!retry && !decision && !draft.trim())) return
     const request = { ...(retry ?? { requestId: crypto.randomUUID(), text: decision ? decision === 'confirm' ? '确认执行' : '取消这次行动' : draft.trim(), expectedVersion: game.version, ...(decision && game.pendingAction ? { confirmationId: game.pendingAction.id } : {}) }) }
     const controller = new AbortController(); activeRequest.current = controller
     setPending(true); setFailed(null); setErrorText(''); followLatest.current = true; setAtBottom(true)
@@ -163,6 +190,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
 
   const investigator = game.investigator
   const resources = investigator.resources
+  const endingTitle = game.campaignEnding === 'incomplete' ? '信息不足的结案' : game.campaignEnding === 'retreat' ? '主动撤退' : game.campaignEnding === 'complete' ? '调查完成' : '调查结束'
   return <main id="main" className={`game-shell${game.pendingAction ? ' has-confirmation' : ''}`} tabIndex={-1}>
     <header className="game-header">
       <a className="brand" href="#/" aria-label="CoC AI Keeper 首页"><DoorMark /><span>CoC AI Keeper</span></a>
@@ -200,7 +228,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
       {!atBottom && <button className="game-latest" onClick={() => { followLatest.current = true; conversation.current?.scrollTo({ top: conversation.current.scrollHeight }); setAtBottom(true) }}>最新内容 ↓</button>}
     </section>
     <form className="game-composer" onSubmit={onSubmit}>
-      {endingSummary !== null ? <div className="game-ended-bar"><p>本次调查已结束</p><button type="button" onClick={() => setEndingOpen(true)}>查看结案 <Arrow /></button></div> : <>
+      {game.paused ? <div className="game-paused-bar" role="status"><p>本次调查已暂停，需要真人检查，当前记录已保存。</p>{failed && game.pendingTurn && <><p className="game-paused-error">{errorText || '已保存的本轮回复尚未显示完成。'}</p><button type="button" disabled={pending} onClick={() => void send(failed)}>恢复本轮回复</button></>}</div> : endingSummary !== null ? <div className="game-ended-bar"><p>{endingTitle}</p><div className="game-ended-actions"><button type="button" onClick={() => setEndingOpen(true)}>查看结案 <Arrow /></button><button type="button" onClick={() => void openReview()}>查看复盘</button></div></div> : <>
       {game.pendingAction ? <div className="game-confirmation" role="group" aria-label="确认行动后果"><p>{game.pendingAction.prompt}</p><div><button type="button" disabled={pending || !!failed} onClick={() => void send(undefined, 'confirm')}>继续执行</button><button type="button" disabled={pending || !!failed} onClick={() => void send(undefined, 'cancel')}>取消</button></div></div> : <div className="game-suggestions" aria-label="行动建议">{game.suggestions.map((suggestion) => <button key={suggestion} type="button" disabled={pending || !!failed} onClick={() => { setDraft(suggestion); input.current?.focus() }}>{suggestion}</button>)}<span>也可以自由描述行动</span></div>}
       {failed && <div className="game-action-error" role="alert">{errorText || '本轮尚未完成，请恢复原行动。'}<button type="button" disabled={pending} onClick={() => void send(failed)}>恢复本轮</button></div>}
       <label className="sr-only" htmlFor="game-action">你的行动</label>
@@ -213,6 +241,7 @@ export function GamePage({ gameId }: { gameId: string | null }) {
       <div className="game-drawer-heading"><div><p className="eyebrow">INVESTIGATION JOURNAL</p><h2 id="game-drawer-title">{panel && gamePanelNames[panel]}</h2></div><button className="close-button" aria-label="关闭面板" onClick={() => drawer.current?.close()}>×</button></div>
       <div className="game-drawer-body">{panel && <GameDrawerContent panel={panel} game={game} facts={facts} messages={messages} />}</div>
     </dialog>
-    <InvestigationEndingDialog open={endingOpen} summary={endingSummary ?? ''} onDismiss={() => setEndingOpen(false)} />
+    <InvestigationEndingDialog open={endingOpen && !game.paused} title={endingTitle} summary={endingSummary ?? ''} onDismiss={() => setEndingOpen(false)} />
+    <GameReviewDialog open={reviewOpen && !!game.ended && !game.paused} text={reviewText} loading={reviewLoading} error={reviewError} onRetry={() => void openReview(true)} onDismiss={dismissReview} />
   </main>
 }
