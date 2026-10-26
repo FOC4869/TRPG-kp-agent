@@ -1,0 +1,152 @@
+{
+  "import_date": "2026-10-26",
+  "files": [
+    {
+      "file": "问题发现与修复记录.md",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "98449c0ebaae0125e1d569c11d0e57f234d7b1d196dcc914ee826503dd914ae2",
+      "stored_sha256": "e63fe2602867a1e550b99455e6de1e147795f18be83c34342fa8a648c8eac407",
+      "adaptation": "historical banner and current code link paths"
+    },
+    {
+      "file": "泛化测试结果_2026-10-21.md",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "f970fb39ba61278f465850c06b1f73e11eb0eb17b883d8d10e011e1155b716d2",
+      "stored_sha256": "b123f6f57cce3c6ad504f26020c26a8a4b26ed8cfa11604e13233ccb23f06bf5",
+      "adaptation": "historical banner and current code link paths"
+    },
+    {
+      "file": "interfaces.md",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "2a1f4932f8c1111a41d7d52a6d251601df35130849c2a3da7df0aea1cd9ad6b9",
+      "stored_sha256": "bca5e4ae64de00d58f592bc3eb9e02d85523a3b9bb86b391a0a41d4d5b95b04f",
+      "adaptation": "historical banner and current code link paths"
+    },
+    {
+      "file": "model_setup.md",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "6fc36bc4f25bb326c9bafc2075f695ddf033041451dfdb814386cec6d68c1580",
+      "stored_sha256": "d40aba686a680031cb88c263e57cb2a8306c968cf9069f0c74f28d5115bfdc3c",
+      "adaptation": "historical banner and current code link paths"
+    },
+    {
+      "file": "组员共用API.md",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "f70b664a64b359a384580a2d614e6963cb096fb60b093db0877ead6b56ef8f32",
+      "stored_sha256": "e10875e3587665833de61fb4c2c99abd31f1085536ad7a6fdf6420f907b8c321",
+      "adaptation": "historical banner and current code link paths"
+    },
+    {
+      "file": "evaluation/v1_history_report.md",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "78cde221d111907ea3f62295f69f0333bc955b283ad5156dd33e38c61630842f",
+      "stored_sha256": "cc36232ddc4fd13e71382a664f34fe0beb6fdfaf117297992e0aa7d0abd55126",
+      "adaptation": "historical banner and current code link paths"
+    },
+    {
+      "file": "evaluation/live_numeric_after_fix.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "c60abd4bd95c7c5f32b8963d3d6886a4851db3fe74c12356e13ddad7f2069ea2",
+      "stored_sha256": "c60abd4bd95c7c5f32b8963d3d6886a4851db3fe74c12356e13ddad7f2069ea2",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/usage_summary.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "6aa4e3c8c94bd26ef11af4059da0e724b80049da2d299bf42ab03149f13dd4a3",
+      "stored_sha256": "6aa4e3c8c94bd26ef11af4059da0e724b80049da2d299bf42ab03149f13dd4a3",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/state_review_demo.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "9b555b41e217af0d99ba096bf0516a805b9866c90487847250f2f2251296a88c",
+      "stored_sha256": "9b555b41e217af0d99ba096bf0516a805b9866c90487847250f2f2251296a88c",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/state_review_summary.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "8a011231094acc47941667191c24e249f3ba7bafdf12801100b58590c185ec70",
+      "stored_sha256": "8a011231094acc47941667191c24e249f3ba7bafdf12801100b58590c185ec70",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/demo_baseline.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "3d06f5f3e5c609ed26b941fb86031252d9dd13b645e23f67432e5430ce2f3fc3",
+      "stored_sha256": "3d06f5f3e5c609ed26b941fb86031252d9dd13b645e23f67432e5430ce2f3fc3",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/deepseek_targeted_after_fix.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "c338ddef18d8d98ff84c73d883fb6644e265ac6e974c300f8f72214172161cf9",
+      "stored_sha256": "c338ddef18d8d98ff84c73d883fb6644e265ac6e974c300f8f72214172161cf9",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/deepseek_first_round.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "9a91b18f5c198f4ecccfd1118b8f0b3152e3ae57c7b2a103a64be4d402290dd7",
+      "stored_sha256": "9a91b18f5c198f4ecccfd1118b8f0b3152e3ae57c7b2a103a64be4d402290dd7",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/live_service_automatic_checks.json",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "19d9cbf27d45610319438d59f395f5f6e683d83d9105912e5d42749aee070128",
+      "stored_sha256": "19d9cbf27d45610319438d59f395f5f6e683d83d9105912e5d42749aee070128",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/unit_tests.log",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "d7ac7c90554d7dbb11cc066b8c4fb5c90131e7e0c6394a13bfc3969929dacc5e",
+      "stored_sha256": "d7ac7c90554d7dbb11cc066b8c4fb5c90131e7e0c6394a13bfc3969929dacc5e",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/before_projection_fix.log",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "d9bae7672468db7cb926291a43398e8d6c56a353e8e672df35c0f57617a14546",
+      "stored_sha256": "d9bae7672468db7cb926291a43398e8d6c56a353e8e672df35c0f57617a14546",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/after_projection_fix.log",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "579ea2a7373f1058ec5d307c84f36f2fa6156ab320387e22a032d386d143f615",
+      "stored_sha256": "579ea2a7373f1058ec5d307c84f36f2fa6156ab320387e22a032d386d143f615",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/state_review_unit_tests.log",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "a0cb76ff42b24e448c654118c6396fd06ec142fe9d21a67400828c59cf82519c",
+      "stored_sha256": "a0cb76ff42b24e448c654118c6396fd06ec142fe9d21a67400828c59cf82519c",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/state_review_language_guard.log",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "bd6f94f6a9aa865e97eb3d5859ef57328a0abf07e4d11a538a9b2c851534de77",
+      "stored_sha256": "bd6f94f6a9aa865e97eb3d5859ef57328a0abf07e4d11a538a9b2c851534de77",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/feedback/old_startup_status.png",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "5d660659e12563fbf8a7b6a90cbb5395d36cb5ef00066874bb44b48552f48afb",
+      "stored_sha256": "5d660659e12563fbf8a7b6a90cbb5395d36cb5ef00066874bb44b48552f48afb",
+      "adaptation": "unchanged evidence"
+    },
+    {
+      "file": "evaluation/feedback/full_hp_bandage.png",
+      "source": "local ai-kp-v2/docs",
+      "source_sha256": "4eefe683a4d5884de094465d7562919b3c46a3803c38afc4adf80e19f3c1af84",
+      "stored_sha256": "4eefe683a4d5884de094465d7562919b3c46a3803c38afc4adf80e19f3c1af84",
+      "adaptation": "unchanged evidence"
+    }
+  ]
+}

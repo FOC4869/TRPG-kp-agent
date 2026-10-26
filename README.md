@@ -1,6 +1,6 @@
 # COC Agent＋RAG
 
-这份副本使用已有的 Agent＋RAG 主流程，保留原来的三个地点：**旧书房 → 旧车站 → 地下档案室**。
+当前主版本使用已有的 Agent＋RAG 主流程，可玩的故事包含三个地点：**旧书房 → 旧车站 → 地下档案室**。
 可游玩人物仍是理查德。另有 10 位人物和《岭下暗影》的介绍及 11 个地点供查看，暂未开放游玩。
 人物页显示各自的属性、背景和随身物品，包括容器说明、箱中物品、未知数量和拥有资产。
 网页提供模组与角色确认、调查对话、规则出处、物品、线索、掷骰、状态、保存恢复和结案。
@@ -10,10 +10,10 @@
 
 ## 打开
 
-当前电脑可双击 `run_web.command`。Windows 使用 `run_web.bat`。
+安装依赖后，macOS 可双击 `run_web.command`。Windows 使用 `run_web.bat`。
 网页地址为 `http://127.0.0.1:5175`，后端端口为 `8011`。
 
-首次在其他电脑使用时，安装 Python 3.12、uv、Node.js，然后分别安装依赖：
+首次在其他电脑使用时，安装 Python 3.12、uv、Node.js 24，然后分别安装依赖：
 
 ```sh
 cd backend
@@ -31,23 +31,25 @@ npm ci
 
 ## 保存
 
-每局自动保存在本副本的 `backend/saves/`。首页可继续最近的调查，原游戏地址也可恢复。
+每局自动保存在当前后端的 `backend/saves/`。首页可继续最近的调查，原游戏地址也可恢复。
 回复中断时点“恢复本轮”，沿用原请求，不重新掷骰或重复扣状态。
-这份副本使用独立存档，不读取原项目的游玩记录。
+不同电脑与旧版本的存档不自动同步；网页 JSON 与 CLI SQLite 也相互独立。
 
 ## 开发入口
 
 - `backend/kp_agent/graph.py`：原有七阶段 Agent 主流程。
 - `backend/kp_agent/web.py`：复用主流程的网页适配与事件流。
 - `backend/kp_agent/models.py`：同一模型适配器的行动理解、保护和流式叙述。
-- `backend/kp_agent/retrieval.py`、`data/agent_rules.md`：RAG 规则与出处。
-- `backend/kp_agent/campaign.py`、`data/campaign.json`：原三场景剧情。
+- `backend/kp_agent/retrieval.py`、`backend/data/agent_rules.md`：RAG 规则与出处。
+- `backend/kp_agent/campaign.py`、`backend/data/campaign.json`：原三场景剧情。
 - `frontend/`：网页。
 
 当前只处理单人调查与已写明的场景规则。完整战斗、法术和多人联机不在本版范围。
 
 ## 验证与说明
 
+- [小组文档总入口](docs/README.md)：报告材料、架构、Agent、RAG、接口、演示与历史证据。
+- [报告写作材料](docs/report-guide.md)：大纲、可改写段落、实验数字和证据对应。
 - [开发、接口与内容接入](docs/development.md)
 - [本次测试报告](docs/evaluation/2026-10-26-test-report.md)
 - [队友内容来源](docs/content-sources.md)

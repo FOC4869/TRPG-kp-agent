@@ -1,5 +1,7 @@
 # 开发、接口与内容接入
 
+报告写作与完整说明从 [docs 入口](README.md) 阅读；详细 HTTP／SSE 见 [接口文档](interfaces.md)。
+
 ## 当前分工边界
 
 只有一个 Agent：`kp_agent/graph.py` 的七阶段流程，网页通过 `web.py` 复用。

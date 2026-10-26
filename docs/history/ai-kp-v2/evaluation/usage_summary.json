@@ -1,0 +1,14 @@
+{
+  "api_calls": 33,
+  "input_tokens": 134312,
+  "output_tokens": 1309,
+  "total_tokens": 135621,
+  "api_duration_ms": 31023,
+  "missing_usage_calls": 0,
+  "requested_models": [
+    "deepseek-flash"
+  ],
+  "returned_models": [
+    "deepseek-flash"
+  ]
+}

@@ -1,0 +1,27 @@
+test_actual_deficit_allows_recovery_advice (tests.test_guidance_v2.GuidanceContextTests.test_actual_deficit_allows_recovery_advice) ... ok
+test_complete_ending_not_labelled_as_retreat_or_duplicated (tests.test_guidance_v2.GuidanceContextTests.test_complete_ending_not_labelled_as_retreat_or_duplicated) ... ok
+test_completed_actions_are_not_recommended_after_reopening (tests.test_guidance_v2.GuidanceContextTests.test_completed_actions_are_not_recommended_after_reopening) ... ok
+test_empty_inventory_never_recommends_recovery (tests.test_guidance_v2.GuidanceContextTests.test_empty_inventory_never_recommends_recovery) ... ok
+test_ended_and_paused_games_have_no_next_action_advice (tests.test_guidance_v2.GuidanceContextTests.test_ended_and_paused_games_have_no_next_action_advice) ... ok
+test_ended_panel_describes_the_ending_instead_of_an_active_room (tests.test_guidance_v2.GuidanceContextTests.test_ended_panel_describes_the_ending_instead_of_an_active_room) ... ok
+test_failed_check_recommends_alternative_instead_of_repeat (tests.test_guidance_v2.GuidanceContextTests.test_failed_check_recommends_alternative_instead_of_repeat) ... ok
+test_fallback_solved_ledger_also_uses_known_result (tests.test_guidance_v2.GuidanceContextTests.test_fallback_solved_ledger_also_uses_known_result) ... ok
+test_full_hp_never_recommends_bandage (tests.test_guidance_v2.GuidanceContextTests.test_full_hp_never_recommends_bandage) ... ok
+test_full_hp_self_description_does_not_invent_a_wound (tests.test_guidance_v2.GuidanceContextTests.test_full_hp_self_description_does_not_invent_a_wound) ... ok
+test_malformed_hp_does_not_recommend_treatment (tests.test_guidance_v2.GuidanceContextTests.test_malformed_hp_does_not_recommend_treatment) ... ok
+test_missing_hp_does_not_assume_an_injury (tests.test_guidance_v2.GuidanceContextTests.test_missing_hp_does_not_assume_an_injury) ... ok
+test_question_and_takeover_do_not_get_automatic_advice (tests.test_guidance_v2.GuidanceContextTests.test_question_and_takeover_do_not_get_automatic_advice) ... ok
+test_reading_solved_ledger_uses_known_result (tests.test_guidance_v2.GuidanceContextTests.test_reading_solved_ledger_uses_known_result) ... ok
+test_recovery_filter_does_not_remove_explicit_legal_item_use (tests.test_guidance_v2.GuidanceContextTests.test_recovery_filter_does_not_remove_explicit_legal_item_use) ... ok
+test_retreat_panel_does_not_reveal_unacquired_ending_information (tests.test_guidance_v2.GuidanceContextTests.test_retreat_panel_does_not_reveal_unacquired_ending_information) ... ok
+test_room_look_not_repeated_as_filler (tests.test_guidance_v2.GuidanceContextTests.test_room_look_not_repeated_as_filler) ... ok
+test_spent_bandage_is_not_described_as_still_held (tests.test_guidance_v2.GuidanceContextTests.test_spent_bandage_is_not_described_as_still_held) ... ok
+test_unknown_ledger_facts_are_not_revealed_early (tests.test_guidance_v2.GuidanceContextTests.test_unknown_ledger_facts_are_not_revealed_early) ... ok
+test_invalid_action_feedback_also_uses_real_hp (tests.test_guidance_v2.GuidanceServiceTests.test_invalid_action_feedback_also_uses_real_hp) ... ok
+test_post_damage_and_post_heal_advice_uses_new_hp (tests.test_guidance_v2.GuidanceServiceTests.test_post_damage_and_post_heal_advice_uses_new_hp) ... ok
+test_screenshot_sanity_success_has_zero_loss_and_no_bandage_advice (tests.test_guidance_v2.GuidanceServiceTests.test_screenshot_sanity_success_has_zero_loss_and_no_bandage_advice) ... ok
+
+----------------------------------------------------------------------
+Ran 22 tests in 0.059s
+
+OK

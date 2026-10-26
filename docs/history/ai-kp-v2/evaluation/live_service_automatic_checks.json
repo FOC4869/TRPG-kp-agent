@@ -1,0 +1,645 @@
+{
+  "fixture": "预设书房已取得来信、照片和钥匙；后续两回合用真实DeepSeek及真实KeeperService执行。未操作个人存档。",
+  "turns": [
+    {
+      "input": "既然信里已经指明去处，我们就到那座旧车站看看吧。",
+      "response": {
+        "game_id": "2b74f6f4573943c2a63a0e8fd20ab83b",
+        "message_id": "live-move-001",
+        "action_id": "6ebed8dd15ada7fd9c971635",
+        "status": "completed",
+        "reply_type": "narration",
+        "reply": "你沿着来路来到那座停用多年的旧车站。雨水从站棚边缘滴下，候车区显得很安静。行李寄存区的一排铁柜被倒下的木隔板挡住了不少，站台边缘的木板看上去不太稳固，站台尽头还有一扇挂着锁的检修铁门。你可以先查看铁柜、靠近站台，或去检查那扇铁门，也可以沿原路返回书房。",
+        "rolls": [],
+        "changes": [],
+        "character": {
+          "name": "Richard James Henderson 理查德・詹姆斯・亨德森",
+          "age": 39,
+          "occupation": "教授",
+          "attributes": {
+            "STR": 65,
+            "DEX": 45,
+            "POW": 55,
+            "CON": 45,
+            "APP": 65,
+            "EDU": 75,
+            "SIZ": 60,
+            "INT": 75
+          },
+          "skills": {
+            "会计": 5,
+            "法律": 5,
+            "人类学": 1,
+            "图书馆使用": 55,
+            "估价": 5,
+            "聆听": 60,
+            "考古学": 1,
+            "锁匠": 1,
+            "技艺": 5,
+            "机械维修": 10,
+            "医学": 1,
+            "博物学": 30,
+            "取悦": 60,
+            "导航": 10,
+            "攀爬": 20,
+            "神秘学": 5,
+            "计算机使用": 35,
+            "操作重型机械": 1,
+            "信用评级": 40,
+            "说服": 35,
+            "克苏鲁神话": 0,
+            "驾驶": 1,
+            "乔装": 5,
+            "精神分析": 1,
+            "闪避": 22,
+            "心理学": 55,
+            "汽车驾驶": 20,
+            "骑术": 5,
+            "电气维修": 10,
+            "科学": 1,
+            "电子学": 1,
+            "话术": 45,
+            "斗殴": 25,
+            "妙手": 40,
+            "格斗": 0,
+            "侦查": 55,
+            "潜行": 20,
+            "生存": 10,
+            "手枪": 20,
+            "游泳": 20,
+            "射击": 0,
+            "投掷": 20,
+            "追踪": 10,
+            "驯兽": 5,
+            "急救": 30,
+            "潜水": 1,
+            "历史": 26,
+            "爆破": 1,
+            "恐吓": 15,
+            "读唇": 1,
+            "跳跃": 20,
+            "催眠": 1,
+            "外语": 50,
+            "炮术": 1,
+            "学问": 1,
+            "母语": 75
+          },
+          "hp": 10,
+          "hp_max": 10,
+          "san": 55,
+          "san_max": 99,
+          "mp": 11,
+          "mp_max": 11,
+          "luck": 50,
+          "mov": 8,
+          "db": "+1D4",
+          "build": 1,
+          "armor": 0,
+          "conditions": [],
+          "san_lost_today": 0
+        },
+        "new_clues": [],
+        "evidence": [],
+        "progress": {
+          "campaign_id": "rainy_archive_v2",
+          "campaign_title": "雨夜来信：书房与地下档案",
+          "scene_id": "station",
+          "title": "旧车站",
+          "description": "寄存区里有被木隔板遮挡的铁柜，旁边是木板松动的旧站台。尽头有一扇检修铁门，来路可以返回旧书房。",
+          "targets": [
+            {
+              "id": "room",
+              "name": "候车区",
+              "description": "车站已经停用。你能看到寄存铁柜、旧站台和检修铁门，身后是返回书房的路。",
+              "aliases": [
+                "车站环境",
+                "周围",
+                "四周",
+                "候车室",
+                "大厅"
+              ]
+            },
+            {
+              "id": "locker",
+              "name": "寄存铁柜",
+              "description": "一排寄存铁柜的编号被灰尘和木隔板遮住。你需要先确定照片中那只柜子的位置。",
+              "aliases": [
+                "柜子",
+                "铁柜",
+                "寄存柜",
+                "17号柜",
+                "保管箱",
+                "木隔板"
+              ]
+            },
+            {
+              "id": "platform",
+              "name": "旧站台",
+              "description": "站台边缘的木板已经松动。若走近检查，需要敏捷检定，失足可能造成轻伤；这里不是前进的必经之路。",
+              "aliases": [
+                "站台",
+                "木板",
+                "松动的木板",
+                "站台边缘"
+              ]
+            },
+            {
+              "id": "archive_gate",
+              "name": "检修铁门",
+              "description": "站台尽头有一扇挂着旧锁的检修铁门，现在看不见门后是什么。",
+              "aliases": [
+                "铁门",
+                "检修门",
+                "挂锁",
+                "门锁"
+              ]
+            },
+            {
+              "id": "exit",
+              "name": "前进的通道",
+              "description": "要继续追查学者的去向，需要先弄清他留在车站的安排，并找到可通行的路。",
+              "aliases": [
+                "出口",
+                "往前",
+                "继续前进",
+                "离开车站"
+              ]
+            },
+            {
+              "id": "back_exit",
+              "name": "返回书房的路",
+              "description": "沿来路可以回到旧书房，已经获得的线索和物品会保留。",
+              "aliases": [
+                "返回书房",
+                "回书房",
+                "返回旧书房",
+                "来路",
+                "旧书房里的来信",
+                "旧书房",
+                "书房"
+              ]
+            },
+            {
+              "id": "self",
+              "name": "自己",
+              "description": "你可以查看自己的状态，或使用随身携带的止血包处理擦伤。",
+              "aliases": [
+                "自己",
+                "伤口",
+                "擦伤",
+                "止血",
+                "包扎"
+              ]
+            }
+          ],
+          "revealed_clues": [
+            {
+              "id": "letter",
+              "name": "旧来信",
+              "aliases": [
+                "来信",
+                "信件",
+                "旧信",
+                "信"
+              ],
+              "description": "信中写着：如果我没有回来，请去旧车站找保管箱。号码写在我留给管家的照片背面。",
+              "scene_id": "study"
+            },
+            {
+              "id": "photograph",
+              "name": "车站照片",
+              "aliases": [
+                "照片",
+                "相片",
+                "车站相片"
+              ],
+              "description": "照片是旧车站的站台，背面写着保管箱号码17。",
+              "scene_id": "study"
+            }
+          ],
+          "inventory": {
+            "bandage": {
+              "id": "bandage",
+              "name": "简易止血包",
+              "description": "一份可用于自身擦伤的止血材料。本故事把简单处置写为恢复2点HP、使用后消耗；这是本场景的简化安排，不是通用COC急救规则。",
+              "quantity": 1,
+              "aliases": [
+                "止血包",
+                "绷带",
+                "急救包"
+              ]
+            },
+            "locker_key": {
+              "id": "locker_key",
+              "name": "17号柜黄铜钥匙",
+              "description": "管家交给你的黄铜钥匙，柄上刻着17。",
+              "quantity": 1,
+              "aliases": [
+                "黄铜钥匙",
+                "17号钥匙",
+                "柜子钥匙"
+              ]
+            }
+          },
+          "visited_scenes": [
+            {
+              "id": "study",
+              "name": "旧书房里的来信"
+            },
+            {
+              "id": "station",
+              "name": "旧车站"
+            }
+          ],
+          "destinations": [
+            {
+              "target_id": "back_exit",
+              "scene_id": "study",
+              "name": "旧书房里的来信",
+              "label": "返回旧书房"
+            }
+          ],
+          "status": "playing",
+          "ending": null,
+          "elapsed_minutes": 0
+        },
+        "game_status": "playing",
+        "version": 1,
+        "mode": "deepseek",
+        "suggested_actions": [
+          "查看铁柜编号，寻找照片中的位置",
+          "靠近检查松动的站台（有失足风险）",
+          "观察周围"
+        ],
+        "guidance": "接下来，你想查看铁柜编号，寻找照片中的位置、靠近检查松动的站台（有失足风险），还是观察周围？也可以描述自己的做法。",
+        "scene_transition": {
+          "from": "study",
+          "to": "station",
+          "title": "旧车站"
+        },
+        "new_items": []
+      }
+    },
+    {
+      "input": "我还没弄懂，困难成功和常规成功差在哪里？给我一个简单例子。",
+      "response": {
+        "game_id": "2b74f6f4573943c2a63a0e8fd20ab83b",
+        "message_id": "live-rule-002",
+        "action_id": "4246e635af8a6f619db2a6a7",
+        "status": "completed",
+        "reply_type": "rule_explanation",
+        "reply": "可以。假设你的图书馆使用是55：掷出45，不超过55，就是常规成功；掷出30，不超过27（55的一半向下取整），就是困难成功；掷出11，不超过11（55的五分之一），就是极难成功。关键还要看这次任务是哪个难度：任务只要求常规成功时，45和30都算过关；任务要求困难成功时，只有30、11这样的出目才算过关，45不算。01是大成功。这个例子里的数字只是用你现有的技能值来讲规则，并不是刚才实际掷出的骰子。[rule_b8cde52fc7758a18]",
+        "rolls": [],
+        "changes": [],
+        "character": {
+          "name": "Richard James Henderson 理查德・詹姆斯・亨德森",
+          "age": 39,
+          "occupation": "教授",
+          "attributes": {
+            "STR": 65,
+            "DEX": 45,
+            "POW": 55,
+            "CON": 45,
+            "APP": 65,
+            "EDU": 75,
+            "SIZ": 60,
+            "INT": 75
+          },
+          "skills": {
+            "会计": 5,
+            "法律": 5,
+            "人类学": 1,
+            "图书馆使用": 55,
+            "估价": 5,
+            "聆听": 60,
+            "考古学": 1,
+            "锁匠": 1,
+            "技艺": 5,
+            "机械维修": 10,
+            "医学": 1,
+            "博物学": 30,
+            "取悦": 60,
+            "导航": 10,
+            "攀爬": 20,
+            "神秘学": 5,
+            "计算机使用": 35,
+            "操作重型机械": 1,
+            "信用评级": 40,
+            "说服": 35,
+            "克苏鲁神话": 0,
+            "驾驶": 1,
+            "乔装": 5,
+            "精神分析": 1,
+            "闪避": 22,
+            "心理学": 55,
+            "汽车驾驶": 20,
+            "骑术": 5,
+            "电气维修": 10,
+            "科学": 1,
+            "电子学": 1,
+            "话术": 45,
+            "斗殴": 25,
+            "妙手": 40,
+            "格斗": 0,
+            "侦查": 55,
+            "潜行": 20,
+            "生存": 10,
+            "手枪": 20,
+            "游泳": 20,
+            "射击": 0,
+            "投掷": 20,
+            "追踪": 10,
+            "驯兽": 5,
+            "急救": 30,
+            "潜水": 1,
+            "历史": 26,
+            "爆破": 1,
+            "恐吓": 15,
+            "读唇": 1,
+            "跳跃": 20,
+            "催眠": 1,
+            "外语": 50,
+            "炮术": 1,
+            "学问": 1,
+            "母语": 75
+          },
+          "hp": 10,
+          "hp_max": 10,
+          "san": 55,
+          "san_max": 99,
+          "mp": 11,
+          "mp_max": 11,
+          "luck": 50,
+          "mov": 8,
+          "db": "+1D4",
+          "build": 1,
+          "armor": 0,
+          "conditions": [],
+          "san_lost_today": 0
+        },
+        "new_clues": [],
+        "evidence": [
+          {
+            "evidence_id": "rule_b8cde52fc7758a18",
+            "text": "规则摘要：技能或属性检定用百分骰；常规成功要求出目不超过完整技能值，困难成功不超过技能的一半，极难成功不超过技能的五分之一。半值和五分之一值向下取整。01 为大成功。必须同时比较“达到的成功等级”和“本次要求的难度”；常规成功不一定通过困难任务。具体数值由程序计算。\n原文短引：“常规成功：骰出小于等于角色技能或属性值。”",
+            "title": "技能检定与成功等级",
+            "source": "COC7th核心规则书v1.2.1.pdf",
+            "pdf_page": 76,
+            "printed_page": 68,
+            "edition": "COC7 中文 v1.2.1",
+            "score": 0.401574813325755
+          },
+          {
+            "evidence_id": "rule_c6b8607e4d17ea51",
+            "text": "规则摘要：先明确玩家的目标；简单、日常、没有挑战的行动可以免检定。普通挑战使用常规难度，显著困难时才提高到困难，极端但仍可能的人类挑战才用极难。面对 NPC，相关对抗技能不足 50 通常为常规，50 至 89 为困难，90 及以上为极难。环境和具体目标影响判断。不要因为玩家说“我看看”就一律要求侦查。\n原文短引：“若你感到任务很简单，那么就免去检定。”",
+            "title": "是否掷骰与难度选择",
+            "source": "COC7th核心规则书v1.2.1.pdf",
+            "pdf_page": 71,
+            "printed_page": 63,
+            "edition": "COC7 中文 v1.2.1",
+            "score": 0.1315296648491142
+          },
+          {
+            "evidence_id": "rule_65b77fbdff63d814",
+            "text": "规则摘要：核心规则的有效急救须在受伤一小时内进行，成功通常恢复 1 HP。通常只能尝试一次，再次尝试属于需要说明额外努力与风险的孤注一骰。濒死处理有特例，其目的首先是稳定伤势，不能简单当作普通回血。道具如果另外写明恢复量，那是需要单独标注的场景约定；不能把任意道具的自定义效果宣称为这里的通用急救规则。查询本条时，应把官方基础规则与游戏已经公开说明的物品用法区分开。\n原文短引：“在成功的情况下，它为伤者恢复1点耐久值。”",
+            "title": "急救：基础恢复效果",
+            "source": "COC7th核心规则书v1.2.1.pdf",
+            "pdf_page": 103,
+            "printed_page": 95,
+            "edition": "COC7 中文 v1.2.1",
+            "score": 0.10612276066845172
+          },
+          {
+            "evidence_id": "rule_5f88d4af89b72ce8",
+            "text": "规则摘要：侦查用于发现隐藏入口、不明显的线索或其他被忽略的事物。搜查普通房间可以是常规难度，寻找刻意隐藏的物体可以是困难。可用时间、杂乱程度等会改变难度。完整调查时，守秘人也可允许自动成功。线索内容和是否有权获得，仍由已写好的场景条件决定，不能凭检索创造线索。\n原文短引：“这项技能允许使用者发现密门或者秘密隔间”。",
+            "title": "侦查：观察、搜索与隐藏线索",
+            "source": "COC7th核心规则书v1.2.1.pdf",
+            "pdf_page": 66,
+            "printed_page": 58,
+            "edition": "COC7 中文 v1.2.1",
+            "score": 0.07846828451488833
+          }
+        ],
+        "progress": {
+          "campaign_id": "rainy_archive_v2",
+          "campaign_title": "雨夜来信：书房与地下档案",
+          "scene_id": "station",
+          "title": "旧车站",
+          "description": "寄存区里有被木隔板遮挡的铁柜，旁边是木板松动的旧站台。尽头有一扇检修铁门，来路可以返回旧书房。",
+          "targets": [
+            {
+              "id": "room",
+              "name": "候车区",
+              "description": "车站已经停用。你能看到寄存铁柜、旧站台和检修铁门，身后是返回书房的路。",
+              "aliases": [
+                "车站环境",
+                "周围",
+                "四周",
+                "候车室",
+                "大厅"
+              ]
+            },
+            {
+              "id": "locker",
+              "name": "寄存铁柜",
+              "description": "一排寄存铁柜的编号被灰尘和木隔板遮住。你需要先确定照片中那只柜子的位置。",
+              "aliases": [
+                "柜子",
+                "铁柜",
+                "寄存柜",
+                "17号柜",
+                "保管箱",
+                "木隔板"
+              ]
+            },
+            {
+              "id": "platform",
+              "name": "旧站台",
+              "description": "站台边缘的木板已经松动。若走近检查，需要敏捷检定，失足可能造成轻伤；这里不是前进的必经之路。",
+              "aliases": [
+                "站台",
+                "木板",
+                "松动的木板",
+                "站台边缘"
+              ]
+            },
+            {
+              "id": "archive_gate",
+              "name": "检修铁门",
+              "description": "站台尽头有一扇挂着旧锁的检修铁门，现在看不见门后是什么。",
+              "aliases": [
+                "铁门",
+                "检修门",
+                "挂锁",
+                "门锁"
+              ]
+            },
+            {
+              "id": "exit",
+              "name": "前进的通道",
+              "description": "要继续追查学者的去向，需要先弄清他留在车站的安排，并找到可通行的路。",
+              "aliases": [
+                "出口",
+                "往前",
+                "继续前进",
+                "离开车站"
+              ]
+            },
+            {
+              "id": "back_exit",
+              "name": "返回书房的路",
+              "description": "沿来路可以回到旧书房，已经获得的线索和物品会保留。",
+              "aliases": [
+                "返回书房",
+                "回书房",
+                "返回旧书房",
+                "来路",
+                "旧书房里的来信",
+                "旧书房",
+                "书房"
+              ]
+            },
+            {
+              "id": "self",
+              "name": "自己",
+              "description": "你可以查看自己的状态，或使用随身携带的止血包处理擦伤。",
+              "aliases": [
+                "自己",
+                "伤口",
+                "擦伤",
+                "止血",
+                "包扎"
+              ]
+            }
+          ],
+          "revealed_clues": [
+            {
+              "id": "letter",
+              "name": "旧来信",
+              "aliases": [
+                "来信",
+                "信件",
+                "旧信",
+                "信"
+              ],
+              "description": "信中写着：如果我没有回来，请去旧车站找保管箱。号码写在我留给管家的照片背面。",
+              "scene_id": "study"
+            },
+            {
+              "id": "photograph",
+              "name": "车站照片",
+              "aliases": [
+                "照片",
+                "相片",
+                "车站相片"
+              ],
+              "description": "照片是旧车站的站台，背面写着保管箱号码17。",
+              "scene_id": "study"
+            }
+          ],
+          "inventory": {
+            "bandage": {
+              "id": "bandage",
+              "name": "简易止血包",
+              "description": "一份可用于自身擦伤的止血材料。本故事把简单处置写为恢复2点HP、使用后消耗；这是本场景的简化安排，不是通用COC急救规则。",
+              "quantity": 1,
+              "aliases": [
+                "止血包",
+                "绷带",
+                "急救包"
+              ]
+            },
+            "locker_key": {
+              "id": "locker_key",
+              "name": "17号柜黄铜钥匙",
+              "description": "管家交给你的黄铜钥匙，柄上刻着17。",
+              "quantity": 1,
+              "aliases": [
+                "黄铜钥匙",
+                "17号钥匙",
+                "柜子钥匙"
+              ]
+            }
+          },
+          "visited_scenes": [
+            {
+              "id": "study",
+              "name": "旧书房里的来信"
+            },
+            {
+              "id": "station",
+              "name": "旧车站"
+            }
+          ],
+          "destinations": [
+            {
+              "target_id": "back_exit",
+              "scene_id": "study",
+              "name": "旧书房里的来信",
+              "label": "返回旧书房"
+            }
+          ],
+          "status": "playing",
+          "ending": null,
+          "elapsed_minutes": 0
+        },
+        "game_status": "playing",
+        "version": 2,
+        "mode": "deepseek",
+        "suggested_actions": [
+          "查看铁柜编号，寻找照片中的位置",
+          "靠近检查松动的站台（有失足风险）",
+          "观察周围"
+        ],
+        "guidance": "接下来，你想查看铁柜编号，寻找照片中的位置、靠近检查松动的站台（有失足风险），还是观察周围？也可以描述自己的做法。",
+        "scene_transition": null,
+        "new_items": []
+      }
+    }
+  ],
+  "checks": {
+    "actual_scene_transition": true,
+    "narration_has_no_future_secrets": true,
+    "character_unchanged_by_movement": true,
+    "inventory_carried_to_station": true,
+    "duplicate_reuses_reply_and_state": true,
+    "rule_answer_uses_current_evidence": true,
+    "rule_question_does_not_change_resources": true,
+    "resume_keeps_current_scene_and_inventory": true
+  },
+  "error": null,
+  "api_metadata": {
+    "recorded_calls": 4,
+    "duration_ms": 5181,
+    "models": [
+      {
+        "requested": "deepseek-flash",
+        "returned": "deepseek-flash"
+      },
+      {
+        "requested": "deepseek-flash",
+        "returned": "deepseek-flash"
+      },
+      {
+        "requested": "deepseek-flash",
+        "returned": "deepseek-flash"
+      },
+      {
+        "requested": "deepseek-flash",
+        "returned": "deepseek-flash"
+      }
+    ],
+    "input_tokens": 14851,
+    "output_tokens": 323,
+    "total_tokens": 15174,
+    "cached_input_tokens": 2944,
+    "reasoning_tokens": 0,
+    "outcomes": [
+      "accepted",
+      "accepted",
+      "accepted",
+      "accepted"
+    ]
+  },
+  "passed": true
+}

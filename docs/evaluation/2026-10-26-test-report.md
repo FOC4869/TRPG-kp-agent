@@ -118,6 +118,6 @@ API 结果有随机性，后续模型和数据变化仍需回归；底层数值�
 
 ## 发布安排
 
-完整项目放到仓库根目录的 backend/、frontend/，覆盖 main 的旧产品文件。
-覆盖前将原 main 提交 `a3724a5e9ff81bec3c7d019f8c9a0287037e6697` 保存在 `backup/team-main-20261026` 分支。
+完整项目已在提交 `74d2c34` 发布到 main，源码位于仓库根目录的 backend/、frontend/。
+覆盖前已将原 main 提交 `a3724a5e9ff81bec3c7d019f8c9a0287037e6697` 保存在 `backup/team-main-20261026` 分支。
 历史功能分支保留。main 不包含密钥、玩家存档、依赖目录或队友的另一套 Agent。

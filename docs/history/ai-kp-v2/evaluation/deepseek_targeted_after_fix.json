@@ -1,0 +1,339 @@
+{
+  "mode": "deepseek",
+  "max_calls": 4,
+  "evaluation_target": "raw_parsed_model_plan_and_final_application_plan_scored_separately",
+  "fixtures": "authored fixed outcomes; no random rolls/resource tools/player database",
+  "results": [
+    {
+      "case_id": "g06",
+      "fixture": "study_start",
+      "input": "这里怎么结束本次调查",
+      "expected": {
+        "intents": [
+          "clarify",
+          "look"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {
+          "look": "exit"
+        },
+        "must_not_execute": true
+      },
+      "raw_model_plan": {
+        "intent": "look",
+        "target_id": "exit",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "raw_model_pass": true,
+      "raw_model_checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "raw_scene_validation": "allowed",
+      "plan": {
+        "intent": "look",
+        "target_id": "exit",
+        "item_id": null,
+        "query": null,
+        "question": null
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "allowed",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 1,
+        "duration_ms": 1588,
+        "models": [
+          {
+            "requested": "deepseek-flash",
+            "returned": "deepseek-flash"
+          }
+        ],
+        "input_tokens": 3409,
+        "output_tokens": 24,
+        "total_tokens": 3433,
+        "cached_input_tokens": 0,
+        "reasoning_tokens": 0,
+        "outcomes": [
+          "accepted"
+        ]
+      }
+    },
+    {
+      "case_id": "g11",
+      "fixture": "station_located",
+      "input": "用黄铜钥匙打开站台",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": {
+        "intent": "use_item",
+        "target_id": "locker",
+        "item_id": "locker_key",
+        "query": null,
+        "question": null
+      },
+      "raw_model_pass": false,
+      "raw_model_checks": {
+        "intent": false,
+        "target": true,
+        "item": true,
+        "no_execution": false,
+        "scene_allowed": true
+      },
+      "raw_scene_validation": "allowed",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "这件物品与你指明的对象没有对应的可用方式。你想换一种做法，还是先查看物品说明？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": true,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 1,
+        "duration_ms": 716,
+        "models": [
+          {
+            "requested": "deepseek-flash",
+            "returned": "deepseek-flash"
+          }
+        ],
+        "input_tokens": 4284,
+        "output_tokens": 28,
+        "total_tokens": 4312,
+        "cached_input_tokens": 1152,
+        "reasoning_tokens": 0,
+        "outcomes": [
+          "accepted"
+        ]
+      }
+    },
+    {
+      "case_id": "g24",
+      "fixture": "study_ready",
+      "input": "用黄铜钥匙给自己包扎",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你提到的黄铜钥匙是17号柜的钥匙，不能用于包扎。你是想用简易止血包处理自己的擦伤吗？"
+      },
+      "raw_model_pass": true,
+      "raw_model_checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "raw_scene_validation": "not_applicable",
+      "plan": {
+        "intent": "clarify",
+        "target_id": null,
+        "item_id": null,
+        "query": null,
+        "question": "你提到的黄铜钥匙是17号柜的钥匙，不能用于包扎。你是想用简易止血包处理自己的擦伤吗？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 1,
+        "duration_ms": 1190,
+        "models": [
+          {
+            "requested": "deepseek-flash",
+            "returned": "deepseek-flash"
+          }
+        ],
+        "input_tokens": 3942,
+        "output_tokens": 52,
+        "total_tokens": 3994,
+        "cached_input_tokens": 1152,
+        "reasoning_tokens": 0,
+        "outcomes": [
+          "accepted"
+        ]
+      }
+    },
+    {
+      "case_id": "g25",
+      "fixture": "station_located",
+      "input": "我想拿止血包去打开寄存柜",
+      "expected": {
+        "intents": [
+          "clarify",
+          "unsupported"
+        ],
+        "target_id": null,
+        "item_id": null,
+        "target_by_intent": {},
+        "must_not_execute": true
+      },
+      "raw_model_plan": {
+        "intent": "clarify",
+        "target_id": "locker",
+        "item_id": null,
+        "query": null,
+        "question": "止血包不能用来开锁——你是想用随身携带的17号柜黄铜钥匙打开寄存柜，还是想先查看止血包的用途？"
+      },
+      "raw_model_pass": true,
+      "raw_model_checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "raw_scene_validation": "not_applicable",
+      "plan": {
+        "intent": "clarify",
+        "target_id": "locker",
+        "item_id": null,
+        "query": null,
+        "question": "止血包不能用来开锁——你是想用随身携带的17号柜黄铜钥匙打开寄存柜，还是想先查看止血包的用途？"
+      },
+      "application_pass": true,
+      "passed": true,
+      "guard_adjusted": false,
+      "guard_rejected": false,
+      "scene_validation": "not_applicable",
+      "would_change_state": false,
+      "checks": {
+        "intent": true,
+        "target": true,
+        "item": true,
+        "no_execution": true,
+        "scene_allowed": true
+      },
+      "error": null,
+      "api_metadata": {
+        "recorded_calls": 1,
+        "duration_ms": 1080,
+        "models": [
+          {
+            "requested": "deepseek-flash",
+            "returned": "deepseek-flash"
+          }
+        ],
+        "input_tokens": 4285,
+        "output_tokens": 63,
+        "total_tokens": 4348,
+        "cached_input_tokens": 1152,
+        "reasoning_tokens": 0,
+        "outcomes": [
+          "accepted"
+        ]
+      }
+    }
+  ],
+  "setup_error": null,
+  "summary": {
+    "requested": 4,
+    "evaluated": 4,
+    "passed": 4,
+    "failed": 0,
+    "raw_evaluated": 4,
+    "raw_passed": 3,
+    "raw_failed": 1,
+    "raw_unavailable": 0,
+    "guard_adjusted": 1,
+    "guard_rejected": 0,
+    "planner_invocations": 4,
+    "stop_reason": "all_cases_evaluated",
+    "not_evaluated": [],
+    "api_metadata": {
+      "recorded_calls": 4,
+      "duration_ms": 4574,
+      "models": [
+        {
+          "requested": "deepseek-flash",
+          "returned": "deepseek-flash"
+        },
+        {
+          "requested": "deepseek-flash",
+          "returned": "deepseek-flash"
+        },
+        {
+          "requested": "deepseek-flash",
+          "returned": "deepseek-flash"
+        },
+        {
+          "requested": "deepseek-flash",
+          "returned": "deepseek-flash"
+        }
+      ],
+      "input_tokens": 15920,
+      "output_tokens": 167,
+      "total_tokens": 16087,
+      "cached_input_tokens": 3456,
+      "reasoning_tokens": 0,
+      "outcomes": [
+        "accepted",
+        "accepted",
+        "accepted",
+        "accepted"
+      ]
+    }
+  }
+}
