@@ -5,7 +5,7 @@ set "PYTHONUTF8=1"
 cd /d "%~dp0" || exit /b 1
 
 if not exist ".venv\Scripts\python.exe" (
-    echo 请先在 backend 目录执行 uv sync --locked，详见 ../docs/development.md。
+    echo 请先按 README.md 的 Windows 步骤创建 .venv 并安装依赖。
     pause
     exit /b 1
 )

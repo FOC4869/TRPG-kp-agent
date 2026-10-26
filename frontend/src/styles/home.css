@@ -8,7 +8,7 @@
 }
 .manor-background, .scene-shade, .dust { position: absolute; inset: 0; pointer-events: none; z-index: -1; }
 .manor-background {
-  background: #0b0b0c url('/images/manor-home.webp') center center / cover no-repeat;
+  background: #0b0b0c url('/images/owned-home.svg') center center / cover no-repeat;
   animation: scene-enter 1.8s ease-out both;
 }
 .scene-shade {

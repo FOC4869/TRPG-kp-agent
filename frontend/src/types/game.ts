@@ -20,6 +20,15 @@ export interface GameEffect {
   after: number
   reason: string
 }
+export interface RuleEvidence {
+  evidence_id: string
+  title: string
+  source: string
+  text: string
+  pdf_page: number | null
+  printed_page: number | null
+  edition?: string | null
+}
 export interface GameMessage {
   id: string
   kind: 'keeper' | 'npc' | 'player' | 'check' | 'effect'
@@ -28,6 +37,7 @@ export interface GameMessage {
   check?: GameCheck
   effect?: GameEffect
   final?: boolean
+  evidence?: RuleEvidence[]
 }
 export interface GameFact { id: string; title: string; text: string }
 export interface GameNpc { id: string; name: string; role: string; spriteUrl: string }
@@ -46,6 +56,8 @@ export interface GameState {
   suggestions: string[]
   ended: boolean
   ending: 'completed' | 'retreated' | 'failed' | null
+  campaignEnding?: 'complete' | 'retreat' | 'incomplete' | null
+  paused?: boolean
   endingSummary: string | null
   status: 'active' | 'ended'
   pendingTurn: PendingTurn | null
@@ -53,6 +65,12 @@ export interface GameState {
   nearbyItems?: GameState['inventory']
 }
 export interface GameAction { requestId: string; text: string; expectedVersion: number; confirmationId?: string }
+export interface GameReview {
+  text: string
+  ending: 'complete' | 'retreat' | 'incomplete'
+  discovered_clues: { id: string; name: string; description: string }[]
+  missed_clues: { id: string; name: string; description: string }[]
+}
 export interface GameEvent {
   type: string
   turnId: string

@@ -13,6 +13,7 @@ export class InvestigatorRequestError extends Error {
 
 function isSummary(value: unknown): value is InvestigatorSummary {
   return record(value) && text(value.id) && text(value.name) && text(value.displayName) && text(value.occupation)
+    && (value.playable === undefined || typeof value.playable === 'boolean')
     && numberOrNull(value.age) && record(value.portrait) && assetUrl(value.portrait.url)
 }
 

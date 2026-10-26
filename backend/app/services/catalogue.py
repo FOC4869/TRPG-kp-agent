@@ -26,6 +26,8 @@ class DTO(BaseModel):
 
 
 class PublicModule(DTO):
+    playable: bool = False
+    sceneNames: list[str] = Field(default_factory=list)
     runtimeProfile: str | None = None
     id: Identifier
     caseNumber: str
@@ -42,6 +44,10 @@ class PublicModule(DTO):
 
 
 class Publication(DTO):
+    campaignFile: str | None = None
+    campaignAssetDirectory: str = 'public_art'
+    playableInvestigatorIds: list[Identifier] = Field(default_factory=list)
+    sceneNames: list[str] = Field(default_factory=list)
     runtimeProfile: str | None = None
     id: Identifier
     directory: Identifier
@@ -74,6 +80,7 @@ class Portrait(DTO):
 
 
 class InvestigatorSummary(DTO):
+    playable: bool = False
     id: Identifier
     name: str
     displayName: str
@@ -168,6 +175,8 @@ def equipment_items(items: list, container: str = '', owned: bool = False, depth
     for item in items:
         kind = 'owned' if owned or item.get('placement') == 'owned_asset' else 'carried'
         notes = [f'收纳于：{container}'] if container else []
+        if item.get('container'):
+            notes.append(f'容器：{item["container"]}')
         if item.get('unit'):
             notes.append(f'单位：{item["unit"]}')
         for key, label in [('contents_unspecified', '内容未提供'), ('details_unspecified', '细节未提供')]:
@@ -183,7 +192,7 @@ def equipment_items(items: list, container: str = '', owned: bool = False, depth
         if item.get('licensed') is False:
             notes.append('无持枪许可')
         for effect in item.get('special_effects', []):
-            notes.append(f'{effect["description"]}（仅原卡描述，特例尚未实现）')
+            notes.append(f'原卡描述：{effect["description"]}')
         result.append(Equipment(name=item['name'], quantity=item.get('quantity'), kind=kind, note='；'.join(notes)))
         result.extend(equipment_items(item.get('contents', []), f'{container} / {item["name"]}' if container else item['name'], kind == 'owned', depth + 1))
     return result
@@ -219,6 +228,7 @@ class Catalogue:
             raise CatalogueUnavailable()
         self.cover(module_id)
         return PublicModule(id=p.id, caseNumber=p.caseNumber, title=manifest['title'], englishTitle=manifest.get('original_title'),
+                            playable=bool(p.campaignFile and p.playableInvestigatorIds), sceneNames=p.sceneNames,
                             runtimeProfile=p.runtimeProfile, status=p.status, cover=f'/api/modules/{p.id}/cover', introduction=p.introduction,
                             era=p.era, location=p.location, playStyle=p.playStyle, originalPlayers=p.originalPlayers, contentNote=p.contentNote)
 
@@ -238,15 +248,16 @@ class Catalogue:
             raise CatalogueUnavailable()
         index = yaml.safe_load(read_text(root, manifest['files']['assets']))
         asset = index['assets'][p.coverAsset]
-        if index['path_base'] != 'assets/' or asset['kind'] != 'module_cover' or asset['media_type'] != 'image/webp':
-            raise CatalogueUnavailable()
-        if Path(asset['file']).suffix != '.webp':
+        cover_formats = {'.webp': 'image/webp', '.png': 'image/png', '.svg': 'image/svg+xml'}
+        suffix = Path(asset['file']).suffix.lower()
+        if (index['path_base'] != 'assets/' or asset['kind'] != 'module_cover'
+                or cover_formats.get(suffix) != asset['media_type']):
             raise CatalogueUnavailable()
         return safe_file(root, f'assets/{asset["file"]}')
 
     def character(self, module_id: str, investigator_id: str) -> tuple[Path, dict]:
         p = self.publication(module_id)
-        if p.status != 'preview' or investigator_id not in p.investigatorIds:
+        if investigator_id not in p.investigatorIds:
             raise CatalogueNotFound()
         # Verify the id directory itself remains inside characters, including symlinks.
         path = safe_file(self.subroot('characters'), f'{investigator_id}/character.yaml')
@@ -259,21 +270,22 @@ class Catalogue:
     def portrait(self, module_id: str, investigator_id: str) -> Path:
         root, raw = self.character(module_id, investigator_id)
         portrait = raw['assets']['portrait']
-        if portrait['media_type'] != 'image/png' or Path(portrait['file']).suffix != '.png':
+        portrait_formats = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg', '.svg': 'image/svg+xml'}
+        if portrait_formats.get(Path(portrait['file']).suffix.lower()) != portrait['media_type']:
             raise CatalogueUnavailable()
         return safe_file(root, portrait['file'])
 
     def summary(self, module_id: str, investigator_id: str) -> InvestigatorSummary:
         _, raw = self.character(module_id, investigator_id)
         self.portrait(module_id, investigator_id)
-        return InvestigatorSummary(id=raw['id'], name=raw['name'], displayName=raw.get('aliases', [raw['name']])[0],
+        publication = self.publication(module_id)
+        return InvestigatorSummary(id=raw['id'], name=raw['name'], displayName=(raw.get('aliases') or [raw['name']])[0],
+                                   playable=bool(publication.campaignFile and investigator_id in publication.playableInvestigatorIds),
                                    occupation=raw['occupation'], age=raw.get('age'),
                                    portrait=Portrait(url=f'/api/modules/{module_id}/investigators/{investigator_id}/portrait'))
 
     def investigators(self, module_id: str) -> InvestigatorCatalogue:
         module = self.module(module_id)
-        if module.status != 'preview':
-            raise CatalogueNotFound()
         return InvestigatorCatalogue(module=ModuleReference(id=module.id, title=module.title),
                                      items=[self.summary(module_id, i) for i in self.publication(module_id).investigatorIds])
 

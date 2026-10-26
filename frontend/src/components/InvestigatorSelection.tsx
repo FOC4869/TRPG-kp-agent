@@ -81,12 +81,11 @@ function InvestigatorDossier({ investigator, onConfirm }: { investigator: Invest
         <h3>初始物品</h3>
         {investigator.equipment.length ? <ul className="equipment-list">{investigator.equipment.map((item) => <li key={`${item.kind}-${item.name}`}><div><strong>{item.name}</strong><span className="equipment-quantity">{item.quantity === null ? '数量未提供' : `× ${item.quantity}`}</span></div><p>{item.kind === 'owned' ? '拥有资产' : '随身物品'}{item.note && ` · ${item.note}`}</p></li>)}</ul> : <p className="dossier-note">暂无物品资料。</p>}
         <p className="starting-cash">初始现金 <span>{investigator.cash ? `${investigator.cash.currency} ${investigator.cash.amount}` : '未提供'}</span></p>
-        <p className="dossier-note">仅展示开局物品，不代表物品特例已实现。</p>
       </section>
-      <div className="investigator-confirm">
+      {investigator.playable !== false && <div className="investigator-confirm">
         <button className="investigate-button dossier-action" onClick={() => onConfirm(investigator)} aria-haspopup="dialog"><FrameCorners /><span>确认调查员</span><Arrow /></button>
         <p className="next-step">你将以{investigator.displayName}的身份展开调查。</p>
-      </div>
+      </div>}
     </>
   )
 }
@@ -103,7 +102,7 @@ export function InvestigatorSelection({ moduleId }: { moduleId: string | null })
   const createController = useRef<AbortController | null>(null)
   useEffect(() => () => createController.current?.abort(), [])
   async function startGame() {
-    if (!moduleId || !confirmed || createController.current) return
+    if (!moduleId || !confirmed || confirmed.playable === false || createController.current) return
     const key = `pending-creation:${moduleId}:${confirmed.id}`
     const requestId = sessionStorage.getItem(key) || crypto.randomUUID()
     sessionStorage.setItem(key, requestId)

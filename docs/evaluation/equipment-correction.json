@@ -1,0 +1,13 @@
+{
+  "games_corrected": 2,
+  "added_per_game": [
+    "whisky_flask",
+    "lighter",
+    "cigarettes",
+    "rhine_manuscript"
+  ],
+  "resources_story_turns_messages_preserved": true,
+  "backups_created": true,
+  "source": "original character workbook 人物卡 F79–F82",
+  "method": "explicit sync_character_equipment.py --apply after stopping web service"
+}

@@ -15,6 +15,12 @@ from ..services.catalogue import (
 router = APIRouter(prefix='/modules', tags=['catalogue'])
 
 
+def image_type(path):
+    allowed = {'.svg': 'image/svg+xml', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+               '.png': 'image/png', '.webp': 'image/webp'}
+    return allowed[path.suffix.lower()]
+
+
 def get_catalogue() -> Catalogue:
     return Catalogue()
 
@@ -44,7 +50,8 @@ def module_detail(module_id: str, catalogue: Catalogue = Depends(get_catalogue))
 @router.get('/{module_id}/cover', response_class=FileResponse)
 def module_cover(module_id: str, catalogue: Catalogue = Depends(get_catalogue)):
     with catalogue_errors():
-        return FileResponse(catalogue.cover(module_id), media_type='image/webp')
+        path = catalogue.cover(module_id)
+        return FileResponse(path, media_type=image_type(path))
 
 
 @router.get('/{module_id}/investigators', response_model=InvestigatorCatalogue)
@@ -62,4 +69,5 @@ def investigator_detail(module_id: str, investigator_id: str, catalogue: Catalog
 @router.get('/{module_id}/investigators/{investigator_id}/portrait', response_class=FileResponse)
 def investigator_portrait(module_id: str, investigator_id: str, catalogue: Catalogue = Depends(get_catalogue)):
     with catalogue_errors():
-        return FileResponse(catalogue.portrait(module_id, investigator_id), media_type='image/png')
+        path = catalogue.portrait(module_id, investigator_id)
+        return FileResponse(path, media_type=image_type(path))

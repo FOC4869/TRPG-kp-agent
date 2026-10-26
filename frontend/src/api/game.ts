@@ -1,6 +1,6 @@
 import { arrayOf, record, text } from './catalogue'
 import { isDetail } from './investigators'
-import type { GameAction, GameCheck, GameEffect, GameEvent, GameMessage, GameState } from '../types/game'
+import type { GameAction, GameCheck, GameEffect, GameEvent, GameMessage, GameReview, GameState, RuleEvidence } from '../types/game'
 
 export class GameRequestError extends Error {
   code: string
@@ -21,9 +21,16 @@ function isEffect(e: unknown): e is GameEffect {
     && typeof e.dice === 'string' && /^1D[36]$/.test(e.dice) && integer(e.amount) && e.amount >= 1
     && integer(e.before) && integer(e.after) && e.after === Math.max(0, e.before - e.amount)
 }
+function isEvidence(e: unknown): e is RuleEvidence {
+  const page = (value: unknown) => value === null || (integer(value) && value >= 1)
+  return record(e) && text(e.evidence_id) && !!e.evidence_id.trim() && text(e.title) && !!e.title.trim()
+    && text(e.source) && !!e.source.trim() && text(e.text) && page(e.pdf_page) && page(e.printed_page)
+    && (e.edition == null || text(e.edition))
+}
 function isMessage(m: unknown): m is GameMessage {
   return record(m) && text(m.id) && ['keeper', 'npc', 'player', 'check', 'effect'].includes(String(m.kind)) && text(m.speaker) && text(m.text)
     && (m.check === undefined || isCheck(m.check)) && (m.effect === undefined || isEffect(m.effect)) && (m.kind !== 'effect' || isEffect(m.effect)) && (m.final === undefined || typeof m.final === 'boolean')
+    && (m.evidence === undefined || arrayOf(m.evidence, isEvidence))
 }
 export function isGameState(value: unknown): value is GameState {
   if (!record(value) || !text(value.gameId) || !/^[a-f0-9]{32}$/.test(value.gameId) || !integer(value.version)) return false
@@ -35,6 +42,8 @@ export function isGameState(value: unknown): value is GameState {
     && arrayOf(value.messages, isMessage) && arrayOf(value.facts, (f): f is GameState['facts'][number] => record(f) && text(f.id) && text(f.title) && text(f.text))
     && arrayOf(value.inventory, (i): i is GameState['inventory'][number] => record(i) && text(i.id) && text(i.name) && (i.quantity === null || integer(i.quantity)) && (i.kind === 'carried' || i.kind === 'owned'))
     && arrayOf(value.suggestions, text) && typeof value.ended === 'boolean' && (value.ending === null || ['completed', 'retreated', 'failed'].includes(String(value.ending)))
+    && (value.campaignEnding === undefined || value.campaignEnding === null || ['complete', 'retreat', 'incomplete'].includes(String(value.campaignEnding)))
+    && (value.paused === undefined || typeof value.paused === 'boolean')
     && (value.endingSummary === null || text(value.endingSummary)) && (value.status === 'active' || value.status === 'ended')
     && (value.pendingAction === undefined || value.pendingAction === null || (record(value.pendingAction) && text(value.pendingAction.id) && text(value.pendingAction.prompt)))
     && (value.nearbyItems === undefined || arrayOf(value.nearbyItems, (i): i is GameState['inventory'][number] => record(i) && text(i.id) && text(i.name) && (i.quantity === null || integer(i.quantity)) && i.kind === 'carried'))
@@ -54,6 +63,17 @@ async function snapshot(url: string, signal: AbortSignal, body?: unknown): Promi
 }
 export const getGame = (id: string, signal: AbortSignal) => snapshot(`/api/games/${encodeURIComponent(id)}`, signal)
 export const createGame = (requestId: string, moduleId: string, investigatorId: string, signal: AbortSignal) => snapshot('/api/games', signal, { requestId, moduleId, investigatorId })
+export async function getGameReview(id: string, signal: AbortSignal): Promise<GameReview> {
+  const response = await fetch(`/api/games/${encodeURIComponent(id)}/review`, { signal })
+  if (!response.ok) return responseError(response)
+  const data: unknown = await response.json()
+  const clue = (value: unknown): value is GameReview['discovered_clues'][number] => record(value) && text(value.id) && text(value.name) && text(value.description)
+  if (!record(data) || !text(data.text) || !['complete', 'retreat', 'incomplete'].includes(String(data.ending))
+    || !arrayOf(data.discovered_clues, clue) || !arrayOf(data.missed_clues, clue)) {
+    throw new GameRequestError('invalid_review', '复盘资料格式不正确，请重新读取。')
+  }
+  return data as unknown as GameReview
+}
 
 /** Streaming TextDecoder preserves UTF-8 characters split across network chunks. */
 export async function readGameEvents(body: ReadableStream<Uint8Array>, onEvent: (event: GameEvent) => void, signal: AbortSignal) {

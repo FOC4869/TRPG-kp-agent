@@ -7,7 +7,7 @@ import unittest
 from kp_agent.campaign import CampaignDefinition
 from kp_agent.graph import ROOT
 from kp_agent.models import DemoPlanner, DeepSeekResponsesPlanner
-from scripts.generalization_eval import build_fixtures, public_context
+from tests.fixtures_common import build_fixtures, public_context
 from tests.test_campaign_v2 import fixed_character
 
 

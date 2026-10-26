@@ -78,6 +78,22 @@ class CharacterTools:
         self.rng = rng if rng is not None else secrets.SystemRandom()
 
     @staticmethod
+    def bonus_dice_example() -> dict:
+        """A teaching fixture through the real percentile combiner, no live roll."""
+        from trpg.dice import roll_percentile
+        class ExampleDigits:
+            def __init__(self): self.values = iter((5, 1, 8))
+            def randint(self, low, high): return next(self.values)
+        reward, candidates = roll_percentile(ExampleDigits(), 1)
+        penalty, _ = roll_percentile(ExampleDigits(), -1)
+        return {'candidates': candidates, 'reward': reward, 'penalty': penalty,
+                'text': f'COC 的 D100 检定数值越低越好。奖励骰和惩罚骰都额外掷十位骰，所有十位骰共用同一个个位骰；'
+                        f'奖励骰取最低结果，惩罚骰取最高结果。\n'
+                        f'例如，假设个位是5、两个十位分别是1和8，候选结果为15和85：奖励骰取{reward}，惩罚骰取{penalty}。'
+                        '000 组合算100，不能算0。奖惩骰会互相抵消，通常最多使用两个同类额外骰。'
+                        '\n这是假想数字示例，没有实际掷骰，也没有改变角色状态。'}
+
+    @staticmethod
     def success_example(character: Character, skill: str = "侦查") -> dict:
         """Explain hypothetical grades using the existing engine, without rolls.
 

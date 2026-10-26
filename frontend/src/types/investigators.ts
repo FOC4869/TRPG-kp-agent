@@ -6,6 +6,7 @@ export interface InvestigatorPortrait {
 }
 
 export interface InvestigatorSummary {
+  playable?: boolean
   id: string
   name: string
   displayName: string

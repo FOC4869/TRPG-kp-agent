@@ -1,13 +1,33 @@
-import type { GameFact, GameMessage, GameState } from '../types/game'
+import type { GameFact, GameMessage, GameState, RuleEvidence } from '../types/game'
 
 import { GameCheckCard } from './GameCheckCard'
 
 export type GamePanel = 'character' | 'inventory' | 'clues' | 'history'
 
+function messageText(message: GameMessage) {
+  const numbers = new Map((message.evidence ?? []).map((source, index) => [source.evidence_id, index + 1]))
+  return message.text.replace(/\[(rule_[a-zA-Z0-9_-]+)\]/g, (_match, id: string) => {
+    const number = numbers.get(id)
+    return number ? `【规则${number}】` : '【未核对的规则引用】'
+  })
+}
+
+function RuleSources({ evidence }: { evidence: RuleEvidence[] }) {
+  return <details className="game-rule-sources">
+    <summary>规则依据（{evidence.length}）</summary>
+    <ol>{evidence.map((source, index) => <li key={source.evidence_id}>
+      <h4>【规则{index + 1}】{source.title}</h4>
+      <p className="game-rule-source">{source.source}{source.pdf_page !== null && ` · PDF 第 ${source.pdf_page} 页`}{source.printed_page !== null && ` · 书内第 ${source.printed_page} 页`}{source.pdf_page === null && source.printed_page === null && ' · 页码未标注'}{source.edition && ` · ${source.edition}`}</p>
+      <p className="game-rule-excerpt">{source.text}</p>
+    </li>)}</ol>
+  </details>
+}
+
 export function GameMessages({ messages }: { messages: GameMessage[] }) {
   return <>{messages.map((message) => <article className={`game-message message-${message.kind}`} key={message.id}>
     <p className="game-speaker">{message.speaker}<span>{message.kind === 'keeper' ? 'KEEPER' : message.kind === 'npc' ? 'NPC' : message.kind === 'check' || message.kind === 'effect' ? '规则'  : '调查员'}</span></p>
-    {message.effect ? <div className="game-effect" role="group" aria-label="伤害结果"><div><strong>受到伤害</strong><span>{message.effect.dice}＝{message.effect.amount}</span></div><p>{message.effect.reason}</p><p>HP <b>{message.effect.before}</b> → <b>{message.effect.after}</b></p></div> : message.check ? <GameCheckCard check={message.check} /> : <p className="game-message-text">{message.text}</p>}
+    {message.effect ? <div className="game-effect" role="group" aria-label="伤害结果"><div><strong>受到伤害</strong><span>{message.effect.dice}＝{message.effect.amount}</span></div><p>{message.effect.reason}</p><p>HP <b>{message.effect.before}</b> → <b>{message.effect.after}</b></p></div> : message.check ? <GameCheckCard check={message.check} /> : <p className="game-message-text">{messageText(message)}</p>}
+    {!!message.evidence?.length && <RuleSources evidence={message.evidence} />}
   </article>)}</>
 }
 

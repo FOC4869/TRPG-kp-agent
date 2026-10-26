@@ -1,4 +1,0 @@
-interface:
-  display_name: "CoC 角色卡导入"
-  short_description: "将单张或批量 CoC 角色卡图片转换为独立人物数据、背景和裁切头像"
-  default_prompt: "使用 $coc-character-card-import 将这些 CoC 角色卡图片导入到我指定的角色目录。"

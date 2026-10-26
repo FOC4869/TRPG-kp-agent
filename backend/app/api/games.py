@@ -33,7 +33,7 @@ class Action(BaseModel):
 
 @contextmanager
 def game_errors():
-    from kp_agent.gameplay.content import GameError
+    from kp_agent.game_tools import GameError
     try: yield
     except GameError as error:
         raise HTTPException(error.status, {'code': error.code, 'message': error.message}) from None
@@ -43,11 +43,11 @@ def game_errors():
         raise HTTPException(503, {'code': 'game_unavailable', 'message': '游戏资料或存储暂不可用；原文件已保留。'}) from None
 
 async def get_runtime(request: Request):
-    if not getattr(request.app.state, 'game_runtime', None):
-        from kp_agent.gameplay.runtime import GameRuntime
-        root = Path(os.getenv('WEB_GAME_SAVES', str(Path(__file__).resolve().parents[2] / 'saves')))
-        with game_errors(): request.app.state.game_runtime = GameRuntime(Catalogue(), root)
-    return request.app.state.game_runtime
+    if not getattr(request.app.state, 'web_keeper', None):
+        from kp_agent.web import WebKeeperService
+        root = Path(os.getenv('OWNED_WEB_SAVES', str(Path(__file__).resolve().parents[2] / 'saves')))
+        with game_errors(): request.app.state.web_keeper = WebKeeperService(Catalogue(), root)
+    return request.app.state.web_keeper
 
 @router.post('')
 async def create_game(body: CreateGame, response: Response, runtime=Depends(get_runtime)):
@@ -58,6 +58,12 @@ async def create_game(body: CreateGame, response: Response, runtime=Depends(get_
 async def get_game(game_id: str, response: Response, runtime=Depends(get_runtime)):
     response.headers['Cache-Control'] = 'private, no-store'
     with game_errors(): return runtime.get(game_id)
+
+
+@router.get('/{game_id}/review')
+async def review_game(game_id: str, response: Response, runtime=Depends(get_runtime)):
+    response.headers['Cache-Control'] = 'private, no-store'
+    with game_errors(): return runtime.review(game_id)
 
 @router.post('/{game_id}/actions', response_class=StreamingResponse,
              responses={200: {'content': {'text/event-stream': {'schema': {'type': 'string'}}}}})

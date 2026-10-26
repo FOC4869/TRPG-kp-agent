@@ -254,8 +254,10 @@ class KeeperService:
         finally:
             self._lock.release()
 
-    def _build_graph(self):
-        builder = StateGraph(TurnState)
+    def _build_graph(self, state_schema=TurnState):
+        # Web adapters reuse this exact owned workflow with another persistence
+        # boundary; the original CLI keeps its existing TurnState unchanged.
+        builder = StateGraph(state_schema)
         for name, fn in (
             ("load_context", self._load), ("plan_action", self._plan),
             ("retrieve_rules", self._retrieve), ("validate_action", self._validate),

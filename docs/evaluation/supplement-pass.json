@@ -1,0 +1,117 @@
+[
+  {
+    "name": "修复奖励骰解释：低值更好，无实际掷骰",
+    "passed": true,
+    "reply": "COC 的 D100 检定数值越低越好。奖励骰和惩罚骰都额外掷十位骰，所有十位骰共用同一个个位骰；奖励骰取最低结果，惩罚骰取最高结果。\n例如，假设个位是5、两个十位分别是1和8，候选结果为15和85：奖励骰取15，惩罚骰取85。000 组合算100，不能算0。奖惩骰会互相抵消，通常最多使用两个同类额外骰。\n这是假想数字示例，没有实际掷骰，也没有改变角色状态。 [rule_e9ede2249e8ed91b]"
+  },
+  {
+    "name": "真实API理智事件结算",
+    "passed": true,
+    "rolls": [
+      {
+        "checkId": "266f3787-01e3-42ed-80c3-c7679af6644d:sanity:0",
+        "skill": "理智",
+        "target": 55,
+        "roll": 43,
+        "success": true,
+        "result": "常规成功",
+        "reason": "本次理智检定",
+        "details": [],
+        "degree": "regular_success",
+        "difficulty": "regular"
+      }
+    ],
+    "reply": "你挪开壁炉深处那块歪斜的铁板，火光留下的灰扑在你手背上。铁板后面露出一幅扭曲的人形涂画，线条别扭得让人心里一紧。\n\n你稳住呼吸，理智检定成功，这次没有被那幅画拖进慌乱。"
+  },
+  {
+    "name": "再次查看不重掷或重复扣SAN",
+    "passed": true
+  },
+  {
+    "name": "真实随机站台检定1",
+    "passed": true,
+    "rolls": [
+      {
+        "checkId": "bac09eb1-cf1d-4d58-abd6-6e2bad00ed57:skill",
+        "skill": "DEX",
+        "target": 45,
+        "roll": 43,
+        "success": true,
+        "result": "常规成功",
+        "reason": "本次DEX检定",
+        "details": [],
+        "degree": "regular_success",
+        "difficulty": "regular"
+      }
+    ],
+    "damage": []
+  },
+  {
+    "name": "真实随机站台检定2",
+    "passed": true,
+    "rolls": [
+      {
+        "checkId": "fced392c-481f-476c-a5d9-e5f3c8075d4d:skill",
+        "skill": "DEX",
+        "target": 45,
+        "roll": 19,
+        "success": true,
+        "result": "困难成功",
+        "reason": "本次DEX检定",
+        "details": [],
+        "degree": "hard_success",
+        "difficulty": "regular"
+      }
+    ],
+    "damage": []
+  },
+  {
+    "name": "真实随机站台检定3",
+    "passed": true,
+    "rolls": [
+      {
+        "checkId": "728963bd-df06-4f36-b399-5e495ac6c615:skill",
+        "skill": "DEX",
+        "target": 45,
+        "roll": 87,
+        "success": false,
+        "result": "失败",
+        "reason": "本次DEX检定",
+        "details": [],
+        "degree": "failure",
+        "difficulty": "regular"
+      }
+    ],
+    "damage": [
+      {
+        "key": "728963bd-df06-4f36-b399-5e495ac6c615:damage:0",
+        "effectId": "728963bd-df06-4f36-b399-5e495ac6c615:damage:0",
+        "resource": "hp",
+        "dice": "1D3",
+        "amount": 1,
+        "before": 10,
+        "after": 9,
+        "reason": "检查旧站台时被碎木划伤"
+      }
+    ]
+  },
+  {
+    "name": "真实受伤后的物品消耗与HP恢复",
+    "passed": true,
+    "reply": "你取出一份止血包，处理并包扎了腿上的擦伤。按本故事的简化约定，这次恢复2点HP，但受上限限制实际只从9回到10，止血包也已用完。伤口已无大碍。"
+  },
+  {
+    "name": "注入故障后仍保存骰子与已提交状态",
+    "passed": true
+  },
+  {
+    "name": "重建服务后真实API恢复原请求，不重掷不重复结算",
+    "passed": true,
+    "reply": "你俯身仔细检查书桌，指尖在抽屉边缘摸到一处不平的夹层。撬开薄板后，里面藏着一封旧信。信上写着：如果我没有回来，请去旧车站找保管箱，号码写在我留给管家的照片背面。"
+  },
+  {
+    "name": "结局提示匹配页面真实入口",
+    "passed": true,
+    "reply": "你带着维护日志和学者走出安全出口。失踪的经过已经查清，机械装置也已封存，管家的委托得到完整回应。本次调查结束。\n可点击“查看复盘”查看本局经过和遗漏信息。"
+  }
+]

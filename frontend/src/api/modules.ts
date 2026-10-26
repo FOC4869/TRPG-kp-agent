@@ -2,6 +2,8 @@ import { arrayOf, assetUrl, CatalogueHttpError, fetchCatalogue, optionalText, po
 
 /** Player-public catalogue only. Never include Keeper notes or scenario state. */
 export interface PublicModule {
+  playable?: boolean
+  sceneNames?: string[]
   id: string
   caseNumber: string
   title: string
@@ -25,6 +27,8 @@ export interface ModulePage {
 
 function isPublicModule(value: unknown): value is PublicModule {
   return record(value) && text(value.id) && text(value.caseNumber) && text(value.title) && optionalText(value.englishTitle)
+    && (value.playable === undefined || typeof value.playable === 'boolean')
+    && (value.sceneNames === undefined || arrayOf(value.sceneNames, text))
     && (value.status === 'preview' || value.status === 'coming-soon') && (value.cover == null || assetUrl(value.cover))
     && arrayOf(value.introduction, text) && text(value.era) && text(value.location) && text(value.playStyle)
     && text(value.originalPlayers) && optionalText(value.contentNote)

@@ -85,7 +85,7 @@ export function ModuleLibrary({ onChooseInvestigator }: { onChooseInvestigator: 
                       {!module.cover && <div className="placeholder-arch" aria-hidden="true"><DoorMark className="placeholder-door" /></div>}
                       <div className="case-cover-shade" aria-hidden="true" />
                       <FrameCorners />
-                      <div className="case-label"><span className="case-number">CASE {module.caseNumber}</span><span className="case-title">{module.title}</span>{module.status === 'coming-soon' && <span className="case-badge">尚未开放</span>}</div>
+                      <div className="case-label"><span className="case-number">CASE {module.caseNumber}</span><span className="case-title">{module.title}</span></div>
                       {selectedId === module.id && <span className="selected-seal" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="m4 8 3 3 5-6" /></svg></span>}
                     </button>
                   </li>
@@ -108,12 +108,14 @@ export function ModuleLibrary({ onChooseInvestigator }: { onChooseInvestigator: 
               <div className="dossier-title"><h2 id="module-title">{selected.title}</h2>{selected.status === 'coming-soon' && <span className="dossier-tag">尚未开放</span>}</div>
               {selected.englishTitle && <p className="english-title" lang="en">{selected.englishTitle}</p>}
               <div className="dossier-rule" aria-hidden="true"><span /></div>
-              <div className="dossier-introduction"><h3>案件引言</h3>{selected.introduction.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
+              <div className="dossier-introduction"><h3>案件引言</h3>{selected.introduction.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                {!!selected.sceneNames?.length && <><h3>故事地点</h3><p>{selected.sceneNames.join(' · ')}</p></>}
+              </div>
               <div className="dossier-bottom">
                 <button className="investigate-button dossier-action" disabled={selected.status !== 'preview'} onClick={() => onChooseInvestigator(selected)}>
                   <FrameCorners /><span>选择调查员</span><Arrow />
                 </button>
-                <p className="next-step">{selected.status === 'preview' ? '下一步 · 确认你的调查员' : '这份卷宗尚未开放'}</p>
+                {selected.playable !== false && <p className="next-step">下一步 · 确认你的调查员</p>}
               </div>
             </>
           ) : <div className="dossier-empty"><DoorMark className="message-door" /><h2 id="module-title">等待开启的故事</h2><p>卷宗详情将在这里展开。</p></div>}

@@ -1,0 +1,11 @@
+{
+  "cases": 10,
+  "passed": 10,
+  "failed": 0,
+  "provider_calls": 8,
+  "total_tokens": 23972,
+  "provider_errors": [],
+  "injury_seen_in_live_trials": true,
+  "fault_injection": "local before narration; recovery used real provider",
+  "fixture_setup": "station/archive fixtures constructed from original authored outcomes; checks use real system RNG"
+}

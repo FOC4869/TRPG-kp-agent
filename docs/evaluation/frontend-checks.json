@@ -1,0 +1,37 @@
+[
+  {
+    "command": "npm run lint",
+    "exit_code": 0,
+    "output": "\n> trpg-kp-frontend@0.0.0 lint\n> oxlint\n\n"
+  },
+  {
+    "command": "npm run typecheck",
+    "exit_code": 0,
+    "output": "\n> trpg-kp-frontend@0.0.0 typecheck\n> tsc -b\n\n"
+  },
+  {
+    "command": "npm run build",
+    "exit_code": 0,
+    "output": "\n> trpg-kp-frontend@0.0.0 build\n> tsc -b && vite build\n\nvite v8.3.5 building client environment for production...\ntransforming...\n✓ 33 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.69 kB │ gzip:  0.48 kB\ndist/assets/index-CchSNhAG.css   58.92 kB │ gzip: 13.32 kB\ndist/assets/index-DsCGGu27.js   278.82 kB │ gzip: 85.15 kB\n\n✓ built in 83ms\n"
+  },
+  {
+    "command": "node scripts/check-catalogue.mjs",
+    "exit_code": 0,
+    "output": "Catalogue adapters passed: real DTOs, ten investigators, unknowns, HTTP/identity/schema errors and cancellation; no mock fallback.\n"
+  },
+  {
+    "command": "node scripts/check-game-preview.mjs",
+    "exit_code": 0,
+    "output": "Game SSE checks passed: byte splits, UTF-8, CRLF, heartbeat, checks/effects, confirmation payload, duplicates, invalid effects, premature EOF and abort.\n"
+  },
+  {
+    "command": "node scripts/check-game-changes.mjs",
+    "exit_code": 0,
+    "output": "Game change checks passed: committed gains/losses, inventory, clues, initial/replay/version/game isolation and missing values.\n"
+  },
+  {
+    "command": "node scripts/check-recent-game.mjs",
+    "exit_code": 0,
+    "output": "Recent game checks passed: active/pending/terminal, missing, errors, identity, abort, storage denial and multi-game cleanup; GET only.\n"
+  }
+]

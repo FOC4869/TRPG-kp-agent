@@ -1,0 +1,113 @@
+schema_version: '1.0'
+id: richard
+version: 1.0.0
+name: Richard James Henderson 理查德・詹姆斯・亨德森
+aliases:
+- 理查德·詹姆斯·亨德森
+occupation: 教授
+age: 39
+assets:
+  portrait:
+    file: assets/portrait.jpeg
+    media_type: image/jpeg
+background: background.md
+attributes:
+  STR: 65
+  DEX: 45
+  POW: 55
+  CON: 45
+  APP: 65
+  EDU: 75
+  SIZ: 60
+  INT: 75
+skills:
+  会计: 5
+  法律: 5
+  人类学: 1
+  图书馆使用: 55
+  估价: 5
+  聆听: 60
+  考古学: 1
+  锁匠: 1
+  技艺: 5
+  机械维修: 10
+  医学: 1
+  博物学: 30
+  取悦: 60
+  导航: 10
+  攀爬: 20
+  神秘学: 5
+  计算机使用: 35
+  操作重型机械: 1
+  信用评级: 40
+  说服: 35
+  克苏鲁神话: 0
+  驾驶: 1
+  乔装: 5
+  精神分析: 1
+  闪避: 22
+  心理学: 55
+  汽车驾驶: 20
+  骑术: 5
+  电气维修: 10
+  科学: 1
+  电子学: 1
+  话术: 45
+  斗殴: 25
+  妙手: 40
+  格斗: 0
+  侦查: 55
+  潜行: 20
+  生存: 10
+  手枪: 20
+  游泳: 20
+  射击: 0
+  投掷: 20
+  追踪: 10
+  驯兽: 5
+  急救: 30
+  潜水: 1
+  历史: 26
+  爆破: 1
+  恐吓: 15
+  读唇: 1
+  跳跃: 20
+  催眠: 1
+  外语: 50
+  炮术: 1
+  学问: 1
+  母语: 75
+initial_resources:
+  hp: 10
+  san: 55
+  mp: 11
+  luck: 50
+authored_derived:
+  hp_max: 10
+  mp_max: 11
+  san_max: 99
+starting_equipment:
+- id: whisky_flask
+  name: 随身小酒壶，装威士忌
+  quantity: null
+  placement: carried
+  aliases: [小酒壶, 酒壶, 威士忌]
+- id: lighter
+  name: 打火机
+  quantity: null
+  placement: carried
+- id: cigarettes
+  name: 香烟
+  quantity: null
+  placement: carried
+- id: rhine_manuscript
+  name: 一本 19 世纪莱茵地区乡村怪谈手抄本
+  quantity: 1
+  placement: carried
+  aliases: [怪谈手抄本, 手抄本, 小册子]
+- id: bandage
+  name: 简易止血包
+  quantity: 1
+  placement: carried
+source:
+  equipment: 原始 Excel《人物卡》F79–F82；数量未填写的项目保持未知。止血包由雨夜场景另行提供。

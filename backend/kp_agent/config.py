@@ -29,7 +29,7 @@ def load_local_env() -> bool:
         from dotenv import load_dotenv
         from dotenv.parser import parse_stream
     except ImportError:
-        raise LocalConfigurationError("读取 .env 需要 python-dotenv，请先在 backend 目录执行 uv sync --locked。") from None
+        raise LocalConfigurationError("读取 .env 需要 python-dotenv，请先安装 requirements-agent.txt 中的依赖。") from None
     try:
         # Validate first: python-dotenv otherwise emits warnings and silently
         # skips malformed lines. Keep those lines and their values private.
